@@ -1,0 +1,70 @@
+package qooporat.utilidades;
+/**
+ *
+ * @author alberto
+ */
+public class Protocolo {
+    public final static int autenticar = -1;
+    public final static int ping = 1;
+    public final static int capturaPantalla = 2;
+    public final static int mouse = 3;
+    public final static int tecla = 4;
+    public final static int capturaWebCam = 5;
+    public final static int capturaMicrofono = 6;
+    public final static int cerrarWebCam = 7;
+    public final static int abrirWebCam = 8;
+    public final static int detenerMicrofono = 9;
+    public final static int detenerPantalla = 10;
+    public final static int listarDrives = 11;
+    public final static int listarWebCams = 12;
+    public final static int listarDirectorio = 13;
+    public final static int descargar = 14;
+    public final static int fzPass = 15;
+    public final static int dmPass = 16;
+    public final static int wpPass = 17;
+    public final static int nirsoftPass = 18;
+    public final static int pantallaMiniatura = 20;
+    public final static int ejecutar = 21;
+    public final static int thumbail = 22;
+    public final static int subir = 23;
+    public final static int subirServidor = 24;
+    public final static int eliminar = 25;
+    public final static int crearCarpeta = 26;
+    public final static int reiniciar = 27;
+    public final static int apagarServidor = 28;
+    public final static int info = 30;
+    public final static int pong = 31;
+    public final static int listarProcesos = 32;
+    public final static int mensajeServidor = 33;
+    public final static int audio = 34;
+    public final static int androidFoto = 35;
+    public final static int nowebCam = 36;
+    public final static int activarGPS = 37;
+    public final static int ubicacionGPS = 38;
+    public final static int desactivarGPS = 39;
+    public final static int pedirGPS = 40;
+    public final static int listarProveedoresGPS = 41;
+    public final static int listarContactos = 42;
+    public final static int listarSMS = 43;
+    public final static int audioAndroid = 44;
+    public final static int infoCompleta = 45;
+    public final static int listarLlamadas = 46;
+    public final static int listarMonitores = 47;
+    public final static int pedirPortapapeles = 48;
+    public final static int comandoShell = 49;
+    public final static int matarProceso = 50;
+    public final static int estadoLlamada = 51;
+    public final static int desinstalar = 52;
+    public final static int listarFormatosAudio = 53;
+    public final static int buscarArchivo = 54;
+    public final static int buscarDetener = 55;
+    public final static int listarConexiones = 56;
+    public final static int sysInfo = 57;
+    public final static int activarConsola = 58;
+    public final static int abrirChat = 59;
+    public final static int cerrarChat = 60;
+    public final static int mensajeChat = 61;
+    public final static int listarOffline = 62;
+    public final static int descargarOffline = 63;
+    public final static int eliminarOffline = 64;
+}

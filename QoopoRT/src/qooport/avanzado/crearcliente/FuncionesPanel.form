@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblTitulo" pref="224" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="305" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabel3" max="32767" attributes="0"/>
+                          <Component id="jSeparator1" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="fn_Ventana" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="fn_escritorioRemoto" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fn_desUAC" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fn_buscarArchivos" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="fn_descargararchivos" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fn_capturaAudio" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fn_capturaCamara" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="fn_escritorioRemoto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fn_capturaCamara" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="fn_desUAC" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fn_capturaAudio" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="fn_buscarArchivos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fn_descargararchivos" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="fn_Ventana" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="114" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="lblTitulo">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Habilidades"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator1">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Habilita o deshabilita las funciones del cliente. aumenta o reduce su tama&#xf1;o"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fn_escritorioRemoto">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Escritorio Remoto"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fn_capturaCamara">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="C&#xe1;mara Remota"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fn_desUAC">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Deshabilitar UAC"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fn_capturaAudio">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="VoIP"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fn_buscarArchivos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Buscar Archivo"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fn_descargararchivos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Descargar Archivo"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fn_Ventana">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mostrar Ventana"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>
