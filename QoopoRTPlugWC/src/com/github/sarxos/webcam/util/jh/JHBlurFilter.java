@@ -14,6 +14,7 @@
  limitations under the License.
  */
 package com.github.sarxos.webcam.util.jh;
+
 import java.awt.image.BufferedImage;
 
 /**

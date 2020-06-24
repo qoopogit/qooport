@@ -2,8 +2,7 @@ package comunes;
 
 import java.io.Serializable;
 
-public class Comando
-        implements Serializable {
+public class Comando implements Serializable {
 
     private int comando;
     private int nParametros;

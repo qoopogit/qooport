@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam.util;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;

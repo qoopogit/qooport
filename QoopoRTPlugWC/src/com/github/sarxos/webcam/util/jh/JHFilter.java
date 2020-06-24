@@ -14,6 +14,7 @@
  limitations under the License.
  */
 package com.github.sarxos.webcam.util.jh;
+
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;

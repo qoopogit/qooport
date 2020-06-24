@@ -18,7 +18,7 @@ public class Inicio {
     public static CFG config;
     public final static boolean DEBUG = false;
     public static Interfaz in;//instalador
-    public static String v = "1.4.9";//version
+    public static String v = "1.5.0";//version
     public static String i = "";//identificador
     public static String pCCON = "LAOSUISNPASD12378ASDLGASDHGAKD"; //password del archivo de configuracion
     private static File f;
@@ -27,7 +27,7 @@ public class Inicio {
     public static int max = 512;
     public static int min = 24;
     public static List<Interfaz> con;//conexiones
-    
+
     //cuenta los conectados
     public static int c() {
         int r = 0;
@@ -83,16 +83,10 @@ public class Inicio {
     // --service.- iniciar como servicio en windows, se encarga de lanzar otra instancia del servidor pero escapando de id sesion 0, para poder obtener una interfaz grafica
     // --update.- es una actualizacion, espera 8 segundos antes de continuar para dejar tiempo qe la version anterior se desinstale completamente
     public static void main(String[] args) {
-
         System.setProperty("java.net.preferIPv4Stack", "true");
         try {
-            
             String rutaAeliminar = null;
-            boolean eliminarArchivo = false;
-//            String cc="U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3NcQ3VycmVudFZlcnNpb25cUnVu";
-//            System.out.println("salida=" + B64.decodeString(cc));
-//            UtilRT.escribirLog("argumentos ");
-//            UtilRT.escribirLog(Arrays.toString(args));
+            boolean eliminarArchivo = false;;
             IniciarCertificado.iniciar();
             boolean actualizacion = false;
             boolean servicio = false;
@@ -120,6 +114,7 @@ public class Inicio {
                     }
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
             //esperamos 8 segundos por si acaso se actualiza el server se instale despues q el anterior se finalice
             if (actualizacion) {
@@ -138,15 +133,16 @@ public class Inicio {
             }
 
             if (!servicio) {
-//                UtilRT.escribirLog("Continuo ejecucion");
                 new Inicio().inicia(actualizacion, instaladoServicio);
             } else {
+                System.out.println("entra al while infinito (cuando es servicio)");
                 //mantiene ejecutado , sino da error
                 while (true) {
                     UtilRT.dormir(1000);
                 }
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -171,6 +167,16 @@ public class Inicio {
         }
     }
 //Cargar Config
+    public static void unlockFile() {
+        try {
+            if (lock != null) {
+                lock.release();
+                channel.close();
+                f.delete();
+            }
+        } catch (IOException e) {
+        }
+    }
 
     private void cc() {
         try {
@@ -180,8 +186,8 @@ public class Inicio {
             //configuracion default
             Inicio.config = new CFG();
             Inicio.config.inicializarParamertros();
-
             Inicio.config.agregarParametro("dns", "");
+            Inicio.config.agregarParametro("puerto", "4000");
             Inicio.config.agregarParametro("claveClase", "");
             Inicio.config.agregarParametro("jarName", "");
             Inicio.config.agregarParametro("nombreUSB", "");
@@ -228,16 +234,6 @@ public class Inicio {
         }
     }
 
-    public static void unlockFile() {
-        try {
-            if (lock != null) {
-                lock.release();
-                channel.close();
-                f.delete();
-            }
-        } catch (IOException e) {
-        }
-    }
 
     static class ShutdownHook extends Thread {
 

@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam;
+
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;

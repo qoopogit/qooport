@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

@@ -66,12 +66,12 @@ import qooport.modulos.escritorioremoto.EscritorioRemoto;
 import qooport.modulos.keylogger.KeyLogger;
 import qooport.modulos.pc.Chat;
 import qooport.modulos.pc.Conexiones;
-import qooport.modulos.pc.terminal.Terminal;
 import qooport.modulos.pc.MonitorSistemaAsociado;
 import qooport.modulos.pc.Passwords;
 import qooport.modulos.pc.Procesos;
 import qooport.modulos.pc.RedLan;
 import qooport.modulos.pc.TextoSpeak;
+import qooport.modulos.pc.terminal.Terminal;
 import qooport.modulos.reproductorCapturas.ReproductorCapturas;
 import qooport.modulos.voip.VoIp;
 import qooport.utilidades.GuiUtil;
@@ -84,6 +84,16 @@ import qooport.utilidades.cifrado.Encriptacion;
  * @author alberto
  */
 public class ModoAvanzado extends JFrame {
+
+    public static JTextPane paneTransferencia;
+
+    public static JTextPane getPaneTransferencia() {
+        return paneTransferencia;
+    }
+
+    public static void setPaneTransferencia(JTextPane paneTransferencia) {
+        ModoAvanzado.paneTransferencia = paneTransferencia;
+    }
 
     private JTree arbolOpciones;
     private JToolBar barra;
@@ -143,18 +153,14 @@ public class ModoAvanzado extends JFrame {
     private JMenuItem itmArchivosOfflineVisor;
     private JMenuItem itmListarRedLan;
     private NoIp panelNoIp;
-
     private JTabbedPane tabs;
     private JPanel panelUsuarios;
     private JPanel panelTransferencias;
-
     private Config pnlConfiguracion;
-
     private JButton btnDescargasAbrir;
     private JButton btnEliminarCompletos;
     private JCheckBox chkCerrarAlTerminar;
     private JScrollPane jscrollTransferencias;
-    public static JTextPane paneTransferencia;
     private JMenu menuControl;
     private JMenuItem itmCrearServidor;
     private JPanel panelInfo;
@@ -169,12 +175,10 @@ public class ModoAvanzado extends JFrame {
     private JScrollPane scrollTablaPerfiles;
     private JPanel panelPerfil;
     private JSpinner segundos;
-
     // el servidor seleccionado
     private String serverSeleccionado = "";
     private JPanel panelInferior;
     private BarraEstado barraEstado;
-
     private PanelEquipos equipos;
     private QoopoRT cliente;
 
@@ -189,7 +193,6 @@ public class ModoAvanzado extends JFrame {
 
     private void iniciarComponentes() {
         this.tabs = new JTabbedPane();
-
         barra = new JToolBar();
         barra.setFloatable(false);
         btnIniciar = GuiUtil.crearJButton("Iniciar", "", Util.cargarIcono16("/resources/start.png"), false);
@@ -356,9 +359,8 @@ public class ModoAvanzado extends JFrame {
         menuControlserver.add(itmCargaSistema);
 
         menuControlserver.addSeparator();
-        
-        
-          menuApagar = new JMenu();
+
+        menuApagar = new JMenu();
         this.menuApagar.setIcon(Util.cargarIcono16("/resources/shutdown.png"));
         this.menuApagar.setText("Apagado Remoto");
         //item Reiniciar Asociado
@@ -381,12 +383,10 @@ public class ModoAvanzado extends JFrame {
             }
         });
         this.menuApagar.add(this.itmApagarEquipo);
-        
+
         menuControlserver.add(menuApagar);
         menuControlserver.addSeparator();
-        
-        
-        
+
         //item cap pantalla
         this.itmEscritorioRemoto = GuiUtil.crearMenuItem("Escritorio Remoto", "Escritorio Remoto", Util.cargarIcono16("/resources/remoto.png"), true);
         this.itmEscritorioRemoto.addActionListener(new ActionListener() {
@@ -426,7 +426,6 @@ public class ModoAvanzado extends JFrame {
 
         this.ppmnuServer.add(this.menuControlserver);
 
-      
         //ppmnuServer.add(this.menuApagar);
         menuServidor = new JMenu();
         this.menuServidor.setIcon(Util.cargarIcono16("/resources/computer.png"));
@@ -615,7 +614,7 @@ public class ModoAvanzado extends JFrame {
                 buscarIp(evt);
             }
         });
-        
+
         ppmnuServer.addSeparator();
         this.ppmnuServer.add(this.itmBuscarIp);
 
@@ -742,7 +741,6 @@ public class ModoAvanzado extends JFrame {
         });
         this.menuPC.add(this.itmPasswords);
 
-        
         menuControlserver.addSeparator();
         this.menuControlserver.add(this.menuPC);
         this.menuAndroid = new JMenu();
@@ -1044,8 +1042,8 @@ public class ModoAvanzado extends JFrame {
 //        this.tabla.setComponentPopupMenu(this.menu);
         this.tblPerfiles.setAutoCreateRowSorter(true);
 //        this.tblPerfiles.setFont(new Font(tipoLetra, 1, 14));
-        this.tblPerfiles.setModel(new DefaultTableModel(new Object[0][], new String[]{"", "Nombre", "Puerto 1", "Puerto 2", "Tipo", "Versión Objetos", "SSL"}) {
-            boolean[] canEdit = {false, false, false, false, false, false, false};
+        this.tblPerfiles.setModel(new DefaultTableModel(new Object[0][], new String[]{"", "Nombre", "Puerto", "Tipo", "Versión Objetos", "SSL"}) {
+            boolean[] canEdit = {false, false, false, false, false, false};
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1714,14 +1712,6 @@ public class ModoAvanzado extends JFrame {
         this.jscrollTransferencias = jscrollTransferencias;
     }
 
-    public static JTextPane getPaneTransferencia() {
-        return paneTransferencia;
-    }
-
-    public static void setPaneTransferencia(JTextPane paneTransferencia) {
-        ModoAvanzado.paneTransferencia = paneTransferencia;
-    }
-
     public JMenu getMenuControl() {
         return menuControl;
     }
@@ -1940,17 +1930,6 @@ public class ModoAvanzado extends JFrame {
 
     public void setEquipos(PanelEquipos equipos) {
         this.equipos = equipos;
-    }
-
-    static class CeldaIcono extends DefaultTableCellRenderer {
-
-        @Override
-        public void setValue(Object value) {
-            try {
-                setIcon(Util.cargarIcono16("/resources/username.png"));
-            } catch (Exception e) {
-            }
-        }
     }
 
     public JCheckBox getChkGuardarMiniaturas() {
@@ -2571,6 +2550,17 @@ public class ModoAvanzado extends JFrame {
             serv = null;
             System.gc();
         } catch (Exception e) {
+        }
+    }
+
+    static class CeldaIcono extends DefaultTableCellRenderer {
+
+        @Override
+        public void setValue(Object value) {
+            try {
+                setIcon(Util.cargarIcono16("/resources/username.png"));
+            } catch (Exception e) {
+            }
         }
     }
 

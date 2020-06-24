@@ -43,7 +43,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 import qooport.asociado.Asociado;
 import static qooport.avanzado.QoopoRT.tipoLetra;
-import qooport.listener.TransfListener;
 import qooport.utilidades.Util;
 
 public class SMSListar extends JFrame {
@@ -264,7 +263,7 @@ public class SMSListar extends JFrame {
 //            this.tabla.getSelectionModel().setSelectionInterval(t, t);
 //        }
         String seleccionado = this.conversaciones.getValueAt(this.conversaciones.getSelectedRow(), 0).toString();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         for (int i = this.tabla.getRowCount() - 1; i > -1; i--) {
             this.modelotabla.removeRow(i);
         }
@@ -298,7 +297,7 @@ public class SMSListar extends JFrame {
                     try {
                         this.paneMensajes.getDocument().insertString(this.paneMensajes.getDocument().getLength(), "\n\n", null);
                     } catch (BadLocationException ex) {
-                        Logger.getLogger(TransfListener.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(SMSListar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     // la lista
                     getModelotabla().addRow(

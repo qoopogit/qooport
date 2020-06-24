@@ -112,33 +112,26 @@ public class AsociadoV1 extends Asociado {
                 comando = conexion.leerInt();
                 //System.out.println("llego comando " + comando);
                 this.agregarRecibidos(SizeUtil.sizeof(comando));
-                switch (comando) {//
-//                    case Protocolo.COMANDO_OBJETO:
-//                        try {
-//                            Comando comand = (Comando) Util.descomprimirObjeto((byte[]) conexion.leerObjeto(), this);
-//
-//                        } catch (Exception e) {
-//                        }
-//                        break;
+                switch (comando) {
 
                     case Protocolo.GET_CURSOR:
                         try {
-                            ImageIcon cursor = (ImageIcon) Util.descomprimirObjeto((byte[]) conexion.leerObjeto(), this);
-                            getEscritorioRemoto().cambiarCursorRemoto(cursor);
-                        } catch (Exception e) {
-                        }
-                        break;
+                        ImageIcon cursor = (ImageIcon) Util.descomprimirObjeto((byte[]) conexion.leerObjeto(), this);
+                        getEscritorioRemoto().cambiarCursorRemoto(cursor);
+                    } catch (Exception e) {
+                    }
+                    break;
                     case Protocolo.AUTENTICAR:
                         autenticar();
                         break;
                     case Protocolo.PUERTO_TRANSFERENCIA:
                         try {
-                            parametro = leerCadena((byte[]) conexion.leerObjeto());
-                            this.agregarRecibidos(SizeUtil.sizeof(parametro));
-                            puertoTransferencia = Integer.valueOf(parametro);
-                        } catch (Exception e) {
-                        }
-                        break;
+                        parametro = leerCadena((byte[]) conexion.leerObjeto());
+                        this.agregarRecibidos(SizeUtil.sizeof(parametro));
+                        puertoTransferencia = Integer.valueOf(parametro);
+                    } catch (Exception e) {
+                    }
+                    break;
                     case Protocolo.INFO:
                         parametro = leerCadena((byte[]) conexion.leerObjeto());
                         this.agregarRecibidos(SizeUtil.sizeof(parametro));
@@ -343,15 +336,15 @@ public class AsociadoV1 extends Asociado {
                         break;
                     case Protocolo.UBICACION_GPS:
                         try {
-                            GPSPosicion posicion = (GPSPosicion) Util.descomprimirObjeto((byte[]) conexion.leerObjeto(), this);
-                            if (mapa != null) {
-                                mapa.getMapa().updateMap(posicion.getLongitud(), posicion.getLatitud(), posicion.getAltitud(), posicion.getVelocidad(), posicion.getAcurrancy(), posicion.getTime(), posicion.getProveedor());
-                                mapa.getMapa().repaint();
-                                mapa.repaint();
-                            }
-                        } catch (Exception e) {
+                        GPSPosicion posicion = (GPSPosicion) Util.descomprimirObjeto((byte[]) conexion.leerObjeto(), this);
+                        if (mapa != null) {
+                            mapa.getMapa().updateMap(posicion.getLongitud(), posicion.getLatitud(), posicion.getAltitud(), posicion.getVelocidad(), posicion.getAcurrancy(), posicion.getTime(), posicion.getProveedor());
+                            mapa.getMapa().repaint();
+                            mapa.repaint();
                         }
-                        break;
+                    } catch (Exception e) {
+                    }
+                    break;
                     case Protocolo.GET_LISTA_PROVEEDORES_GPS:
                         List<String> provedores = (List<String>) Util.descomprimirObjeto((byte[]) conexion.leerObjeto(), this);
                         if (mapa != null) {
@@ -403,18 +396,18 @@ public class AsociadoV1 extends Asociado {
                         break;
                     case Protocolo.ENVIAR_PORTAPAPELES:
                         try {
-                            //int tipo = conexion.leerInt();
-                            conexion.leerInt();
-                            Object objPortapaleles = Util.descomprimirObjeto((byte[]) conexion.leerObjeto(), this);
-                            if (objPortapaleles != null) {
-                                if (this.escritorioRemoto.getItmClipboard().isSelected()) {
-                                    escritorioRemoto.getClipboard().setContent(objPortapaleles);
-                                }
+                        //int tipo = conexion.leerInt();
+                        conexion.leerInt();
+                        Object objPortapaleles = Util.descomprimirObjeto((byte[]) conexion.leerObjeto(), this);
+                        if (objPortapaleles != null) {
+                            if (this.escritorioRemoto.getItmClipboard().isSelected()) {
+                                escritorioRemoto.getClipboard().setContent(objPortapaleles);
                             }
-                        } catch (Exception e) {
-                            //QoopoRT.instancia.ponerEstado("Error :" + this.getInformacion() + " al colocar portapapeles " + e.getLocalizedMessage());
                         }
-                        break;
+                    } catch (Exception e) {
+                        //QoopoRT.instancia.ponerEstado("Error :" + this.getInformacion() + " al colocar portapapeles " + e.getLocalizedMessage());
+                    }
+                    break;
 
                 }
             }

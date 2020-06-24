@@ -29,6 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 package com.github.sarxos.webcam.ds.buildin.natives;
+
 import org.bridj.BridJ;
 import org.bridj.Platform;
 import org.bridj.Pointer;

@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam.ds.cgt;
+
 import java.nio.ByteBuffer;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;

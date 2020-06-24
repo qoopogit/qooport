@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam;
+
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

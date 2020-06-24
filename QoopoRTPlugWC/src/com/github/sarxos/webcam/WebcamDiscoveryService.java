@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;

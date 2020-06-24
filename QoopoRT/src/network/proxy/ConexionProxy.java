@@ -6,14 +6,11 @@
 package network.proxy;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Esta clase representa una conexion del proxy. Consta de 2 conexiones. -- --
- * Origen.- Es la conexion origne, la que solicito una conexion al proxy --
+ * Origen.- Es la conexion origen, la que solicito una conexion al proxy --
  * Destino.- Es la conexion destino, la que abre el proxy para redirigir la
  * conexión
  *

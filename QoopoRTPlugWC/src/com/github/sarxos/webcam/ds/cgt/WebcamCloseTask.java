@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam.ds.cgt;
+
 import com.github.sarxos.webcam.WebcamDevice;
 import com.github.sarxos.webcam.WebcamDriver;
 import com.github.sarxos.webcam.WebcamTask;

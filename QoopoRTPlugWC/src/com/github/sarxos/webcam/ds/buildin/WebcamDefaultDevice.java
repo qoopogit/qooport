@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam.ds.buildin;
+
 import java.awt.Dimension;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
@@ -22,7 +23,7 @@ import com.github.sarxos.webcam.ds.buildin.natives.DeviceList;
 import com.github.sarxos.webcam.ds.buildin.natives.OpenIMAJGrabber;
 
 public class WebcamDefaultDevice implements WebcamDevice, BufferAccess {
-  
+
     /**
      * Artificial view sizes. I'm really not sure if will fit into other webcams
      * but hope that OpenIMAJ can handle this.

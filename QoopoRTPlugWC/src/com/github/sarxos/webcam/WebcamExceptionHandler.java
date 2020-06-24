@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam;
+
 import java.lang.Thread.UncaughtExceptionHandler;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;

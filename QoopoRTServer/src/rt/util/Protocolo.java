@@ -2,6 +2,7 @@ package rt.util;
 
 public class Protocolo {
 
+    public final static int TPC_INICIAR = 1000;
     public final static int COMANDO_OBJETO = -2;
     public final static int AUTENTICAR = -1;
     public final static int PING = 1;

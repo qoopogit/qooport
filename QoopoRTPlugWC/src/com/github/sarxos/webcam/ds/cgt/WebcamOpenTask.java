@@ -1,6 +1,7 @@
 package com.github.sarxos.webcam.ds.cgt;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
+
 import com.github.sarxos.webcam.WebcamDevice;
 import com.github.sarxos.webcam.WebcamDriver;
 import com.github.sarxos.webcam.WebcamTask;

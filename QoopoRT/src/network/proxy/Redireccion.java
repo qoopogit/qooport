@@ -17,12 +17,18 @@ import java.util.logging.Logger;
  */
 public class Redireccion {
 
+    public static void main(String[] args) {
+        Redireccion red = new Redireccion();
+        red.test();
+        red.iniciar();
+
+    }
+
     private List<Mapeo> lista = new ArrayList<>();
     private List<ProxyWrapper> listaProxy = new ArrayList<>();
     private boolean verbose = false;
 
     public void agregar(String hostLocal, int puertoLocal, String hostRemoto, int puertoRemoto) {
-        System.out.println("se agrego puerto " + puertoLocal);
         lista.add(new Mapeo(hostLocal, puertoLocal, hostRemoto, puertoRemoto));
     }
 
@@ -110,13 +116,6 @@ public class Redireccion {
         lista.add(new Mapeo("192.168.100.91", 4003, ipDestino, 4003));
         lista.add(new Mapeo("192.168.100.91", 4004, ipDestino, 4004));
         lista.add(new Mapeo("192.168.100.91", 4005, ipDestino, 4005));
-    }
-
-    public static void main(String[] args) {
-        Redireccion red = new Redireccion();
-        red.test();
-        red.iniciar();
-
     }
 
     class ProxyWrapper extends Thread {

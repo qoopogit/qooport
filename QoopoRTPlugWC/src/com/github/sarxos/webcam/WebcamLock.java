@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;

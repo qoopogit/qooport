@@ -23,9 +23,7 @@ public class Ventana extends javax.swing.JFrame implements Interfaz {
         jLabel1 = new javax.swing.JLabel();
         txtIp = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         txtPuerto1 = new javax.swing.JTextField();
-        txtPuerto2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
 
@@ -40,9 +38,7 @@ public class Ventana extends javax.swing.JFrame implements Interfaz {
 
         jLabel1.setText("IIP/DNS:");
 
-        jLabel2.setText("Puerto 1:");
-
-        jLabel3.setText("Puerto 2:");
+        jLabel2.setText("Puerto :");
 
         jLabel4.setText("Estado:");
 
@@ -60,15 +56,13 @@ public class Ventana extends javax.swing.JFrame implements Interfaz {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtIp)
+                            .addComponent(txtIp, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                             .addComponent(txtPuerto1)
-                            .addComponent(txtPuerto2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEstado))))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,10 +75,6 @@ public class Ventana extends javax.swing.JFrame implements Interfaz {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPuerto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtPuerto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnInicia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -107,7 +97,7 @@ public class Ventana extends javax.swing.JFrame implements Interfaz {
                 conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
                 conexion.instanciar(Ventana.this.txtIp.getText(),
                         Integer.valueOf(Ventana.this.txtPuerto1.getText()),
-                        Integer.valueOf(Ventana.this.txtPuerto2.getText()), null, 3000,
+                        null, 3000,
                         "Gui_",
                         false, 3000, 1);
                 conexion.ejecutar(0);
@@ -136,12 +126,10 @@ public class Ventana extends javax.swing.JFrame implements Interfaz {
     private javax.swing.JButton btnInicia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JTextField txtIp;
     private javax.swing.JTextField txtPuerto1;
-    private javax.swing.JTextField txtPuerto2;
     // End of variables declaration//GEN-END:variables
 
 //    public void iniciar(String host, int puerto, int puertoTransferencia, String password, int delay, String prefijo, boolean capturaOffline, int delayEntreFoto, int tipoConexion) {
@@ -155,7 +143,6 @@ public class Ventana extends javax.swing.JFrame implements Interfaz {
         this.setVisible(true);
         this.txtIp.setText((String) parametros[0]);
         this.txtPuerto1.setText((String) parametros[1]);
-        this.txtPuerto2.setText((String) parametros[2]);
     }
 
     public void set(int opcion, Object valor) {

@@ -107,8 +107,7 @@ public class ModoProxy extends javax.swing.JFrame {
                     new Object[]{
                         null,
                         (String) p.obtenerParametro("nombre"),
-                        (String) p.obtenerParametro("puerto1"),
-                        (String) p.obtenerParametro("puerto2"),
+                        (String) p.obtenerParametro("puerto"),
                         tipoConexion,
                         version2
 
@@ -154,8 +153,8 @@ public class ModoProxy extends javax.swing.JFrame {
 //        this.tabla.setComponentPopupMenu(this.menu);
         this.tblPerfiles.setAutoCreateRowSorter(true);
 //        this.tblPerfiles.setFont(new Font(tipoLetra, 1, 14));
-        this.tblPerfiles.setModel(new DefaultTableModel(new Object[0][], new String[]{"", "Nombre", "Puerto 1", "Puerto 2", "Tipo", "Versión Objetos"}) {
-            boolean[] canEdit = {false, false, false, false, false, false};
+        this.tblPerfiles.setModel(new DefaultTableModel(new Object[0][], new String[]{"", "Nombre", "Puerto", "Tipo", "Versión Objetos"}) {
+            boolean[] canEdit = {false, false, false, false, false};
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -497,6 +496,7 @@ public class ModoProxy extends javax.swing.JFrame {
         txtLocalIP.removeAllItems();
         //txtLocalIP.addItem(getHostName());
         InetAddress inet;
+        txtLocalIP.addItem("0.0.0.0");
         try {
             Enumeration e = NetworkInterface.getNetworkInterfaces();
             while (e.hasMoreElements()) {
@@ -563,32 +563,32 @@ public class ModoProxy extends javax.swing.JFrame {
                     if (tipoConexion == ConexionServer.TCP) {
                         if (Boolean.valueOf((String) p.obtenerParametro("inversa"))) {
                             try {
-                                if (!puertosUsados.contains((String) p.obtenerParametro("puerto1") + "|" + tipoConexion)) {
+                                if (!puertosUsados.contains((String) p.obtenerParametro("puerto") + "|" + tipoConexion)) {
                                     proxy.agregar(
                                             txtLocalIP.getSelectedItem().toString(),
-                                            Integer.valueOf((String) p.obtenerParametro("puerto1")),
+                                            Integer.valueOf((String) p.obtenerParametro("puerto")),
                                             txtHost.getText(),
-                                            Integer.valueOf((String) p.obtenerParametro("puerto1"))
+                                            Integer.valueOf((String) p.obtenerParametro("puerto"))
                                     );
-                                    puertosUsados.add((String) p.obtenerParametro("puerto1") + "|" + tipoConexion);
+                                    puertosUsados.add((String) p.obtenerParametro("puerto") + "|" + tipoConexion);
                                 }
                             } catch (Exception ex) {
 
                             }
-                            try {
-                                if (!puertosUsados.contains((String) p.obtenerParametro("puerto2") + "|" + tipoConexion)) {
-                                    proxy.agregar(
-                                            txtLocalIP.getSelectedItem().toString(),
-                                            Integer.valueOf((String) p.obtenerParametro("puerto2")),
-                                            txtHost.getText(),
-                                            Integer.valueOf((String) p.obtenerParametro("puerto2"))
-                                    );
-                                    puertosUsados.add((String) p.obtenerParametro("puerto2") + "|" + tipoConexion);
-
-                                }
-                            } catch (Exception ex) {
-
-                            }
+//                            try {
+//                                if (!puertosUsados.contains((String) p.obtenerParametro("puerto2") + "|" + tipoConexion)) {
+//                                    proxy.agregar(
+//                                            txtLocalIP.getSelectedItem().toString(),
+//                                            Integer.valueOf((String) p.obtenerParametro("puerto2")),
+//                                            txtHost.getText(),
+//                                            Integer.valueOf((String) p.obtenerParametro("puerto2"))
+//                                    );
+//                                    puertosUsados.add((String) p.obtenerParametro("puerto2") + "|" + tipoConexion);
+//
+//                                }
+//                            } catch (Exception ex) {
+//
+//                            }
                         }
                     }
                 }

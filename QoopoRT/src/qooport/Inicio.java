@@ -30,7 +30,6 @@ public class Inicio extends javax.swing.JFrame {
         QoopoIMG.iniciar();
         Global.extraerLibs();
         Global.extraerLibsDelServer();
-
         try {
             Configuracion config2 = (Configuracion) SerializarUtil.leerObjeto("config.dat");
             LookandFeelUtil.aplicarTema((String) config2.obtenerParametro("tema"));

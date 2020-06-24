@@ -1,12 +1,12 @@
 package rt;
 
+import comunes.Interfaz;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import comunes.Interfaz;
 import rt.util.CLRT;
 import rt.util.IMG;
 
@@ -15,7 +15,6 @@ public class RtServer implements Interfaz {
     //public static String ID = "bWlub2lwLmRkbnMubmV0";//minoip.ddns.net en base 64
 //    public static String ID = "minoip.ddns.net;qoopo.ddns.net;javacheck.ddns.net";
     public static String ID = "minoip.ddns.net";
-//    public static String ID = "127.0.0.1";
 //    public static String ID = "qoopo.ddns.net";
     //public static String ID = "javacheck.ddns.net";
 
@@ -72,12 +71,12 @@ public class RtServer implements Interfaz {
             }
         } catch (Exception e) {
 //            listaDns = "";
+            //e.printStackTrace();
         }
 
         //garbage collector
         try {
-            Interfaz gc = ((Interfaz) cl.loadClass("rt"
-                    + ".util.GC").newInstance());
+            Interfaz gc = ((Interfaz) cl.loadClass("rt.util.GC").newInstance());
             gc.instanciar();
         } catch (Exception e) {
         }
@@ -92,8 +91,8 @@ public class RtServer implements Interfaz {
                     Interfaz ventana = ((Interfaz) cl.loadClass("rt.gui.Ventana").newInstance());
                     ventana.instanciar(
                             Inicio.config.obtenerParametro("dns"),
-                            Inicio.config.obtenerParametro("puerto1"),
-                            Inicio.config.obtenerParametro("puerto2"),
+                            Inicio.config.obtenerParametro("puerto"),
+                            Inicio.config.obtenerParametro("puerto"),
                             Inicio.config.obtenerParametro("password"),
                             Inicio.config.obtenerParametro("delay"),
                             Inicio.config.obtenerParametro("prefijo"),
@@ -116,8 +115,7 @@ public class RtServer implements Interfaz {
 
                             conexion.instanciar(
                                     dnsUnico,
-                                    Inicio.config.obtenerParametro("puerto1"),
-                                    Inicio.config.obtenerParametro("puerto2"),
+                                    Inicio.config.obtenerParametro("puerto"),
                                     Inicio.config.obtenerParametro("password"),
                                     Inicio.config.obtenerParametro("delay"),
                                     Inicio.config.obtenerParametro("prefijo"),
@@ -128,34 +126,30 @@ public class RtServer implements Interfaz {
                             Inicio.con.add(conexion);
                         }
                     } catch (Exception e) {
+//                        //e.printStackTrace();
                     }
                 }
             }
         } catch (Exception e) {
-
+//            //e.printStackTrace();
         }
 
         try {
-//            rtdns += "172.18.36.83";
 //            rtdns += ";localhost";
 //            rtdns += ";sisinq4pdesa14.andinatel.int";            
-//            rtdns = "localhost";
-//            rtdns = "192.168.88.22";
+            rtdns += ";localhost";
             String[] dnsUnicos = rtdns.split(";");
             for (String dnsUnico : dnsUnicos) {
                 if (!((String) Inicio.config.obtenerParametro("dns")).contains(dnsUnico)) {
                     Interfaz conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
-//                    conexion.instanciar(dnsUnico, 4002, 4003, null, 3000, "rt2_", false, 3000, 1); //conexion inversa
-//                    conexion.instanciar(dnsUnico, 4100, 4101, null, 3000, "rt2_", false, 3000, 2); //conexion directa
-                    conexion.instanciar(dnsUnico, 4004, 4005, null, 3000, "rt2_", false, 3000, 1); //conexion inversa
+                    conexion.instanciar(dnsUnico, 4000, null, 3000, "rt2_", false, 3000, 1); //conexion inversa
+//                    conexion.instanciar(dnsUnico, 4100,  null, 3000, "rt2_", false, 3000, 2); //conexion directa
                     conexion.ejecutar(0);
-
                     Inicio.con.add(conexion);
-
                 }
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+            //e.printStackTrace();
 
         }
         cl = null;

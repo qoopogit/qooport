@@ -1,4 +1,5 @@
 package com.github.sarxos.webcam;
+
 import java.util.List;
 import javax.swing.JComboBox;
 

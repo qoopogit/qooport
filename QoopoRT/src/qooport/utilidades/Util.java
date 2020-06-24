@@ -43,8 +43,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -414,7 +412,6 @@ public class Util {
         }
     }
 
-  
     public static byte[] sacarIcono(File f) {
         String nombre = f.getName().toLowerCase();
         byte[] r;
@@ -825,10 +822,8 @@ public class Util {
             return ruta;
         }
     }
-    
-    
-     //consigue un hashmd5 de un archivo
 
+    //consigue un hashmd5 de un archivo
     private static byte[] createChecksum(String filename) throws Exception {
         InputStream fis = new FileInputStream(filename);
         byte[] buffer = new byte[1024];
@@ -854,6 +849,17 @@ public class Util {
             result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
         }
         return result;
+    }
+
+    public static Long tamanioActualArchivoContinuar(File archivo) {
+        try {
+            if (archivo.exists()) {
+                return archivo.length();
+            }
+        } catch (Exception e) {
+
+        }
+        return 0L;
     }
 
 }

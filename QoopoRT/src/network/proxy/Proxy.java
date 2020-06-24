@@ -90,468 +90,20 @@ import javax.net.ssl.SSLSocketFactory;
  */
 public class Proxy {
 
-    private BanderaDetencion bandera = new BanderaDetencion(false);
-
-    private ServerSocketChannel sock_channel;
-
-    //lista de las conexiones para poder cerrarlas
-//    private List<SocketChannel> listaConexiones = new ArrayList<SocketChannel>();
-    InetAddress local = null, remote = null;
-    int local_port = 0, remote_port = 0;
     static boolean verbose = false;
     static boolean debug = false;
-    String mapping_file = null; // contains a list of src and dest host:port pairs
-
-    final HashMap mappings = new HashMap(); // keys=MyInetSocketAddr (src), values=MyInetSocketAddr (dest)
-    Executor executor; // maintains a thread pool
     static final int MIN_THREAD_POOL_SIZE = 20;
     static final int MAX_THREAD_POOL_SIZE = 128;
     // for processing requests
     static final int BUFSIZE = 1024; // size of data transfer buffer
 
-    public Proxy(InetAddress local, int local_port, InetAddress remote, int remote_port, boolean verbose, boolean debug) {
-        this.local = local;
-        this.local_port = local_port;
-        this.remote = remote;
-        this.remote_port = remote_port;
-        Proxy.verbose = verbose;
-        Proxy.debug = debug;
-    }
-
-    public Proxy(InetAddress local, int local_port, InetAddress remote, int remote_port,
-            boolean verbose, boolean debug, String mapping_file) {
-        this(local, local_port, remote, remote_port, verbose, debug);
-        this.mapping_file = mapping_file;
-    }
-
-    public Proxy(String local, int local_port, String remote, int remote_port,
-            boolean verbose, boolean debug, String mapping_file) throws UnknownHostException {
-        this(InetAddress.getByName(local), local_port, InetAddress.getByName(remote), remote_port, verbose, debug);
-        this.mapping_file = mapping_file;
-    }
-
-    public void detener() {
-        bandera.setDetener(true);
-//        for (SocketChannel socket : listaConexiones) {
-//            try {
-//                socket.close();
-//            } catch (Exception ex) {
-//                Logger.getLogger(Proxy.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-        try {
-            sock_channel.close();
-            sock_channel.socket().close();
-        } catch (Exception ex) {
-            Logger.getLogger(Proxy.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    public void iniciar() throws Exception {
-        bandera.setDetener(false);
-//        listaConexiones.clear();
-        Map.Entry entry;
-        Selector selector;
-
-        //MyInetSocketAddress key, value;
-        InetSocketAddress key, value;
-
-        if (remote != null && local != null) {
-            mappings.put(new InetSocketAddress(local, local_port), new InetSocketAddress(remote, remote_port));
-        }
-
-        if (mapping_file != null) {
-            try {
-                populateMappings(mapping_file);
-            } catch (Exception ex) {
-                log("Failed reading " + mapping_file);
-                throw ex;
-            }
-        }
-
-        log("\nProxy started at " + new java.util.Date());
-
-//        if (verbose) {
-        log("\nMappings:\n---------");
-        for (Iterator it = mappings.entrySet().iterator(); it.hasNext();) {
-            entry = (Map.Entry) it.next();
-            log(toString((InetSocketAddress) entry.getKey()) + " <--> "
-                    + toString((InetSocketAddress) entry.getValue()));
-        }
-        log("\n");
-//        }
-
-        // 1. Create a Selector
-        selector = Selector.open();
-
-        // Create a thread pool (Executor)
-        executor = new ThreadPoolExecutor(
-                MIN_THREAD_POOL_SIZE, MAX_THREAD_POOL_SIZE, 30000, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue(1000));
-
-        for (Iterator it = mappings.keySet().iterator(); it.hasNext();) {
-
-            Object ob = it.next();
-            //key = (MyInetSocketAddress) it.next();
-//            key = (MyInetSocketAddress) ob;
-//            value = (MyInetSocketAddress) mappings.get(key);
-
-            key = (InetSocketAddress) ob;
-            value = (InetSocketAddress) mappings.get(key);
-
-            // if either source or destination are SSL, we cannot use JDK 1.4
-            // NIO selectors, but have to fall back on separate threads per connection
-//            if (key.ssl() || value.ssl()) {
-//                // if(2 == 2) {
-//                SocketAcceptor acceptor = new SocketAcceptor(key, value);
-//                executor.execute(acceptor);
-//                continue;
-//            }
-            // 2. Create a ServerSocketChannel
-            sock_channel = ServerSocketChannel.open();
-            sock_channel.configureBlocking(false);
-            sock_channel.socket().bind(key);
-
-            // 3. Register the selector with all server sockets. 'Key' is attachment, so we get it again on
-            //    select(). That way we can associate it with the mappings hashmap to find the corresponding
-            //    value
-            sock_channel.register(selector, SelectionKey.OP_ACCEPT, key);
-
-        }
-
-        // 4. Start main loop. won't return until CTRL-C'ed
-        loop(selector);
-    }
-
-    /**
-     * We handle only non-SSL connections
-     */
-    void loop(Selector selector) {
-        Set ready_keys;
-        SelectionKey key;
-        ServerSocketChannel srv_sock;
-        SocketChannel in_sock, out_sock;
-        InetSocketAddress src, dest;
-
-        while (!bandera.isDetener()) {
-//            if (verbose) {
-            log("[Proxy] Listo para esperar conexión");
-//            }
-
-            // 4. Call Selector.select()
-            try {
-                selector.select();
-
-                // get set of ready objects
-                ready_keys = selector.selectedKeys();
-                for (Iterator it = ready_keys.iterator(); it.hasNext();) {
-                    key = (SelectionKey) it.next();
-                    it.remove();
-
-                    if (key.isAcceptable()) {
-                        srv_sock = (ServerSocketChannel) key.channel();
-                        // get server socket and attachment
-                        src = (InetSocketAddress) key.attachment();
-                        in_sock = srv_sock.accept(); // accept request
-//                        if (verbose) {
-                        log("Proxy.loop()", "Conexión aceptada de " + toString(in_sock));
-//                        }
-                        dest = (InetSocketAddress) mappings.get(src);
-                        // find corresponding dest
-                        if (dest == null) {
-                            in_sock.close();
-                            log("Proxy.loop()", "did not find a destination host for " + src);
-                            continue;
-                        } else {
-//                            if (verbose) {
-                            log("Proxy.loop()", "Redirigiendo tráfico desde " + toString(src) + " hacia " + toString(dest));
-//                            }
-                        }
-
-                        // establish connection to destination host
-                        try {
-                            out_sock = SocketChannel.open(dest);
-//                            listaConexiones.add(in_sock);
-//                            listaConexiones.add(out_sock);
-                            // uses thread pool (Executor) to handle request, closes socks at end
-                            handleConnection(in_sock, out_sock);
-                        } catch (Exception ex) {
-                            in_sock.close();
-                            throw ex;
-                        }
-                    }
-                }
-            } catch (Exception ex) {
-                log("Proxy.loop()", "exception: " + ex);
-            }
-        }
-
-        log("[Proxy] Detenido");
-
-    }
-
-    void handleConnection(SocketChannel in, SocketChannel out) {
-        try {
-            _handleConnection(in, out);
-        } catch (Exception ex) {
-            log("Proxy.handleConnection()", "exception: " + ex);
-        }
-    }
-
-    void _handleConnection(final SocketChannel in_channel, final SocketChannel out_channel) throws Exception {
-        executor.execute(new Runnable() {
-            public void run() {
-                Selector sel = null;
-                SocketChannel tmp;
-                Set ready_keys;
-                SelectionKey key;
-                ByteBuffer transfer_buf = ByteBuffer.allocate(BUFSIZE);
-
-                try {
-
-                    ConexionProxy conexion = new ConexionProxy(in_channel, out_channel);
-                    Conexiones.agregarConexion(conexion);
-
-                    sel = Selector.open();
-                    in_channel.configureBlocking(false);
-                    out_channel.configureBlocking(false);
-                    in_channel.register(sel, SelectionKey.OP_READ);
-                    out_channel.register(sel, SelectionKey.OP_READ);
-
-                    while (sel.select() > 0) {
-                        ready_keys = sel.selectedKeys();
-                        for (Iterator it = ready_keys.iterator(); it.hasNext();) {
-                            key = (SelectionKey) it.next();
-                            it.remove(); // remove current entry (why ?)
-                            tmp = (SocketChannel) key.channel();
-                            if (tmp == null) {
-                                log("Proxy._handleConnection()", "attachment is null, continuing");
-                                continue;
-                            }
-                            if (key.isReadable()) { // data is available to be read from tmp
-                                if (tmp == in_channel) {
-                                    // read all data from in_channel and forward it to out_channel (request)
-                                    if (relay(tmp, out_channel, transfer_buf, conexion) == false) {
-                                        return;
-                                    }
-                                }
-                                if (tmp == out_channel) {
-                                    // read all data from out_channel and forward it
-                                    // to in_channel (response)
-                                    if (relay(tmp, in_channel, transfer_buf, conexion) == false) {
-                                        return;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                } finally {
-                    close(sel, in_channel, out_channel);
-                }
-            }
-        });
-    }
-
-    void close(Selector sel, SocketChannel in_channel, SocketChannel out_channel) {
-        //System.out.println("se va a cerrar las conexiones");
-        try {
-            if (sel != null) {
-                sel.close();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        try {
-            if (in_channel != null) {
-                in_channel.close();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        try {
-            if (out_channel != null) {
-                out_channel.close();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * Read all data from <code>from</code> and write it to <code>to</code>.
-     * Returns false if channel was closed
-     */
-    boolean relay(SocketChannel from, SocketChannel to, ByteBuffer buf, ConexionProxy... conexion) throws Exception {
-        int num;
-        StringBuilder sb;
-        buf.clear();
-        //while (true) {
-        try {
-            while (!bandera.isDetener()) {
-
-                num = from.read(buf);
-                if (num < 0) {
-                    return false;
-                } else if (num == 0) {
-                    return true;
-                }
-                buf.flip();
-
-                if (verbose) {
-                    log(printRelayedData(toString(from), toString(to), buf.remaining()));
-                }
-                if (debug) {
-                    sb = new StringBuilder();
-                    sb.append(new String(buf.array()).trim());
-                    sb.append('\n');
-                    log(sb.toString());
-                }
-                to.write(buf);
-                buf.flip();
-            }
-        } catch (Exception e) {
-
-            Conexiones.eliminarConexion(conexion[0]);
-
-            System.out.println("Conexión cerrada [" + conexion[0].toString() + "]");
-        }
-
-        return false;//<ag>
-    }
-
-    String toString(SocketChannel ch) {
-        StringBuilder sb = new StringBuilder();
-        Socket sock;
-
-        if (ch == null) {
-            return null;
-        }
-        if ((sock = ch.socket()) == null) {
-            return null;
-        }
-        sb.append(sock.getInetAddress().getHostName()).append(':').append(sock.getPort());
-        return sb.toString();
-    }
-
-    String toString(InetSocketAddress addr) {
-        StringBuilder sb;
-        sb = new StringBuilder();
-
-        if (addr == null) {
-            return null;
-        }
-        sb.append(addr.getAddress().getHostName()).append(':').append(addr.getPort());
-        if (addr instanceof MyInetSocketAddress) {
-            sb.append(" [ssl=").append(((MyInetSocketAddress) addr).ssl()).append(']');
-        }
-        return sb.toString();
-    }
-
-    static String printRelayedData(String from, String to, int num_bytes) {
+    public static String printRelayedData(String from, String to, int num_bytes) {
         StringBuilder sb;
         sb = new StringBuilder();
         sb.append("\n[PROXY] ").append(from);
         sb.append(" to ").append(to);
         sb.append(" (").append(num_bytes).append(" bytes)");
         // log("Proxy.relay()", sb.toString());
-        return sb.toString();
-    }
-
-    /**
-     * Populates <code>mappings</code> hashmap. An example of a definition file
-     * is:
-     * <pre>
-     * http://localhost:8888=http://www.yahoo.com:80
-     * https://localhost:2200=https://cvs.sourceforge.net:22
-     * http://localhost:8000=https://www.ibm.com:443
-     * </pre> Mappings can be http-https, https-http, http-http or https-https
-     */
-    void populateMappings(String filename) throws Exception {
-        FileInputStream in = new FileInputStream(filename);
-        BufferedReader reader;
-        String line;
-        URI key, value;
-        int index;
-        boolean ssl_key, ssl_value;
-        final String HTTPS = "https";
-
-        reader = new BufferedReader(new InputStreamReader(in));
-        while ((line = reader.readLine()) != null) {
-            line = line.trim();
-            if (line.startsWith("//") || line.startsWith("#") || line.length() == 0) {
-                continue;
-            }
-            index = line.indexOf('=');
-            if (index == -1) {
-                throw new Exception("Proxy.populateMappings(): detected no '=' character in " + line);
-            }
-            key = new URI(line.substring(0, index));
-            ssl_key = key.getScheme().trim().equals(HTTPS);
-
-            value = new URI(line.substring(index + 1));
-            ssl_value = value.getScheme().trim().equals(HTTPS);
-
-            check(key);
-            check(value);
-
-            log("key: " + key + ", value: " + value);
-
-            mappings.put(new MyInetSocketAddress(key.getHost(), key.getPort(), ssl_key),
-                    new MyInetSocketAddress(value.getHost(), value.getPort(), ssl_value));
-        }
-        in.close();
-    }
-
-    /**
-     * Checks whether a URI is http(s)://<host>:<port>
-     */
-    void check(URI u) throws Exception {
-        if (u.getScheme() == null) {
-            throw new Exception(
-                    "scheme is null in " + u + ", (valid URI is \"http(s)://<host>:<port>\")");
-        }
-
-        if (u.getHost() == null) {
-            throw new Exception(
-                    "host is null in " + u + ", (valid URI is \"http(s)://<host>:<port>\")");
-        }
-
-        if (u.getPort() <= 0) {
-            throw new Exception(
-                    "port is <=0 in " + u + ", (valid URI is \"http(s)://<host>:<port>\")");
-        }
-
-    }
-
-    /**
-     * Input is "host:port"
-     */
-    SocketAddress strToAddr(String input) throws Exception {
-        StringTokenizer tok = new StringTokenizer(input, ":");
-        String host, port;
-
-        host = tok.nextToken();
-        port = tok.nextToken();
-        return new InetSocketAddress(host, Integer.parseInt(port));
-    }
-
-    String printSelectionOps(SelectionKey key) {
-        StringBuilder sb = new StringBuilder();
-        if ((key.readyOps() & SelectionKey.OP_ACCEPT) != 0) {
-            sb.append("OP_ACCEPT ");
-        }
-        if ((key.readyOps() & SelectionKey.OP_CONNECT) != 0) {
-            sb.append("OP_CONNECT ");
-        }
-        if ((key.readyOps() & SelectionKey.OP_READ) != 0) {
-            sb.append("OP_READ ");
-        }
-        if ((key.readyOps() & SelectionKey.OP_WRITE) != 0) {
-            sb.append("OP_WRITE ");
-        }
         return sb.toString();
     }
 
@@ -672,6 +224,415 @@ public class Proxy {
         }
     }
 
+    private BanderaDetencion bandera = new BanderaDetencion(false);
+    private ServerSocketChannel sock_channel;
+    InetAddress local = null, remote = null;
+    int local_port = 0, remote_port = 0;
+    String mapping_file = null; // contains a list of src and dest host:port pairs
+
+    final HashMap mappings = new HashMap(); // keys=MyInetSocketAddr (src), values=MyInetSocketAddr (dest)
+    Executor executor; // maintains a thread pool
+
+    public Proxy(InetAddress local, int local_port, InetAddress remote, int remote_port, boolean verbose, boolean debug) {
+        this.local = local;
+        this.local_port = local_port;
+        this.remote = remote;
+        this.remote_port = remote_port;
+        Proxy.verbose = verbose;
+        Proxy.debug = debug;
+    }
+
+    public Proxy(InetAddress local, int local_port, InetAddress remote, int remote_port, boolean verbose, boolean debug, String mapping_file) {
+        this(local, local_port, remote, remote_port, verbose, debug);
+        this.mapping_file = mapping_file;
+    }
+
+    public Proxy(String local, int local_port, String remote, int remote_port, boolean verbose, boolean debug, String mapping_file) throws UnknownHostException {
+        this(InetAddress.getByName(local), local_port, InetAddress.getByName(remote), remote_port, verbose, debug);
+        this.mapping_file = mapping_file;
+    }
+
+    public void detener() {
+        bandera.setDetener(true);
+        try {
+            sock_channel.close();
+            sock_channel.socket().close();
+        } catch (Exception ex) {
+            Logger.getLogger(Proxy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void iniciar() throws Exception {
+        bandera.setDetener(false);
+        Map.Entry entry;
+        Selector selector;
+
+        //MyInetSocketAddress key, value;
+        InetSocketAddress key_local, value_remote;
+
+        if (remote != null && local != null) {
+            mappings.put(new InetSocketAddress(local, local_port), new InetSocketAddress(remote, remote_port));
+        }
+
+        if (mapping_file != null) {
+            try {
+                populateMappings(mapping_file);
+            } catch (Exception ex) {
+                log("Failed reading " + mapping_file);
+                throw ex;
+            }
+        }
+
+        log("\nProxy started at " + new java.util.Date());
+
+        log("\nMappings:\n---------");
+        for (Iterator it = mappings.entrySet().iterator(); it.hasNext();) {
+            entry = (Map.Entry) it.next();
+            log(toString((InetSocketAddress) entry.getKey()) + " <--> "
+                    + toString((InetSocketAddress) entry.getValue()));
+        }
+        log("\n");
+
+        // 1. Create a Selector
+        selector = Selector.open();
+
+        // Create a thread pool (Executor)
+        executor = new ThreadPoolExecutor(MIN_THREAD_POOL_SIZE, MAX_THREAD_POOL_SIZE, 30000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue(1000));
+
+        for (Iterator it = mappings.keySet().iterator(); it.hasNext();) {
+            Object ob = it.next();
+            //key = (MyInetSocketAddress) it.next();
+//            key = (MyInetSocketAddress) ob;
+//            value = (MyInetSocketAddress) mappings.get(key);
+
+            key_local = (InetSocketAddress) ob;
+            value_remote = (InetSocketAddress) mappings.get(key_local);
+
+            // if either source or destination are SSL, we cannot use JDK 1.4
+            // NIO selectors, but have to fall back on separate threads per connection
+//            if (key.ssl() || value.ssl()) {
+//                // if(2 == 2) {
+//                SocketAcceptor acceptor = new SocketAcceptor(key, value);
+//                executor.execute(acceptor);
+//                continue;
+//            }
+            // 2. Create a ServerSocketChannel
+            sock_channel = ServerSocketChannel.open();
+            sock_channel.configureBlocking(false);
+            sock_channel.socket().bind(key_local);
+
+            // 3. Register the selector with all server sockets. 'Key' is attachment, so we get it again on
+            //    select(). That way we can associate it with the mappings hashmap to find the corresponding
+            //    value
+            sock_channel.register(selector, SelectionKey.OP_ACCEPT, key_local);
+
+        }
+
+        // 4. Start main loop. won't return until CTRL-C'ed
+        loop(selector);
+    }
+
+    /**
+     * We handle only non-SSL connections
+     */
+    void loop(Selector selector) {
+        Set ready_keys;
+        SelectionKey key;
+        ServerSocketChannel srv_sock;
+        SocketChannel in_sock, out_sock;
+        InetSocketAddress src, dest;
+
+        while (!bandera.isDetener()) {
+            log("[Proxy] Listo para esperar conexión");
+
+            // 4. Call Selector.select()
+            try {
+                selector.select();
+                // get set of ready objects
+                ready_keys = selector.selectedKeys();
+                for (Iterator it = ready_keys.iterator(); it.hasNext();) {
+                    key = (SelectionKey) it.next();
+                    it.remove();
+                    if (key.isAcceptable()) {
+                        srv_sock = (ServerSocketChannel) key.channel();
+                        // get server socket and attachment
+                        src = (InetSocketAddress) key.attachment();
+                        in_sock = srv_sock.accept(); // accept request
+                        log("Proxy.loop()", "Conexión aceptada de " + toString(in_sock));
+                        dest = (InetSocketAddress) mappings.get(src);
+                        // find corresponding dest
+                        if (dest == null) {
+                            in_sock.close();
+                            log("Proxy.loop()", "did not find a destination host for " + src);
+                            continue;
+                        } else {
+                            log("Proxy.loop()", "Redirigiendo tráfico desde " + toString(src) + " hacia " + toString(dest));
+                        }
+                        // establish connection to destination host
+                        try {
+                            out_sock = SocketChannel.open(dest);
+//                            listaConexiones.add(in_sock);
+//                            listaConexiones.add(out_sock);
+                            // uses thread pool (Executor) to handle request, closes socks at end
+                            handleConnection(in_sock, out_sock);
+                        } catch (Exception ex) {
+                            in_sock.close();
+                            throw ex;
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                log("Proxy.loop()", "exception: " + ex);
+            }
+        }
+
+        log("[Proxy] Detenido");
+
+    }
+
+    void handleConnection(SocketChannel in, SocketChannel out) {
+        try {
+            _handleConnection(in, out);
+        } catch (Exception ex) {
+            log("Proxy.handleConnection()", "exception: " + ex);
+        }
+    }
+
+    void _handleConnection(final SocketChannel in_channel, final SocketChannel out_channel) throws Exception {
+        executor.execute(new Runnable() {
+            public void run() {
+                Selector sel = null;
+                SocketChannel tmp;
+                Set ready_keys;
+                SelectionKey key;
+                ByteBuffer transfer_buf = ByteBuffer.allocate(BUFSIZE);
+                try {
+                    ConexionProxy conexion = new ConexionProxy(in_channel, out_channel);
+                    Conexiones.agregarConexion(conexion);
+                    sel = Selector.open();
+                    in_channel.configureBlocking(false);
+                    out_channel.configureBlocking(false);
+                    in_channel.register(sel, SelectionKey.OP_READ);
+                    out_channel.register(sel, SelectionKey.OP_READ);
+                    while (sel.select() > 0) {
+                        ready_keys = sel.selectedKeys();
+                        for (Iterator it = ready_keys.iterator(); it.hasNext();) {
+                            key = (SelectionKey) it.next();
+                            it.remove(); // remove current entry (why ?)
+                            tmp = (SocketChannel) key.channel();
+                            if (tmp == null) {
+                                log("Proxy._handleConnection()", "attachment is null, continuing");
+                                continue;
+                            }
+                            if (key.isReadable()) { // data is available to be read from tmp
+                                if (tmp == in_channel) {
+                                    // read all data from in_channel and forward it to out_channel (request)
+                                    if (relay(tmp, out_channel, transfer_buf, conexion) == false) {
+                                        return;
+                                    }
+                                }
+                                if (tmp == out_channel) {
+                                    // read all data from out_channel and forward it
+                                    // to in_channel (response)
+                                    if (relay(tmp, in_channel, transfer_buf, conexion) == false) {
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                } finally {
+                    close(sel, in_channel, out_channel);
+                }
+            }
+        });
+    }
+
+    void close(Selector sel, SocketChannel in_channel, SocketChannel out_channel) {
+        //System.out.println("se va a cerrar las conexiones");
+        try {
+            if (sel != null) {
+                sel.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        try {
+            if (in_channel != null) {
+                in_channel.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        try {
+            if (out_channel != null) {
+                out_channel.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Read all data from <code>from</code> and write it to <code>to</code>.
+     * Returns false if channel was closed
+     */
+    boolean relay(SocketChannel from, SocketChannel to, ByteBuffer buf, ConexionProxy... conexion) throws Exception {
+        int num;
+        StringBuilder sb;
+        buf.clear();
+        //while (true) {
+        try {
+            while (!bandera.isDetener()) {
+                num = from.read(buf);
+                if (num < 0) {
+                    return false;
+                } else if (num == 0) {
+                    return true;
+                }
+                buf.flip();
+                if (verbose) {
+                    log(printRelayedData(toString(from), toString(to), buf.remaining()));
+                }
+                if (debug) {
+                    sb = new StringBuilder();
+                    sb.append(new String(buf.array()).trim());
+                    sb.append('\n');
+                    log(sb.toString());
+                }
+                to.write(buf);
+                buf.flip();
+            }
+        } catch (Exception e) {
+            Conexiones.eliminarConexion(conexion[0]);
+            System.out.println("Conexión cerrada [" + conexion[0].toString() + "]");
+        }
+
+        return false;//<ag>
+    }
+
+    public String toString(SocketChannel ch) {
+        StringBuilder sb = new StringBuilder();
+        Socket sock;
+
+        if (ch == null) {
+            return null;
+        }
+        if ((sock = ch.socket()) == null) {
+            return null;
+        }
+        sb.append(sock.getInetAddress().getHostName()).append(':').append(sock.getPort());
+        return sb.toString();
+    }
+
+    public String toString(InetSocketAddress addr) {
+        StringBuilder sb;
+        sb = new StringBuilder();
+
+        if (addr == null) {
+            return null;
+        }
+        sb.append(addr.getAddress().getHostName()).append(':').append(addr.getPort());
+        if (addr instanceof MyInetSocketAddress) {
+            sb.append(" [ssl=").append(((MyInetSocketAddress) addr).ssl()).append(']');
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Populates <code>mappings</code> hashmap. An example of a definition file
+     * is:
+     * <pre>
+     * http://localhost:8888=http://www.yahoo.com:80
+     * https://localhost:2200=https://cvs.sourceforge.net:22
+     * http://localhost:8000=https://www.ibm.com:443
+     * </pre> Mappings can be http-https, https-http, http-http or https-https
+     */
+    public void populateMappings(String filename) throws Exception {
+        FileInputStream in = new FileInputStream(filename);
+        BufferedReader reader;
+        String line;
+        URI key, value;
+        int index;
+        boolean ssl_key, ssl_value;
+        final String HTTPS = "https";
+
+        reader = new BufferedReader(new InputStreamReader(in));
+        while ((line = reader.readLine()) != null) {
+            line = line.trim();
+            if (line.startsWith("//") || line.startsWith("#") || line.length() == 0) {
+                continue;
+            }
+            index = line.indexOf('=');
+            if (index == -1) {
+                throw new Exception("Proxy.populateMappings(): detected no '=' character in " + line);
+            }
+            key = new URI(line.substring(0, index));
+            ssl_key = key.getScheme().trim().equals(HTTPS);
+
+            value = new URI(line.substring(index + 1));
+            ssl_value = value.getScheme().trim().equals(HTTPS);
+
+            check(key);
+            check(value);
+
+            log("key: " + key + ", value: " + value);
+
+            mappings.put(new MyInetSocketAddress(key.getHost(), key.getPort(), ssl_key),
+                    new MyInetSocketAddress(value.getHost(), value.getPort(), ssl_value));
+        }
+        in.close();
+    }
+
+    /**
+     * Checks whether a URI is http(s)://<host>:<port>
+     */
+    public void check(URI u) throws Exception {
+        if (u.getScheme() == null) {
+            throw new Exception("scheme is null in " + u + ", (valid URI is \"http(s)://<host>:<port>\")");
+        }
+
+        if (u.getHost() == null) {
+            throw new Exception("host is null in " + u + ", (valid URI is \"http(s)://<host>:<port>\")");
+        }
+
+        if (u.getPort() <= 0) {
+            throw new Exception("port is <=0 in " + u + ", (valid URI is \"http(s)://<host>:<port>\")");
+        }
+    }
+
+    /**
+     * Input is "host:port"
+     */
+    public SocketAddress strToAddr(String input) throws Exception {
+        StringTokenizer tok = new StringTokenizer(input, ":");
+        String host, port;
+
+        host = tok.nextToken();
+        port = tok.nextToken();
+        return new InetSocketAddress(host, Integer.parseInt(port));
+    }
+
+    public String printSelectionOps(SelectionKey key) {
+        StringBuilder sb = new StringBuilder();
+        if ((key.readyOps() & SelectionKey.OP_ACCEPT) != 0) {
+            sb.append("OP_ACCEPT ");
+        }
+        if ((key.readyOps() & SelectionKey.OP_CONNECT) != 0) {
+            sb.append("OP_CONNECT ");
+        }
+        if ((key.readyOps() & SelectionKey.OP_READ) != 0) {
+            sb.append("OP_READ ");
+        }
+        if ((key.readyOps() & SelectionKey.OP_WRITE) != 0) {
+            sb.append("OP_WRITE ");
+        }
+        return sb.toString();
+    }
+
     static class Relayer implements Runnable {
 
         final Socket in_sock;
@@ -771,7 +732,7 @@ public class Proxy {
                 try {
                     ((Listener) it.next()).connectionClosed();
                 } catch (Throwable ex) {
-                    
+
                 }
             }
         }
@@ -814,6 +775,60 @@ public class Proxy {
 
         public String toString() {
             return super.toString() + " [ssl: " + ssl() + ']';
+        }
+    }
+
+    /**
+     * Handles an incoming SSLSocket or Socket. Looks up the destination in the
+     * mapping hashmap, key is the incoming socket address. Creates an outgoing
+     * socket (regular or SSL, depending on settings) and relays data between
+     * incoming and outgoing sockets. Closes the connection when either incoming
+     * or outgoing socket is closed, or when stop() is called.
+     *
+     * @author bela Dec 19, 2002
+     */
+    static class Connection implements Relayer.Listener {
+
+        Relayer in_to_out = null;
+        Relayer out_to_in = null;
+
+        /**
+         * Creates an outgoing (regular or SSL) socket according to the mapping
+         * table. Sets both input and output stream. Caller needs to call
+         * iniciar() after the instance has been created.
+         *
+         * @param in The Socket we got as result of accept()
+         * @throws Exception Thrown if either the input or output streams cannot
+         * be created.
+         */
+        public Connection(Socket in, Socket out, BanderaDetencion bandera) throws Exception {
+            in_to_out = new Relayer(in, out, "in-out", bandera);
+            in_to_out.addListener(this);
+            out_to_in = new Relayer(out, in, "out-in", bandera);
+            out_to_in.addListener(this);
+        }
+
+        /**
+         * Starts relaying between incoming and outgoing sockets. Returns
+         * immediately (thread is started).
+         *
+         */
+        public void start() {
+            in_to_out.start();
+            out_to_in.start();
+        }
+
+        public void stop() {
+            if (in_to_out != null) {
+                in_to_out.stop();
+            }
+            if (out_to_in != null) {
+                out_to_in.stop();
+            }
+        }
+
+        public void connectionClosed() {
+            stop();
         }
     }
 
@@ -883,60 +898,6 @@ public class Proxy {
             SSLServerSocket sslserversocket;
             sslserversocket = (SSLServerSocket) sslserversocketfactory.createServerSocket(addr.getPort(), 10, addr.getAddress());
             return sslserversocket;
-        }
-    }
-
-    /**
-     * Handles an incoming SSLSocket or Socket. Looks up the destination in the
-     * mapping hashmap, key is the incoming socket address. Creates an outgoing
-     * socket (regular or SSL, depending on settings) and relays data between
-     * incoming and outgoing sockets. Closes the connection when either incoming
-     * or outgoing socket is closed, or when stop() is called.
-     *
-     * @author bela Dec 19, 2002
-     */
-    static class Connection implements Relayer.Listener {
-
-        Relayer in_to_out = null;
-        Relayer out_to_in = null;
-
-        /**
-         * Creates an outgoing (regular or SSL) socket according to the mapping
-         * table. Sets both input and output stream. Caller needs to call
-         * iniciar() after the instance has been created.
-         *
-         * @param in The Socket we got as result of accept()
-         * @throws Exception Thrown if either the input or output streams cannot
-         * be created.
-         */
-        public Connection(Socket in, Socket out, BanderaDetencion bandera) throws Exception {
-            in_to_out = new Relayer(in, out, "in-out", bandera);
-            in_to_out.addListener(this);
-            out_to_in = new Relayer(out, in, "out-in", bandera);
-            out_to_in.addListener(this);
-        }
-
-        /**
-         * Starts relaying between incoming and outgoing sockets. Returns
-         * immediately (thread is started).
-         *
-         */
-        public void start() {
-            in_to_out.start();
-            out_to_in.start();
-        }
-
-        public void stop() {
-            if (in_to_out != null) {
-                in_to_out.stop();
-            }
-            if (out_to_in != null) {
-                out_to_in.stop();
-            }
-        }
-
-        public void connectionClosed() {
-            stop();
         }
     }
 

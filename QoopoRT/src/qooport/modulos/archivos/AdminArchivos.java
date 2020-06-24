@@ -58,8 +58,30 @@ import qooport.utilidades.GuiUtil;
 import qooport.utilidades.Protocolo;
 import qooport.utilidades.Util;
 
-public class AdminArchivos extends JFrame
-        implements WindowListener {
+public class AdminArchivos extends JFrame implements WindowListener {
+
+    public static final int COPIAR = 1;
+    public static final int CORTAR = 2;
+
+    public static String guardarIcono(byte[] datos, String nombre) {
+        if (datos != null) {
+            File file = new File(nombre);
+            try {
+                file.delete();
+            } catch (Exception e) {
+            }
+            try {
+                file.createNewFile();
+                FileOutputStream fout = new FileOutputStream(file);
+                fout.write(datos);
+                fout.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return nombre;
+
+    }
 
     private JTabbedPane tab;
     public JToolBar barraLocalUnidad;
@@ -68,7 +90,7 @@ public class AdminArchivos extends JFrame
     public JToolBar barraRemotaRuta;
     public JToolBar barraLocalAcciones;
     public JToolBar barraRemotaAcciones;
-    public String sep = "/";
+    public final String sep = "/";
     public boolean conectado;
     private JButton btnActDrivesRemoto;
     private JButton btnListarRemoto;
@@ -148,8 +170,6 @@ public class AdminArchivos extends JFrame
     //usada para copiar y pegar (solo archivo no carpetas)
     private List<String> archivosACopiar = new ArrayList<>();
     private int tipoAccionPortapaleles;
-    public static final int COPIAR = 1;
-    public static final int CORTAR = 2;
 
     private final Accion accionListarLocal = new Accion() {
         @Override
@@ -389,9 +409,7 @@ public class AdminArchivos extends JFrame
                     if (t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                         String contenido = (String) t.getTransferData(DataFlavor.stringFlavor);
                         if (contenido.contains("CampoIcono{")) {
-                            //si es del tipo de mis tablas
                             String[] lista = contenido.split("\n");
-//                            System.out.println("tamanio lista=" + lista.length);
                             for (String st : lista) {
 //                                System.out.println("Valor:" + st);
                                 String[] campos = st.split("\t");
@@ -399,16 +417,13 @@ public class AdminArchivos extends JFrame
                                 int icar1 = campos[0].indexOf("=");
                                 String nombre = campos[0].substring(icar1 + 1, campos[0].length() - 1);
                                 rutaPosterior = (txtRutaRemota.getText() + sep + nombre);
-                                servidor.descargar(rutaPosterior, txtRutaLocal.getText());
+                                servidor.descargar(rutaPosterior, txtRutaLocal.getText(), Util.tamanioActualArchivoContinuar(new File(txtRutaLocal.getText(), nombre + ".par")));
                             }
                         } else {
                             System.out.println("es de tipo string pero no es de mi tipo");
                         }
                     }
-
-                } catch (UnsupportedFlavorException ex) {
-
-                } catch (IOException ex) {
+                } catch (Exception ex) {
 
                 }
 
@@ -422,7 +437,6 @@ public class AdminArchivos extends JFrame
         tablaLocal.setDragEnabled(true);//permite arrastrar desde aqui a otro lugar
         tablaLocal.setDropTarget(dropDescargar);//permite ser destino de un arrastre
         scrollTablaLocal.setDropTarget(dropDescargar);
-
 //        this.tablaLocal.getColumnModel().getColumn(0).setMinWidth(20);
 //        this.tablaLocal.getColumnModel().getColumn(0).setPreferredWidth(20);
 //        this.tablaLocal.getColumnModel().getColumn(0).setMaxWidth(20);
@@ -1071,7 +1085,7 @@ public class AdminArchivos extends JFrame
                     this.txtRutaLocal.setText("");
                 } else {
                     this.txtRutaLocal.setText(this.txtRutaLocal.getText().substring(0, this.txtRutaLocal.getText().lastIndexOf(this.sep)) + this.sep);
-                    
+
                 }
             }
         }
@@ -1341,7 +1355,8 @@ public class AdminArchivos extends JFrame
         for (int i = 0; i < selec.length; i++) {
             this.seleccionado = ((CampoIcono) this.tablaRemota.getValueAt(selec[i], 0)).getNombre();
             this.rutaPosterior = (this.txtRutaRemota.getText() + this.sep + this.seleccionado);
-            servidor.descargar(rutaPosterior, txtRutaLocal.getText());
+
+            servidor.descargar(rutaPosterior, txtRutaLocal.getText(), Util.tamanioActualArchivoContinuar(new File(txtRutaLocal.getText(), seleccionado + ".par")));
         }
     }
 
@@ -1350,7 +1365,7 @@ public class AdminArchivos extends JFrame
         for (int i = 0; i < selec.length; i++) {
             this.seleccionado = ((CampoIcono) this.tablaRemota.getValueAt(selec[i], 0)).getNombre();
             this.rutaPosterior = (this.txtRutaRemota.getText() + this.sep + this.seleccionado);
-            servidor.descargar(rutaPosterior, "");
+            servidor.descargar(rutaPosterior, "", Util.tamanioActualArchivoContinuar(new File("", seleccionado + ".par")));
         }
     }
 
@@ -1359,7 +1374,6 @@ public class AdminArchivos extends JFrame
         for (int i = 0; i < selec.length; i++) {
             this.seleccionado = ((CampoIcono) this.tablaResultados.getValueAt(selec[i], 0)).getNombre();
             this.rutaPosterior = (((String) this.tablaResultados.getValueAt(selec[i], 3)) + this.sep + this.seleccionado);
-
             CampoIcono cSeleccionado = ((CampoIcono) this.tablaResultados.getValueAt(selec[i], 0));
             String ruta = ((String) this.tablaResultados.getValueAt(selec[i], 3));
             this.seleccionado = cSeleccionado.getNombre();
@@ -1368,8 +1382,7 @@ public class AdminArchivos extends JFrame
             } else {
                 this.rutaPosterior = (ruta + this.sep + this.seleccionado);
             }
-            servidor.descargar(rutaPosterior, "");
-
+            servidor.descargar(rutaPosterior, "", Util.tamanioActualArchivoContinuar(new File("", seleccionado + ".par")));
         }
     }
 
@@ -1556,156 +1569,6 @@ public class AdminArchivos extends JFrame
         }
     }
 
-    static class CeldaTamanio extends DefaultTableCellRenderer {
-
-        public void setValue(Object value) {
-            if (value == null) {
-                setText("");
-            } else {
-                long peso = Long.valueOf(value.toString());
-                setText(Util.convertirBytes(peso));
-            }
-        }
-    }
-
-    static class CeldaIcono extends DefaultTableCellRenderer {
-
-        @Override
-        public void setValue(Object value) {
-            try {
-                CampoIcono campo = (CampoIcono) value;
-                if (campo == null) {
-                    setText("N/A");
-                } else {
-                    if (campo.getIcono() != null) {
-                        try {
-                            setIcon(new ImageIcon(new ImageIcon(campo.getIcono()).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
-                        } catch (Exception e) {
-                            setText("Error");
-                        }
-                    }
-                    setText(campo.getNombre());
-                }
-            } catch (Exception e) {
-                setText("ERROR:" + value.toString());
-            }
-        }
-    }
-
-    public static String guardarIcono(byte[] datos, String nombre) {
-        if (datos != null) {
-            File file = new File(nombre);
-            try {
-                file.delete();
-            } catch (Exception e) {
-            }
-            try {
-                file.createNewFile();
-                FileOutputStream fout = new FileOutputStream(file);
-                fout.write(datos);
-                fout.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return nombre;
-
-    }
-
-    public class ComboBoxRemotoRenderer extends JLabel
-            implements ListCellRenderer {
-
-        public ComboBoxRemotoRenderer() {
-            setOpaque(true);
-            setHorizontalAlignment(CENTER);
-            setVerticalAlignment(CENTER);
-        }
-
-        /*
-         * This method finds the image and text corresponding
-         * to the selected value and returns the label, set up
-         * to display the text and image.
-         */
-        @Override
-        public Component getListCellRendererComponent(
-                JList list,
-                Object value,
-                int index,
-                boolean isSelected,
-                boolean cellHasFocus) {
-            try {
-                int selectedIndex = ((Integer) value).intValue();
-                if (isSelected) {
-                    setBackground(list.getSelectionBackground());
-                    setForeground(list.getSelectionForeground());
-                } else {
-                    setBackground(list.getBackground());
-                    setForeground(list.getForeground());
-                }
-                //Set the icon and text.  If icon was null, say so.
-                ImageIcon icon = new ImageIcon(unidadesRemotas[selectedIndex].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-                String texto = unidadesRemotas[selectedIndex].getDescription();
-                setIcon(icon);
-                if (icon != null) {
-                    setText(texto);
-//                setFont(list.getFont());
-                } else {
-                    setText("");
-                }
-            } catch (Exception e) {
-//                e.printStackTrace();
-            }
-            return this;
-        }
-    }
-
-    public class ComboBoxLocalRenderer extends JLabel
-            implements ListCellRenderer {
-
-        public ComboBoxLocalRenderer() {
-            setOpaque(true);
-            setHorizontalAlignment(CENTER);
-            setVerticalAlignment(CENTER);
-        }
-
-        /*
-         * This method finds the image and text corresponding
-         * to the selected value and returns the label, set up
-         * to display the text and image.
-         */
-        @Override
-        public Component getListCellRendererComponent(
-                JList list,
-                Object value,
-                int index,
-                boolean isSelected,
-                boolean cellHasFocus) {
-            try {
-                int selectedIndex = ((Integer) value).intValue();
-                if (isSelected) {
-                    setBackground(list.getSelectionBackground());
-                    setForeground(list.getSelectionForeground());
-                } else {
-                    setBackground(list.getBackground());
-                    setForeground(list.getForeground());
-                }
-                //Set the icon and text.  If icon was null, say so.
-                ImageIcon icon = unidadesLocales[selectedIndex];
-                String texto = unidadesLocales[selectedIndex].getDescription();
-                setIcon(icon);
-                if (icon != null) {
-                    setText(texto);
-//                setFont(list.getFont());
-                } else {
-                    setText("");
-                }
-            } catch (Exception e) {
-//                e.printStackTrace();
-            }
-            return this;
-        }
-    }
-
     public ImageIcon[] getUnidades() {
         return unidadesRemotas;
     }
@@ -1765,6 +1628,136 @@ public class AdminArchivos extends JFrame
 
     @Override
     public void windowDeactivated(WindowEvent e) {
+    }
+
+    static class CeldaTamanio extends DefaultTableCellRenderer {
+
+        public void setValue(Object value) {
+            if (value == null) {
+                setText("");
+            } else {
+                long peso = Long.valueOf(value.toString());
+                setText(Util.convertirBytes(peso));
+            }
+        }
+    }
+
+    static class CeldaIcono extends DefaultTableCellRenderer {
+
+        @Override
+        public void setValue(Object value) {
+            try {
+                CampoIcono campo = (CampoIcono) value;
+                if (campo == null) {
+                    setText("N/A");
+                } else {
+                    if (campo.getIcono() != null) {
+                        try {
+                            setIcon(new ImageIcon(new ImageIcon(campo.getIcono()).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+                        } catch (Exception e) {
+                            setText("Error");
+                        }
+                    }
+                    setText(campo.getNombre());
+                }
+            } catch (Exception e) {
+                setText("ERROR:" + value.toString());
+            }
+        }
+    }
+
+    public class ComboBoxRemotoRenderer extends JLabel
+            implements ListCellRenderer {
+
+        public ComboBoxRemotoRenderer() {
+            setOpaque(true);
+            setHorizontalAlignment(CENTER);
+            setVerticalAlignment(CENTER);
+        }
+
+        /*
+        * This method finds the image and text corresponding
+        * to the selected value and returns the label, set up
+        * to display the text and image.
+         */
+        @Override
+        public Component getListCellRendererComponent(
+                JList list,
+                Object value,
+                int index,
+                boolean isSelected,
+                boolean cellHasFocus) {
+            try {
+                int selectedIndex = ((Integer) value).intValue();
+                if (isSelected) {
+                    setBackground(list.getSelectionBackground());
+                    setForeground(list.getSelectionForeground());
+                } else {
+                    setBackground(list.getBackground());
+                    setForeground(list.getForeground());
+                }
+                //Set the icon and text.  If icon was null, say so.
+                ImageIcon icon = new ImageIcon(unidadesRemotas[selectedIndex].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+                String texto = unidadesRemotas[selectedIndex].getDescription();
+                setIcon(icon);
+                if (icon != null) {
+                    setText(texto);
+//                setFont(list.getFont());
+                } else {
+                    setText("");
+                }
+            } catch (Exception e) {
+//                e.printStackTrace();
+            }
+            return this;
+        }
+    }
+
+    public class ComboBoxLocalRenderer extends JLabel
+            implements ListCellRenderer {
+
+        public ComboBoxLocalRenderer() {
+            setOpaque(true);
+            setHorizontalAlignment(CENTER);
+            setVerticalAlignment(CENTER);
+        }
+
+        /*
+        * This method finds the image and text corresponding
+        * to the selected value and returns the label, set up
+        * to display the text and image.
+         */
+        @Override
+        public Component getListCellRendererComponent(
+                JList list,
+                Object value,
+                int index,
+                boolean isSelected,
+                boolean cellHasFocus) {
+            try {
+                int selectedIndex = ((Integer) value).intValue();
+                if (isSelected) {
+                    setBackground(list.getSelectionBackground());
+                    setForeground(list.getSelectionForeground());
+                } else {
+                    setBackground(list.getBackground());
+                    setForeground(list.getForeground());
+                }
+                //Set the icon and text.  If icon was null, say so.
+                ImageIcon icon = unidadesLocales[selectedIndex];
+                String texto = unidadesLocales[selectedIndex].getDescription();
+                setIcon(icon);
+                if (icon != null) {
+                    setText(texto);
+//                setFont(list.getFont());
+                } else {
+                    setText("");
+                }
+            } catch (Exception e) {
+//                e.printStackTrace();
+            }
+            return this;
+        }
     }
 
 }

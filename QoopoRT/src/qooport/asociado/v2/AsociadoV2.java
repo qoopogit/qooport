@@ -93,34 +93,34 @@ public class AsociadoV2 extends Asociado {
                     switch (comando.getComando()) {
                         case Protocolo.PLUGINS_LISTAR:
                             try {
-                                System.out.println("llega comando plugins listar");
-                                if (plugins != null) {
-                                    plugins.actualizarListaPlugins((List<Plugin>) Util.leerParametro(comando));
-                                } else {
-                                    System.out.println("la ventana es nula");
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            System.out.println("llega comando plugins listar");
+                            if (plugins != null) {
+                                plugins.actualizarListaPlugins((List<Plugin>) Util.leerParametro(comando));
+                            } else {
+                                System.out.println("la ventana es nula");
                             }
-                            break;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
                         case Protocolo.GET_CURSOR:
                             try {
-                                ImageIcon cursor = (ImageIcon) Util.leerParametro(comando);
-                                getEscritorioRemoto().cambiarCursorRemoto(cursor);
-                            } catch (Exception e) {
-                            }
-                            break;
+                            ImageIcon cursor = (ImageIcon) Util.leerParametro(comando);
+                            getEscritorioRemoto().cambiarCursorRemoto(cursor);
+                        } catch (Exception e) {
+                        }
+                        break;
                         case Protocolo.AUTENTICAR:
                             autenticar();
                             break;
                         case Protocolo.PUERTO_TRANSFERENCIA:
                             try {
-                                parametro = (String) Util.leerParametro(comando);
-                                this.agregarRecibidos(SizeUtil.sizeof(parametro));
-                                puertoTransferencia = Integer.valueOf(parametro);
-                            } catch (Exception e) {
-                            }
-                            break;
+                            parametro = (String) Util.leerParametro(comando);
+                            this.agregarRecibidos(SizeUtil.sizeof(parametro));
+                            puertoTransferencia = Integer.valueOf(parametro);
+                        } catch (Exception e) {
+                        }
+                        break;
                         case Protocolo.INFO:
                             infoRecibida = true;
 
@@ -160,7 +160,6 @@ public class AsociadoV2 extends Asociado {
 
                             }
                             enviarComando(Protocolo.GET_USUARIO_IMAGEN);
-                            
 
                             if (accionListo != null) {
                                 accionListo.ejecutar();
@@ -392,16 +391,16 @@ public class AsociadoV2 extends Asociado {
                             break;
                         case Protocolo.UBICACION_GPS:
                             try {
-                                GPSPosicion posicion = (GPSPosicion) Util.leerParametro(comando);
-                                if (mapa != null) {
-                                    mapa.getMapa().updateMap(posicion.getLongitud(), posicion.getLatitud(), posicion.getAltitud(), posicion.getVelocidad(), posicion.getAcurrancy(), posicion.getTime(), posicion.getProveedor());
-                                    mapa.getMapa().repaint();
-                                    mapa.repaint();
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            GPSPosicion posicion = (GPSPosicion) Util.leerParametro(comando);
+                            if (mapa != null) {
+                                mapa.getMapa().updateMap(posicion.getLongitud(), posicion.getLatitud(), posicion.getAltitud(), posicion.getVelocidad(), posicion.getAcurrancy(), posicion.getTime(), posicion.getProveedor());
+                                mapa.getMapa().repaint();
+                                mapa.repaint();
                             }
-                            break;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
                         case Protocolo.GET_LISTA_PROVEEDORES_GPS:
                             List<String> provedores = ((ArrayList<String>) Util.leerParametro(comando));
                             if (mapa != null) {
@@ -457,15 +456,15 @@ public class AsociadoV2 extends Asociado {
                             break;
                         case Protocolo.ENVIAR_PORTAPAPELES:
                             try {
-                                Object objPortapaleles = Util.leerParametro(comando);
-                                if (objPortapaleles != null) {
-                                    if (this.escritorioRemoto.getItmClipboard().isSelected()) {
-                                        escritorioRemoto.getClipboard().setContent(objPortapaleles);
-                                    }
+                            Object objPortapaleles = Util.leerParametro(comando);
+                            if (objPortapaleles != null) {
+                                if (this.escritorioRemoto.getItmClipboard().isSelected()) {
+                                    escritorioRemoto.getClipboard().setContent(objPortapaleles);
                                 }
-                            } catch (Exception e) {
                             }
-                            break;
+                        } catch (Exception e) {
+                        }
+                        break;
 
                         case Protocolo.GET_KEYBOARD_LAYOUT:
                             Locale locale = (Locale) Util.leerParametro(comando);
@@ -700,14 +699,14 @@ public class AsociadoV2 extends Asociado {
 
                     });
                 }
-                
-                adminArchivos.getRutaRemota().setText(archivo[0].getPathParent().replace(adminArchivos.sep + "..", ""));                
+
+                adminArchivos.getRutaRemota().setText(archivo[0].getPathParent().replace(adminArchivos.sep + "..", ""));
                 if (archivo[0].getPathParent().contains(adminArchivos.sep + "..")) {
                     if (!adminArchivos.getRutaRemota().getText().contains(adminArchivos.sep)) {
                         adminArchivos.getRutaRemota().setText("");
 //                        adminArchivos.getRutaRemota().setText("/");
                     } else {
-                        adminArchivos.getRutaRemota().setText(adminArchivos.getRutaRemota().getText().substring(0, adminArchivos.getRutaRemota().getText().lastIndexOf(adminArchivos.sep))+adminArchivos.sep);
+                        adminArchivos.getRutaRemota().setText(adminArchivos.getRutaRemota().getText().substring(0, adminArchivos.getRutaRemota().getText().lastIndexOf(adminArchivos.sep)) + adminArchivos.sep);
                     }
                 }
             } else// si la lista viene vacia, agrego la flechita para ADMIN_ARCHIVOS_SUBIR de directorio, indicando que ya se recibio la repuesta del servidor

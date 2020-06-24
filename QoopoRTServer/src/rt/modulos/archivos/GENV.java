@@ -1,16 +1,16 @@
 package rt.modulos.archivos;
 
+import comunes.Interfaz;
 import java.io.File;
 import java.util.LinkedList;
-import comunes.Interfaz;
 import network.Conexion;
 import rt.util.CLRT;
 
 //gestor envio
 public class GENV extends Thread {
 
-    private long tam;
-    private long actual;
+//    private long tam;
+//    private long actual;
     private boolean ejecutar = false;
     private int actuales = 0;
     private final LinkedList<CDES> archivos = new LinkedList<CDES>();
@@ -82,14 +82,14 @@ public class GENV extends Thread {
                                         if (cola.getConexion() == null) {
                                             envArchiv.instanciar(servicio, cola.getArchivo(), cola.getRuta(), cola.getRutaOmitir(), cola.getOffset());
                                         } else {
-                                            envArchiv.instanciar(servicio, cola.getArchivo(), cola.getRuta(), cola.getRutaOmitir(),  cola.getOffset(),cola.getConexion(), cola.getBufferSize());
+                                            envArchiv.instanciar(servicio, cola.getArchivo(), cola.getRuta(), cola.getRutaOmitir(), cola.getOffset(), cola.getConexion(), cola.getBufferSize());
                                         }
                                         envArchiv.ejecutar(0);
                                     } catch (Exception ex) {
                                     }
                                 } else {
                                     for (File ff : f.listFiles()) {
-                                        agregarEnvio(ff.getAbsolutePath(), cola.getRuta(), cola.getRutaOmitir(),0L);
+                                        agregarEnvio(ff.getAbsolutePath(), cola.getRuta(), cola.getRutaOmitir(), 0L);
                                     }
                                 }
                             }
