@@ -33,7 +33,6 @@ public class ServiceLoader implements Interfaz {
                 command.append(currentJar.getPath()).append(" ");
                 command.append("--service");
                 jnaUtil = ((Interfaz) Class.forName("plugin.jna.JnaUtil").newInstance());
-//                UtilRT.escribirLog("server - Se va a instalar servicio [" + nombreServicio + "]   [" + command.toString() + "]");
                 jnaUtil.ejecutar(3, javaBin, command.toString(), nombreServicio);
                 return true;
             } catch (Exception ex) {
@@ -58,15 +57,12 @@ public class ServiceLoader implements Interfaz {
                 command.append(currentJar.getPath()).append(" ");
                 command.append("--background");
                 jnaUtil = ((Interfaz) Class.forName("plugin.jna.JnaUtil").newInstance());
-//                UtilRT.escribirLog("server- se a lanzar el background El comadno q lanzo de parametro es :[" + command.toString() + "]");
                 jnaUtil.ejecutar(2, command.toString());
                 return true;
             } catch (Exception ex) {
-//                UtilRT.escribirLog("ERROR AL LANZAR", ex);
                 jnaUtil = null;
                 return false;
             }
-
         }
         return false;
     }

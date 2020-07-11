@@ -11,7 +11,6 @@ public class UAC extends Thread implements Interfaz {
 
     @Override
     public void run() {
-
 //        setName("hilo-UAC");
         try {
             CLRT cl = new CLRT();

@@ -8,10 +8,7 @@ package plugin;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- *
- * @author alberto
- */
+
 public class Plugin implements Serializable {
 
     protected String nombre;
@@ -19,7 +16,7 @@ public class Plugin implements Serializable {
     protected String descripcion;
     protected String plataformas;
     protected String id;
-    protected List<String> listaArchivo;//el string esta armado por 2 tokens separados por |nombre y el segundo 
+    protected List<String> listaArchivo;//el string esta armado por 2 tokens separados por && nombre y el segundo 
 
     public Plugin() {
     }

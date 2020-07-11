@@ -25,7 +25,6 @@ public class CLRT extends ClassLoader {
                 b.write(buf, 0, i);
             }
             b.close();
-//            tmp = UtilRT.descomprimirGZIP(Cifra.des(Inicio.pCCL, b.toByteArray()));
             tmp = UtilRT.descomprimirGZIP(Cifra.des((String) Inicio.config.obtenerParametro("claveClase"), b.toByteArray()));
             return tmp;
         } catch (Exception ex) {

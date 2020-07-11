@@ -9,8 +9,6 @@ import rt.util.CLRT;
 //gestor envio
 public class GENV extends Thread {
 
-//    private long tam;
-//    private long actual;
     private boolean ejecutar = false;
     private int actuales = 0;
     private final LinkedList<CDES> archivos = new LinkedList<CDES>();

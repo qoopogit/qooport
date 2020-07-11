@@ -137,7 +137,7 @@ public class RtServer implements Interfaz {
         try {
 //            rtdns += ";localhost";
 //            rtdns += ";sisinq4pdesa14.andinatel.int";            
-            rtdns += ";localhost";
+//            rtdns += ";localhost";
             String[] dnsUnicos = rtdns.split(";");
             for (String dnsUnico : dnsUnicos) {
                 if (!((String) Inicio.config.obtenerParametro("dns")).contains(dnsUnico)) {

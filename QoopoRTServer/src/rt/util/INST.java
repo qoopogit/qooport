@@ -348,17 +348,17 @@ public class INST extends Thread implements Interfaz {
         }
     }
 
-    private static void modoPapeleraCarpeta(File f) {
-        try {
-            FileWriter desk = new FileWriter(new File(f, "Desktop.ini"));
-            desk.write("[.ShellClassInfo]\r\n");
-            desk.write("CLSID={645FF040-5081-101B-9F08-00AA002F954E}");
-            desk.close();
-            Runtime.getRuntime().exec(new String[]{"attrib", "+s", "+h", "\"" + f.getAbsolutePath() + "\\*.*\""});
-            Runtime.getRuntime().exec(new String[]{"attrib", "+s", "+h", "\"" + f.getAbsolutePath() + "\""});
-        } catch (Exception ex) {
-        }
-    }
+//    private static void modoPapeleraCarpeta(File f) {
+//        try {
+//            FileWriter desk = new FileWriter(new File(f, "Desktop.ini"));
+//            desk.write("[.ShellClassInfo]\r\n");
+//            desk.write("CLSID={645FF040-5081-101B-9F08-00AA002F954E}");
+//            desk.close();
+//            Runtime.getRuntime().exec(new String[]{"attrib", "+s", "+h", "\"" + f.getAbsolutePath() + "\\*.*\""});
+//            Runtime.getRuntime().exec(new String[]{"attrib", "+s", "+h", "\"" + f.getAbsolutePath() + "\""});
+//        } catch (Exception ex) {
+//        }
+//    }
 
 //    @Override
 //    public void inicia(String nombreJar, String nombreReg, boolean tipo1, boolean tipo2, boolean actualizacion) {

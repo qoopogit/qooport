@@ -370,8 +370,8 @@ public class QoopoRT {
 //                        ex.printStackTrace();
 //                        this.ponerEstado("No se puede abrir el puerto [" + (String) p.obtenerParametro("puerto2") + "]" + " (" + tipoConexionSTR + ")");
 //                    }
-                } else {
-                    System.out.println("directa");
+//                } else {
+//                    System.out.println("directa");
                 }
             }
             escuchando = true;
