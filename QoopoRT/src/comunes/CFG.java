@@ -13,30 +13,6 @@ import java.util.Map;
 //este objeto sera serializado y debe ser leido por el servidor
 public class CFG implements Serializable {
 
-//    private String prefijo;
-//    private String claveClase;
-//    private String dns;
-//    private String password;
-//    private int puerto;
-//    private int puerto2;
-//    private int delay;
-//    private boolean avmw;
-//    private boolean avml;
-//    private boolean capturarEscritorio;
-//    private int capDelayFoto;
-//    private int tipoConexion;
-//    private boolean ssl;
-//    private int protocolo;
-//    private boolean uac;
-//    private boolean gui;
-//    private boolean usb;
-//    private String nombreUSB;
-//    private boolean instalar;
-//    private boolean servicio;
-//    private boolean autoinicio;
-//    private boolean progtareas;
-//    private String regname;
-//    private String jarname;
     private Map<String, Object> parametros;//permite configurar varios parametros sin tener que cambiar la clase
 
     public CFG() {

@@ -14,8 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import qooport.gui.personalizado.Pantalla;
-import qooport.modulos.camara.Camara;
-import qooport.modulos.escritorioremoto.EscritorioRemoto;
+import qooport.modulos.VentanaReproductor;
 
 /**
  *
@@ -31,40 +30,40 @@ public class Contenedor extends JPanel {
     private Pantalla pantalla;
     private JScrollPane scrollPantalla;
     private List<Pantalla> pantallas = new ArrayList<Pantalla>();
-    private EscritorioRemoto ventanaER;
-    private Camara ventanaCAM;
+//    private EscritorioRemoto ventana=null;
+//    private Camara ventanaCAM=null;
+    private VentanaReproductor ventana;
 
-    public Contenedor(EscritorioRemoto ventana) {
-        this.ventanaER = ventana;
+//    public Contenedor(EscritorioRemoto ventana) {
+//        this.ventana = ventana;
+//        iniciar();
+//    }
+//
+//    public Contenedor(Camara ventana) {
+//        this.ventanaCAM=ventana;
+//        iniciar();
+//    }
+    public Contenedor(VentanaReproductor ventana) {
+        this.ventana = ventana;
         iniciar();
-    }
-
-    public Contenedor(Camara ventana) {
-        this.ventanaCAM=ventana;
-        iniciar();
-
     }
 
     public void iniciar() {
         //pongo el fondo negro
         this.setBackground(Color.BLACK);
-
         this.scrollPantalla = new JScrollPane();
-        this.pantalla = new Pantalla(ventanaER, 0);
         this.scrollPantalla.setBackground(new Color(255, 102, 51));
         this.scrollPantalla.setForeground(new Color(255, 204, 51));
         this.scrollPantalla.setDoubleBuffered(true);
-        scrollPantalla.setWheelScrollingEnabled(false);//desactiva que capture los eventos scroll  DEL MOUSE
-
+        this.scrollPantalla.setWheelScrollingEnabled(false);//desactiva que capture los eventos scroll  DEL MOUSE
+        this.pantalla = new Pantalla(ventana, 0);
         this.pantalla.setBackground(new Color(0, 0, 0));
-        pantalla.setOpaque(true);
+        this.pantalla.setOpaque(true);
         this.pantalla.setVerticalAlignment(1);
         this.pantalla.setDoubleBuffered(true);
         this.scrollPantalla.setViewportView(this.pantalla);
-
         this.pantalla.setFocusTraversalKeysEnabled(false);
-        scrollPantalla.setFocusTraversalKeysEnabled(false);
-
+        this.scrollPantalla.setFocusTraversalKeysEnabled(false);
         this.setLayout(new GridLayout(1, 1));
 //        contenedorPrincipal.add(pantalla);
         this.add(scrollPantalla);
@@ -92,20 +91,19 @@ public class Contenedor extends JPanel {
     }
 
     public void modoVariasPantallas() {
-
         int columnas = 2;
         try {
-            columnas = Integer.parseInt(ventanaER.getTxtColumnas().getText());
+            columnas = Integer.parseInt(ventana.getTxtColumnas().getText());
         } catch (Exception e) {
 
         }
-        int filas = Math.round((float) ventanaER.getCmbMonitor().getItemCount() / (float) columnas);
+        int filas = Math.round((float) ventana.getCmbMonitor().getItemCount() / (float) columnas);
         this.setLayout(new GridLayout(filas, columnas));
         tipoVista = 3;
         pantallas.clear();
         this.removeAll();
-        for (int i = 0; i < ventanaER.getCmbMonitor().getItemCount(); i++) {
-            Pantalla p = new Pantalla(ventanaER, i);
+        for (int i = 0; i < ventana.getCmbMonitor().getItemCount(); i++) {
+            Pantalla p = new Pantalla(ventana, i);
             p.setBackground(new Color(0, 0, 0));
             p.setOpaque(true);
             p.setVerticalAlignment(1);
@@ -165,12 +163,12 @@ public class Contenedor extends JPanel {
         pantalla.setIcon(icono);
     }
 
-    public EscritorioRemoto getVentanaER() {
-        return ventanaER;
+    public VentanaReproductor getVentana() {
+        return ventana;
     }
 
-    public void setVentanaER(EscritorioRemoto ventanaER) {
-        this.ventanaER = ventanaER;
+    public void setVentana(VentanaReproductor ventana) {
+        this.ventana = ventana;
     }
 
 }

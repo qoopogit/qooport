@@ -55,7 +55,7 @@ public class AsociadoV1 extends Asociado {
     private void enviarComando(int i) {
         try {
             conexion.escribirInt(i);
-            conexion.flush();
+//            conexion.flush();
             this.agregarEnviados(SizeUtil.sizeof(i));
         } catch (Exception ex) {
         }
@@ -93,7 +93,7 @@ public class AsociadoV1 extends Asociado {
     private void enviarObjeto(Object objeto) {
         try {
             conexion.escribirObjeto(objeto);
-            conexion.flush();
+//            conexion.flush();
             this.agregarEnviados(SizeUtil.sizeof(objeto));
         } catch (Exception ex) {
         }
@@ -759,9 +759,9 @@ public class AsociadoV1 extends Asociado {
                 Conexion conexNueva = new Conexion(this.getHost(), this.getPuertoTransferencia(), this.getConexion().getTipo());
                 System.out.println("conexion realizada voy a enviar comando");
                 conexNueva.escribirInt(Protocolo.ESCRITORIO_REMOTO);
-                conexNueva.flush();
+//                conexNueva.flush();
                 conexNueva.escribirObjeto(opciones);
-                conexNueva.flush();
+//                conexNueva.flush();
                 if (er == null) {
                     er = new EscritorioRemoto(conexNueva, this);
                     er.setVisible(true);

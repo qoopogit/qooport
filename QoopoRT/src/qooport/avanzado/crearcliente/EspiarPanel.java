@@ -149,11 +149,9 @@ public class EspiarPanel extends javax.swing.JPanel {
             .addGroup(pnlPantallaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(delayCapturaPantalla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlPantallaLayout.createSequentialGroup()
-                        .addComponent(capturaOfflinePantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 205, Short.MAX_VALUE))
-                    .addComponent(lblDelayCaptura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(delayCapturaPantalla, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                    .addComponent(lblDelayCaptura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(capturaOfflinePantalla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlPantallaLayout.setVerticalGroup(
@@ -165,7 +163,7 @@ public class EspiarPanel extends javax.swing.JPanel {
                 .addComponent(lblDelayCaptura)
                 .addGap(18, 18, 18)
                 .addComponent(delayCapturaPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Pantalla", pnlPantalla);
@@ -183,11 +181,9 @@ public class EspiarPanel extends javax.swing.JPanel {
             .addGroup(pnlCamaraLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCamaraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(delayCapturaWebCam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlCamaraLayout.createSequentialGroup()
-                        .addComponent(capturaOfflineWebCam, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 205, Short.MAX_VALUE))
-                    .addComponent(lblDelayCapWC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(delayCapturaWebCam, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                    .addComponent(lblDelayCapWC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(capturaOfflineWebCam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlCamaraLayout.setVerticalGroup(
@@ -199,7 +195,7 @@ public class EspiarPanel extends javax.swing.JPanel {
                 .addComponent(lblDelayCapWC)
                 .addGap(18, 18, 18)
                 .addComponent(delayCapturaWebCam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cámara", pnlCamara);
@@ -217,11 +213,9 @@ public class EspiarPanel extends javax.swing.JPanel {
             .addGroup(pnlMicrofonoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlMicrofonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(delayCapturaAudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlMicrofonoLayout.createSequentialGroup()
-                        .addComponent(capturaOfflineAudio, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 205, Short.MAX_VALUE))
-                    .addComponent(lblDelayAudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(delayCapturaAudio, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                    .addComponent(lblDelayAudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(capturaOfflineAudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlMicrofonoLayout.setVerticalGroup(
@@ -233,7 +227,7 @@ public class EspiarPanel extends javax.swing.JPanel {
                 .addComponent(lblDelayAudio)
                 .addGap(18, 18, 18)
                 .addComponent(delayCapturaAudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Micrófono", pnlMicrofono);
@@ -246,8 +240,8 @@ public class EspiarPanel extends javax.swing.JPanel {
             pnlKeyloggerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlKeyloggerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(capturaOfflineKeylogger, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addComponent(capturaOfflineKeylogger, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnlKeyloggerLayout.setVerticalGroup(
             pnlKeyloggerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

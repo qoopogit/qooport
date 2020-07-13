@@ -93,12 +93,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="delayCapturaPantalla" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="capturaOfflinePantalla" min="-2" pref="283" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="205" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="delayCapturaPantalla" pref="498" max="32767" attributes="0"/>
                           <Component id="lblDelayCaptura" max="32767" attributes="0"/>
+                          <Component id="capturaOfflinePantalla" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -113,7 +110,7 @@
                       <Component id="lblDelayCaptura" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="delayCapturaPantalla" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="111" max="32767" attributes="0"/>
+                      <EmptySpace pref="113" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -151,12 +148,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="delayCapturaWebCam" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="capturaOfflineWebCam" min="-2" pref="283" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="205" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="delayCapturaWebCam" alignment="0" pref="498" max="32767" attributes="0"/>
                           <Component id="lblDelayCapWC" max="32767" attributes="0"/>
+                          <Component id="capturaOfflineWebCam" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -171,7 +165,7 @@
                       <Component id="lblDelayCapWC" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="delayCapturaWebCam" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="111" max="32767" attributes="0"/>
+                      <EmptySpace pref="113" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -209,12 +203,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="delayCapturaAudio" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="capturaOfflineAudio" min="-2" pref="283" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="205" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="delayCapturaAudio" alignment="0" pref="498" max="32767" attributes="0"/>
                           <Component id="lblDelayAudio" max="32767" attributes="0"/>
+                          <Component id="capturaOfflineAudio" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -229,7 +220,7 @@
                       <Component id="lblDelayAudio" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="delayCapturaAudio" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="111" max="32767" attributes="0"/>
+                      <EmptySpace pref="113" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -266,8 +257,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="capturaOfflineKeylogger" min="-2" pref="283" max="-2" attributes="0"/>
-                      <EmptySpace pref="221" max="32767" attributes="0"/>
+                      <Component id="capturaOfflineKeylogger" pref="498" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

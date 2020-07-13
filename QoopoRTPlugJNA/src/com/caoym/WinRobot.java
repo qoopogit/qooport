@@ -13,8 +13,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class WinRobot
-        extends Robot {
+public class WinRobot extends Robot {
 
     public static final int CURSOR_APPSTARTIN = 0;
     public static final int CURSOR_ARROW = 1;

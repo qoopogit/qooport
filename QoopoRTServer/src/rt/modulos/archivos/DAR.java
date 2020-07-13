@@ -44,29 +44,22 @@ public class DAR extends Thread implements Interfaz {
                     break;
             }
         } catch (Exception e) {
-//            e.printStackTrace();
         }
     }
 
-//    private boolean estaDetenido() {
-//        return isInterrupted();
-//    }
     private void iniciar() {
         start();
     }
 
     @Override
     public void run() {
-//        setName("hilo-DAR");
         try {
             if ((Boolean) servicio.get(5)) {//conexion inversa
                 conexion = new Conexion((String) servicio.get(2), (Integer) servicio.get(4), (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
                 bufferSize = conexion.getReceiveBufferSize();
                 conexion.escribirInt(Protocolo.ADMIN_ARCHIVOS_SUBIR);
-                conexion.flush();
             }
             conexion.escribirObjeto(UtilRT.texto(archivoaRecibir + ":::" + Inicio.i));
-            conexion.flush();
             String nombre = UtilRT.leerCadena((byte[]) conexion.leerObjeto());
             String nombreTmp = nombre + ".par";
             File carpeta;

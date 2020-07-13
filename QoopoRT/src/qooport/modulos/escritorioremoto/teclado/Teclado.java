@@ -58,19 +58,19 @@ public class Teclado {
         return InputContext.getInstance().getLocale();
     }
 
-    public static void main(String args[]) {
-
-        Teclado t = new Teclado();
-
-        System.out.println("Locale actual");
-        System.out.println(t.getMetodoActual().toString());
-
-        System.out.println("");
-        System.out.println("Disponibles");
-        System.out.println("--------------------");
-
-        for (Locale local : t.listarConfiguraciones()) {
-            System.out.println(local.toString());
-        }
-    }
+//    public static void main(String args[]) {
+//
+//        Teclado t = new Teclado();
+//
+//        System.out.println("Locale actual");
+//        System.out.println(t.getMetodoActual().toString());
+//
+//        System.out.println("");
+//        System.out.println("Disponibles");
+//        System.out.println("--------------------");
+//
+//        for (Locale local : t.listarConfiguraciones()) {
+//            System.out.println(local.toString());
+//        }
+//    }
 }

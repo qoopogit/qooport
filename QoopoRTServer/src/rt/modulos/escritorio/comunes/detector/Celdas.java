@@ -9,15 +9,20 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import rt.Inicio;
 import rt.util.IMG;
 import rt.util.UtilRT;
 
+/**
+ * Clase que se encarga de dividir la pantalla en bloques/celdas y detectar
+ * cuando existan cambios de imagen en las mismas.
+ *
+ * @author alberto
+ */
 public class Celdas extends DetectorCambios {
 
     private static final int ALGORITMO = 2;
     private static final int TIPO_COMPARACION = 2;//tipo comparacion . 1 con el hashcode, 2 con el ArraysEquals.
-    
+
     // mapa de hashcode de los bloques capturados, usada para detectar los cambios
     //se neceista mantener el valor de los bloques porq tienen los datos q indican si son o no copias
     private final Map<String, PantallaBloque> capturaPrevia = new HashMap();
@@ -31,8 +36,6 @@ public class Celdas extends DetectorCambios {
     private List<PantallaBloque> pantalla;
     //esta variable tiene una funcion parecida a la anterior y se declara en este lugar por las mismas razones
     private List<PantallaBloque> lista;
-
-    
 
     public Celdas() {
 
@@ -74,8 +77,8 @@ public class Celdas extends DetectorCambios {
     @Override
     public List<PantallaBloque> procesarCambios(BufferedImage imagen) {
         switch (ALGORITMO) {
-            case 1:
-                return ordenar(procesarCambio_v1(imagen));
+//            case 1:
+//                return ordenar(procesarCambio_v1(imagen));
             case 2:
                 return ordenar(procesarCambio_v2(imagen));
         }
@@ -91,7 +94,7 @@ public class Celdas extends DetectorCambios {
      */
     private List<PantallaBloque> procesarCambio_v2(BufferedImage imagen) {
         //divide toda la pantalla en bloques
-        pantalla = dividirPantalla(imagen);
+        pantalla = dividirImagen(imagen);
         lista = new ArrayList<PantallaBloque>();
 
         PantallaBloque previo = null;
@@ -102,7 +105,7 @@ public class Celdas extends DetectorCambios {
         }
         //el problema del metodo de buscar en la anterior captura es que puede estar tomando no de la captura anterior sino de la actual,
         // por eso se crea un buffer temporal donde se va colocando las celdas de la captura actual
-        Map<String, PantallaBloque> capturaPreviaTMP = new HashMap(); //usada para uso temporal
+        Map<String, PantallaBloque> capturaPreviaTMP = new HashMap();
         //calcula los bloques que cambiaron
         for (PantallaBloque bloque : pantalla) {
             try {
@@ -156,7 +159,7 @@ public class Celdas extends DetectorCambios {
 //                    imagen.getType(),
 //                    opciones.isConvertirJpg());
 //
-//            ImageIO.write(bi, "jpg", new File("F:/salida.jpg"));
+//            ImageIO.write(bi, "jpg", new File("~/salida.jpg"));
 //        } catch (Exception ex) {
 ////            ex.printStackTrace();
 //        }
@@ -213,7 +216,7 @@ public class Celdas extends DetectorCambios {
      * @param imagen
      * @return
      */
-    private List<PantallaBloque> dividirPantalla(BufferedImage imagen) {
+    private List<PantallaBloque> dividirImagen(BufferedImage imagen) {
         pantalla = new ArrayList<PantallaBloque>();
         int anchoCelda = opciones.getAnchoBloque();
         int altoCelda = opciones.getAltoBloque();
@@ -304,94 +307,93 @@ public class Celdas extends DetectorCambios {
     }
 
     //------------------------------------------------------------------------------------------------------------------------------
-    /**
-     * Divide la pantalla en bloques y va comparando cada bloque si cambio. Solo
-     * mantiene en memoria los bloques que cambiaron
-     *
-     * @param imagen
-     * @return
-     */
-    private List<PantallaBloque> procesarCambio_v1(BufferedImage imagen) {
-        List<PantallaBloque> lstTemp = new ArrayList<PantallaBloque>();
-        long tInicio = System.currentTimeMillis();
-        try {
-            //estos valores pueden cambiar dependiendo de ciertas condiciones
-            int anchoCelda = opciones.getAnchoBloque();
-            int altoCelda = opciones.getAltoBloque();
-
-            porDiferencia = 0;
-            //si cambia de tamaño, limpio el buffer
-            if (anchoAnterior != imagen.getWidth() || altoAnterior != imagen.getHeight()) {
-                capturaPrevia.clear();
-            }
-            anchoCelda = (anchoCelda <= 0) ? imagen.getWidth() : anchoCelda;
-            altoCelda = (altoCelda <= 0) ? imagen.getHeight() : altoCelda;
-
-            int columnas = imagen.getWidth() / anchoCelda;
-            int filas = imagen.getHeight() / altoCelda;
-            int iX, iY, anchoB, altoB;
-
-            //el problema del metodo de buscar en la anterior captura es que puede estar tomando no de la captura anteiro sino de la actual,
-            // por eso se crea un buffer temporal donde se va colocando las celdas de la captura actual
-            Map<String, PantallaBloque> capturaPreviaTMP = new HashMap(); //usada para uso temporal
-
-            PantallaBloque bloque;
-
-            PantallaBloque previo;
-            for (int px = 0; px <= columnas; px++) {
-                for (int py = 0; py <= filas; py++) {
-                    iX = anchoCelda * px;
-                    iY = altoCelda * py;
-                    anchoB = Math.min(anchoCelda, imagen.getWidth() - iX);
-                    altoB = Math.min(altoCelda, imagen.getHeight() - iY);
-                    if (anchoB > 0 && altoB >= 0) {
-                        try {
-                            bloque = getSubImagen(imagen, iX, iY, anchoB, altoB);
-                            bloque.setChecksum(generaChecksum(bloque, opciones.getTipoDatos()));
-                            previo = capturaPrevia.get(bloque.getNombre());
-                            //if (previo == null || previo.getChecksum() != bloque.getChecksum()) {
-                            if (!(previo != null && previo.getChecksum() == bloque.getChecksum())) {
-                                if (opciones.isValidarRepetidos()) {
-                                    bloque = buscarRepetido(bloque);
-                                    if (bloque.getNombreCopia() == null || bloque.getNombreCopia().isEmpty()) {
-                                        //se verifica si los datos del bloque no estan repetidos en un anterior bloque, de la captura actual
-                                        bloque = buscarRepetido(bloque, lstTemp);
-                                    }
-                                }
-                                lstTemp.add(bloque);
-                                porDiferencia++;
-                                capturaPreviaTMP.put(bloque.getNombre(), bloque.limpiar());//actualiza criterio
-                            }
-                        } catch (Exception e) {
-                        } finally {
-                            bloque = null;
-                        }
-                    }
-                }
-            }
-
-            //actualiza el buffer anterior
-            try {
-                for (Map.Entry<String, PantallaBloque> entry : capturaPreviaTMP.entrySet()) {
-                    capturaPrevia.put(entry.getKey(), entry.getValue());
-                }
-            } catch (Exception ex) {
-            }
-            porDiferencia = (porDiferencia * 100) / (columnas * filas);
-            anchoAnterior = imagen.getWidth();
-            altoAnterior = imagen.getHeight();
-            capturaPreviaTMP.clear();
-            capturaPreviaTMP = null;
-        } catch (Exception e) {
-//            e.printStackTrace();
-        }
-        long tFin = System.currentTimeMillis();
-        if (Inicio.DEBUG) {
-            System.out.println("Tiempo cambios celdas=" + (tFin - tInicio) + "ms");
-        }
-        return lstTemp;
-    }
-
+//    /**
+//     * Divide la pantalla en bloques y va comparando cada bloque si cambio. Solo
+//     * mantiene en memoria los bloques que cambiaron
+//     *
+//     * @param imagen
+//     * @return
+//     */
+//    private List<PantallaBloque> procesarCambio_v1(BufferedImage imagen) {
+//        List<PantallaBloque> lstTemp = new ArrayList<PantallaBloque>();
+//        long tInicio = System.currentTimeMillis();
+//        try {
+//            //estos valores pueden cambiar dependiendo de ciertas condiciones
+//            int anchoCelda = opciones.getAnchoBloque();
+//            int altoCelda = opciones.getAltoBloque();
+//
+//            porDiferencia = 0;
+//            //si cambia de tamaño, limpio el buffer
+//            if (anchoAnterior != imagen.getWidth() || altoAnterior != imagen.getHeight()) {
+//                capturaPrevia.clear();
+//            }
+//            anchoCelda = (anchoCelda <= 0) ? imagen.getWidth() : anchoCelda;
+//            altoCelda = (altoCelda <= 0) ? imagen.getHeight() : altoCelda;
+//
+//            int columnas = imagen.getWidth() / anchoCelda;
+//            int filas = imagen.getHeight() / altoCelda;
+//            int iX, iY, anchoB, altoB;
+//
+//            //el problema del metodo de buscar en la anterior captura es que puede estar tomando no de la captura anteiro sino de la actual,
+//            // por eso se crea un buffer temporal donde se va colocando las celdas de la captura actual
+//            Map<String, PantallaBloque> capturaPreviaTMP = new HashMap(); 
+//
+//            PantallaBloque bloque;
+//
+//            PantallaBloque previo;
+//            for (int px = 0; px <= columnas; px++) {
+//                for (int py = 0; py <= filas; py++) {
+//                    iX = anchoCelda * px;
+//                    iY = altoCelda * py;
+//                    anchoB = Math.min(anchoCelda, imagen.getWidth() - iX);
+//                    altoB = Math.min(altoCelda, imagen.getHeight() - iY);
+//                    if (anchoB > 0 && altoB >= 0) {
+//                        try {
+//                            bloque = getSubImagen(imagen, iX, iY, anchoB, altoB);
+//                            bloque.setChecksum(generaChecksum(bloque, opciones.getTipoDatos()));
+//                            previo = capturaPrevia.get(bloque.getNombre());
+//                            //if (previo == null || previo.getChecksum() != bloque.getChecksum()) {
+//                            if (!(previo != null && previo.getChecksum() == bloque.getChecksum())) {
+//                                if (opciones.isValidarRepetidos()) {
+//                                    bloque = buscarRepetido(bloque);
+//                                    if (bloque.getNombreCopia() == null || bloque.getNombreCopia().isEmpty()) {
+//                                        //se verifica si los datos del bloque no estan repetidos en un anterior bloque, de la captura actual
+//                                        bloque = buscarRepetido(bloque, lstTemp);
+//                                    }
+//                                }
+//                                lstTemp.add(bloque);
+//                                porDiferencia++;
+//                                capturaPreviaTMP.put(bloque.getNombre(), bloque.limpiar());//actualiza criterio
+//                            }
+//                        } catch (Exception e) {
+//                        } finally {
+//                            bloque = null;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            //actualiza el buffer anterior
+//            try {
+//                for (Map.Entry<String, PantallaBloque> entry : capturaPreviaTMP.entrySet()) {
+//                    capturaPrevia.put(entry.getKey(), entry.getValue());
+//                }
+//            } catch (Exception ex) {
+//            }
+//            porDiferencia = (porDiferencia * 100) / (columnas * filas);
+//            anchoAnterior = imagen.getWidth();
+//            altoAnterior = imagen.getHeight();
+//            capturaPreviaTMP.clear();
+//            capturaPreviaTMP = null;
+//        } catch (Exception e) {
+////            e.printStackTrace();
+//        }
+//        long tFin = System.currentTimeMillis();
+//        if (Inicio.DEBUG) {
+//            System.out.println("Tiempo cambios celdas=" + (tFin - tInicio) + "ms");
+//        }
+//        return lstTemp;
+//    }
     /**
      * Construye un bloque
      *

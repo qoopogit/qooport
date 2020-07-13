@@ -1,6 +1,5 @@
 package qooport.modulos.escritorioremoto;
 
-import qooport.modulos.reproductor.Contenedor;
 import comunes.CapturaOpciones;
 import comunes.Evento;
 import java.awt.BorderLayout;
@@ -43,14 +42,16 @@ import javax.swing.event.ChangeListener;
 import network.Conexion;
 import qooport.asociado.Asociado;
 import qooport.gui.personalizado.BarraEstado;
-import qooport.modulos.reproductor.Reproductor;
+import qooport.modulos.VentanaReproductor;
 import qooport.modulos.escritorioremoto.teclado.Teclado;
+import qooport.modulos.reproductor.Contenedor;
+import qooport.modulos.reproductor.Reproductor;
 import qooport.utilidades.ClipboardUtility;
 import qooport.utilidades.GuiUtil;
 import qooport.utilidades.Util;
 import qooport.utilidades.contador.ContadorBPS;
 
-public class EscritorioRemoto extends JFrame
+public class EscritorioRemoto extends VentanaReproductor
         implements
         KeyListener,
         WindowListener {
@@ -86,17 +87,8 @@ public class EscritorioRemoto extends JFrame
      * colores, 5.- 24 bits, 6. 32 bits
      */
     private int tipoColor = 6;
-    //public static final int COLOR_BN = 1;
-    public static final int COLOR_GRIS = 2;
-    public static final int COLOR_8_BITS = 3;
-    public static final int COLOR_16_BITS = 4;
-    public static final int COLOR_24_BITS = 5;
-    public static final int COLOR_32_BITS = 6;
+
     private int ESCALA = 3;//3 perfecto
-    public static final int ESCALA_ORIGINAL = 0;
-    public static final int ESCALA_PORCENTUAL = 1;
-    public static final int ESCALA_VENTANA = 2;
-    public static final int ESCALA_PERFECTO = 3;
 
     /**
      * 1.- Envio completo, 2.- Envio parcial, 3.- Captura por bloques, 4.-
@@ -1845,7 +1837,6 @@ public class EscritorioRemoto extends JFrame
         this.itmAjustarVentana.setVisible(true);
         //this.itmAjustarVentana.setSelected(true);//ajusta la ventana al tamaño de la imagen
         try {
-
             if (tipoAlgoritmo == CAPTURA_ALGORITMO_V3) {
                 reproductor.modoVariasPantallas();
             } else {
@@ -2885,6 +2876,21 @@ public class EscritorioRemoto extends JFrame
             listaEventos = new ArrayList<Evento>();
         }
         return _eventos;
+    }
+
+    @Override
+    public Boolean isEscalarRemoto() {
+        return getItmEscalarRemoto().isSelected();
+    }
+
+    @Override
+    public Boolean isAjustarVentana() {
+        return getItmAjustarVentana().isSelected();
+    }
+
+    @Override
+    public Boolean isEscalarSuave() {
+        return getItmEscalarSuave().isSelected();
     }
 
     class DespachadorEventos extends Thread {

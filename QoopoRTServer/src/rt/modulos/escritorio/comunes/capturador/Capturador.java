@@ -13,7 +13,7 @@ import comunes.Interfaz;
 import rt.modulos.escritorio.comunes.capturador.robot.DirectRobot;
 
 /**
- *
+ * Clase que se encarga de realizar las capturas de pantalla
  * @author aigarcia
  */
 public abstract class Capturador implements Serializable {

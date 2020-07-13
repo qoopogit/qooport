@@ -3,20 +3,29 @@ package rt.modulos.escritorio.V1;
 import comunes.Accion;
 import comunes.Captura;
 import comunes.CapturaOpciones;
+import comunes.Interfaz;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import network.Conexion;
 import rt.Inicio;
-import static rt.Inicio.DEBUG;
-import comunes.Interfaz;
 import rt.modulos.escritorio.comunes.BufferCaptura;
 import rt.util.CLRT;
 import rt.util.HiloAccion;
 import rt.util.Protocolo;
 import rt.util.UtilRT;
 
-//escritorio remoto
+/**
+ * Escritorio Remoto V1. Esta clase se encarga de realizar las cpaturas de
+ * pantalla y enviar las capturas. Tiene 3 algoritmos de transmision. -- 1. El
+ * mas simple de todos. Primero realiza la captura y luego envia esa captura. --
+ * 2. Se crean 2 hilos paralelos donde un hilo se encarga de realizar capturas
+ * de la pantalla y el otro se encarga de enviar esas capturas. -- 3. Se crean
+ * hilos paralelos donde cada uno realiza el algoritmo 1, osea priemro captura y
+ * luego envia esa captura
+ *
+ * @author alberto
+ */
 public class ER extends Thread implements Interfaz {
 
     private Interfaz pantalla;
@@ -56,7 +65,6 @@ public class ER extends Thread implements Interfaz {
             activo = false;
             UtilRT.dormir(300);
             try {
-//                BufferPantalla.limpiar();
                 BufferCaptura.limpiar((String) servicio.get(10));
                 pantalla.ejecutar(1);//detener
                 conexion.cerrar();
@@ -78,18 +86,18 @@ public class ER extends Thread implements Interfaz {
 //        setName("hilo-ER-V1");
         try {
             if ((Boolean) servicio.get(5)) {
-                conexion = new Conexion((String) servicio.get(2), (Integer) servicio.get(4),(Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
+                conexion = new Conexion((String) servicio.get(2), (Integer) servicio.get(4), (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
                 conexion.escribirInt(Protocolo.ESCRITORIO_REMOTO);
-                conexion.flush();
                 conexion.escribirObjeto(UtilRT.texto(Inicio.i));
-                conexion.flush();
             }
             //limpia el buffer capturado previamente , en caso de haber detenido y volver a lanzar la captura
-//            BufferPantalla.limpiar();
             BufferCaptura.limpiar((String) servicio.get(10));
+            BufferCaptura.iniciarParametros((String) servicio.get(10), 1);//solo tengo una captura en el buffer hasta q lelgue el parametro de buffers a usar
+            pantalla.set(0, servicio);
+            pantalla.ejecutar(0);
             switch (((CapturaOpciones) pantalla.get(3)).getTipoHilos()) {
                 case 0:
-                    bucleNormal();
+                    bucleSimple();
                     break;
                 case 1:
                     BufferCaptura.iniciarParametros((String) servicio.get(10), LIMITE_CAPTURAS);//limite de capturas en el buffer
@@ -105,7 +113,6 @@ public class ER extends Thread implements Interfaz {
             } catch (Exception e) {
             }
         } finally {
-//            BufferPantalla.limpiar();
             BufferCaptura.limpiar((String) servicio.get(10));
             try {
                 conexion.cerrar();
@@ -114,10 +121,8 @@ public class ER extends Thread implements Interfaz {
         }
     }
 
-    private void bucleNormal() {
+    private void bucleSimple() {
         while (activo) {
-            //RobotPantalla.robo.getScreenshot(recuadro.x, recuadro.y, recuadro.width, recuadro.height);
-            //conexion.escribirObjeto(RobotPantalla.robo.getColorImageBuffer());
             enviar((Captura) pantalla.get(1));
             UtilRT.dormir(10); //limite de 100 fps asumiendo que el metodo anterior no demorara nada, lo q no es cierto
         }
@@ -165,7 +170,7 @@ public class ER extends Thread implements Interfaz {
     }
 
     /**
-     * Se crean hilos paralelso donde van capturando y enviando
+     * Se crean hilos paralelos donde van capturando y enviando
      */
     private void bucleTransimisionHilos2() {
         //capturas y envio simultaneos
@@ -197,30 +202,11 @@ public class ER extends Thread implements Interfaz {
         lst.clear();
         lst = null;
 
-        /*
-
-        //anterior version
-        while (activo) {
-            if (ejecutando < LIMITE_HILOS) {
-                new Thread(new Runnable() {
-                    public void run() {
-                        ejecutando++;
-                        enviar(pantalla.obtenerCaptura());
-                        ejecutando--;
-                    }
-                }
-                ).start();
-            }
-            UtilRT.dormir(10); // espera por cada validacion de numero de hilos ejecutandose
-        }
-         */
     }
 
     private void enviarCursor() {
         if (((CapturaOpciones) pantalla.get(3)).isEnviarCursor()) {
             ImageIcon cursor = (ImageIcon) pantalla.get(5);
-//            Double px = pantalla.getCursorPosicion().getX();
-//            Double py = pantalla.getCursorPosicion().getY();
             //envia la imagen del cursor solo cuando ha cambiado
             if (cursor != null && cursor.hashCode() != hashCursor) {
                 servicio.ejecutar(3, Protocolo.GET_CURSOR, cursor);
@@ -245,17 +231,13 @@ public class ER extends Thread implements Interfaz {
             } else {
                 conexion.escribirObjeto(UtilRT.convertirBytes(captura));
             }
-            conexion.flush();
+//            conexion.flush();
         } catch (Exception e) {
         }
 
         long tFin = System.currentTimeMillis();
         tEnvio = (tFin - tInicio);
-        if (DEBUG) {
-            System.out.println("Tiempo envio captura " + (tFin - tInicio) + "ms");
-        }
         enviarCursor();
-        //System.out.println("Tiempo Envio:" + tEnvio + "ms");
     }
 
     private Conexion getConexion() {
@@ -308,14 +290,12 @@ public class ER extends Thread implements Interfaz {
                 detener();
                 break;
             case 2:
-//                pantalla.ejecutar(5,(Float) parametros[0], (Float) parametros[1], (Integer) parametros[2], (Integer) parametros[3], (Integer) parametros[4]);
                 pantalla.ejecutar(5, parametros);
                 break;
             case 3:
                 actualizarPantalla();
                 break;
             case 4:
-                //pantalla.ejecutar(4,(Integer) parametros[0], (Integer) parametros[1]);
                 pantalla.ejecutar(4, parametros);
                 break;
             case 5:

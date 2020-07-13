@@ -22,6 +22,7 @@ import qooport.utilidades.SerializarUtil;
 import qooport.utilidades.Util;
 
 /**
+ * Se encarga de reproducir las capturas de Escritorio Remoto
  *
  * @author aigarcia
  */
@@ -337,7 +338,7 @@ public class Reproductor {
 //                    System.out.println("total copias:" + tc);
 //                    System.out.println("total copias Anterior:" + tcA);
 //                    System.out.println("total=" + (tn + tc + tcA));
-            
+
             actualizarPantalla(captura.getPantalla());
 
             if (grabar) {
@@ -380,15 +381,12 @@ public class Reproductor {
                 capturaPrevia.put(captura.getPantalla(), new HashMap<String, PantallaBloque>());
             }
 
-//            System.out.println("-----------------------------------------------------------------------------------");
-//            PantallaBloque celda;
             boolean mandarActualizarPantalla = false;
 
             for (PantallaBloque celda : captura.getBloques()) {
                 try {
                     //si el bloque ya existe en la anterior captura
                     if (celda.getNombreCopia() != null && !celda.getNombreCopia().isEmpty()) {
-//                        System.out.println("debe ir inicio (obligatorio)");
                         //la anterior captura contiene la supuesta copia
                         if (capturaPrevia.get(captura.getPantalla()).containsKey(celda.getNombreCopia())) {
                             PantallaBloque bloque2 = capturaPrevia.get(captura.getPantalla()).get(celda.getNombreCopia());
@@ -404,7 +402,6 @@ public class Reproductor {
                     } else {
                         //si es una copia de la captura actual
                         if (celda.getCopia() != -1) {
-
                             PantallaBloque bloque2 = captura.getBloques().get(celda.getCopia());
                             //tomamos los datos de la anterior captura
                             celda.setDatos(bloque2.getDatos());
@@ -464,23 +461,20 @@ public class Reproductor {
 
             //se pide al cliente que actualice toda la pantalla
             if (mandarActualizarPantalla) {
-                contenedor.getVentanaER().getServidor().actualizarPantalla();
+                contenedor.getVentana().getServidor().actualizarPantalla();
             }
 
 //                    System.out.println("total nuevos:" + tn);
 //                    System.out.println("total copias:" + tc);
 //                    System.out.println("total copias Anterior:" + tcA);
 //                    System.out.println("total=" + (tn + tc + tcA));
-            if (grabar) {                
+            if (grabar) {
                 grabarJPG(captura.getPantalla()); //graba archivos jpg por separado
                 grabarDAT(captura.getPantalla());//graba el archivo .dat
             }
-
             actualizarPantalla(captura.getPantalla());
-
         } catch (Exception ex) {
             ex.printStackTrace();
-
         }
 //            }
 //        }).start();

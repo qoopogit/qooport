@@ -3,7 +3,7 @@ package rt.modulos.escritorio.comunes;
 import comunes.Captura;
 import comunes.CapturaOpciones;
 import comunes.Evento;
-
+import comunes.Interfaz;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.MouseInfo;
@@ -16,14 +16,12 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.List;
 import javax.swing.KeyStroke;
-import static rt.Inicio.DEBUG;
-import comunes.Interfaz;
 import rt.modulos.escritorio.comunes.capturador.CapturaDirectRobot;
 import rt.modulos.escritorio.comunes.capturador.CapturaJNAFirnass;
-import rt.modulos.escritorio.comunes.capturador.CapturaPrintScreen;
-import rt.modulos.escritorio.comunes.capturador.CapturaRobot;
 import rt.modulos.escritorio.comunes.capturador.CapturaJNAWinAPI;
 import rt.modulos.escritorio.comunes.capturador.CapturaJNAWinRobot;
+import rt.modulos.escritorio.comunes.capturador.CapturaPrintScreen;
+import rt.modulos.escritorio.comunes.capturador.CapturaRobot;
 import rt.modulos.escritorio.comunes.capturador.Capturador;
 import rt.modulos.escritorio.comunes.capturador.robot.DirectRobot;
 import rt.modulos.escritorio.comunes.detector.Celdas;
@@ -58,7 +56,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
     private long tCaptura = 0;// tiempo q toma capturar imagen
     private long tProcesoCambios = 0;// tiempo q toma procesar imagen y armar objeto captura
     private boolean monitorConfigurado = false;//indica si ya se configuro el monitor
-    private BufferedImage imageEscritorio = null;//variable donde se almacena la imagen que fue tomada
+    private BufferedImage imagen = null;//variable donde se almacena la imagen que fue tomada
     private Captura captura = null;//variable donde se almacena la captura que se realiza
 
     //parametros iniciales
@@ -165,7 +163,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
             recuadro = null;
             cursor = null;
             servicio = null;
-            imageEscritorio = null;
+            imagen = null;
             captura = null;
             interrupt();
         } catch (Exception e) {
@@ -310,39 +308,24 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
     private void capturarIMG() {
         long tInicio = System.currentTimeMillis();
         ajustarParametros();//ajusta parametros automaticamente
-        imageEscritorio = null;
+        imagen = null;
         try {
-            long tInicio3 = System.currentTimeMillis();
-            imageEscritorio = capturador.capturar(recuadro);
-            long tFin3 = System.currentTimeMillis();
-            if (DEBUG) {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Tiempo captura imagen " + (tFin3 - tInicio3) + "ms");
-            }
-
-            if (imageEscritorio != null) {
-                imageEscritorio.setAccelerationPriority(1.0F);
-                pintarCursor(imageEscritorio);
+            imagen = capturador.capturar(recuadro);
+            if (imagen != null) {
+                imagen.setAccelerationPriority(1.0F);
+                pintarCursor(imagen);
                 //imageEscritorio = pintarCursor(imageEscritorio);
-                long tInicio2 = System.currentTimeMillis();
-                imageEscritorio = procesarImagen(imageEscritorio);
-                long tFin2 = System.currentTimeMillis();
-                if (DEBUG) {
-                    System.out.println("Tiempo procesar imagen " + (tFin2 - tInicio2) + "ms");
-                }
+                imagen = procesarImagen(imagen);
             }
         } catch (OutOfMemoryError ex) {
-//            ex.printStackTrace();
-            imageEscritorio = null;
+            imagen = null;
             UtilRT.gc();
 
         } catch (Exception ex) {
-//            ex.printStackTrace();
-            imageEscritorio = null;
+            imagen = null;
         }
         long tFin = System.currentTimeMillis();
-        tCaptura = (tFin - tInicio);
-        //return imageEscritorio;
+        tCaptura = (tFin - tInicio);       
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -356,9 +339,9 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
      */
     private void procesarCambios() {
         long tInicio = System.currentTimeMillis();
-        captura = armarCaptura(imageEscritorio);
+        captura = armarCaptura(imagen);
         try {
-            captura.setBloques(detector.procesarCambios(imageEscritorio));
+            captura.setBloques(detector.procesarCambios(imagen));
         } catch (Exception e) {
 //            e.printStackTrace();
         }
@@ -375,7 +358,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
     //                                              CONSTRUIR LA CAPTURA
     //--------------------------------------------------------------------------------------------------------------------------------------------------------
     private Captura armarCaptura(BufferedImage imagen) {
-        long tInicio = System.currentTimeMillis();
+//        long tInicio = System.currentTimeMillis();
 //        if (captura == null) {
         //captura = new Captura();
         captura = UtilRT.capturaLimpia;
@@ -422,10 +405,10 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
         } catch (Exception e) {
 //            e.printStackTrace();
         }
-        long tFin = System.currentTimeMillis();
-        if (DEBUG) {
-            System.out.println("Tiempo cabecera=" + (tFin - tInicio) + "ms");
-        }
+//        long tFin = System.currentTimeMillis();
+//        if (DEBUG) {
+//            System.out.println("Tiempo cabecera=" + (tFin - tInicio) + "ms");
+//        }
         return captura;
     }
 
@@ -565,21 +548,21 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
                 break;
             case 3://tecla presionadoa, viene el keychar y no e keycode
                 try {
-                    char c = (char) tecla;
+                char c = (char) tecla;
 //                    System.out.println("llega keychar " + c);
 
-                    KeyStroke ks = KeyStroke.getKeyStroke(c);
-                    if (opciones.getOrigenCaptura() == 3) {
-                        directRobot.keyPress(ks.getKeyCode());
-                        directRobot.keyRelease(ks.getKeyCode());
-                    } else {
-                        robot.keyPress(ks.getKeyCode());
-                        robot.keyRelease(ks.getKeyCode());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                KeyStroke ks = KeyStroke.getKeyStroke(c);
+                if (opciones.getOrigenCaptura() == 3) {
+                    directRobot.keyPress(ks.getKeyCode());
+                    directRobot.keyRelease(ks.getKeyCode());
+                } else {
+                    robot.keyPress(ks.getKeyCode());
+                    robot.keyRelease(ks.getKeyCode());
                 }
-                break;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            break;
         }
     }
 

@@ -1,7 +1,6 @@
 package rt.modulos.escritorio.comunes;
 
 import comunes.Captura;
-import rt.Inicio;
 import comunes.Interfaz;
 import network.Conexion;
 import rt.util.UtilRT;
@@ -36,13 +35,9 @@ public class Envio extends Thread implements Interfaz {
 
     @Override
     public void run() {
-//        this.setName("hilo-Envio-" + UtilRT.getHiloId());
         while (activo) {
             try {
-//                BufferCaptura.getCaptura(idServicio);//tomo la captura sin enviar para propositos de analisis
-                Captura cap = BufferCaptura.getCaptura(idServicio);
-                enviar(cap);
-                cap = null;
+                enviar(BufferCaptura.getCaptura(idServicio));
                 UtilRT.dormir(5);// disminuye el uso de cpu, tamben pone límite de 100 fps
             } catch (OutOfMemoryError e) {
                 UtilRT.gc();
@@ -68,40 +63,20 @@ public class Envio extends Thread implements Interfaz {
             } else {
                 conexion.escribirObjeto(UtilRT.convertirBytes(captura));//sin compresion
             }
-            conexion.flush();
         } catch (Exception e) {
         }
         long tFin = System.currentTimeMillis();
         tEnvio = (tFin - tInicio);
-        if (Inicio.DEBUG) {
-            System.out.println("Tiempo envio captura " + (tFin - tInicio) + "ms");
-        }
         captura = null;
-    }
-
-    private Conexion getConexion() {
-        return conexion;
-    }
-
-    private void setConexion(Conexion conexion) {
-        this.conexion = conexion;
-    }
-
-    public Interfaz getEscritorioRemoto() {
-        return escritorioRemoto;
-    }
-
-    public void setEscritorioRemoto(Interfaz escritorioRemoto) {
-        this.escritorioRemoto = escritorioRemoto;
     }
 
     public void set(int opcion, Object valor) {
         switch (opcion) {
             case 0:
-                setConexion((Conexion) valor);
+                this.conexion = (Conexion) valor;
                 break;
             case 7:
-                setEscritorioRemoto((Interfaz) valor);
+                this.escritorioRemoto = (Interfaz) valor;
                 break;
             case 1:
                 idServicio = (String) valor;
@@ -115,11 +90,9 @@ public class Envio extends Thread implements Interfaz {
     public Object get(int opcion, Object... parametros) {
         switch (opcion) {
             case 0:
-                return getConexion();
-
+                return this.conexion;
             case 7:
                 return escritorioRemoto;
-
             case 1:
                 return idServicio;
             case 2:

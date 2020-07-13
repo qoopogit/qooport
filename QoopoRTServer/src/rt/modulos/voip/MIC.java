@@ -26,9 +26,6 @@ public class MIC extends Thread implements Interfaz {
         this.servicio = (Interfaz) parametros[0];
     }
 
-//    private boolean estaDetenido() {
-//        return isInterrupted();
-//    }
     private void iniciar() {
         start();
     }
@@ -52,7 +49,6 @@ public class MIC extends Thread implements Interfaz {
 
 //            bufferSize = (int) format.getSampleRate() * format.getFrameSize();
             bufferSize = (int) (format.getSampleRate() * format.getFrameSize()) / 8;// se demora la mitad de tiempo en tomar wl AUDIO y enviarlo
-//            System.out.println("buffersize=" + bufferSize);
             activo = true;
             line = (TargetDataLine) AudioSystem.getLine(info);
             line.open(format);
@@ -73,17 +69,11 @@ public class MIC extends Thread implements Interfaz {
 
     @Override
     public void run() {
-
-//        setName("hilo-MIC");
         Conexion conexion = null;
         try {
-
-//            System.out.println("conectando a "+(String) servicio.get(2)+" "+(Integer) servicio.get(4));
             conexion = new Conexion((String) servicio.get(2), (Integer) servicio.get(4), (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
             conexion.escribirInt(Protocolo.AUDIO);
-            conexion.flush();
             conexion.escribirObjeto(UtilRT.texto(Inicio.i));
-            conexion.flush();
             byte buffer[];
             int c = 0;
             while (activo) {
@@ -92,7 +82,6 @@ public class MIC extends Thread implements Interfaz {
                     c = line.read(buffer, 0, buffer.length);
                     if (c > 0) {
                         conexion.escribirObjeto(buffer);
-                        conexion.flush();
                     }
                 } catch (Exception ex) {
                     activo = false;

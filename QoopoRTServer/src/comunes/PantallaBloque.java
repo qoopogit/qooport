@@ -1,7 +1,11 @@
 package comunes;
 
 import java.io.Serializable;
-
+/**
+ * Clase que representa una celda o bloque de la pantalla. 
+ * Para la captura de pantalla se divide la pantalla en bloques y se realiza un senso de estas divisiones para detectar si hay cambios. Cuando hay un cambio, se envia solo las celdas cambiadas.
+ * @author alberto
+ */
 public class PantallaBloque implements Serializable {
 
     private String nombre;
@@ -11,9 +15,9 @@ public class PantallaBloque implements Serializable {
     private int tipo;//1 byte, 2 int
     // si es -1 no es copia de otro rectangulo sino q contiene datos, 
     //si es diferente de -1 este numero indica que ya existe una celda con el mismo valor en la posicion dada
-    private int copia=-1;
+    private int copia = -1;
     //si el bloque es el mismo de un bloque de la captura anterior
-    private String nombreCopia=null;
+    private String nombreCopia = null;
     private long checksum;
 
     public PantallaBloque() {

@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import qooport.modulos.escritorioremoto.EscritorioRemoto;
+import qooport.modulos.VentanaReproductor;
 import static qooport.modulos.escritorioremoto.EscritorioRemoto.ESCALA_PERFECTO;
 import static qooport.modulos.escritorioremoto.EscritorioRemoto.ESCALA_VENTANA;
 import qooport.utilidades.ImagenEscritorio;
@@ -25,12 +25,12 @@ public class Pantalla extends JLabel implements
         MouseMotionListener,
         MouseWheelListener {
 
-    private EscritorioRemoto ventana;
+    private VentanaReproductor ventana;
     private BufferedImage imagen;
     private int pantallaID;
     private int cx = 0, cy = 0;
 
-    public Pantalla(final EscritorioRemoto ventana, int pantallaID) {
+    public Pantalla(final VentanaReproductor ventana, int pantallaID) {
         this.ventana = ventana;
         this.addMouseListener(this);
         this.addKeyListener(this);
@@ -119,11 +119,11 @@ public class Pantalla extends JLabel implements
     }
 
     private void ajustarPerfecto() {
-        if (ventana.getItmEscalarRemoto().isSelected()) {
+        if (ventana.isEscalarRemoto()) {
             //si fue escalado remotamente solo ajustamos la ventana
             ajustarVentanaAimagen();
         } else {
-            ImagenEscritorio tmp = QoopoIMG.ajustarEscritorio(imagen, ventana.getItmEscalarSuave().isSelected(), this.getWidth(), this.getHeight());
+            ImagenEscritorio tmp = QoopoIMG.ajustarEscritorio(imagen, ventana.isEscalarSuave(), this.getWidth(), this.getHeight());
             imagen = tmp.getImagen();
             cx = tmp.getCx();
             cy = tmp.getCy();
@@ -141,7 +141,7 @@ public class Pantalla extends JLabel implements
             cx = 0;
             cy = 0;
             Icon icono = null;
-            if (ventana.getItmAjustarVentana().isSelected()) {
+            if (ventana.isAjustarVentana()) {
                 //ajustar ventana al tamaño de la imagen
                 ajustarVentanaAimagen();
             } else {
@@ -150,7 +150,7 @@ public class Pantalla extends JLabel implements
                     switch (ventana.getESCALA()) {
                         case ESCALA_VENTANA:
                             //escala la imagen al tamaño de la ventana
-                            icono = new ImageIcon(QoopoIMG.escalar(imagen, 2, 0, ventana.getItmEscalarSuave().isSelected(), this.getWidth(), this.getHeight()));
+                            icono = new ImageIcon(QoopoIMG.escalar(imagen, 2, 0, ventana.isEscalarSuave(), this.getWidth(), this.getHeight()));
                             this.setIcon(icono);
                             break;
                         case ESCALA_PERFECTO:

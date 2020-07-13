@@ -38,10 +38,8 @@ public class SAR extends Thread implements Interfaz {
                 offset = 0L;
             }
             if (parametros.length > 5) {
-                //if (parametros.length > 4) {
                 this.conexion = (Conexion) parametros[5];
                 this.bufferSize = (Integer) parametros[6];
-//            } else {
             }
         } catch (Exception e) {
 
@@ -59,14 +57,12 @@ public class SAR extends Thread implements Interfaz {
 //    boolean versionNueva = true;
     @Override
     public void run() {
-//        setName("hilo-SAR");
         try {
             //Paso 0. si es conexion inversa realizar la conexión al puerto de transferencias
             if ((Boolean) servicio.get(5)) {//conexion inversa
                 conexion = new Conexion((String) servicio.get(2), (Integer) servicio.get(4), (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
                 bufferSize = conexion.getSendBufferSize();
                 conexion.escribirInt(Protocolo.ADMIN_ARCHIVOS_DESCARGAR);
-                conexion.flush();
             }
 
             //seteo ruta padre
@@ -81,8 +77,6 @@ public class SAR extends Thread implements Interfaz {
             rutaAomitir = rutaAomitir.replaceAll(Pattern.quote("\\"), "/");
             String parent = archivo.getParent();
             parent = parent.replaceAll(Pattern.quote("\\"), "/");
-//--------------------------------
-//            if (versionNueva) {
             CFG config = new CFG();
             config.agregarParametro("id", Inicio.i);
             config.agregarParametro("icono", UtilRT.sacarIcono(archivo));
@@ -97,37 +91,6 @@ public class SAR extends Thread implements Interfaz {
             config.agregarParametro("offset", offset);
             config.agregarParametro("original", archivo.getAbsolutePath());
             conexion.escribirObjeto(config);
-            conexion.flush();
-//            } else {
-//                //Paso 1 Enviar el identificador del servidor
-//                conexion.escribirObjeto(UtilRT.texto(Inicio.i));
-//                conexion.flush();
-//                //Paso 2 Enviar el icono del archivo a enviar
-//                try {
-//                    conexion.escribirObjeto(UtilRT.comprimirGZIP(UtilRT.sacarIcono(archivo)));
-//                    conexion.flush();
-//                } catch (Exception e) {
-//                    conexion.escribirObjeto(null);
-//                    conexion.flush();
-//                }
-//                //------------------
-//                //Paso 3 Enviar la ruta de la carpeta donde se ubicara el archivo
-//
-//                if (!rutaDestinoCliente.isEmpty() && !rutaAomitir.isEmpty()) {
-//                    conexion.escribirObjeto(UtilRT.texto(rutaDestinoCliente + ";" + parent.substring(parent.indexOf(rutaAomitir) + rutaAomitir.length())));
-//                } else {
-//                    conexion.escribirObjeto(UtilRT.texto(rutaDestinoCliente + ";" + parent));
-//                }
-//                conexion.flush();
-//                //----------------------
-//                //Paso 4 se envia nombre del archivo
-//                conexion.escribirObjeto(UtilRT.texto(archivo.getName()));
-//                conexion.flush();
-//                //Paso 5 se envia largo del archivo
-//                conexion.escribirLong(archivo.length());
-//                conexion.flush();
-//            }
-
             //paso 6 Preparar envio de archivo
             FileInputStream input = new FileInputStream(archivo);
             byte[] buf = new byte[bufferSize];

@@ -14,10 +14,6 @@ import java.util.List;
 import comunes.Interfaz;
 import rt.util.CLRT;
 
-/**
- *
- * @author alberto
- */
 public class GestorPantalla {
 
     private List<Interfaz> pantallas = new ArrayList<Interfaz>();

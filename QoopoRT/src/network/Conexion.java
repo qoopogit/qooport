@@ -148,7 +148,7 @@ public class Conexion {
         }
     }
 
-    public Object leerObjeto() throws IOException, ClassNotFoundException {
+    public Object leerObjeto() throws IOException, ClassNotFoundException, Exception {
         switch (tipo) {
             case 1://tcp
                 return entradaStream.readObject();
@@ -202,6 +202,7 @@ public class Conexion {
                 udpSocket.escribirObjeto(objeto);
                 break;
         }
+        flush();
     }
 
     public void escribirInt(int valor) throws IOException {
@@ -213,6 +214,7 @@ public class Conexion {
                 udpSocket.escribirInt(valor);
                 break;
         }
+        flush();
     }
 
     public void escribirLong(Long valor) throws IOException {
@@ -224,6 +226,7 @@ public class Conexion {
                 udpSocket.escribirLong(valor);
                 break;
         }
+        flush();
     }
 
     public void escribirUTF(String valor) throws IOException {
@@ -235,6 +238,7 @@ public class Conexion {
                 udpSocket.escribirString(valor);
                 break;
         }
+        flush();
     }
 
     public void reset() throws IOException {

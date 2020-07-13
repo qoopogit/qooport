@@ -407,7 +407,7 @@ public class Servicio extends Thread implements Interfaz {
     //suado para el comando de inicio de UDP
     public void enviarComandoInt(int i) throws Exception {
         conexion.escribirInt(i);
-        conexion.flush();
+//        conexion.flush();
     }
 
     public synchronized void enviarComando(int i, Object... cmd) {
@@ -417,7 +417,7 @@ public class Servicio extends Thread implements Interfaz {
     private void enviarObjeto(Object objeto) {
         try {
             conexion.escribirObjeto(objeto);
-            conexion.flush();
+//            conexion.flush();
         } catch (Exception ex) {
         }
     }

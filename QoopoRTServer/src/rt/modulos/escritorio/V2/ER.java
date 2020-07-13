@@ -1,17 +1,24 @@
 package rt.modulos.escritorio.V2;
 
 import comunes.CapturaOpciones;
+import comunes.Interfaz;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 import network.Conexion;
 import rt.Inicio;
-import comunes.Interfaz;
 import rt.modulos.escritorio.comunes.BufferCaptura;
 import rt.util.CLRT;
 import rt.util.Protocolo;
 import rt.util.UtilRT;
 
-//escritorio remoto v2
+/**
+ * Escritorio Remoto V2. Esta clase se encarga de realizar la captura de
+ * pantalla y de enviar las cpaturas en hilso separados. Un hilo se encarga de
+ * ir capturando los cambios de la pantalla, y otro hilo se encarga de ir
+ * enviando esas capturas
+ *
+ * @author alberto
+ */
 public class ER extends Thread implements Interfaz, Serializable {
 
     private Interfaz servicio;
@@ -67,21 +74,17 @@ public class ER extends Thread implements Interfaz, Serializable {
     }
 
     private void actualizarPantalla() {
-//        BufferPantalla.limpiar();
         BufferCaptura.limpiar((String) servicio.get(10));
         pantalla.ejecutar(2);
     }
 
     @Override
     public void run() {
-//        setName("hilo-ER-V2");
         try {
             if ((Boolean) servicio.get(5)) {
                 conexion = new Conexion((String) servicio.get(2), (Integer) servicio.get(4), (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
                 conexion.escribirInt(Protocolo.ESCRITORIO_REMOTO);
-                conexion.flush();
                 conexion.escribirObjeto(UtilRT.texto(Inicio.i));
-                conexion.flush();
             }
             //limpia el buffer capturado previamente , en caso de haber detenido y volver a lanzar la captura
             BufferCaptura.limpiar((String) servicio.get(10));

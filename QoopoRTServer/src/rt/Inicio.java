@@ -16,9 +16,9 @@ import rt.util.UtilRT;
 public class Inicio {
 
     public static CFG config;
-    public final static boolean DEBUG = false;
+//    public final static boolean DEBUG = false;
     public static Interfaz in;//instalador
-    public static String v = "1.5.0";//version
+    public static String v = "1.5.1";//version
     public static String i = "";//identificador
     public static String pCCON = "LAOSUISNPASD12378ASDLGASDHGAKD"; //password del archivo de configuracion
     private static File f;

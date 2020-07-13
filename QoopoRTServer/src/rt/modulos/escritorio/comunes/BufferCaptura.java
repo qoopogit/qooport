@@ -9,8 +9,7 @@ public class BufferCaptura {
 
     public static int saltadas = 0;
     private static final Map<String, Integer> LIMITES_CAPTURAS = new HashMap<String, Integer>();
-    private static final Map<String, LinkedList<Captura>> BUFFER = new HashMap<String, LinkedList<Captura>>();//buffer usado en el tipo de transmision rapida 1
-    //private static final LinkedList<Captura> BUFFER = new LinkedList<Captura>();//buffer usado en el tipo de transmision rapida 1
+    private static final Map<String, LinkedList<Captura>> BUFFER = new HashMap<String, LinkedList<Captura>>();
 
     public static void iniciarParametros(String idCliente, int limiteBuffer) {
         try {

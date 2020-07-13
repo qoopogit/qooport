@@ -15,10 +15,6 @@ public class RecibirEscritorio extends Thread {
     private EscritorioRemoto ventana;
     private boolean pidiendo;
 
-    // Buffer de la captura. Se utiliza para n enviar bloques que se mantienen, por ejemplo cuano se mueve una ventana
-    //es un mapa, donde la clave es el numero del monitor, el valor es otro mapa
-    //donde la clave es la ubicacion de la celda y el valor la celda misma
-//    private final Map<Integer, Map<String, PantallaBloque>> capturaPrevia = new HashMap();
     public RecibirEscritorio() {
 
     }
@@ -44,16 +40,12 @@ public class RecibirEscritorio extends Thread {
         this.pidiendo = pidiendo;
     }
 
-//    public void limpiarBuffers() {
-//        capturaPrevia.clear();
-//    }
     @Override
     public void run() {
         Captura cap;
-        byte[] buf;
+        byte[] buffer;
         while (pidiendo) {
             try {
-                //if (pidiendo && conexion != null) {
                 if (conexion != null) {
                     if (ventana.getServidor().isAndroid()) {
                         ventana.setTitle("Pantalla Remota [" + ventana.getServidor().getInformacion() + "]");
@@ -62,15 +54,15 @@ public class RecibirEscritorio extends Thread {
                         ventana.setTitle("Escritorio Remoto [" + ventana.getServidor().getInformacion() + "]");
                     }
                     try {
-                        buf = (byte[]) conexion.leerObjeto();
+                        buffer = (byte[]) conexion.leerObjeto();
                         if (ventana.getItmComprimir().isSelected()) {
-                            cap = (Captura) Util.descomprimirObjeto(buf, ventana.getServidor());//con compresion
+                            cap = (Captura) Util.descomprimirObjeto(buffer, ventana.getServidor());//con compresion
                         } else {
-                            cap = (Captura) SerializarUtil.leerObjeto(buf); //sin compresion
-                            ventana.getServidor().agregarRecibidos(buf.length);//agregamos los bytes recibidos, en el metodo descomprmir ya se agregan
+                            cap = (Captura) SerializarUtil.leerObjeto(buffer); //sin compresion
+                            ventana.getServidor().agregarRecibidos(buffer.length);//agregamos los bytes recibidos, en el metodo descomprmir ya se agregan
                         }
                         ventana.getReproductor().reproducir(cap);
-                        actualizarContadores(cap, buf.length);
+                        actualizarContadores(cap, buffer.length);
                         ventana.barraInferior.setEstado("Conectado");
                     } catch (ClassCastException e) {
                         ventana.barraInferior.setEstado("Esta versión no es compatible");
@@ -89,7 +81,7 @@ public class RecibirEscritorio extends Thread {
                     }
                 }
                 cap = null;
-                buf = null;
+                buffer = null;
                 dormir();
             } catch (Exception ex) {
 //                Util.escribirLog("Recibir Escritorio", ex);
@@ -130,7 +122,6 @@ public class RecibirEscritorio extends Thread {
             @Override
             public void run() {
                 try {
-
                     ventana.getContadorFps().agregar(1);
                     ventana.getContadorBps().agregar(largoBuffer);
                     ventana.getContadorTCaptura().resetear();
@@ -157,15 +148,12 @@ public class RecibirEscritorio extends Thread {
                     ventana.getContadorB().agregar(largoBuffer);
                     ventana.getContadorSaltadas().resetear();
                     ventana.getContadorSaltadas().agregar(cap.getSaltadas());
-
                     ventana.getContadorCeldasRC().resetear();
                     ventana.getContadorCeldasRC().agregar(ventana.getReproductor().getTC());
                     ventana.getContadorCeldasRepetidas().resetear();
                     ventana.getContadorCeldasRepetidas().agregar(ventana.getReproductor().getTCA());
-
                     ventana.getContadorCeldasNuevas().resetear();
                     ventana.getContadorCeldasNuevas().agregar(ventana.getReproductor().getTN());
-
                 } catch (Exception ex) {
                 }
             }

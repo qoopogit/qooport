@@ -86,7 +86,6 @@ public class Descarga extends Transferencia {
                 conexion = new Conexion(asociado.getHostConexion(), asociado.getPuertoTransferencia(), ConexionServer.TCP);
                 this.bufferSize = conexion.getReceiveBufferSize();
                 conexion.escribirObjeto(Util.comprimirObjeto(Asociado.crearComando(Protocolo.ADMIN_ARCHIVOS_DESCARGAR, 2, new String[]{archivoAdescargar, rutaADescargar})));
-                conexion.flush();
             }
         } catch (Exception e) {
 
