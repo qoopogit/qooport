@@ -115,5 +115,6 @@ public class Protocolo {
     public final static int ADMIN_ARCHIVOS_COPIAR = 107;
     public final static int PLUGINS_LISTAR = 108;
     public final static int COMANDO_SHELL_CHAR = 109;
+    public final static int FIN_ARCHIVO = 110;
 
 }

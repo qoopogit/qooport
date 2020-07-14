@@ -19,29 +19,29 @@ import qooport.avanzado.QoopoRT;
 public class Notificaciones {
 
     public static void sondidoConectar() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Clip clip = AudioSystem.getClip();
-                    clip.open(AudioSystem.getAudioInputStream(QoopoRT.class.getResourceAsStream("/resources/sonidos/conectado.wav")));
-                    clip.start();
-                    sleep(clip.getMicrosecondLength() * 2);
-                    clip.close();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Clip clip = AudioSystem.getClip();
+//                    clip.open(AudioSystem.getAudioInputStream(QoopoRT.class.getResourceAsStream("/resources/sonidos/conectado.wav")));
+//                    clip.start();
+//                    sleep(clip.getMicrosecondLength() * 2);
+//                    clip.close();
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
+//        }).start();
     }
 
     public static void mostrarNotificacion(final Asociado servidor) {
-        new Thread() {
-            @Override
-            public void run() {
-                Notificacion.mostrar(servidor.getUsuario() + "@" + servidor.getHost(), servidor.getSo(), servidor.getPais(), servidor.getBandera(), servidor.getWebCam());
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                Notificacion.mostrar(servidor.getUsuario() + "@" + servidor.getHost(), servidor.getSo(), servidor.getPais(), servidor.getBandera(), servidor.getWebCam());
+//            }
+//        }.start();
     }
 
 }

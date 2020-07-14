@@ -41,6 +41,7 @@ import qooport.utilidades.contador.ContadorBPS;
 
 public class QoopoRT {
 
+    public static String version = "v 1.5.1";
     public static boolean MOSTRAR_NOTIFICACION = false;
     public static final HashMap<String, Asociado> SERVIDORES = new HashMap();
     public static List<DescargaArchivo> listaDescargas = new ArrayList<>();
@@ -49,47 +50,54 @@ public class QoopoRT {
     public static List<Accion> accionesSubida;// acciones a ejecutarse cuadno se completa una carga de archivo
     public static QoopoRT instancia;
     public static String tipoLetra = "Arial";
+
     public static void iniciar() {
         instancia = new QoopoRT();
     }
+
     public static void agregarAccionDescarga(Accion accion) {
         if (accionesDescarga == null) {
             accionesDescarga = new ArrayList<>();
         }
         accionesDescarga.add(accion);
     }
+
     public static void eliminarAccionDescarga(Accion accion) {
         if (accionesDescarga != null) {
             accionesDescarga.remove(accion);
         }
     }
+
     public static void agregarAccionCarga(Accion accion) {
         if (accionesSubida == null) {
             accionesSubida = new ArrayList<>();
         }
         accionesSubida.add(accion);
     }
+
     public static void eliminarAccionCarga(Accion accion) {
         if (accionesSubida != null) {
             accionesSubida.remove(accion);
         }
     }
+
     public static void ejecutarAccionesDescarga() {
         try {
             for (Accion accion : accionesDescarga) {
                 accion.ejecutar();
             }
         } catch (Exception e) {
-            
+
         }
     }
+
     public static void ejecutarAccionesCarga() {
         try {
             for (Accion accion : accionesSubida) {
                 accion.ejecutar();
             }
         } catch (Exception e) {
-            
+
         }
     }
     private final TareaMiniatura hiloMiniatura = new TareaMiniatura();
@@ -103,7 +111,6 @@ public class QoopoRT {
     private List<Perfil> perfiles;
     private Configuracion config;
     private boolean escuchando = false;
-
 
     public QoopoRT() {
         iniciarComponente();
@@ -147,7 +154,7 @@ public class QoopoRT {
 
         int largotitulo = 20;
         QoopoRT.this.ponerEstado(Util.crearTituloString("", largotitulo));
-        QoopoRT.this.ponerEstado(Util.crearTituloString("QoopoRT v1.1", largotitulo));
+        QoopoRT.this.ponerEstado(Util.crearTituloString("QoopoRT " + QoopoRT.version, largotitulo));
         QoopoRT.this.ponerEstado(Util.crearTituloString("", largotitulo));
         QoopoRT.this.ponerEstado(Util.crearTituloString("Fecha:" + sdf.format(new Date()), largotitulo));
         QoopoRT.this.ponerEstado(Util.crearTituloString("", largotitulo));

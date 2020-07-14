@@ -10,7 +10,7 @@ import javax.crypto.spec.DESKeySpec;
 
 public class DES {
 
-    public static byte[] encriptDeS(String contrasena, byte[] input) {
+    public static byte[] cifrar(String contrasena, byte[] input) {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             SecretKeyFactory skf = SecretKeyFactory.getInstance(new String(new char[]{'D', 'E', 'S'}));
@@ -30,7 +30,7 @@ public class DES {
         return null;
     }
 
-    public static byte[] desencriptaDES(String contrasena, byte[] input) {
+    public static byte[] descifrar(String contrasena, byte[] input) {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             SecretKeyFactory skf = SecretKeyFactory.getInstance(new String(new char[]{'D', 'E', 'S'}));

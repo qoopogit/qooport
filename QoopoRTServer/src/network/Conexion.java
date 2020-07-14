@@ -131,7 +131,6 @@ public class Conexion {
         switch (tipo) {
             case 1://tcp
                 return entradaStream.read(b);
-
 //            case 2://udp
 //                return udpSocket.readInt();
         }

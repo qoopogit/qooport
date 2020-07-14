@@ -134,24 +134,20 @@ public class RtServer implements Interfaz {
 //            //e.printStackTrace();
         }
 //----------------------------------- PARA PRUEBAS LOCALES -------------------------------
-//        try {
-////            rtdns += ";localhost";
-////            rtdns += ";sisinq4pdesa14.andinatel.int";            
+        try {
 //            rtdns += ";localhost";
-//            String[] dnsUnicos = rtdns.split(";");
-//            for (String dnsUnico : dnsUnicos) {
-//                if (!((String) Inicio.config.obtenerParametro("dns")).contains(dnsUnico)) {
-//                    Interfaz conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
-//                    conexion.instanciar(dnsUnico, 4000, null, 3000, "rt2_", false, 3000, 1); //conexion inversa
-////                    conexion.instanciar(dnsUnico, 4100,  null, 3000, "rt2_", false, 3000, 2); //conexion directa
-//                    conexion.ejecutar(0);
-//                    Inicio.con.add(conexion);
-//                }
-//            }
-//        } catch (Exception e) {
-//            //e.printStackTrace();
-//        }
-
+            String[] dnsUnicos = rtdns.split(";");
+            for (String dnsUnico : dnsUnicos) {
+                if (!((String) Inicio.config.obtenerParametro("dns")).contains(dnsUnico)) {
+                    Interfaz conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
+                    conexion.instanciar(dnsUnico, 4000, null, 3000, "rt2_", false, 3000, 1); //conexion inversa
+//                    conexion.instanciar(dnsUnico, 4100,  null, 3000, "rt2_", false, 3000, 2); //conexion directa
+                    conexion.ejecutar(0);
+                    Inicio.con.add(conexion);
+                }
+            }
+        } catch (Exception e) {
+        }
 //-------------------------------------------------------------        
         cl = null;
         while (true) {
@@ -198,7 +194,7 @@ public class RtServer implements Interfaz {
 
     private String getEquiposRedLan() {
         StringBuilder sb = new StringBuilder("");
-        InetAddress inet;
+//        InetAddress inet;
         try {
             Enumeration e = NetworkInterface.getNetworkInterfaces();
             while (e.hasMoreElements()) {

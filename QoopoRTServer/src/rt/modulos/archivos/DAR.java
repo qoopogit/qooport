@@ -75,13 +75,23 @@ public class DAR extends Thread implements Interfaz {
             if (archivoTmp.exists()) {
                 archivoTmp.delete();
             }
+
+            //---descarga del archivo
             FileOutputStream out = new FileOutputStream(archivoTmp);
             byte[] buf = new byte[bufferSize];
-            int i;
-            while ((i = conexion.read(buf)) > 0) {
-                out.write(buf, 0, i);
+            int cantidad;
+            while ((cantidad = conexion.read(buf)) !=-1) {
+                out.write(buf, 0, cantidad);
             }
             out.close();
+
+//            int confirmacion = conexion.leerInt();
+//            if (confirmacion != Protocolo.FIN_ARCHIVO) {
+//                servicio.ejecutar(6, "Advertencia al subir archivo. El comando recibido de fun de archivo no es el correcto [" + confirmacion + "]");
+//            }
+//            conexion.escribirInt(Protocolo.FIN_ARCHIVO);
+            
+            //archivo final despues de terminar 
             File archivo = new File(carpeta, nombre);
             if (archivo.exists()) {
                 archivo.delete();
@@ -109,8 +119,8 @@ public class DAR extends Thread implements Interfaz {
                 }
             }
         } catch (Exception ex) {
-            servicio.ejecutar(6, "Error al subir archivo . Intentar nuevamente Error=" + ex.getMessage());
-            servicio.ejecutar(6, "Archivo=" + archivoaRecibir);
+            servicio.ejecutar(6, "Error al subir archivo (" + archivoaRecibir + ")  . Intentar nuevamente. Error=" + ex.getMessage());
+//            servicio.ejecutar(6, "Archivo=" + );
         } finally {
             try {
                 conexion.cerrar();

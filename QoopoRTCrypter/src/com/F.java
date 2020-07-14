@@ -27,5 +27,4 @@ public class F implements Serializable {
         this.contenido = contenido;
     }
 
-    
 }

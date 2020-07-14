@@ -94,17 +94,25 @@ public class SAR extends Thread implements Interfaz {
             //paso 6 Preparar envio de archivo
             FileInputStream input = new FileInputStream(archivo);
             byte[] buf = new byte[bufferSize];
-            int i;
+            int cantidad;
             //Paso 7 saltar partes del archivo antes enviada
 
             input.skip(offset);//<ag>25/08/2017. Salta una parte del archivo para poder reanudar en conexiones perdidas
             //paso 8 Enviar archivo
-            while ((i = input.read(buf)) > 0 && activo) {
-                conexion.write(buf, 0, i);
+            while ((cantidad = input.read(buf)) !=-1 && activo) {
+                conexion.write(buf, 0, cantidad);
             }
             //parte 9 ejecutar acciones finales y librerar conexione y recursos 
-            conexion.flush();
+            conexion.flush();            
             input.close();
+//            conexion.escribirInt(Protocolo.FIN_ARCHIVO);
+//            int confirmacion = conexion.leerInt();
+//            if (confirmacion != Protocolo.FIN_ARCHIVO) {
+//                servicio.ejecutar(6, "Advertencia al subir archivo. El comando recibido de fun de archivo no es el correcto [" + confirmacion + "]");
+//            } else {
+//                servicio.ejecutar(6, "Subir archivo. Llego comprobancion de fin de archiov. se libera conexion");
+//            }
+
             Thread.sleep(5000);//espero que la ultima parte se haya ido y continuo
             conexion.cerrar();
             input = null;

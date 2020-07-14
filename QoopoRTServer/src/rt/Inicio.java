@@ -2,13 +2,13 @@ package rt;
 
 import certificado.IniciarCertificado;
 import comunes.CFG;
+import comunes.Interfaz;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.util.List;
-import comunes.Interfaz;
 import network.ConexionServer;
 import rt.util.CLRT;
 import rt.util.UtilRT;
@@ -18,7 +18,7 @@ public class Inicio {
     public static CFG config;
 //    public final static boolean DEBUG = false;
     public static Interfaz in;//instalador
-    public static String v = "1.5.1";//version
+    public static String v = "1.5.2";//version
     public static String i = "";//identificador
     public static String pCCON = "LAOSUISNPASD12378ASDLGASDHGAKD"; //password del archivo de configuracion
     private static File f;
@@ -135,7 +135,6 @@ public class Inicio {
             if (!servicio) {
                 new Inicio().inicia(actualizacion, instaladoServicio);
             } else {
-                System.out.println("entra al while infinito (cuando es servicio)");
                 //mantiene ejecutado , sino da error
                 while (true) {
                     UtilRT.dormir(1000);
@@ -167,6 +166,7 @@ public class Inicio {
         }
     }
 //Cargar Config
+
     public static void unlockFile() {
         try {
             if (lock != null) {
@@ -233,7 +233,6 @@ public class Inicio {
         } catch (Exception ex) {
         }
     }
-
 
     static class ShutdownHook extends Thread {
 

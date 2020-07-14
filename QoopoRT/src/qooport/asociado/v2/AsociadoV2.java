@@ -678,44 +678,48 @@ public class AsociadoV2 extends Asociado {
     }
 
     public void recibirArchivos(Object objeto) {
-        if (adminArchivos != null) {
-            if (!adminArchivos.isVisible()) {
-                adminArchivos.setVisible(true);
-            }
-            Archivo[] archivo = (Archivo[]) objeto;
+        try {
+            if (adminArchivos != null) {
+                if (!adminArchivos.isVisible()) {
+                    adminArchivos.setVisible(true);
+                }
+                Archivo[] archivo = (Archivo[]) objeto;
 //            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            if (archivo != null) {
-                adminArchivos.limpiaTablaRemota();
-                adminArchivos.getModelotabla().addRow(new Object[]{
-                    new CampoIcono(Util.obtenerBytes(Util.cargarIcono16("/resources/up_arrow.png")), "..")});
-                for (Archivo p : archivo) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                if (archivo != null) {
+                    adminArchivos.limpiaTablaRemota();
                     adminArchivos.getModelotabla().addRow(new Object[]{
-                        new CampoIcono(p.getIcono() != null ? p.getIcono() : (p.isCarpeta() ? Util.obtenerBytes(Util.cargarIcono16("/resources/folder.png")) : Util.obtenerBytes(Util.cargarIcono16("/resources/file.png"))), p.getNombre()),
-                        p.isCarpeta() ? "(Carpeta)" : p.getTipo(),
-                        p.getLength(),
-                        sdf.format(new Date(p.getFecha()))
-                    /*,p.getLibre(),p.getTamanio()*/
+                        new CampoIcono(Util.obtenerBytes(Util.cargarIcono16("/resources/up_arrow.png")), "..")});
+                    for (Archivo p : archivo) {
+                        adminArchivos.getModelotabla().addRow(new Object[]{
+                            new CampoIcono(p.getIcono() != null ? p.getIcono() : (p.isCarpeta() ? Util.obtenerBytes(Util.cargarIcono16("/resources/folder.png")) : Util.obtenerBytes(Util.cargarIcono16("/resources/file.png"))), p.getNombre()),
+                            p.isCarpeta() ? "(Carpeta)" : p.getTipo(),
+                            p.getLength(),
+                            sdf.format(new Date(p.getFecha()))
+                        /*,p.getLibre(),p.getTamanio()*/
 
-                    });
-                }
-
-                adminArchivos.getRutaRemota().setText(archivo[0].getPathParent().replace(adminArchivos.sep + "..", ""));
-                if (archivo[0].getPathParent().contains(adminArchivos.sep + "..")) {
-                    if (!adminArchivos.getRutaRemota().getText().contains(adminArchivos.sep)) {
-                        adminArchivos.getRutaRemota().setText("");
-//                        adminArchivos.getRutaRemota().setText("/");
-                    } else {
-                        adminArchivos.getRutaRemota().setText(adminArchivos.getRutaRemota().getText().substring(0, adminArchivos.getRutaRemota().getText().lastIndexOf(adminArchivos.sep)) + adminArchivos.sep);
+                        });
                     }
+
+                    adminArchivos.getRutaRemota().setText(archivo[0].getPathParent().replace(adminArchivos.sep + "..", ""));
+                    if (archivo[0].getPathParent().contains(adminArchivos.sep + "..")) {
+                        if (!adminArchivos.getRutaRemota().getText().contains(adminArchivos.sep)) {
+                            adminArchivos.getRutaRemota().setText("");
+//                        adminArchivos.getRutaRemota().setText("/");
+                        } else {
+                            adminArchivos.getRutaRemota().setText(adminArchivos.getRutaRemota().getText().substring(0, adminArchivos.getRutaRemota().getText().lastIndexOf(adminArchivos.sep)) + adminArchivos.sep);
+                        }
+                    }
+                } else// si la lista viene vacia, agrego la flechita para ADMIN_ARCHIVOS_SUBIR de directorio, indicando que ya se recibio la repuesta del servidor
+                {
+                    adminArchivos.limpiaTablaRemota();
+                    adminArchivos.getModelotabla().addRow(new Object[]{
+                        new CampoIcono(Util.obtenerBytes(Util.cargarIcono16("/resources/up_arrow.png")), "..")});
                 }
-            } else// si la lista viene vacia, agrego la flechita para ADMIN_ARCHIVOS_SUBIR de directorio, indicando que ya se recibio la repuesta del servidor
-            {
-                adminArchivos.limpiaTablaRemota();
-                adminArchivos.getModelotabla().addRow(new Object[]{
-                    new CampoIcono(Util.obtenerBytes(Util.cargarIcono16("/resources/up_arrow.png")), "..")});
+                adminArchivos.repaint();
             }
-            adminArchivos.repaint();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

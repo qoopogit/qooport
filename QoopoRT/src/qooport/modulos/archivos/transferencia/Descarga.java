@@ -16,7 +16,6 @@ import network.ConexionServer;
 import qooport.Global;
 import qooport.asociado.Asociado;
 import qooport.avanzado.QoopoRT;
-import qooport.utilidades.Compresor;
 import qooport.utilidades.Protocolo;
 import qooport.utilidades.Util;
 import qooport.utilidades.contador.ContadorBPS;
@@ -100,7 +99,7 @@ public class Descarga extends Transferencia {
                 accionInicial.ejecutar();
             }
             boolean antiguo = false;
-            //<ag> 25/08/2017 Se cambia la forma de trasnferir archivos, ahora se envia un objeto que puede recibir cualqueir 
+            //<ag> 25/08/2017 Se cambia la forma de transferir archivos, ahora se envia un objeto que puede recibir cualqueir 
             // limite de parametros y no tener problemas futuros alagregar o quitar parametros
             Object config = conexion.leerObjeto();
             actual = 0;//posicion del archivo a recibir, si es una reanudacion se actualizara mas abajo 
@@ -128,47 +127,47 @@ public class Descarga extends Transferencia {
                 actual = (Long) ((CFG) config).obtenerParametro("offset");
                 archivoAdescargar = (String) ((CFG) config).obtenerParametro("original");
 
-            } else {
-                //anterior version donde se enviaba los parametros uno a uno en la linea
-
-                //paso 1 Leer ID del cliente            
-                byte[] bytesIdServer = (byte[]) config;
-                String ID = Asociado.parsearCadena(bytesIdServer, antiguo);
-                if (!QoopoRT.SERVIDORES.containsKey(ID)) {
-                    antiguo = true;
-                    ID = Asociado.parsearCadena(bytesIdServer, antiguo);
-                }
-
-                if (asociado == null) {
-                    asociado = (Asociado) QoopoRT.SERVIDORES.get(ID);
-                }
-                idInformacion = asociado.getInformacion();
-                //-------------------------------------------
-
-                //paso 2 Leer Icono del archivo para mostrar
-                byte[] bytesIcono = null;
-                try {
-                    bytesIcono = Compresor.descomprimirGZIP((byte[]) conexion.leerObjeto());
-                } catch (Exception e) {
-                    bytesIcono = null;
-                }
-                try {
-                    setIcono(new ImageIcon(bytesIcono));
-                } catch (Exception e) {
-                }
-                //----------------------------------------------
-
-                // Paso 3 Leer la ruta padre donde se va a ubicar el archivo
-                rutaADescargar = asociado.leerCadena((byte[]) conexion.leerObjeto());
-                rutaADescargar = rutaADescargar.replace("\\", "/");
-                //-----------            
-                //Paso 4 Leer el nombre del archivo
-                nombreArchivo = asociado.leerCadena((byte[]) conexion.leerObjeto());
-                //-------------------------------
-
-                //paso 5 leer tamaño del archivo para poder identificar el progreso de descarga
-                total = conexion.leerLong();
-                //---------------------------------
+//            } else {
+//                //anterior version donde se enviaba los parametros uno a uno en la linea
+//
+//                //paso 1 Leer ID del cliente            
+//                byte[] bytesIdServer = (byte[]) config;
+//                String ID = Asociado.parsearCadena(bytesIdServer, antiguo);
+//                if (!QoopoRT.SERVIDORES.containsKey(ID)) {
+//                    antiguo = true;
+//                    ID = Asociado.parsearCadena(bytesIdServer, antiguo);
+//                }
+//
+//                if (asociado == null) {
+//                    asociado = (Asociado) QoopoRT.SERVIDORES.get(ID);
+//                }
+//                idInformacion = asociado.getInformacion();
+//                //-------------------------------------------
+//
+//                //paso 2 Leer Icono del archivo para mostrar
+//                byte[] bytesIcono = null;
+//                try {
+//                    bytesIcono = Compresor.descomprimirGZIP((byte[]) conexion.leerObjeto());
+//                } catch (Exception e) {
+//                    bytesIcono = null;
+//                }
+//                try {
+//                    setIcono(new ImageIcon(bytesIcono));
+//                } catch (Exception e) {
+//                }
+//                //----------------------------------------------
+//
+//                // Paso 3 Leer la ruta padre donde se va a ubicar el archivo
+//                rutaADescargar = asociado.leerCadena((byte[]) conexion.leerObjeto());
+//                rutaADescargar = rutaADescargar.replace("\\", "/");
+//                //-----------            
+//                //Paso 4 Leer el nombre del archivo
+//                nombreArchivo = asociado.leerCadena((byte[]) conexion.leerObjeto());
+//                //-------------------------------
+//
+//                //paso 5 leer tamaño del archivo para poder identificar el progreso de descarga
+//                total = conexion.leerLong();
+//                //---------------------------------
             }
             //paso 6 configurar la ruta de descarga del archivo
             String nombreTmp = nombreArchivo + ".par";
@@ -207,7 +206,7 @@ public class Descarga extends Transferencia {
                 out = new FileOutputStream(archivoTmp);
             }
             byte[] buf = new byte[bufferSize];
-            int i;
+            int read;
             Global.transferencias.progresoDescargas.agregarTotal(total);
             tInicio = System.currentTimeMillis();
 
@@ -215,21 +214,26 @@ public class Descarga extends Transferencia {
             //       ch.position(offset);
             //       ch.write(ByteBuffer.wrap(data));
             //paso 8 recibir el archivo
-            while ((i = conexion.read(buf)) > 0 && activo) {
-                out.write(buf, 0, i);
-                asociado.agregarRecibidos(i);
-                actual += i;
+            while ((read = conexion.read(buf)) !=-1 && activo) {
+                out.write(buf, 0, read);
+                asociado.agregarRecibidos(read);
+                actual += read;
                 avance = (int) (actual * 100L / total);
-                contador.agregar(i);
+                contador.agregar(read);
                 if (accionProgreso != null) {
                     accionProgreso.ejecutar();
                 }
-                Global.transferencias.progresoDescargas.agregarAvance(i);
+                Global.transferencias.progresoDescargas.agregarAvance(read);
                 while (pausado) {
                     sleep(50);
                 }
             }
             out.close();
+//            int confirmacion = conexion.leerInt();
+//            if (confirmacion != rt.util.Protocolo.FIN_ARCHIVO) {
+//                System.out.println("Advertencia al descargar archivo. El comando recibido de fun de archivo no es el correcto [" + confirmacion + "]");
+//            }
+//           conexion.escribirInt(Protocolo.FIN_ARCHIVO);
 
             if (!detener) {
                 //Paso 9 renombrar el archivo con el nombre .par al nombre real
@@ -240,7 +244,6 @@ public class Descarga extends Transferencia {
                 archivoTmp.renameTo(archivo);
                 out = null;
                 buf = null;
-
                 //--------------------------------------------
                 //Paso 10 Ejecutar acciones finales y liberar recursos
                 if (accionFinalizar != null) {
@@ -251,6 +254,7 @@ public class Descarga extends Transferencia {
             tFinal = System.currentTimeMillis();
         } catch (Exception ex) {
             ex.printStackTrace();
+
         } finally {
             activo = false;
             try {
