@@ -123,7 +123,6 @@ public class AsociadoV2 extends Asociado {
                         break;
                         case Protocolo.INFO:
                             infoRecibida = true;
-
                             if (accionInfo != null) {
                                 accionInfo.ejecutar();
                             }
@@ -239,7 +238,6 @@ public class AsociadoV2 extends Asociado {
                             recibirNoWebCam();
                             break;
                         case Protocolo.ADMIN_ARCHIVOS_LISTAR_ROOTS:
-
                             if (!isAndroid()) {
                                 //si viene de un cliente pc
                                 recibirUnidades(Util.leerParametro(comando));
@@ -373,7 +371,7 @@ public class AsociadoV2 extends Asociado {
                             parametro = (String) Util.leerParametro(comando);
                             this.agregarRecibidos(SizeUtil.sizeof(parametro));
                             if (QoopoRT.instancia != null) {
-                                QoopoRT.instancia.ponerEstado("Servidor (" + getInformacion() + "):" + parametro);
+                                QoopoRT.instancia.ponerEstado("Agente (" + getInformacion() + "):" + parametro);
                             }
                             break;
                         case Protocolo.PING:// enviamos PING
@@ -500,7 +498,6 @@ public class AsociadoV2 extends Asociado {
 
     public void recibirListaWebCams(Object objeto) {
         if (camara != null) {
-
             if (!camara.isVisible()) {
                 camara.setVisible(true);
             }
@@ -552,7 +549,6 @@ public class AsociadoV2 extends Asociado {
 
     public void recibirListaMonitores(Object objeto) {
         //EscritorioRemoto vent = (EscritorioRemoto) QoopoRT.capturasEscritorio.get(servidor.getIdentificador());
-
         if (escritorioRemoto != null) {
             if (!escritorioRemoto.isVisible()) {
                 escritorioRemoto.setVisible(true);
@@ -598,7 +594,6 @@ public class AsociadoV2 extends Asociado {
     }
 
     public void recibirListaProcesos(Object objeto) {
-
         if (procesos != null) {
             if (!procesos.isVisible()) {
                 procesos.setVisible(true);

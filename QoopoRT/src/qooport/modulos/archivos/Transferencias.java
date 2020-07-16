@@ -323,7 +323,7 @@ public class Transferencias extends JPanel {
 
     public void eliminarTransferenciaLista(Transferencia p) {
         try {
-            for (int i = 0; i <= ((DefaultTableModel) tabla.getModel()).getRowCount(); i++) {
+            for (int i = 0; i < ((DefaultTableModel) tabla.getModel()).getRowCount(); i++) {
                 Long id = (Long) ((DefaultTableModel) tabla.getModel()).getValueAt(i, 0);
                 if (id.equals(p.getId())) {
                     ((DefaultTableModel) tabla.getModel()).removeRow(i);

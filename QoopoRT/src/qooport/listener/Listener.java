@@ -35,7 +35,6 @@ public abstract class Listener extends Thread {
         try {
             byte[] bytesId;
             switch (comando) {
-
                 case Protocolo.TPC_INICIAR: {
 //                    if (version2) {
 //                        Asociado servidor = new AsociadoV2(this.conexion, 1, ssl);
@@ -60,7 +59,6 @@ public abstract class Listener extends Thread {
                 case Protocolo.ADMIN_ARCHIVOS_SUBIR: {
                     byte[] bytes = (byte[]) conexion.leerObjeto();
                     String archivoAsubir = Asociado.parsearCadena(bytes, false);
-
                     Asociado asociado = null;
                     if (archivoAsubir.contains(":::")) {
                         String[] tt = archivoAsubir.split(":::");
@@ -71,7 +69,6 @@ public abstract class Listener extends Thread {
                     if (!new File(archivoAsubir).exists()) {
                         archivoAsubir = Asociado.parsearCadena(bytes, true);
                     }
-
                     Transferencia tCarga = new Carga(asociado, conexion, new File(archivoAsubir));
                     tCarga.setBufferSize(conexion.getSendBufferSize());
                     tCarga.iniciar();

@@ -62,7 +62,6 @@ public class InstalarServicio {
     }
 
     public void instalar(String ruta, String parametros, String nombreServicio) {
-
         try {
             File lanzador = new File(carpeta, "nssm.exe");
             final ArrayList<String> command = new ArrayList<String>();

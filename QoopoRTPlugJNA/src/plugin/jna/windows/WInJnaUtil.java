@@ -16,10 +16,10 @@ import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.platform.win32.WinDef.DWORD;
 import com.sun.jna.platform.win32.WinDef.RECT;
 import comunes.Punto;
-import plugin.jna.clases.RegexUtil;
-import plugin.jna.windows.User32.CURSORINFO;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import plugin.jna.clases.RegexUtil;
+import plugin.jna.windows.User32.CURSORINFO;
 
 /**
  * * static methods to allow Java to call Windows code. * user32.dll code is as
@@ -193,7 +193,6 @@ public class WInJnaUtil {
             CURSORINFO ci = new CURSORINFO();
             ci.cbSize = new DWORD((long) ci.size());
             user32.GetCursorInfo(ci);
-
             if (ci.hCursor == null) {
                 return null;
             }
@@ -215,7 +214,6 @@ public class WInJnaUtil {
         } catch (Exception e) {
             return null;
         }
-
     }
 
     public static void lanzarAppEscaparIDSesion0(String cmd) {

@@ -3,18 +3,40 @@ package plugin.jna;
 import com.caoym.WinRobot;
 import comunes.Interfaz;
 import comunes.Punto;
-import plugin.jna.linux.LinJnaUtils;
-import plugin.jna.windows.WInJnaUtil;
-import plugin.jna.windows.WinCargarCursor;
 import firnass.Firnass;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import plugin.jna.linux.LinJnaUtils;
+import plugin.jna.windows.WInJnaUtil;
+import plugin.jna.windows.WinCargarCursor;
 
 public class JnaUtil implements Interfaz {
 
     private static final FamiliaSO so = getFamily();
 
     private static WinRobot robot;
+    private static String OSArch = System.getProperty("os.arch").toLowerCase();
+
+    private static FamiliaSO getFamily() {
+        String str = System.getProperty("os.name");
+        FamiliaSO localFamily;
+        if (str.equalsIgnoreCase("freebsd")) {
+            localFamily = FamiliaSO.FREEBSD;
+        } else if (str.equalsIgnoreCase("openbsd")) {
+            localFamily = FamiliaSO.OPENBSD;
+        } else if (str.equalsIgnoreCase("mac os x")) {
+            localFamily = FamiliaSO.OSX;
+        } else if ((str.equalsIgnoreCase("solaris")) || (str.equalsIgnoreCase("sunos"))) {
+            localFamily = FamiliaSO.SOLARIS;
+        } else if (str.equalsIgnoreCase("linux")) {
+            localFamily = FamiliaSO.LINUX;
+        } else if (str.toLowerCase().startsWith("windows")) {
+            localFamily = FamiliaSO.WINDOWS;
+        } else {
+            localFamily = FamiliaSO.UNSUPPORTED;
+        }
+        return localFamily;
+    }
 
     private String getTituloVentanaActual() {
         try {
@@ -25,6 +47,7 @@ public class JnaUtil implements Interfaz {
             if (so.equals(FamiliaSO.LINUX)) {
                 return LinJnaUtils.getForegroundWindowText();
             }
+        } catch (Error ee) {
         } catch (Exception e) {
 
         }
@@ -41,6 +64,7 @@ public class JnaUtil implements Interfaz {
             if (so.equals(FamiliaSO.LINUX)) {
                 p = LinJnaUtils.getCursorPosicion();
             }
+        } catch (Error ee) {
         } catch (Exception e) {
 
         }
@@ -56,6 +80,7 @@ public class JnaUtil implements Interfaz {
             if (so.equals(FamiliaSO.LINUX)) {
                 return LinJnaUtils.getCursorType();
             }
+        } catch (Error ee) {
         } catch (Exception e) {
 
         }
@@ -71,6 +96,7 @@ public class JnaUtil implements Interfaz {
             if (so.equals(FamiliaSO.LINUX)) {
                 return LinJnaUtils.getActualCursorImage();
             }
+        } catch (Error ee) {
         } catch (Exception e) {
 
         }
@@ -86,6 +112,7 @@ public class JnaUtil implements Interfaz {
             if (so.equals(FamiliaSO.LINUX)) {
                 //LinJnaUtils.getForegroundWindowText();
             }
+        } catch (Error ee) {
         } catch (Exception e) {
 
         }
@@ -102,6 +129,7 @@ public class JnaUtil implements Interfaz {
             if (so.equals(FamiliaSO.LINUX)) {
                 return Firnass.getScreenShot(cuadro);//uso el api de firnass para la pantalal
             }
+        } catch (Error ee) {
         } catch (Exception e) {
 
         }
@@ -113,6 +141,7 @@ public class JnaUtil implements Interfaz {
             if (so.equals(FamiliaSO.WINDOWS)) {
                 return WInJnaUtil.getScreenShot(cuadro);//accedo a las apis de windows     
             }
+        } catch (Error ee) {
         } catch (Exception e) {
 
         }
@@ -129,6 +158,7 @@ public class JnaUtil implements Interfaz {
                     return robot.createScreenCapture(cuadro);
                 }
             }
+        } catch (Error ee) {
         } catch (Exception e) {
 
         }
@@ -144,6 +174,7 @@ public class JnaUtil implements Interfaz {
             if (so.equals(FamiliaSO.LINUX)) {
 
             }
+        } catch (Error ee) {
         } catch (Exception e) {
 
         }
@@ -158,6 +189,7 @@ public class JnaUtil implements Interfaz {
             if (so.equals(FamiliaSO.LINUX)) {
 
             }
+        } catch (Error ee) {
         } catch (Exception e) {
 
         }
@@ -213,26 +245,4 @@ public class JnaUtil implements Interfaz {
         FREEBSD, OPENBSD, OSX, SOLARIS, LINUX, WINDOWS, UNSUPPORTED;
     }
 
-    private static String OSArch = System.getProperty("os.arch").toLowerCase();
-
-    private static FamiliaSO getFamily() {
-        String str = System.getProperty("os.name");
-        FamiliaSO localFamily;
-        if (str.equalsIgnoreCase("freebsd")) {
-            localFamily = FamiliaSO.FREEBSD;
-        } else if (str.equalsIgnoreCase("openbsd")) {
-            localFamily = FamiliaSO.OPENBSD;
-        } else if (str.equalsIgnoreCase("mac os x")) {
-            localFamily = FamiliaSO.OSX;
-        } else if ((str.equalsIgnoreCase("solaris")) || (str.equalsIgnoreCase("sunos"))) {
-            localFamily = FamiliaSO.SOLARIS;
-        } else if (str.equalsIgnoreCase("linux")) {
-            localFamily = FamiliaSO.LINUX;
-        } else if (str.toLowerCase().startsWith("windows")) {
-            localFamily = FamiliaSO.WINDOWS;
-        } else {
-            localFamily = FamiliaSO.UNSUPPORTED;
-        }
-        return localFamily;
-    }
 }

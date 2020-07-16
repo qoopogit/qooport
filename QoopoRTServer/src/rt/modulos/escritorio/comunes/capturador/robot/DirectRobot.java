@@ -21,13 +21,55 @@ import sun.awt.ComponentFactory;
 
 public final class DirectRobot {
 
+    private static boolean hasMouseInfoPeer;
+    private static MouseInfoPeer mouseInfoPeer;
+
+    public static GraphicsDevice getMouseInfo(Point point) {
+        if (!hasMouseInfoPeer) {
+            hasMouseInfoPeer = true;
+            try {
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                Method method = toolkit.getClass().getDeclaredMethod("getMouseInfoPeer", new Class<?>[0]);
+                try {
+                    method.setAccessible(true);
+                    mouseInfoPeer = (MouseInfoPeer) method.invoke(toolkit, new Object[0]);
+                } finally {
+                    method.setAccessible(false);
+                }
+            } catch (Exception ex) {
+            }
+        }
+        if (mouseInfoPeer != null) {
+            int device = mouseInfoPeer.fillPointWithCoords(point != null ? point : new Point());
+            GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+            return devices[device];
+        }
+        PointerInfo info = MouseInfo.getPointerInfo();
+        if (point != null) {
+            Point location = info.getLocation();
+            point.x = location.x;
+            point.y = location.y;
+        }
+        return info.getDevice();
+    }
+
+    public static int getNumberOfMouseButtons() {
+        return MouseInfo.getNumberOfButtons();
+    }
+
+    public static GraphicsDevice getDefaultScreenDevice() {
+        return GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    }
+
+    public static GraphicsDevice getScreenDevice() {
+        return getMouseInfo(null);
+    }
+
     private Object getRGBPixelsMethodParam;
     private int getRGBPixelsMethodType;
     public final GraphicsDevice device;
     private Method getRGBPixelsMethod;
     private final RobotPeer peer;
-    private static boolean hasMouseInfoPeer;
-    private static MouseInfoPeer mouseInfoPeer;
 
     public DirectRobot() throws AWTException {
         this(null);
@@ -110,47 +152,6 @@ public final class DirectRobot {
 //            }
 //            System.out.println();
         }
-    }
-
-    public static GraphicsDevice getMouseInfo(Point point) {
-        if (!hasMouseInfoPeer) {
-            hasMouseInfoPeer = true;
-            try {
-                Toolkit toolkit = Toolkit.getDefaultToolkit();
-                Method method = toolkit.getClass().getDeclaredMethod("getMouseInfoPeer", new Class<?>[0]);
-                try {
-                    method.setAccessible(true);
-                    mouseInfoPeer = (MouseInfoPeer) method.invoke(toolkit, new Object[0]);
-                } finally {
-                    method.setAccessible(false);
-                }
-            } catch (Exception ex) {
-            }
-        }
-        if (mouseInfoPeer != null) {
-            int device = mouseInfoPeer.fillPointWithCoords(point != null ? point : new Point());
-            GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
-            return devices[device];
-        }
-        PointerInfo info = MouseInfo.getPointerInfo();
-        if (point != null) {
-            Point location = info.getLocation();
-            point.x = location.x;
-            point.y = location.y;
-        }
-        return info.getDevice();
-    }
-
-    public static int getNumberOfMouseButtons() {
-        return MouseInfo.getNumberOfButtons();
-    }
-
-    public static GraphicsDevice getDefaultScreenDevice() {
-        return GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-    }
-
-    public static GraphicsDevice getScreenDevice() {
-        return getMouseInfo(null);
     }
 
     public void mouseMove(int x, int y) {

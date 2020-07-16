@@ -24,7 +24,8 @@ public class Global {
     public static Transferencias transferencias = new Transferencias();
     private static final boolean CARGAR_PLUGIN = false;
 //    public static String[] nombresLibs = new String[]{"JMapViewer", "weupnp-0.1.1", "JTattoo-1.6.11", "QoopoRTServer","QoopoRTCrypter"};
-    public static String[] nombresLibs = new String[]{"JMapViewer", "weupnp-0.1.1", "JTattoo-1.6.11", "QoopoRTServer"};
+//    public static String[] nombresLibs = new String[]{"JMapViewer", "weupnp-0.1.1", "JTattoo-1.6.11", "QoopoRTServer"};
+    public static String[] nombresLibs = new String[]{"JMapViewer", "weupnp-0.1.4", "JTattoo-1.6.11", "QoopoRTServer"};
 
     public static void cargarPlugins() {
         try {

@@ -8,10 +8,10 @@ package qooport.utilidades;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
-import org.wetorrent.upnp.GatewayDevice;
-import org.wetorrent.upnp.GatewayDiscover;
-import org.wetorrent.upnp.PortMappingEntry;
+import network.ConexionServer;
+import org.bitlet.weupnp.GatewayDevice;
+import org.bitlet.weupnp.GatewayDiscover;
+import org.bitlet.weupnp.PortMappingEntry;
 import qooport.avanzado.QoopoRT;
 
 /**
@@ -21,27 +21,38 @@ import qooport.avanzado.QoopoRT;
 public class MapearPuertos extends Thread {
 
     private int PUERTO;
-    private int tiempoEspera;
+    private int tipoConexion = ConexionServer.TCP;
+
+    private GatewayDevice gateWay = null;
+
+    public MapearPuertos(int PUERTO, int tipoConexion) {
+        this.PUERTO = PUERTO;
+        this.tipoConexion = tipoConexion;
+    }
 
     private String getLocalIp(GatewayDevice d) {
-        InetAddress iAddress = null;
-        try {
-            iAddress = InetAddress.getLocalHost();
-        } catch (UnknownHostException ex) {
-        }
-        String hostname = null;
-        if (iAddress != null) {
-            hostname = iAddress.getHostAddress();
-        }
-        if (hostname != null) {
-            return hostname;
-        }
+//        InetAddress iAddress = null;
+//        try {
+//            iAddress = InetAddress.getLocalHost();
+//        } catch (UnknownHostException ex) {
+//        }
+//        String hostname = null;
+//        if (iAddress != null) {
+//            hostname = iAddress.getHostAddress();
+//        }
+//        if (hostname != null) {
+//            return hostname;
+//        }
         try {
             URL controlUrl = new URL(d.getControlURL());
             Socket socket = new Socket(controlUrl.getHost(), controlUrl.getPort());
             InetAddress localAddress = socket.getLocalAddress();
             socket.close();
-            return localAddress.toString();
+//            System.out.println("Local-1:" + localAddress.getHostAddress());
+//            System.out.println("Local-2:" + localAddress.getHostName());
+//            System.out.println("Local-3:" + localAddress.getCanonicalHostName());
+//            System.out.println("Local-4:" + localAddress.toString());
+            return localAddress.getHostAddress();
         } catch (Exception e) {
             if (d != null) {
                 return d.getLocalAddress().getHostAddress();
@@ -50,56 +61,58 @@ public class MapearPuertos extends Thread {
         return "N/A";
     }
 
-    public MapearPuertos(int PUERTO, int tiempoEspera) {
-        this.PUERTO = PUERTO;
-        this.tiempoEspera = tiempoEspera;
-    }
-
     @Override
     public void run() {
         try {
-//            Logger logger = LogUtils.getLogger();
-            QoopoRT.instancia.ponerEstado("Iniciando weupnp. Redireccionar puerto " + PUERTO);
+            String tipoPuerto = "TCP";
+            if (tipoConexion == ConexionServer.UDP) {
+                tipoPuerto = "UDP";
+            }
+            QoopoRT.instancia.ponerEstado("  Iniciando weupnp. Redireccionar puerto " + PUERTO);
             GatewayDiscover discover = new GatewayDiscover();
-            QoopoRT.instancia.ponerEstado("Buscando dispositivos Gateway");
+            QoopoRT.instancia.ponerEstado("     Buscando dispositivos Gateway");
             discover.discover();
-            GatewayDevice d = discover.getValidGateway();
-            if (null != d) {
-                QoopoRT.instancia.ponerEstado(String.format("Dispositivo Gateway encontrado .\n{0} ({1})", new Object[]{d.getModelName(), d.getModelDescription()}));
+            gateWay = discover.getValidGateway();
+            if (gateWay != null) {
+                QoopoRT.instancia.ponerEstado("     " + String.format("Dispositivo Gateway encontrado. [%s] [%s]", new Object[]{gateWay.getModelName(), gateWay.getModelDescription()}));
             } else {
-                QoopoRT.instancia.ponerEstado("No  se encontro un dispositivo gateway valido.");
+                QoopoRT.instancia.ponerEstado("  <<   No  se encontro un dispositivo gateway valido.   >>");
                 return;
             }
-//            InetAddress localAddress = d.getLocalAddress();
-            String localAddress = getLocalIp(d);
-            QoopoRT.instancia.ponerEstado("Usando ip local:" + localAddress);
-            String externalIPAddress = d.getExternalIPAddress();
-            QoopoRT.instancia.ponerEstado("Dirección externa : " + externalIPAddress);
+            String localAddress = getLocalIp(gateWay);
+            String externalIPAddress = gateWay.getExternalIPAddress();
+            QoopoRT.instancia.ponerEstado("     IP Local   : " + localAddress);
+            QoopoRT.instancia.ponerEstado("     IP Externa : " + externalIPAddress);
             PortMappingEntry portMapping = new PortMappingEntry();
-            QoopoRT.instancia.ponerEstado("Intentando mapear el puerto " + PUERTO);
-            QoopoRT.instancia.ponerEstado("Preguntando si el puerto ya se encuentra mapeado");
-            if (!d.getSpecificPortMappingEntry(PUERTO, "TCP", portMapping)) {
-                QoopoRT.instancia.ponerEstado("Enviando Solicitud de mapeo");
-//                if (d.addPortMapping(PUERTO, PUERTO, localAddress.getHostAddress(), "TCP", "test")) {
-                if (d.addPortMapping(PUERTO, PUERTO, localAddress, "TCP", "test")) {
-                    QoopoRT.instancia.ponerEstado(String.format("Mapeo satisfactorio", tiempoEspera));
-//                    try {
-//                        Thread.sleep(1000 * tiempoEspera);
-//                    } catch (Exception ex) {
-//                    }
-                    //d.deletePortMapping(PUERTO, "TCP");
-                    //QoopoRT.instancia.ponerEstado("Port mapping removed");
-                    //QoopoRT.instancia.ponerEstado("Test SUCCESSFUL");
-                } else {
-                    QoopoRT.instancia.ponerEstado(" Mapeo no satisfactorio");
-                }
-            } else {
-                QoopoRT.instancia.ponerEstado("Puerto ya se encuentra mapeado");
+//            QoopoRT.instancia.ponerEstado("     Intentando mapear el puerto " + PUERTO);
+//            QoopoRT.instancia.ponerEstado("     Preguntando si el puerto ya se encuentra mapeado");
+            if (gateWay.getSpecificPortMappingEntry(PUERTO, tipoPuerto, portMapping)) {
+//                QoopoRT.instancia.ponerEstado("     Puerto ya se encuentra mapeado. Se procede a actualizar");
+                gateWay.deletePortMapping(PUERTO, tipoPuerto);//se elimina para volver a agregar
             }
-            QoopoRT.instancia.ponerEstado("Stopping weupnp");
+//            QoopoRT.instancia.ponerEstado("     Enviando Solicitud de mapeo");
+//                if (d.addPortMapping(PUERTO, PUERTO, localAddress.getHostAddress(), "TCP", "test")) {
+            if (gateWay.addPortMapping(PUERTO, PUERTO, localAddress, "TCP", "QoopoRT-" + PUERTO)) {
+                QoopoRT.instancia.ponerEstado("     Mapeo satisfactorio");
+            } else {
+                QoopoRT.instancia.ponerEstado("      Mapeo no satisfactorio");
+            }
         } catch (Exception ex) {
 
         }
     }
 
+    public void liberarMap() {
+        try {
+            String tipoPuerto = "TCP";
+            if (tipoConexion == ConexionServer.UDP) {
+                tipoPuerto = "UDP";
+            }
+            if (gateWay != null) {
+                gateWay.deletePortMapping(PUERTO, tipoPuerto);
+            }
+        } catch (Exception e) {
+
+        }
+    }
 }

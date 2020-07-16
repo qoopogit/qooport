@@ -773,6 +773,22 @@ public class Util {
             if (cd.showOpenDialog(null) == 0) {
                 return getArchivoTexto(cd.getSelectedFile().getAbsolutePath());
             }
+        } catch (Exception e2) {
+
+        }
+        return "";
+    }
+
+    public static String abrirArchivoKeylogger() {
+        try {
+            JFileChooser cd = new JFileChooser();
+            cd.setDialogType(JFileChooser.OPEN_DIALOG);
+            cd.setFileFilter(new FileNameExtensionFilter("Archivo de texto o Captura", new String[]{"txt", "dat"}));
+            //cd.setCurrentDirectory(dir);
+            //cd.setSelectedFile(new File("servidor"));
+            if (cd.showOpenDialog(null) == 0) {
+                return getArchivoTexto(cd.getSelectedFile().getAbsolutePath());
+            }
 
         } catch (Exception e2) {
 

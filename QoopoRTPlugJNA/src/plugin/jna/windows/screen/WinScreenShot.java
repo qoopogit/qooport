@@ -17,6 +17,9 @@ import java.awt.image.WritableRaster;
 
 public class WinScreenShot {
 
+    private static final User32 USER = User32.INSTANCE;
+    private static final GDI32 GDI = GDI32.INSTANCE;
+
     public static BufferedImage getScreenshot(Rectangle bounds) {
         WinDef.HDC windowDC = GDI.GetDC(USER.GetDesktopWindow());
         WinDef.HBITMAP outputBitmap = GDI.CreateCompatibleBitmap(windowDC, bounds.width, bounds.height);
@@ -94,8 +97,6 @@ public class WinScreenShot {
             return null;
         }
     }
-    private static final User32 USER = User32.INSTANCE;
-    private static final GDI32 GDI = GDI32.INSTANCE;
 }
 
 interface GDI32 extends com.sun.jna.platform.win32.GDI32, com.sun.jna.platform.win32.WinGDI, com.sun.jna.platform.win32.WinDef {

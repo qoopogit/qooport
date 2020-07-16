@@ -7,13 +7,15 @@ package qooport.modulos.archivos.transferencia;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import static java.lang.Thread.sleep;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import network.Conexion;
 import qooport.Global;
 import qooport.asociado.Asociado;
 import qooport.avanzado.QoopoRT;
-import qooport.utilidades.Protocolo;
 import qooport.utilidades.Util;
 import qooport.utilidades.contador.ContadorBPS;
 
@@ -121,8 +123,9 @@ public class Carga extends Transferencia {
             Global.transferencias.progresoCarga.agregarTotal(total);
             tInicio = System.currentTimeMillis();
             input.skip(offset);//<ag>25/08/2017. Salta una parte del archivo para poder reanudar en conexiones perdidas
-            while ((cantidad = input.read(buf)) !=-1 && activo) {
+            while ((cantidad = input.read(buf)) != -1 && activo) {
                 conexion.write(buf, 0, cantidad);
+//                conexion.flush();
                 actual += cantidad;
                 avance = (int) (actual * 100L / total);
                 contador.agregar(cantidad);
@@ -136,27 +139,16 @@ public class Carga extends Transferencia {
                 }
             }
             tFinal = System.currentTimeMillis();
-            conexion.flush();
-
+//            conexion.flush();
             input.close();
-            // despues de terminar de enviar el archivo envio el comando de finalizado
-//            conexion.escribirInt(Protocolo.FIN_ARCHIVO);
-
-//            int confirmacion = conexion.leerInt();
-//            if (confirmacion != rt.util.Protocolo.FIN_ARCHIVO) {
-//                System.out.println("Advertencia al cargar archivo. El comando recibido de fun de archivo no es el correcto [" + confirmacion + "]");
-//            } else {
-//                System.out.println("se recibio la comprobacion de final de archivo. liberando conexion");
-//            }
 //            if (asociado != null && asociado.getTiempoVida() > 5000) {
 //                //espero el valor de ping del servidor, que corresponde al valor de ida y vuelta del paquete, el doble dle necesario
 //                Thread.sleep(asociado.getTiempoVida());
 //            } else {
-                Thread.sleep(5000);//espero que la ultima parte se haya ido y continuo
+            Thread.sleep(5000);//espero que la ultima parte se haya ido y continuo
 //            }
-            conexion.cerrar();
+            
             input = null;
-            //            conexion.leerInt();//espero confirmacion
             if (accionFinalizar != null) {
                 accionFinalizar.ejecutar();
             }
@@ -165,6 +157,11 @@ public class Carga extends Transferencia {
             ex.printStackTrace();
         } finally {
             activo = false;
+            try {
+                conexion.cerrar();
+            } catch (Exception ex) {
+                Logger.getLogger(Carga.class.getName()).log(Level.SEVERE, null, ex);
+            }
             conexion = null;
             Global.transferencias.progresoCarga.quitarAvance(total);
             Global.transferencias.progresoCarga.quitarTotal(total);

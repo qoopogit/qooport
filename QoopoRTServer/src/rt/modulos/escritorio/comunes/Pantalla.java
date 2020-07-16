@@ -256,28 +256,32 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
      * @return
      */
     private void pintarCursor(BufferedImage imageEscritorio) {
-        //si hay q dibujar o enviar el cursor
-        if (opciones.isEnviarCursor() || opciones.isMostrarCursor()) {
-            cursor = null;
-            try {
-                if (servicio.get(7) != null) {
-                    cursor = (BufferedImage) ((Interfaz) servicio.get(7)).get(3);
-                }
-                if (cursor == null) {
+        try {
+            //si hay q dibujar o enviar el cursor
+            if (opciones.isEnviarCursor() || opciones.isMostrarCursor()) {
+                cursor = null;
+                try {
+                    if (servicio.get(7) != null) {
+                        cursor = (BufferedImage) ((Interfaz) servicio.get(7)).get(3);
+                    }
+                    if (cursor == null) {
+                        cursor = UtilRT.CURSOR_PNG;
+                    }
+                } catch (Exception e) {
                     cursor = UtilRT.CURSOR_PNG;
                 }
-            } catch (Exception e) {
-                cursor = UtilRT.CURSOR_PNG;
+                if (opciones.isMostrarCursor()) {
+                    Point p = getCursorPosicion();
+                    imageEscritorio.getGraphics().drawImage(cursor, p.x, p.y, null);
+                    p = null;
+                }
+                if (!opciones.isEnviarCursor()) {
+                    //si no se envia el cursor liberamos memoria
+                    cursor = null;
+                }
             }
-            if (opciones.isMostrarCursor()) {
-                Point p = getCursorPosicion();
-                imageEscritorio.getGraphics().drawImage(cursor, p.x, p.y, null);
-                p = null;
-            }
-            if (!opciones.isEnviarCursor()) {
-                //si no se envia el cursor liberamos memoria
-                cursor = null;
-            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -320,12 +324,11 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
         } catch (OutOfMemoryError ex) {
             imagen = null;
             UtilRT.gc();
-
         } catch (Exception ex) {
             imagen = null;
         }
         long tFin = System.currentTimeMillis();
-        tCaptura = (tFin - tInicio);       
+        tCaptura = (tFin - tInicio);
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -22,6 +22,19 @@
             <file>file:/home/alberto/grive/desarrollo/NetBeansProjects/QoopoRT/QoopoRT/src/qooport/avanzado/QoopoRT.java</file>
             <file>file:/home/alberto/grive/desarrollo/NetBeansProjects/QoopoRT/QoopoRT/src/qooport/utilidades/Util.java</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/avanzado/CrearCliente.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/Inicio.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/avanzado/Notificacion.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/avanzado/QoopoRT.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/utilidades/Notificaciones.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/avanzado/ModoAvanzado.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/asociado/v2/AsociadoV2.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/asociado/v1/AsociadoV1.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/utilidades/Protocolo.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/asociado/Asociado.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/utilidades/cifrado/Encriptacion.java</file>
+            <file>file:/home/alberto/DATOS/PROYECTOS/fuentes/Personales/QoopoRT/QoopoRT/src/qooport/utilidades/MapearPuertos.java</file>
+        </group>
     </open-files>
 </project-private>

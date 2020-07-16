@@ -7,8 +7,8 @@ import network.ConexionServer;
  *
  * @author alberto
  */
+@Deprecated
 public class TransfListener extends Listener {
-
 
     public TransfListener(int puerto, int tipoConexion, boolean version2, boolean ssl) throws IOException {
         this.conexion_servidor = new ConexionServer(tipoConexion, puerto, ssl);

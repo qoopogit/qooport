@@ -17,7 +17,7 @@ public class PluginDef extends Plugin {
     public PluginDef() {
         setId("3");
         setNombre("QoopoRT Nativo");
-        setVersion("1.0");
+        setVersion("1.1");
         setDescripcion("Permite el acceso a funcionalidades nativas del sistema operativo como Obtener el nobmre de la ventana actual, Windows API entre otros");
         setPlataformas("Windows, Linux");
         setListaArchivo(new ArrayList<String>());

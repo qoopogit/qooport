@@ -42,6 +42,7 @@ import qooport.utilidades.cifrado.Encriptacion;
  *
  * @author alberto
  */
+@Deprecated
 public class AsociadoV1 extends Asociado {
 
     public AsociadoV1(Conexion conexion, int tipoconexion, boolean ssl) {
@@ -320,7 +321,7 @@ public class AsociadoV1 extends Asociado {
                         parametro = leerCadena((byte[]) conexion.leerObjeto());
                         this.agregarRecibidos(SizeUtil.sizeof(parametro));
                         if (QoopoRT.instancia != null) {
-                            QoopoRT.instancia.ponerEstado("Servidor (" + getInformacion() + "):" + parametro);
+                            QoopoRT.instancia.ponerEstado("Agente (" + getInformacion() + "):" + parametro);
                         }
                         break;
                     case Protocolo.PING:// enviamos PING

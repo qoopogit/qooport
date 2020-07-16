@@ -5,7 +5,6 @@
  */
 package qooport.avanzado;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import plugin.Plugin;
@@ -36,11 +35,11 @@ public class Plugins extends javax.swing.JFrame {
         btnEnviar.setIcon(Util.cargarIcono16("/resources/2rightarrow.png"));
         btnDescargar.setIcon(Util.cargarIcono16("/resources/2leftarrow.png"));
         btnEnviarTodo.setIcon(Util.cargarIcono16("/resources/2rightarrow.png"));
+        btnDescargarTodo.setIcon(Util.cargarIcono16("/resources/2leftarrow.png"));
     }
 
     public void actualizarDisponibles() {
-
-       Global.cargarPlugins();
+        Global.cargarPlugins();
         actualizarListaDisponiblesPlugins(Global.plugins);
     }
 
@@ -157,10 +156,24 @@ public class Plugins extends javax.swing.JFrame {
             }
         });
 
+        btnDescargar.setEnabled(false);
+        btnDescargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescargarActionPerformed(evt);
+            }
+        });
+
         btnEnviarTodo.setToolTipText("Enviar todos");
         btnEnviarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnviarTodoActionPerformed(evt);
+            }
+        });
+
+        btnDescargarTodo.setEnabled(false);
+        btnDescargarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescargarTodoActionPerformed(evt);
             }
         });
 
@@ -244,7 +257,7 @@ public class Plugins extends javax.swing.JFrame {
         try {
             for (int i = 0; i < this.tablaDisponibles.getSelectedRows().length; i++) {
                 int j = this.tablaDisponibles.getSelectedRows()[i];
-                
+
 //                System.out.println("se deberia enviar al plugin ");
 //                System.out.println(listaDisponibles.get(j).getNombre() + " " + listaDisponibles.get(j).getVersion());
                 Global.extrarPlugin(listaDisponibles.get(j));
@@ -257,6 +270,14 @@ public class Plugins extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDescargarActionPerformed
+
+    private void btnDescargarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarTodoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDescargarTodoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

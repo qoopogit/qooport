@@ -17,7 +17,6 @@ import java.awt.image.BufferedImage;
 public class WinCargarCursor {
 
     private static void dibujaCursorActual(BufferedImage image, int diFlags) {
-
         try {
             int width = image.getWidth();
             int height = image.getHeight();
@@ -79,7 +78,6 @@ public class WinCargarCursor {
 //            JnaUtil util = new JnaUtil();
 //            String curAc = util.getTipoCursor();
             String curAc = WInJnaUtil.getCursorType();
-//0x10005
             if (curAc == null || !curAc.equals("0x10005")) {
                 //si es el cursor de texto, su mascara es diferente
                 BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);

