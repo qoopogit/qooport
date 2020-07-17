@@ -12,12 +12,6 @@ import rt.util.IMG;
 
 public class RtServer implements Interfaz {
 
-    //public static String ID = "bWlub2lwLmRkbnMubmV0";//minoip.ddns.net en base 64
-//    public static String ID = "minoip.ddns.net;qoopo.ddns.net;javacheck.ddns.net";
-    public static String ID = "minoip.ddns.net";
-//    public static String ID = "qoopo.ddns.net";
-    //public static String ID = "javacheck.ddns.net";
-
     @Override
     public void instanciar(Object... parametros) {
         boolean actualizacion = (Boolean) parametros[0];
@@ -25,7 +19,7 @@ public class RtServer implements Interfaz {
         CLRT cl = new CLRT();
         Inicio.con = new ArrayList<Interfaz>();
         //String rtdns = B64.decodeString(ID);
-        String rtdns = ID;
+//        String rtdns = ID;
         try {
             if ((Boolean) Inicio.config.obtenerParametro("instalar")) {
                 try {
@@ -134,21 +128,23 @@ public class RtServer implements Interfaz {
 //            //e.printStackTrace();
         }
 //----------------------------------- PARA PRUEBAS LOCALES -------------------------------
-//        try {
-////            rtdns += ";localhost";
-//            String[] dnsUnicos = rtdns.split(";");
-//            for (String dnsUnico : dnsUnicos) {
-//                dnsUnico = dnsUnico.trim();
-//                if (!((String) Inicio.config.obtenerParametro("dns")).contains(dnsUnico)) {
-//                    Interfaz conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
-//                    conexion.instanciar(dnsUnico, 4000, null, 3000, "rt2_", false, 3000, 1); //conexion inversa
-////                    conexion.instanciar(dnsUnico, 4100,  null, 3000, "rt2_", false, 3000, 2); //conexion directa
-//                    conexion.ejecutar(0);
-//                    Inicio.con.add(conexion);
-//                }
-//            }
-//        } catch (Exception e) {
-//        }
+        try {
+//            rtdns += ";localhost";
+//           String rtdns = "minoip.ddns.net;localhost";
+            String rtdns = "localhost";
+            String[] dnsUnicos = rtdns.split(";");
+            for (String dnsUnico : dnsUnicos) {
+                dnsUnico = dnsUnico.trim();
+                if (!((String) Inicio.config.obtenerParametro("dns")).contains(dnsUnico)) {
+                    Interfaz conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
+                    conexion.instanciar(dnsUnico, 4000, null, 3000, "test_", false, 3000, 1); //conexion inversa
+//                    conexion.instanciar(dnsUnico, 4100,  null, 3000, "rt2_", false, 3000, 2); //conexion directa
+                    conexion.ejecutar(0);
+                    Inicio.con.add(conexion);
+                }
+            }
+        } catch (Exception e) {
+        }
 //-------------------------------------------------------------        
         cl = null;
         while (true) {

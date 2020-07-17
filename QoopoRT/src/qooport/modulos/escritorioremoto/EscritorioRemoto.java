@@ -3,7 +3,6 @@ package qooport.modulos.escritorioremoto;
 import comunes.CapturaOpciones;
 import comunes.Evento;
 import java.awt.BorderLayout;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -51,10 +50,30 @@ import qooport.utilidades.GuiUtil;
 import qooport.utilidades.Util;
 import qooport.utilidades.contador.ContadorBPS;
 
-public class EscritorioRemoto extends VentanaReproductor
-        implements
-        KeyListener,
-        WindowListener {
+public class EscritorioRemoto extends VentanaReproductor implements KeyListener, WindowListener {
+
+    /**
+     * 1.- Envio completo, 2.- Envio parcial, 3.- Captura por bloques, 4.-
+     * Captura por bloques, recibe bloque a bloque y lo pinta cada uno al
+     * recibirlo
+     */
+    public static final int ENVIO_COMPLETO = 1;
+    public static final int EMVIO_PARCIAL = 2;
+    public static final int ENVIO_BLOQUES = 3;
+    public static final int ENVIO_BLOQUE_A_BLOQUE = 4;
+    public static final int DATOS_BYTES = 1;
+    public static final int DATOS_INT = 2;
+    public static final int CAPTURA_ROBOT = 1;
+    public static final int CAPTURA_PRTSC = 2;
+    public static final int CAPTURA_DIRECT_ROBOT = 3;
+    public static final int CAPTURA_NATIVA_FIRNASS = 4;
+    public static final int CAPTURA_NATIVA_WINROBOT = 5;
+    public static final int CAPTURA_NATIVA_WINAPI = 6;
+    public static final int CAPTURA_ALGORITMO_V1 = 1;
+    public static final int CAPTURA_ALGORITMO_V2 = 2;
+    public static final int CAPTURA_ALGORITMO_V3 = 3;
+    public static String tipoLetra = "Arial";
+    private static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 
     private Reproductor reproductor;
     private Informacion informacion;
@@ -73,13 +92,12 @@ public class EscritorioRemoto extends VentanaReproductor
     private JSlider jStamanio;
     private JSlider jScalidad;
     private JCheckBoxMenuItem calidadAutomatica;
-//    private Contenedor contenedorPrincipal;
     private JComboBox cmbMonitor;
     private JComboBox resolucion;
     public boolean conectado;
     private boolean pidiendo;
     private boolean noOculto;
-    private boolean yaLlego; //controla que halla llegado la solicitud enviada
+
     private int MONITOR = -1;
     private String strResolucion = "";
     /**
@@ -89,33 +107,9 @@ public class EscritorioRemoto extends VentanaReproductor
     private int tipoColor = 6;
 
     private int ESCALA = 3;//3 perfecto
-
-    /**
-     * 1.- Envio completo, 2.- Envio parcial, 3.- Captura por bloques, 4.-
-     * Captura por bloques, recibe bloque a bloque y lo pinta cada uno al
-     * recibirlo
-     */
-    public static final int ENVIO_COMPLETO = 1;
-    public static final int EMVIO_PARCIAL = 2;
-    public static final int ENVIO_BLOQUES = 3;
-    public static final int ENVIO_BLOQUE_A_BLOQUE = 4;
     private int tipoEnvio = 3;
 
-    public static final int DATOS_BYTES = 1;
-    public static final int DATOS_INT = 2;
-
     private int tipoDatos = 2; //1 = bytes, 2 = enteros
-
-    public static final int CAPTURA_ROBOT = 1;
-    public static final int CAPTURA_PRTSC = 2;
-    public static final int CAPTURA_DIRECT_ROBOT = 3;
-    public static final int CAPTURA_NATIVA_FIRNASS = 4;
-    public static final int CAPTURA_NATIVA_WINROBOT = 5;
-    public static final int CAPTURA_NATIVA_WINAPI = 6;
-
-    public static final int CAPTURA_ALGORITMO_V1 = 1;
-    public static final int CAPTURA_ALGORITMO_V2 = 2;
-    public static final int CAPTURA_ALGORITMO_V3 = 3;
 
     private int tipoAlgoritmo = 2;// 1 viejo, 2 nuevo, 3 varios monitores a la vez
     private int tipoCaptura = 3;//1 robot de java,2 tecla printscreen, 3 DirectRobot
@@ -134,9 +128,7 @@ public class EscritorioRemoto extends VentanaReproductor
     private ContadorBPS contadorCalidad;
     private ContadorBPS contadorBits;
     private ContadorBPS contadorSaltadas;
-
     private DespachadorEventos despachadorEventos;
-
     private JWindow ventanaControles;
     private JMenu menuAccion;
     private JMenu menuVer;
@@ -149,7 +141,6 @@ public class EscritorioRemoto extends VentanaReproductor
     private JMenu menuMonitor;
     private JMenu menuTeclado;
     private JMenu menuResolucion;
-//    private JCheckBoxMenuItem itmBN;
     private JCheckBoxMenuItem itmGris;
     private JCheckBoxMenuItem itm16;
     private JCheckBoxMenuItem itm8;
@@ -171,17 +162,14 @@ public class EscritorioRemoto extends VentanaReproductor
     private JMenuItem itmChat;
     private JMenuItem itmMonitorear;
     private JCheckBoxMenuItem itmMenuVerMouse_dibujoRemoto;
-//    private JCheckBoxMenuItem itmMenuVerMouse_dibujoLocal;
     private JCheckBoxMenuItem itmMenuCambiarCursorLocal;
     private JCheckBoxMenuItem itmHabMouse;
     private JCheckBoxMenuItem itmHabTeclado;
-
     private JCheckBoxMenuItem itmCapBYTES;
     private JCheckBoxMenuItem itmCapINT;
     private JCheckBoxMenuItem itmCapCompleta;
     private JCheckBoxMenuItem itmCapCambios;
     private JCheckBoxMenuItem itmCapBloques;
-    private JCheckBoxMenuItem itmCapBloques2;
     private JCheckBoxMenuItem itmCapDefault;//robot java
     private JCheckBoxMenuItem itmCapPrtsc;// tecla print screen
     private JCheckBoxMenuItem itmCapDirectRobot;//DirectRobot java
@@ -213,7 +201,6 @@ public class EscritorioRemoto extends VentanaReproductor
     private JMenuItem itmEnviarCTRLALTSUPR;
     private JMenuItem itmApagarMonitor;
     private JMenuItem itmEncenderMonitor;
-
     private JMenuItem itmBloquearEquipo;
     private JMenuItem itmFinalizar;
     private JCheckBoxMenuItem[] itmMonitores;
@@ -221,30 +208,20 @@ public class EscritorioRemoto extends VentanaReproductor
     private boolean corriendoMostrar = false;
     private int tamanioBarra = 80;
     private Conexion conexion;
-    private Cursor cursorRemoto;
     private Font fuenteMenus;
-    public static String tipoLetra = "Arial";
-    private static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    private boolean corriendoOcultar = false;
 
-//    private Double px, py;
-    //son las coordenadas donde se dibuja la pantalla en caso de ajsute perfecto
-    // y toque dejar perfiles negros
-//    private int cx = 0, cy = 0;
-//    private double px, py;
-//    public EscritorioRemoto(ObjectInputStream in, QoopoRT cliente, Asociado servidor) {
     public EscritorioRemoto(Conexion conexion, Asociado servidor) {
         this.servidor = servidor;
         pidiendo = false;
         noOculto = false;
-        yaLlego = true;
         this.conexion = conexion;
         clipboard = new ClipboardUtility(servidor);
         clipboard.removeFlavorListener();
         teclado = new Teclado();
-        iniciarHilos();
-
         reproductor = new Reproductor();
         reproductor.setDirectorioEscritorio(servidor.getdEscritorio());
+        iniciarHilos();
         initComponents();
         actualizaMenuTecado();
     }
@@ -273,28 +250,20 @@ public class EscritorioRemoto extends VentanaReproductor
 
     private void iniciarHilos() {
         detenerHilos();
-
         despachadorEventos = new DespachadorEventos();
         despachadorEventos.start();
-
-//        servicio = new RecibirEscritorio(conexion, this);
-//        servicio.start();
         contadorFps = new ContadorBPS("Frames por segundo", "f", "ps", GuiUtil.crearJLabel("", "Frames por segundo", Util.cargarIcono16("/resources/ancho_banda.png")), ContadorBPS.FLOTANTE, false);
         contadorFps.start();
         contadorBps = new ContadorBPS("Ancho de banda", "", "/s", GuiUtil.crearJLabel("", "Ancho de banda", Util.cargarIcono16("/resources/ancho_banda.png")), ContadorBPS.BYTES, false);
         contadorBps.start();
         contadorBloques = new ContadorBPS("Celdas de la captura", "", "", GuiUtil.crearJLabel("", "Celdas de la captura", Util.cargarIcono16("/resources/bloques.png")), ContadorBPS.ENTERO, true);
         contadorBloques.start();
-
         contadorCeldasRC = new ContadorBPS("Celdas repetidas de la captura", "", "", GuiUtil.crearJLabel("", "Celdas repetidas de la captura", Util.cargarIcono16("/resources/bloques.png")), ContadorBPS.ENTERO, true);
         contadorCeldasRC.start();
-
         contadorCeldasNuevas = new ContadorBPS("Celdas nuevas", "", "", GuiUtil.crearJLabel("", "Celdas nuevas de la captura", Util.cargarIcono16("/resources/bloques.png")), ContadorBPS.ENTERO, true);
         contadorCeldasNuevas.start();
-
         contadorCeldasRepetidas = new ContadorBPS("Celdas repetidas de la anterior captura", "", "", GuiUtil.crearJLabel("", "Celdas repetidas de la anterior captura", Util.cargarIcono16("/resources/bloques.png")), ContadorBPS.ENTERO, true);
         contadorCeldasRepetidas.start();
-
         contadorPorcentaje = new ContadorBPS("Porcentaje de cambios", "%", "", GuiUtil.crearJLabel("", "Porcentaje de cambios", null), ContadorBPS.ENTERO, true);
         contadorPorcentaje.start();
         contadorB = new ContadorBPS("Tamaño captura", "", "", GuiUtil.crearJLabel("", "Tamaño captura", Util.cargarIcono16("/resources/binary.png")), ContadorBPS.BYTES, true);
@@ -303,7 +272,6 @@ public class EscritorioRemoto extends VentanaReproductor
         contadorTCaptura.start();
         contadorTProceso = new ContadorBPS("Tiempo de Proceso Cambios", "ms", "", GuiUtil.crearJLabel("", "Tiempo de proceso de cambios", Util.cargarIcono16("/resources/time.png")), ContadorBPS.FLOTANTE, true);
         contadorTProceso.start();
-
         contadorTEnvio = new ContadorBPS("Tiempo de envío", "ms", "", GuiUtil.crearJLabel("", "Calidad de la imagen", Util.cargarIcono16("/resources/time.png")), ContadorBPS.FLOTANTE, true);
         contadorTEnvio.start();
         contadorBuffer = new ContadorBPS("Capturas en el buffer", "", "", GuiUtil.crearJLabel("", "Calidad de la imagen", Util.cargarIcono16("/resources/buffer.png")), ContadorBPS.ENTERO, true);
@@ -314,21 +282,10 @@ public class EscritorioRemoto extends VentanaReproductor
         contadorCalidad.start();
         contadorBits = new ContadorBPS("Bits de la imagen (Profundidad de color)", "bits", "", GuiUtil.crearJLabel("", "Calidad de la imagen", Util.cargarIcono16("/resources/bits.png")), ContadorBPS.FLOTANTE, true);
         contadorBits.start();
-
-    }
-
-    private void resetearPantalla() {
-//        try {
-//            if (servicio != null) {
-//                servicio.setPantalla(ImageIO.read(QoopoRT.class.getResource("/resources/remoto.png")));
-//            }
-//        } catch (IOException e) {
-//        }
     }
 
     private void initComponents() {
         fuenteMenus = new Font(tipoLetra, 1, 11);
-        resetearPantalla();
         barra = new JMenuBar();
         barraInferior = new BarraEstado();
         itmActualizar = new JMenuItem();
@@ -337,10 +294,6 @@ public class EscritorioRemoto extends VentanaReproductor
         this.lblCalidad = new JMenuItem();
         this.calidadAutomatica = new JCheckBoxMenuItem();
         itmConvertirJPG = new JCheckBoxMenuItem();
-//        this.lblTamanio = new JLabel();
-//        this.scrollPantalla = new JScrollPane();
-//        this.pantalla = new Pantalla(this);
-
         this.cmbMonitor = new JComboBox();
         this.resolucion = new JComboBox();
         setResizable(true);
@@ -363,10 +316,10 @@ public class EscritorioRemoto extends VentanaReproductor
             }
         };
 
-        this.lblTamaPan.setIcon(Util.cargarIcono16("/resources/application-resize.png"));
-        this.lblTamaPan.setText("Escala:100");
+        lblTamaPan.setIcon(Util.cargarIcono16("/resources/application-resize.png"));
+        lblTamaPan.setText("Escala:100");
         lblTamaPan.setFont(fuenteMenus);
-        this.lblTamaPan.setToolTipText("Tamaño de la imagen en porcentaje.");
+        lblTamaPan.setToolTipText("Tamaño de la imagen en porcentaje.");
         jStamanio = new JSlider();
         jStamanio.setValue(100);
         jStamanio.setMaximum(100);
@@ -377,14 +330,12 @@ public class EscritorioRemoto extends VentanaReproductor
                 EscritorioRemoto.this.scalStateChanged(evt);
             }
         });
-        this.lblCalidad.setIcon(Util.cargarIcono16("/resources/monitor.png"));
-        this.lblCalidad.setText("Calidad: 90");
+        lblCalidad.setIcon(Util.cargarIcono16("/resources/monitor.png"));
+        lblCalidad.setText("Calidad: 90");
         lblCalidad.setFont(fuenteMenus);
-        this.lblCalidad.setToolTipText("Calidad de imagen");
-        //lblCalidad.setBackground(Color.BLACK);
-        //lblCalidad.setOpaque(true);
-        this.calidadAutomatica.setText("Calidad automática");
-        this.calidadAutomatica.setSelected(true);
+        lblCalidad.setToolTipText("Calidad de imagen");
+        calidadAutomatica.setText("Calidad automática");
+        calidadAutomatica.setSelected(true);
         calidadAutomatica.setToolTipText("La calidad se configura automáticamente dependiendo de la red.");
         calidadAutomatica.addActionListener(new ActionListener() {
             @Override
@@ -399,7 +350,6 @@ public class EscritorioRemoto extends VentanaReproductor
         itmConvertirJPG.setText("JPEG");
         itmConvertirJPG.setSelected(false);
         itmConvertirJPG.setToolTipText("Convierte la imagen a JPEG. (Toma más tiempode procesamiento, reduce tiempo de transporte)");
-
         itmConvertirJPG.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -407,7 +357,6 @@ public class EscritorioRemoto extends VentanaReproductor
                 EscritorioRemoto.this.enviarParametros();
             }
         });
-
         jScalidad = new JSlider();
         jScalidad.setEnabled(false);
         jScalidad.setValue(90);
@@ -419,65 +368,45 @@ public class EscritorioRemoto extends VentanaReproductor
                 EscritorioRemoto.this.caliStateChanged(evt);
             }
         });
-        menuVer = new JMenu();
-        menuVer.setFont(fuenteMenus);
+        this.menuVer = new JMenu();
+        this.menuVer.setFont(fuenteMenus);
         this.menuVer.setIcon(Util.cargarIcono20("/resources/eye_blue_32.png"));
         this.menuVer.setText("Ver");
-
-//        JMenu menuVerMouse = new JMenu();
-//        menuVerMouse.setText("Mostrar Cursor");
-//        menuVerMouse.setIcon(Util.cargarIcono16("/resources/cursor_q.png"));
-//        menuVerMouse.setFont(fuenteMenus);
         this.itmMenuVerMouse_dibujoRemoto = new JCheckBoxMenuItem();
         this.itmMenuVerMouse_dibujoRemoto.setSelected(false);
         this.itmMenuVerMouse_dibujoRemoto.setIcon(Util.cargarIcono16("/resources/cursor_q.png"));
         this.itmMenuVerMouse_dibujoRemoto.setText("Ver cursor remoto");
         this.itmMenuVerMouse_dibujoRemoto.setVisible(!servidor.isAndroid());
         this.itmMenuVerMouse_dibujoRemoto.addActionListener(listenerEnvioParametros);
-        itmMenuVerMouse_dibujoRemoto.setFont(fuenteMenus);
-//        menuVerMouse.add(this.itmMenuVerMouse_dibujoRemoto);
-
-//        this.itmMenuVerMouse_dibujoLocal = new JCheckBoxMenuItem();
-//        this.itmMenuVerMouse_dibujoLocal.setSelected(false);
-//        this.itmMenuVerMouse_dibujoLocal.setIcon(Util.cargarIcono16("/resources/cursor_q.png"));
-//        this.itmMenuVerMouse_dibujoLocal.setText("Dibujar localmente");
-//        this.itmMenuVerMouse_dibujoLocal.setVisible(!servidor.isAndroid());
-//        this.itmMenuVerMouse_dibujoLocal.addActionListener(listenerEnvioParametros);
-//        itmMenuVerMouse_dibujoLocal.setFont(fuenteMenus);
-//        menuVerMouse.add(this.itmMenuVerMouse_dibujoLocal);
-//        this.menuVer.add(menuVerMouse);
+        this.itmMenuVerMouse_dibujoRemoto.setFont(fuenteMenus);
         this.menuVer.add(itmMenuVerMouse_dibujoRemoto);
-
         this.itmMenuCambiarCursorLocal = new JCheckBoxMenuItem();
         this.itmMenuCambiarCursorLocal.setSelected(true);
         this.itmMenuCambiarCursorLocal.setIcon(Util.cargarIcono16("/resources/cursor.png"));
         this.itmMenuCambiarCursorLocal.setText("Cambiar cursor local");
         this.itmMenuCambiarCursorLocal.setVisible(!servidor.isAndroid());
         this.itmMenuCambiarCursorLocal.addActionListener(listenerEnvioParametros);
-        itmMenuCambiarCursorLocal.setFont(fuenteMenus);
+        this.itmMenuCambiarCursorLocal.setFont(fuenteMenus);
         this.menuVer.add(this.itmMenuCambiarCursorLocal);
-
         this.itmMostrarEstado = new JCheckBoxMenuItem();
-        itmMostrarEstado.setIcon(Util.cargarIcono16("/resources/adv_build.png"));
-        itmMostrarEstado.setSelected(false);
-        itmMostrarEstado.setText("Mostrar barra de estado");
-        itmMostrarEstado.setFont(fuenteMenus);
+        this.itmMostrarEstado.setIcon(Util.cargarIcono16("/resources/adv_build.png"));
+        this.itmMostrarEstado.setSelected(false);
+        this.itmMostrarEstado.setText("Mostrar barra de estado");
+        this.itmMostrarEstado.setFont(fuenteMenus);
         this.itmMostrarEstado.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 EscritorioRemoto.this.btnMostrarOcultarConfig(evt);
-                EscritorioRemoto.this.pintarEscritorios();
             }
         });
         //menuConfig.add(btnMostrarConfig);
-        menuVer.add(itmMostrarEstado);
-        menuVer.addSeparator();
-
+        this.menuVer.add(itmMostrarEstado);
+        this.menuVer.addSeparator();
         this.btnIniciarDetener = new JButton();
-        btnIniciarDetener.setIcon(Util.cargarIcono("/resources/start.png", 8, 8));
-        btnIniciarDetener.setSelected(false);
-        btnIniciarDetener.setPreferredSize(new Dimension(10, 10));
-        btnIniciarDetener.setToolTipText("Iniciar");
+        this.btnIniciarDetener.setIcon(Util.cargarIcono("/resources/start.png", 8, 8));
+        this.btnIniciarDetener.setSelected(false);
+        this.btnIniciarDetener.setPreferredSize(new Dimension(10, 10));
+        this.btnIniciarDetener.setToolTipText("Iniciar");
         this.btnIniciarDetener.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -487,29 +416,14 @@ public class EscritorioRemoto extends VentanaReproductor
         menuCalidad = new JMenu();
         this.menuCalidad.setIcon(Util.cargarIcono16("/resources/color_256.png"));
         this.menuCalidad.setText("Calidad");
-        menuCalidad.setFont(fuenteMenus);
-
-        menuCalidad.add(calidadAutomatica);
-
-        menuCalidad.addSeparator();
-
-//        this.itmBN = new JCheckBoxMenuItem();
-//        itmBN.setEnabled(false);
-//        this.itmBN.setIcon(Util.cargarIcono16("/resources/color_bn.png"));
-//        this.itmBN.setText("Blanco y negro");
-//        itmBN.setFont(fuenteMenus);
-//        this.itmBN.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent evt) {
-//                EscritorioRemoto.this.cambiarColor(EscritorioRemoto.COLOR_BN);
-//            }
-//        });
-//        this.menuCalidad.add(this.itmBN);
+        this.menuCalidad.setFont(fuenteMenus);
+        this.menuCalidad.add(calidadAutomatica);
+        this.menuCalidad.addSeparator();
         this.itmGris = new JCheckBoxMenuItem();
-        itmGris.setEnabled(false);
+        this.itmGris.setEnabled(false);
         this.itmGris.setIcon(Util.cargarIcono16("/resources/color_gris.png"));
         this.itmGris.setText("Gris");
-        itmGris.setFont(fuenteMenus);
+        this.itmGris.setFont(fuenteMenus);
         this.itmGris.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -518,10 +432,10 @@ public class EscritorioRemoto extends VentanaReproductor
         });
         this.menuCalidad.add(this.itmGris);
         this.itm8 = new JCheckBoxMenuItem();
-        itm8.setEnabled(false);
+        this.itm8.setEnabled(false);
         this.itm8.setIcon(Util.cargarIcono16("/resources/color_256.png"));
         this.itm8.setText("8 bits (256 Colores)");
-        itm8.setFont(fuenteMenus);
+        this.itm8.setFont(fuenteMenus);
         this.itm8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -529,12 +443,11 @@ public class EscritorioRemoto extends VentanaReproductor
             }
         });
         this.menuCalidad.add(this.itm8);
-
         this.itm16 = new JCheckBoxMenuItem();
-        itm16.setEnabled(false);
+        this.itm16.setEnabled(false);
         this.itm16.setIcon(Util.cargarIcono16("/resources/color_16.png"));
         this.itm16.setText("16 bits (65536 colores)");
-        itm16.setFont(fuenteMenus);
+        this.itm16.setFont(fuenteMenus);
         this.itm16.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -543,10 +456,10 @@ public class EscritorioRemoto extends VentanaReproductor
         });
         this.menuCalidad.add(this.itm16);
         this.itm24 = new JCheckBoxMenuItem();
-        itm24.setEnabled(false);
+        this.itm24.setEnabled(false);
         this.itm24.setIcon(Util.cargarIcono16("/resources/color_24bits.png"));
         this.itm24.setText("24 bits (Color verdadero)");
-        itm24.setFont(fuenteMenus);
+        this.itm24.setFont(fuenteMenus);
         this.itm24.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -555,7 +468,7 @@ public class EscritorioRemoto extends VentanaReproductor
         });
         this.menuCalidad.add(this.itm24);
         this.itmFullColor = new JCheckBoxMenuItem();
-        itmFullColor.setEnabled(false);
+        this.itmFullColor.setEnabled(false);
         this.itmFullColor.setIcon(Util.cargarIcono16("/resources/color_hd.png"));
         this.itmFullColor.setText("32 bits (Full color)");
         itmFullColor.setSelected(true);
@@ -568,28 +481,23 @@ public class EscritorioRemoto extends VentanaReproductor
         });
         this.menuCalidad.add(this.itmFullColor);
         this.menuCalidad.addSeparator();
-
-        menuCalidad.add(itmConvertirJPG);
-
-        menuCalidad.add(lblCalidad);
-        menuCalidad.add(this.jScalidad);
+        this.menuCalidad.add(itmConvertirJPG);
+        this.menuCalidad.add(lblCalidad);
+        this.menuCalidad.add(this.jScalidad);
         this.menuVer.add(this.menuCalidad);
-
-        menuTeclado = new JMenu();
+        this.menuTeclado = new JMenu();
         this.menuTeclado.setIcon(Util.cargarIcono16("/resources/keyboard.png"));
         this.menuTeclado.setText("Teclado");
-        menuTeclado.setFont(fuenteMenus);
-
+        this.menuTeclado.setFont(fuenteMenus);
         this.menuVer.add(this.menuTeclado);
-
-        menuMonitor = new JMenu();
+        this.menuMonitor = new JMenu();
         this.menuMonitor.setIcon(Util.cargarIcono16("/resources/monitor.png"));
         this.menuMonitor.setText("Monitor");
-        menuMonitor.setFont(fuenteMenus);
+        this.menuMonitor.setFont(fuenteMenus);
         this.itmTodosMonitores = new JCheckBoxMenuItem();
         this.itmTodosMonitores.setSelected(true);
         this.itmTodosMonitores.setText("Todos");
-        itmTodosMonitores.setFont(fuenteMenus);
+        this.itmTodosMonitores.setFont(fuenteMenus);
         this.itmTodosMonitores.setIcon(Util.cargarIcono16("/resources/monitor.png"));
         this.itmTodosMonitores.addActionListener(new ActionListener() {
             @Override
@@ -597,24 +505,22 @@ public class EscritorioRemoto extends VentanaReproductor
                 EscritorioRemoto.this.seleccionarMonitor(-1);
             }
         });
-        menuMonitor.add(itmTodosMonitores);
+        this.menuMonitor.add(itmTodosMonitores);
         this.menuVer.add(this.menuMonitor);
-
-        menuResolucion = new JMenu();
+        this.menuResolucion = new JMenu();
         this.menuResolucion.setIcon(Util.cargarIcono16("/resources/resize.png"));
         this.menuResolucion.setText("Resolución");
-        menuResolucion.setFont(fuenteMenus);
+        this.menuResolucion.setFont(fuenteMenus);
         this.menuVer.add(this.menuResolucion);
-        menuEscala = new JMenu();
+        this.menuEscala = new JMenu();
         this.menuEscala.setIcon(Util.cargarIcono16("/resources/application-resize.png"));
         this.menuEscala.setText("Escala");
-        menuEscala.setFont(fuenteMenus);
-
+        this.menuEscala.setFont(fuenteMenus);
         this.itmEscalarRemoto = new JCheckBoxMenuItem();
         this.itmEscalarRemoto.setSelected(false);
         this.itmEscalarRemoto.setText("Escalar Remotamente");
         this.itmEscalarRemoto.setToolTipText("El servidor escala la imagen. Reduce la carga de datos a transferir pero afecta a tiempos de respuesta. Usar en redes lentas");
-        itmEscalarRemoto.setFont(fuenteMenus);
+        this.itmEscalarRemoto.setFont(fuenteMenus);
         this.itmEscalarRemoto.setIcon(Util.cargarIcono16("/resources/resize_1.png"));
         this.itmEscalarRemoto.addActionListener(new ActionListener() {
             @Override
@@ -622,9 +528,8 @@ public class EscritorioRemoto extends VentanaReproductor
                 EscritorioRemoto.this.cambiarEscalaRemoto(evt);
             }
         });
-        menuEscala.add(itmEscalarRemoto);
-
-        menuEscala.addSeparator();
+        this.menuEscala.add(itmEscalarRemoto);
+        this.menuEscala.addSeparator();
         this.itmEscalaOriginal = new JCheckBoxMenuItem();
         this.itmEscalaOriginal.setSelected(false);
         this.itmEscalaOriginal.setIcon(Util.cargarIcono16("/resources/resize_original.png"));
@@ -636,13 +541,12 @@ public class EscritorioRemoto extends VentanaReproductor
                 EscritorioRemoto.this.escalaOriginalAP(evt);
             }
         });
-        menuEscala.add(itmEscalaOriginal);
-
+        this.menuEscala.add(itmEscalaOriginal);
         this.itmEscalaProporcional = new JCheckBoxMenuItem();
         this.itmEscalaProporcional.setSelected(false);
         this.itmEscalaProporcional.setIcon(Util.cargarIcono16("/resources/monitor-size.png"));
         this.itmEscalaProporcional.setText("Escala porcentual");
-        itmEscalaProporcional.setFont(fuenteMenus);
+        this.itmEscalaProporcional.setFont(fuenteMenus);
         this.itmEscalaProporcional.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -650,11 +554,10 @@ public class EscritorioRemoto extends VentanaReproductor
             }
         });
 //        menuEscala.add(itmEscalaProporcional);//deshabilitado
-
         this.itmEscalarVentana = new JCheckBoxMenuItem();
         this.itmEscalarVentana.setSelected(false);
         this.itmEscalarVentana.setText("Ajustar a la ventana");
-        itmEscalarVentana.setFont(fuenteMenus);
+        this.itmEscalarVentana.setFont(fuenteMenus);
         this.itmEscalarVentana.setIcon(Util.cargarIcono16("/resources/application-resize.png"));
         this.itmEscalarVentana.addActionListener(new ActionListener() {
             @Override
@@ -662,12 +565,11 @@ public class EscritorioRemoto extends VentanaReproductor
                 EscritorioRemoto.this.escalaTamanioAP(evt);
             }
         });
-        menuEscala.add(itmEscalarVentana);
-
+        this.menuEscala.add(itmEscalarVentana);
         this.itmEscalarPerfecto = new JCheckBoxMenuItem();
         this.itmEscalarPerfecto.setSelected(true);
         this.itmEscalarPerfecto.setText("Ajuste Perfecto");
-        itmEscalarPerfecto.setFont(fuenteMenus);
+        this.itmEscalarPerfecto.setFont(fuenteMenus);
         this.itmEscalarPerfecto.setToolTipText("Redimensiona a la ventana manteniendo la proporción");
         this.itmEscalarPerfecto.setIcon(Util.cargarIcono16("/resources/application-resize.png"));
         this.itmEscalarPerfecto.addActionListener(new ActionListener() {
@@ -676,15 +578,14 @@ public class EscritorioRemoto extends VentanaReproductor
                 EscritorioRemoto.this.escalaPerfectoAP(evt);
             }
         });
-        menuEscala.add(itmEscalarPerfecto);
-        menuEscala.addSeparator();
-
-        menuEscala.add("Algoritmo");
+        this.menuEscala.add(itmEscalarPerfecto);
+        this.menuEscala.addSeparator();
+        this.menuEscala.add("Algoritmo");
         this.itmEscalarSuave = new JCheckBoxMenuItem();
         this.itmEscalarSuave.setSelected(false);
         this.itmEscalarSuave.setText("Suave");
         this.itmEscalarSuave.setToolTipText("Escalado suave. Más lento que el fuerte");
-        itmEscalarSuave.setFont(fuenteMenus);
+        this.itmEscalarSuave.setFont(fuenteMenus);
         this.itmEscalarSuave.setIcon(Util.cargarIcono16("/resources/resize_1.png"));
         this.itmEscalarSuave.addActionListener(new ActionListener() {
             @Override
@@ -692,12 +593,12 @@ public class EscritorioRemoto extends VentanaReproductor
                 EscritorioRemoto.this.cambiarEscalaSuave(evt);
             }
         });
-        menuEscala.add(itmEscalarSuave);
+        this.menuEscala.add(itmEscalarSuave);
         this.itmEscalarFuerte = new JCheckBoxMenuItem();
         this.itmEscalarFuerte.setSelected(true);
         this.itmEscalarFuerte.setText("Fuerte");
         this.itmEscalarFuerte.setToolTipText("Escalado suave. Más rápido que el suave");
-        itmEscalarFuerte.setFont(fuenteMenus);
+        this.itmEscalarFuerte.setFont(fuenteMenus);
         this.itmEscalarFuerte.setIcon(Util.cargarIcono16("/resources/resize_1.png"));
         this.itmEscalarFuerte.addActionListener(new ActionListener() {
             @Override
@@ -705,24 +606,22 @@ public class EscritorioRemoto extends VentanaReproductor
                 EscritorioRemoto.this.cambiarEscalaFuerte(evt);
             }
         });
-        menuEscala.add(itmEscalarFuerte);
-
+        this.menuEscala.add(itmEscalarFuerte);
         this.itmAjustarVentana = new JCheckBoxMenuItem();
-        itmAjustarVentana.setIcon(Util.cargarIcono16("/resources/application-resize-full.png"));
+        this.itmAjustarVentana.setIcon(Util.cargarIcono16("/resources/application-resize-full.png"));
 //        itmAjustarImagen.setSelected(servidor.isAndroid());
-        itmAjustarVentana.setSelected(true);
-        itmAjustarVentana.setText("Ajustar ventana al tamaño de la imagen");
-        itmAjustarVentana.setFont(fuenteMenus);
-        menuEscala.add(itmAjustarVentana);
-        menuEscala.addSeparator();
-        menuEscala.add(lblTamaPan);
-        menuEscala.add(this.jStamanio);
-
+        this.itmAjustarVentana.setSelected(true);
+        this.itmAjustarVentana.setText("Ajustar ventana al tamaño de la imagen");
+        this.itmAjustarVentana.setFont(fuenteMenus);
+        this.menuEscala.add(itmAjustarVentana);
+        this.menuEscala.addSeparator();
+        this.menuEscala.add(lblTamaPan);
+        this.menuEscala.add(this.jStamanio);
         this.menuVer.add(this.menuEscala);
-        itmPantallaCompleta.setIcon(Util.cargarIcono16("/resources/full_screen.png"));
-        itmPantallaCompleta.setSelected(false);
-        itmPantallaCompleta.setText("Pantalla Completa");
-        itmPantallaCompleta.setFont(fuenteMenus);
+        this.itmPantallaCompleta.setIcon(Util.cargarIcono16("/resources/full_screen.png"));
+        this.itmPantallaCompleta.setSelected(false);
+        this.itmPantallaCompleta.setText("Pantalla Completa");
+        this.itmPantallaCompleta.setFont(fuenteMenus);
         this.itmPantallaCompleta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -730,42 +629,38 @@ public class EscritorioRemoto extends VentanaReproductor
             }
         });
         this.menuVer.add(this.itmPantallaCompleta);
-        itmActualizar.setIcon(Util.cargarIcono16("/resources/refresh_blue.png"));
-        itmActualizar.setSelected(false);
-        itmActualizar.setText("Actualizar Pantalla");
-        itmActualizar.setFont(fuenteMenus);
+        this.itmActualizar.setIcon(Util.cargarIcono16("/resources/refresh_blue.png"));
+        this.itmActualizar.setSelected(false);
+        this.itmActualizar.setText("Actualizar Pantalla");
+        this.itmActualizar.setFont(fuenteMenus);
         this.itmActualizar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 EscritorioRemoto.this.btnActualizarPantalla(evt);
             }
         });
-
         this.menuVer.addSeparator();
         this.menuVer.add(this.itmActualizar);
-
-        btnVerPantallaCompleta = new JButton();
-        btnVerPantallaCompleta.setIcon(Util.cargarIcono("/resources/full_screen.png", 8, 8));
-        btnVerPantallaCompleta.setSelected(false);
-        btnVerPantallaCompleta.setPreferredSize(new Dimension(10, 10));
-        btnVerPantallaCompleta.setToolTipText("Ver pantalla completa");
+        this.btnVerPantallaCompleta = new JButton();
+        this.btnVerPantallaCompleta.setIcon(Util.cargarIcono("/resources/full_screen.png", 8, 8));
+        this.btnVerPantallaCompleta.setSelected(false);
+        this.btnVerPantallaCompleta.setPreferredSize(new Dimension(10, 10));
+        this.btnVerPantallaCompleta.setToolTipText("Ver pantalla completa");
         this.btnVerPantallaCompleta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 EscritorioRemoto.this.btnPantallaCompleta(evt);
             }
         });
-
-        menuHerramientas = new JMenu();
+        this.menuHerramientas = new JMenu();
         this.menuHerramientas.setIcon(Util.cargarIcono20("/resources/advancedsettings.png"));
         this.menuHerramientas.setText("Herramientas");
-        menuHerramientas.setFont(fuenteMenus);
-
+        this.menuHerramientas.setFont(fuenteMenus);
         this.itmMonitorear = new JMenuItem();
-        itmMonitorear.setIcon(Util.cargarIcono16("/resources/spy.png"));
-        itmMonitorear.setText("Monitorear (Espiar)");
-        itmMonitorear.setToolTipText("Solo monitorea,activa la grabación y desactiva el control.");
-        itmMonitorear.setFont(fuenteMenus);
+        this.itmMonitorear.setIcon(Util.cargarIcono16("/resources/spy.png"));
+        this.itmMonitorear.setText("Monitorear (Espiar)");
+        this.itmMonitorear.setToolTipText("Solo monitorea,activa la grabación y desactiva el control.");
+        this.itmMonitorear.setFont(fuenteMenus);
         this.itmMonitorear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -773,28 +668,25 @@ public class EscritorioRemoto extends VentanaReproductor
             }
         });
         this.menuHerramientas.add(this.itmMonitorear);
-
-        itmGrabar = new JCheckBoxMenuItem();
-        itmGrabar.setIcon(Util.cargarIcono16("/resources/record_small.png"));
-        itmGrabar.setSelected(false);
-        itmGrabar.setText("Grabar");
-        itmGrabar.setFont(fuenteMenus);
-        itmGrabar.addActionListener(new ActionListener() {
+        this.itmGrabar = new JCheckBoxMenuItem();
+        this.itmGrabar.setIcon(Util.cargarIcono16("/resources/record_small.png"));
+        this.itmGrabar.setSelected(false);
+        this.itmGrabar.setText("Grabar");
+        this.itmGrabar.setFont(fuenteMenus);
+        this.itmGrabar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 EscritorioRemoto.this.reproductor.setGrabar(itmGrabar.isSelected());
             }
         });
-
         this.menuHerramientas.addSeparator();
         this.menuHerramientas.add(this.itmGrabar);
 
-        itmClipboard = new JCheckBoxMenuItem();
-        itmClipboard.setIcon(Util.cargarIcono16("/resources/clipboard.png"));
-        itmClipboard.setSelected(true);
-        itmClipboard.setText("Transferencia Portapales");
-        itmClipboard.setFont(fuenteMenus);
-
+        this.itmClipboard = new JCheckBoxMenuItem();
+        this.itmClipboard.setIcon(Util.cargarIcono16("/resources/clipboard.png"));
+        this.itmClipboard.setSelected(true);
+        this.itmClipboard.setText("Transferencia Portapales");
+        this.itmClipboard.setFont(fuenteMenus);
         this.menuHerramientas.add(this.itmClipboard);
 
         JMenuItem itmVerInfo = new JMenuItem();
@@ -807,17 +699,13 @@ public class EscritorioRemoto extends VentanaReproductor
                 informacion = new Informacion(EscritorioRemoto.this);
             }
         });
-
         this.menuHerramientas.add(itmVerInfo);
-
         this.menuHerramientas.addSeparator();
-
         this.menuHerramientas.add("Archivos");
-
         this.itmArchivos = new JMenuItem();
-        itmArchivos.setIcon(Util.cargarIcono16("/resources/folder.png"));
-        itmArchivos.setText("Administrador de archivos");
-        itmArchivos.setFont(fuenteMenus);
+        this.itmArchivos.setIcon(Util.cargarIcono16("/resources/folder.png"));
+        this.itmArchivos.setText("Administrador de archivos");
+        this.itmArchivos.setFont(fuenteMenus);
         this.itmArchivos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -825,11 +713,10 @@ public class EscritorioRemoto extends VentanaReproductor
             }
         });
         this.menuHerramientas.add(this.itmArchivos);
-
         this.itmArchivosEnviarPortapaleles = new JMenuItem();
-        itmArchivosEnviarPortapaleles.setIcon(Util.cargarIcono16("/resources/up_arrow.png"));
-        itmArchivosEnviarPortapaleles.setText("Enviar del portapapeles");
-        itmArchivosEnviarPortapaleles.setFont(fuenteMenus);
+        this.itmArchivosEnviarPortapaleles.setIcon(Util.cargarIcono16("/resources/up_arrow.png"));
+        this.itmArchivosEnviarPortapaleles.setText("Enviar del portapapeles");
+        this.itmArchivosEnviarPortapaleles.setFont(fuenteMenus);
         this.itmArchivosEnviarPortapaleles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -839,9 +726,9 @@ public class EscritorioRemoto extends VentanaReproductor
 //        this.menuHerramientas.add(this.itmArchivosEnviarPortapaleles);
 
         this.itmArchivosRecibirPortapaleles = new JMenuItem();
-        itmArchivosRecibirPortapaleles.setIcon(Util.cargarIcono16("/resources/down_arrow.png"));
-        itmArchivosRecibirPortapaleles.setText("Descargar del portapapeles");
-        itmArchivosRecibirPortapaleles.setFont(fuenteMenus);
+        this.itmArchivosRecibirPortapaleles.setIcon(Util.cargarIcono16("/resources/down_arrow.png"));
+        this.itmArchivosRecibirPortapaleles.setText("Descargar del portapapeles");
+        this.itmArchivosRecibirPortapaleles.setFont(fuenteMenus);
         this.itmArchivosRecibirPortapaleles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -849,9 +736,7 @@ public class EscritorioRemoto extends VentanaReproductor
             }
         });
 //        this.menuHerramientas.add(this.itmArchivosRecibirPortapaleles);
-
         this.menuHerramientas.addSeparator();
-
         this.itmCamara = new JMenuItem();
         this.itmCamara.setIcon(Util.cargarIcono16("/resources/camera.png"));
         this.itmCamara.setText("Cámara");
@@ -1381,34 +1266,7 @@ public class EscritorioRemoto extends VentanaReproductor
         barra.add(menuVer);
         barra.add(menuHerramientas);
         barra.add(menuConfig);
-//        barra.add(Box.createHorizontalGlue());
-
-//        barraInferior.agregarContador(contadorTCaptura);
-//        barraInferior.agregarContador(contadorTProceso);
-//        barraInferior.agregarContador(contadorTEnvio);
-//        barraInferior.agregarContador(contadorBuffer);
-//        barraInferior.agregarContador(contadorSaltadas);
-//
-//        barraInferior.agregarSeparador();
-//        barraInferior.agregarContador(contadorCalidad);
-//        barraInferior.agregarContador(contadorBits);
-//        barraInferior.agregarSeparador();
-//
-//        barraInferior.agregarContador(contadorBloques);
-//        barraInferior.agregarContador(contadorPorcentaje);
-//        barraInferior.agregarContador(contadorCeldasRC);
-//        barraInferior.agregarContador(contadorCeldasRepetidas);
-//        barraInferior.agregarContador(contadorCeldasNuevas);
-//
-//        barraInferior.agregarContador(contadorB);
-//        barraInferior.agregarSeparador();
-//        barraInferior.agregarContador(contadorBps);
-//        barraInferior.agregarContador(contadorFps);
-        //contenedorPrincipal = new JPanel();
         reproductor.setContenedor(new Contenedor(this));
-//        contenedorPrincipal.setLayout(new GridLayout(1, 1));
-////        contenedorPrincipal.add(pantalla);
-//        contenedorPrincipal.add(scrollPantalla);
 
         btnActivar = new JButton();
         btnActivar.setIcon(Util.cargarIcono("/resources/arrow_up_16.png", 8, 8));
@@ -1434,17 +1292,18 @@ public class EscritorioRemoto extends VentanaReproductor
 
         this.setLayout(new BorderLayout());
         this.add(reproductor.getContenedor(), BorderLayout.CENTER);
-        actualizarFormaControles();
+        this.actualizarFormaControles();
         this.setResizable(true);
         this.setVisible(true);
-        agregarListenerTeclado();
+        this.agregarListenerTeclado();
         this.addKeyListener(this);
+
         this.addComponentListener(new ComponentListener() {
+
             @Override
             public void componentResized(ComponentEvent evt) {
                 EscritorioRemoto.this.enviarParametros();
                 EscritorioRemoto.this.actualizarFormaControles();
-                EscritorioRemoto.this.pintarEscritorios();
             }
 
             @Override
@@ -1464,7 +1323,6 @@ public class EscritorioRemoto extends VentanaReproductor
         });
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.addWindowListener(this);
-
         this.setMinimumSize(new Dimension(300, 250));
         this.setIconImage(Util.cargarIcono16("/resources/remoto.png").getImage());
         if (servidor.isAndroid()) {
@@ -1661,11 +1519,9 @@ public class EscritorioRemoto extends VentanaReproductor
     }
 
     private void btnPantallaCompleta(ActionEvent evt) {
-
         if (!device.isFullScreenSupported()) {
             return;
         }
-
         pantallaCompleta = !pantallaCompleta;
         dispose();
 
@@ -2037,73 +1893,16 @@ public class EscritorioRemoto extends VentanaReproductor
         this.enviarParametros();
     }
 
-    public void pintarEscritorios() {
-        if (tipoAlgoritmo == CAPTURA_ALGORITMO_V3) {
-            for (int i = 0; i < itmMonitores.length; i++) {
-                pintarEscritorio(i);
-            }
-        } else {
-            pintarEscritorio(0);//pinta el escritorio default
-        }
-    }
-
-    public void pintarEscritorio(int monitorID) {
-        try {
-//                BufferedImage img = servicio.getImagen();
-//                if (itmMenuVerMouse_dibujoLocal.isSelected() && cursorRemoto != null) {
-//                    img.getGraphics().drawImage(cursor.getImage(), px.intValue(), py.intValue(), null);
-//                    System.out.println("cursor dibujado px=" + px.intValue() + " py=" + py.intValue());
-//                }
-//            pintarEscritorio(servicio.getImagen(monitorID), monitorID);
-        } catch (Exception e) {
-        }
-    }
-
-//    public void pintarEscritorio(BufferedImage imagen, int monitorID) {
-//        contenedorPrincipal.getPantalla(monitorID).setImagen(imagen);
-//        contenedorPrincipal.getPantalla(monitorID).pintar();
-//    }
-    public void actualizar(int monitorID) {
-        pintarEscritorio(monitorID);
-        this.registrarLlegada();
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-        if (itmGrabar.isSelected()) {
-
-        }
-//            }
-//        }).start();
-
-    }
-
-//public JLabel getLblTamanio() {
-//    return lblTamanio;
-//}
-//
-//public void setLblTamanio(JLabel lblTamanio) {
-//    this.lblTamanio = lblTamanio;
-//}
-    public boolean isYaLlego() {
-        return yaLlego;
-    }
-
-    public void setYaLlego(boolean yaLlego) {
-        this.yaLlego = yaLlego;
-    }
-
     @Override
     public boolean isFocusable() {
         return true;
     }
 
-    public void registrarLlegada() {
-        this.yaLlego = true;
-        if (contadorFps != null) {
-            contadorFps.agregar(1);
-        }
-    }
-
+//    public void registrarLlegada() {
+//        if (contadorFps != null) {
+//            contadorFps.agregar(1);
+//        }
+//    }
     public JComboBox getCmbMonitor() {
         return cmbMonitor;
     }
@@ -2183,7 +1982,7 @@ public class EscritorioRemoto extends VentanaReproductor
 //        EscritorioRemoto.this.frameControles.setVisible(false);
     }
 
-    private void actualizarFormaControles() {
+    private synchronized void actualizarFormaControles() {
         try {
             if (ventanaControles == null) {
                 ventanaControles = new JWindow(this);
@@ -2196,18 +1995,14 @@ public class EscritorioRemoto extends VentanaReproductor
                 panelSur.setBorder(padding);
                 panelSur.setMargin(new Insets(0, 0, 0, 0));
                 panelSur.setLayout(new FlowLayout(FlowLayout.CENTER));
-
                 btnActivar.setBorderPainted(false);
                 btnMinimizar.setBorderPainted(false);
                 btnVerPantallaCompleta.setBorderPainted(false);
                 btnIniciarDetener.setBorderPainted(false);
                 panelSur.add(btnActivar);
-//                if (pantallaCompleta) {
                 panelSur.add(btnMinimizar);
-//                }
                 panelSur.add(btnVerPantallaCompleta);
                 panelSur.add(btnIniciarDetener);
-
                 ventanaControles.add(panelSur, BorderLayout.SOUTH);
                 ventanaControles.add(barra, BorderLayout.NORTH);
                 ventanaControles.setType(Type.UTILITY);
@@ -2216,6 +2011,7 @@ public class EscritorioRemoto extends VentanaReproductor
                 tamanioBarra = ventanaControles.getHeight();
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         btnMinimizar.setVisible(pantallaCompleta);
@@ -2273,13 +2069,19 @@ public class EscritorioRemoto extends VentanaReproductor
 
             ventanaControles.setShape(path);
             ventanaControles.setSize(ancho, altoControles);
-            int y = (int) reproductor.getContenedor().getLocationOnScreen().getY();
+            int y = 0;
+            try {
+                y = (int) reproductor.getContenedor().getLocationOnScreen().getY();
+            } catch (Exception e) {
+//                y = (int) this.getLocationOnScreen().getY();
+            }
             ventanaControles.setLocation((int) this.getBounds().getX() + (int) this.getWidth() / 2 - ventanaControles.getWidth() / 2, y);
+        } catch (Error e) {
+            e.printStackTrace();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
-    private boolean corriendoOcultar = false;
 
     public void ocultarControles() {
         if (corriendoOcultar) {

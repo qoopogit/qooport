@@ -18,64 +18,6 @@ import java.util.Map;
 
 public class OS {
 
-    private OsInfo osInfo;
-
-    public OS() {
-    }
-
-    private OS(final String name, final String version, final String arch) {
-        if (name != null) {
-            // Windows is quite easy to tackle with
-            if (name.startsWith("Windows")) {
-                this.osInfo = new OsInfo(name, version, arch, name);
-            } // Mac requires a bit of work, but at least it's consistent
-            else if (name.startsWith("Mac")) {
-                initMacOsInfo(name, version, arch);
-            } else if (name.startsWith("Darwin")) {
-                initDarwinOsInfo(name, version, arch);
-            } // Try to detect other POSIX compliant platforms, now the fun begins
-            else {
-                for (String linuxName : linux) {
-                    if (name.startsWith(linuxName)) {
-                        initLinuxOsInfo(name, version, arch);
-                    }
-                }
-            }
-        }
-        if (this.osInfo == null) {
-            this.osInfo = new OsInfo(name, version, arch, name);
-        }
-    }
-
-    private static class SingletonHolder {
-
-        static String name = System.getProperty("os.name");
-        static String version = System.getProperty("os.version");
-        static String arch = System.getProperty("os.arch");
-        private final static OS instance = new OS(name, version, arch);
-
-    }
-
-    public static OS getOs() {
-        return SingletonHolder.instance;
-    }
-
-    public String getName() {
-        return osInfo.getName();
-    }
-
-    public String getArch() {
-        return osInfo.getArch();
-    }
-
-    public String getVersion() {
-        return osInfo.getVersion();
-    }
-
-    public String getPlatformName() {
-        return osInfo.getPlatformName();
-    }
-
     private static final Map<Double, String> macOs = new HashMap<Double, String>();
     private static final Map<Integer, String> darwin = new HashMap<Integer, String>();
     private static final List<String> linux = new ArrayList<String>();
@@ -105,6 +47,55 @@ public class OS {
         darwin.put(14, "Yosemite");
 
         linux.addAll(Arrays.asList("Linux", "SunOS"));
+    }
+
+    public static OS getOs() {
+        return SingletonHolder.instance;
+    }
+
+    private OsInfo osInfo;
+
+    public OS() {
+    }
+
+    private OS(final String name, final String version, final String arch) {
+        if (name != null) {
+            // Windows is quite easy to tackle with
+            if (name.startsWith("Windows")) {
+                this.osInfo = new OsInfo(name, version, arch, name);
+            } // Mac requires a bit of work, but at least it's consistent
+            else if (name.startsWith("Mac")) {
+                initMacOsInfo(name, version, arch);
+            } else if (name.startsWith("Darwin")) {
+                initDarwinOsInfo(name, version, arch);
+            } // Try to detect other POSIX compliant platforms, now the fun begins
+            else {
+                for (String linuxName : linux) {
+                    if (name.startsWith(linuxName)) {
+                        initLinuxOsInfo(name, version, arch);
+                    }
+                }
+            }
+        }
+        if (this.osInfo == null) {
+            this.osInfo = new OsInfo(name, version, arch, name);
+        }
+    }
+
+    public String getName() {
+        return osInfo.getName();
+    }
+
+    public String getArch() {
+        return osInfo.getArch();
+    }
+
+    public String getVersion() {
+        return osInfo.getVersion();
+    }
+
+    public String getPlatformName() {
+        return osInfo.getPlatformName();
     }
 
     private void initMacOsInfo(final String name, final String version, final String arch) {
@@ -149,7 +140,6 @@ public class OS {
             if (osInfo == null) {
                 osInfo = getPlatformNameFromFile(name, version, arch, "/etc/issue");
             }
-
         }
 
         // if nothing found yet, looks for the version info
@@ -197,7 +187,7 @@ public class OS {
         return null;
     }
 
-    OsInfo readPlatformName(final String name, final String version, final String arch, final BufferedReader br) throws IOException {
+    private OsInfo readPlatformName(final String name, final String version, final String arch, final BufferedReader br) throws IOException {
         String line;
         String lineToReturn = null;
         int lineNb = 0;
@@ -226,7 +216,7 @@ public class OS {
         return null;
     }
 
-    OsInfo readPlatformNameFromLsb(final String name, final String version, final String arch, final BufferedReader br) throws IOException {
+    private OsInfo readPlatformNameFromLsb(final String name, final String version, final String arch, final BufferedReader br) throws IOException {
         String distribDescription = null;
         String distribCodename = null;
 
@@ -245,12 +235,20 @@ public class OS {
         return null;
     }
 
+    private static class SingletonHolder {
+
+        static String name = System.getProperty("os.name");
+        static String version = System.getProperty("os.version");
+        static String arch = System.getProperty("os.arch");
+        private final static OS instance = new OS(name, version, arch);
+    }
+
     class OsInfo {
 
-        private String name;
-        private String arch;
-        private String version;
-        private String platformName;
+        private final String name;
+        private final String arch;
+        private final String version;
+        private final String platformName;
 
         private OsInfo(final String name, final String version, final String arch, final String platformName) {
             this.name = name;

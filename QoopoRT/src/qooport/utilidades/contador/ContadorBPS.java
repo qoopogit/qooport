@@ -114,6 +114,7 @@ public class ContadorBPS extends Thread {
                     lblEstado.setText(this.getTasaFormated());
                 }
             }
+        } catch (Error e) {
         } catch (Exception e) {
         }
     }

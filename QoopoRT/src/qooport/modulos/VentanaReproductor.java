@@ -16,9 +16,7 @@ import qooport.asociado.Asociado;
  *
  * @author alberto
  */
-public abstract class VentanaReproductor extends JFrame implements
-        KeyListener,
-        WindowListener {
+public abstract class VentanaReproductor extends JFrame implements KeyListener, WindowListener {
 
     //public static final int COLOR_BN = 1;
     public static final int COLOR_GRIS = 2;

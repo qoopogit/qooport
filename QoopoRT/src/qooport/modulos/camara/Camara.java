@@ -410,18 +410,6 @@ public class Camara extends VentanaReproductor implements WindowListener {
         servidor.enviarPluginsWebCam();
     }
 
-//    public boolean isYaLlego() {
-//        return yaLlego;
-//    }
-//
-//    public void setYaLlego(boolean yaLlego) {
-//        this.yaLlego = yaLlego;
-//    }
-//
-//    public void registrarLlegada() {
-//        this.yaLlego = true;
-////        contadorFps.agregar(1);
-//    }
     public Conexion getConexion() {
         return conexion;
     }
@@ -632,12 +620,15 @@ public class Camara extends VentanaReproductor implements WindowListener {
             path.lineTo(0, 0); //P0
             frameControles.setShape(path);
             frameControles.setSize(ancho, altoControles);
+
             int y = 0;
             try {
-                y = (int) panelActivador.getLocationOnScreen().getY();
+//                y = (int) panelActivador.getLocationOnScreen().getY();
+                y = (int) reproductor.getContenedor().getLocationOnScreen().getY();
             } catch (Exception e) {
                 y = (int) this.getBounds().getY() + 35;
             }
+
             frameControles.setLocation((int) this.getBounds().getX() + (int) this.getWidth() / 2 - frameControles.getWidth() / 2, y);
         } catch (Exception e) {
             e.printStackTrace();

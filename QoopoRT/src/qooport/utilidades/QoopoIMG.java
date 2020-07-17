@@ -283,7 +283,7 @@ public class QoopoIMG {
         bi = QoopoIMG.escalar(bi, 3, 0, suavizado, ancho, alto);
         int cx = 0;
         int cy = 0;
-        //creamo otra imagen con fondo gris oscuro que contenga a la imagen del escritorio
+        //creamos otra imagen con fondo gris oscuro que contenga a la imagen del escritorio
         BufferedImage fondo = new BufferedImage(ancho, alto, bi.getType());
         //calculamos la cx y cy donde vamos a dibujar
         if (fondo.getWidth() > bi.getWidth()) {

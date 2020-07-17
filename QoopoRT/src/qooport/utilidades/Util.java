@@ -623,7 +623,6 @@ public class Util {
 //        }
     public static Object leerParametro(Comando comando, int... parametro) {
         try {
-
             //si es de tipo arreglo
             if (comando.getObjeto() instanceof Object[]) {
                 if (parametro.length > 0) {

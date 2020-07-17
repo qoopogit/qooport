@@ -2,6 +2,7 @@ package qooport.modulos.escritorioremoto;
 
 import comunes.Captura;
 import network.Conexion;
+import qooport.modulos.reproductor.Reproductor;
 import qooport.utilidades.SerializarUtil;
 import qooport.utilidades.Util;
 
@@ -13,6 +14,7 @@ public class RecibirEscritorio extends Thread {
 
     private Conexion conexion;
     private EscritorioRemoto ventana;
+    private Reproductor reproductor;
     private boolean pidiendo;
 
     public RecibirEscritorio() {
@@ -22,6 +24,7 @@ public class RecibirEscritorio extends Thread {
     public RecibirEscritorio(Conexion conexion, EscritorioRemoto ventana) {
         this.conexion = conexion;
         this.ventana = ventana;
+        this.reproductor= ventana.getReproductor();
     }
 
     public EscritorioRemoto getVentana() {
@@ -42,7 +45,7 @@ public class RecibirEscritorio extends Thread {
 
     @Override
     public void run() {
-        Captura cap;
+        Captura captura;
         byte[] buffer;
         while (pidiendo) {
             try {
@@ -56,16 +59,18 @@ public class RecibirEscritorio extends Thread {
                     try {
                         buffer = (byte[]) conexion.leerObjeto();
                         if (ventana.getItmComprimir().isSelected()) {
-                            cap = (Captura) Util.descomprimirObjeto(buffer, ventana.getServidor());//con compresion
+                            captura = (Captura) Util.descomprimirObjeto(buffer, ventana.getServidor());//con compresion
                         } else {
-                            cap = (Captura) SerializarUtil.leerObjeto(buffer); //sin compresion
+                            captura = (Captura) SerializarUtil.leerObjeto(buffer); //sin compresion
                             ventana.getServidor().agregarRecibidos(buffer.length);//agregamos los bytes recibidos, en el metodo descomprmir ya se agregan
                         }
-                        ventana.getReproductor().reproducir(cap);
-                        actualizarContadores(cap, buffer.length);
+                        reproductor.reproducir(captura);
+                        actualizarContadores(captura, buffer.length);
                         ventana.barraInferior.setEstado("Conectado");
                     } catch (ClassCastException e) {
                         ventana.barraInferior.setEstado("Esta versión no es compatible");
+                    } catch (Error e) {
+                        ventana.barraInferior.setEstado("Error:" + e.getMessage());
                     } catch (Exception e) {
                         ventana.barraInferior.setEstado("Error:" + e.getMessage());
                     }
@@ -80,7 +85,7 @@ public class RecibirEscritorio extends Thread {
                     } catch (Exception e) {
                     }
                 }
-                cap = null;
+                captura = null;
                 buffer = null;
                 dormir();
             } catch (Exception ex) {

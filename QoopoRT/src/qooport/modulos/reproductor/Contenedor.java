@@ -30,19 +30,8 @@ public class Contenedor extends JPanel {
     private Pantalla pantalla;
     private JScrollPane scrollPantalla;
     private List<Pantalla> pantallas = new ArrayList<Pantalla>();
-//    private EscritorioRemoto ventana=null;
-//    private Camara ventanaCAM=null;
     private VentanaReproductor ventana;
 
-//    public Contenedor(EscritorioRemoto ventana) {
-//        this.ventana = ventana;
-//        iniciar();
-//    }
-//
-//    public Contenedor(Camara ventana) {
-//        this.ventanaCAM=ventana;
-//        iniciar();
-//    }
     public Contenedor(VentanaReproductor ventana) {
         this.ventana = ventana;
         iniciar();
@@ -65,7 +54,6 @@ public class Contenedor extends JPanel {
         this.pantalla.setFocusTraversalKeysEnabled(false);
         this.scrollPantalla.setFocusTraversalKeysEnabled(false);
         this.setLayout(new GridLayout(1, 1));
-//        contenedorPrincipal.add(pantalla);
         this.add(scrollPantalla);
 
     }

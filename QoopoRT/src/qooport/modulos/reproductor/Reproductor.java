@@ -56,22 +56,13 @@ public class Reproductor {
      * @return
      */
     private void prepararPantalla(int monitorID, int ancho, int alto, int tipo) {
-        //para probrar los cambios siempre mando una imagen negra
-//        return new BufferedImage(ancho, alto, tipo);
-//        BufferedImage pantalla;
         // si la imagen mantiene el mismo tamanio se sigue dibujando en la misma
-        if (this.imagen.get(monitorID) != null
-                && ancho == this.imagen.get(monitorID).getWidth()
-                && alto == this.imagen.get(monitorID).getHeight()) {
-            //pantalla = this.imagen.get(monitorID);
+        if (this.imagen.get(monitorID) != null && ancho == this.imagen.get(monitorID).getWidth() && alto == this.imagen.get(monitorID).getHeight()) {
             return;
-//        } else {
-//            pantalla = new BufferedImage(ancho, alto, tipo);
         }
         //coloca la nueva imagen
 //        imagen.put(monitorID, pantalla);
         imagen.put(monitorID, new BufferedImage(ancho, alto, tipo));
-
     }
 
     /**
@@ -93,36 +84,6 @@ public class Reproductor {
                 new DesDibujarRectangulo(monitor, bloque, isJpg, tipoImagen).start();
             }
         } catch (Exception e) {
-        }
-    }
-
-    /**
-     * Vuelve a dibujar al rectangulo para borrar
-     */
-    public class DesDibujarRectangulo extends Thread {
-
-        private final PantallaBloque bloque;
-        private final boolean isJpg;
-        private final int tipoImagen;
-        private final int monitor;
-
-        public DesDibujarRectangulo(int monitor, PantallaBloque bloque, boolean isJpg, int tipoImagen) {
-            this.bloque = bloque;
-            this.isJpg = isJpg;
-            this.tipoImagen = tipoImagen;
-            this.monitor = monitor;
-        }
-
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(500);//espera medio segundo
-                //BufferedImage imagenNueva = Util.getImagenDeByteArray(bloque.getAncho(), bloque.getAlto(), descomprimir(bloque.getDatos()), isJpg, tipoImagen);
-                BufferedImage imagenNueva = Util.getImagenDeByteArray(bloque.getAncho(), bloque.getAlto(), bloque.getDatos(), isJpg, tipoImagen);
-                imagen.get(monitor).getGraphics().drawImage(imagenNueva, bloque.getX(), bloque.getY(), null);
-                //actualizarPantalla(monitor);
-            } catch (Exception ex) {
-            }
         }
     }
 
@@ -205,8 +166,8 @@ public class Reproductor {
     }
 
     public void reproducir(Captura captura) {
-//        reproducir_tipo1(captura);
-        reproducir_tipo2(captura);
+//        reproducirCompleta(captura); // dibuja todo de nuevo
+        reproducirCambios(captura); // dibuja solo los cambios
 //        try {
 //            //voy a grabar el buffer en un archivo para ver q tenog en memoria solo por test
 //            BufferedImage bi = QoopoIMG.construirImagen(capturaPrevia.get(captura.getPantalla()).values(),
@@ -228,10 +189,7 @@ public class Reproductor {
      *
      * @param captura
      */
-    public void reproducir_tipo1(Captura captura) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
+    private void reproducirCompleta(Captura captura) {
         try {
             if (captura == null) {
                 return;
@@ -250,14 +208,11 @@ public class Reproductor {
                 capturaPrevia.put(captura.getPantalla(), new HashMap<String, PantallaBloque>());
             }
 
-            System.out.println("actualizando buffer");
 //1.- actualizo el bufer
             for (PantallaBloque celda : captura.getBloques()) {
-
                 try {
                     //si el bloque ya existe en la anterior captura
                     if (celda.getNombreCopia() != null && !celda.getNombreCopia().isEmpty()) {
-//                        System.out.println("debe ir inicio (obligatorio)");
                         //la anterior captura contiene la supuesta copia
                         if (capturaPrevia.get(captura.getPantalla()).containsKey(celda.getNombreCopia())) {
                             PantallaBloque bloque2 = capturaPrevia.get(captura.getPantalla()).get(celda.getNombreCopia());
@@ -272,8 +227,6 @@ public class Reproductor {
                     } else {
                         //si es una copia de la captura actual
                         if (celda.getCopia() != -1) {
-//                            System.out.println("debe ir final (opcional)");
-//                                System.out.println("es copia de " + bloque.getCopia());
                             PantallaBloque bloque2 = captura.getBloques().get(celda.getCopia());
                             //tomamos los datos de la anterior captura
                             celda.setDatos(bloque2.getDatos());
@@ -282,8 +235,6 @@ public class Reproductor {
                             bloque2 = null;
                             TC++;
                         } else {
-//                            System.out.println("debe ir al medio (opcional)");
-//                    capturaPrevia.get(captura.getPantalla()).put(celda.getNombre(), celda);
                             TN++;
                         }
                     }
@@ -298,8 +249,6 @@ public class Reproductor {
                 }
             }
 
-            System.out.println("bloques del buffer =" + capturaPrevia.get(captura.getPantalla()).size());
-            System.out.println("actualizando imagen desde el buffer");
             //2.- ahora dibujo todo el buffer en la imagen
             for (PantallaBloque celda : capturaPrevia.get(captura.getPantalla()).values()) {
                 //obtiene la imagen de la celda
@@ -345,13 +294,10 @@ public class Reproductor {
                 grabarJPG(captura.getPantalla()); //graba archivos jpg por separado
                 grabarDAT(captura.getPantalla());//graba el archivo .dat
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
 
         }
-//            }
-//        }).start();
     }
 
     /**
@@ -359,10 +305,7 @@ public class Reproductor {
      *
      * @param captura
      */
-    public void reproducir_tipo2(Captura captura) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
+    private void reproducirCambios(Captura captura) {
         try {
             if (captura == null) {
                 return;
@@ -381,7 +324,7 @@ public class Reproductor {
                 capturaPrevia.put(captura.getPantalla(), new HashMap<String, PantallaBloque>());
             }
 
-            boolean mandarActualizarPantalla = false;
+            boolean solicitarActualizarPantalla = false;
 
             for (PantallaBloque celda : captura.getBloques()) {
                 try {
@@ -397,7 +340,7 @@ public class Reproductor {
                             TCA++;
                         } else {
                             System.out.println("SE SUPONE ES UNA COPIA PERO NO EXISTE EN ESTE BUFFER. DEBEMOS MANDAR A ACTUALIZAR LA PANTALLA");
-                            mandarActualizarPantalla = true;
+                            solicitarActualizarPantalla = true;
                         }
                     } else {
                         //si es una copia de la captura actual
@@ -410,9 +353,7 @@ public class Reproductor {
                             bloque2 = null;
                             TC++;
                         } else {
-//                            System.out.println("debe ir al medio (opcional)");
                             capturaPrevia.get(captura.getPantalla()).put(celda.getNombre(), celda);
-                            //capturaPrevia.put(bloque.getNombre(), bloque);
                             TN++;
                         }
                     }
@@ -421,7 +362,7 @@ public class Reproductor {
                     if (celda.getTipo() == 1) {
                         if (celda.getDatos() == null) {
                             System.out.println("LOS DATOS (BYTES) SON NULOS !!!!!");
-                            mandarActualizarPantalla = true;
+                            solicitarActualizarPantalla = true;
                             continue;
                         }
                         //imgBloque = Util.getImagenDeByteArray(bloque.getAncho(), bloque.getAlto(), descomprimir(bloque.getDatos()), captura.isJpg(), captura.getTipoImagen());
@@ -429,7 +370,7 @@ public class Reproductor {
                     } else {
                         if (celda.getPixeles() == null) {
                             System.out.println("LOS DATOS (PIXELES) SON NULOS !!!!!");
-                            mandarActualizarPantalla = true;
+                            solicitarActualizarPantalla = true;
                             continue;
                         }
                         imgCelda = Util.getImagenDeIntArray(celda.getAncho(), celda.getAlto(), celda.getPixeles(), captura.getTipoImagen());
@@ -448,7 +389,7 @@ public class Reproductor {
                         }
                     } else {
                         System.out.println("LA IMAGEN DEL BLOQUE ES NULO !!! NO DEBERIA SER NUNCA NULO !!!!");
-                        mandarActualizarPantalla = true;
+                        solicitarActualizarPantalla = true;
                     }
                     imgCelda = null;
                 } catch (Exception ex) {
@@ -460,14 +401,10 @@ public class Reproductor {
             }
 
             //se pide al cliente que actualice toda la pantalla
-            if (mandarActualizarPantalla) {
+            if (solicitarActualizarPantalla) {
                 contenedor.getVentana().getServidor().actualizarPantalla();
             }
 
-//                    System.out.println("total nuevos:" + tn);
-//                    System.out.println("total copias:" + tc);
-//                    System.out.println("total copias Anterior:" + tcA);
-//                    System.out.println("total=" + (tn + tc + tcA));
             if (grabar) {
                 grabarJPG(captura.getPantalla()); //graba archivos jpg por separado
                 grabarDAT(captura.getPantalla());//graba el archivo .dat
@@ -476,8 +413,6 @@ public class Reproductor {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-//            }
-//        }).start();
     }
 
     public void modoVariasPantallas() {
@@ -573,6 +508,36 @@ public class Reproductor {
 
     public void setImagen(Map<Integer, BufferedImage> imagen) {
         this.imagen = imagen;
+    }
+
+    /**
+     * Vuelve a dibujar al rectangulo para borrar
+     */
+    public class DesDibujarRectangulo extends Thread {
+
+        private final PantallaBloque bloque;
+        private final boolean isJpg;
+        private final int tipoImagen;
+        private final int monitor;
+
+        public DesDibujarRectangulo(int monitor, PantallaBloque bloque, boolean isJpg, int tipoImagen) {
+            this.bloque = bloque;
+            this.isJpg = isJpg;
+            this.tipoImagen = tipoImagen;
+            this.monitor = monitor;
+        }
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(500);//espera medio segundo
+                //BufferedImage imagenNueva = Util.getImagenDeByteArray(bloque.getAncho(), bloque.getAlto(), descomprimir(bloque.getDatos()), isJpg, tipoImagen);
+                BufferedImage imagenNueva = Util.getImagenDeByteArray(bloque.getAncho(), bloque.getAlto(), bloque.getDatos(), isJpg, tipoImagen);
+                imagen.get(monitor).getGraphics().drawImage(imagenNueva, bloque.getX(), bloque.getY(), null);
+                //actualizarPantalla(monitor);
+            } catch (Exception ex) {
+            }
+        }
     }
 
 }

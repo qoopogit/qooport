@@ -373,7 +373,7 @@ public abstract class Asociado extends Thread {
         programadorPing = null;
         try {
             QoopoRT.instancia.ponerEstado("Se desconectó el equipo " + this.getInfoIP());
-            QoopoRT.instancia.getVentana().eliminarServidor(this, false);
+            QoopoRT.instancia.getVentana().eliminarAgente(this, false);
         } catch (Exception e) {
         }
     }

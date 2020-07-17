@@ -25,29 +25,29 @@ import qooport.utilidades.Protocolo;
  */
 public abstract class Listener extends Thread {
 
-    protected ConexionServer conexion_servidor;
+    protected ConexionServer conexionServidor;
     protected Conexion conexion;
     public boolean CONECTADO = true;
     protected boolean ssl;
-    protected boolean version2;
+//    protected boolean version2;
 
     protected void procesar(int comando, Conexion conexion, boolean ssl) {
         try {
             byte[] bytesId;
             switch (comando) {
-                case Protocolo.TPC_INICIAR: {
-//                    if (version2) {
-//                        Asociado servidor = new AsociadoV2(this.conexion, 1, ssl);
-//                        servidor.start();
-//                    } else {
-//                        Asociado servidor = new AsociadoV1(this.conexion, 1, ssl);
-//                        servidor.start();
-//                    }
+                case Protocolo.UDP_INICIAR: {
                     Asociado servidor = new AsociadoV2(conexion, 1, ssl);
                     servidor.start();
-//                    QoopoRT.instancia.ponerEstado("Conexión TCP desde :" + conexion.getInetAddress().getHostAddress() + "(" + conexion.getRemoteSocketAddress().toString() + ") en el puerto " + conexion_servidor.getPuerto());
+                    CONECTADO = false;
+//                    QoopoRT.instancia.ponerEstado("Conexión TCP desde :" + conexion.getInetAddress().getHostAddress() + "(" + conexion.getRemoteSocketAddress().toString() + ") en el puerto " + conexionServidor.getPuerto());
                     QoopoRT.instancia.ponerEstado("Conexión TCP desde :" + conexion.getInetAddress().getHostAddress() + "(" + conexion.getRemoteSocketAddress().toString() + ") en el puerto " + conexion.getPuerto());
-
+                    break;
+                }
+                case Protocolo.TPC_INICIAR: {
+                    Asociado servidor = new AsociadoV2(conexion, 1, ssl);
+                    servidor.start();
+//                    QoopoRT.instancia.ponerEstado("Conexión TCP desde :" + conexion.getInetAddress().getHostAddress() + "(" + conexion.getRemoteSocketAddress().toString() + ") en el puerto " + conexionServidor.getPuerto());
+                    QoopoRT.instancia.ponerEstado("Conexión TCP desde :" + conexion.getInetAddress().getHostAddress() + "(" + conexion.getRemoteSocketAddress().toString() + ") en el puerto " + conexion.getPuerto());
                     break;
                 }
                 case Protocolo.ADMIN_ARCHIVOS_DESCARGAR: {
@@ -179,7 +179,6 @@ public abstract class Listener extends Thread {
                     break;
                 }
             }
-
         } catch (Exception e) {
 
         }

@@ -14,7 +14,6 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
-import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import static qooport.avanzado.QoopoRT.tipoLetra;
@@ -40,15 +39,16 @@ public class ConexionPanel extends javax.swing.JPanel {
             }
         });
 
-        this.delay.setFont(new Font(tipoLetra, 1, 10));
-        this.delay.setMajorTickSpacing(1);
-        this.delay.setMaximum(20);
-        this.delay.setMinimum(1);
-        this.delay.setMinorTickSpacing(1);
-        this.delay.setPaintLabels(true);
-        this.delay.setPaintTicks(true);
-        this.delay.setValue(3);
-        this.delay.setValueIsAdjusting(true);
+//        this.delay.setFont(new Font(tipoLetra, 1, 10));
+//        this.delay.setMajorTickSpacing(1);
+//        this.delay.setMaximum(20);
+//        this.delay.setMinimum(1);
+//        this.delay.setMinorTickSpacing(1);
+//        this.delay.setPaintLabels(true);
+//        this.delay.setPaintTicks(true);
+//        this.delay.setValue(3);
+//        this.delay.setValueIsAdjusting(true);
+        this.txtDelay.setText("3");
         this.prefijo.setFont(new Font(tipoLetra, 1, 11));
         this.prefijo.setText("serv_");
         this.jLabel1.setFont(new Font(tipoLetra, 1, 11));
@@ -59,7 +59,7 @@ public class ConexionPanel extends javax.swing.JPanel {
         this.jLabel5.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel7.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel8.setFont(new Font(tipoLetra, 1, 11));
-        this.jLabel9.setFont(new Font(tipoLetra, 1, 11));
+        this.jLabel6.setFont(new Font(tipoLetra, 1, 11));
 
     }
 
@@ -90,9 +90,9 @@ public class ConexionPanel extends javax.swing.JPanel {
         btnVerPass = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         prefijo = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        delay = new javax.swing.JSlider();
         jLabel10 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtDelay = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -102,14 +102,19 @@ public class ConexionPanel extends javax.swing.JPanel {
         jLabel2.setText("Protocolo:");
 
         comboProtocolo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TCP" }));
+        comboProtocolo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboProtocoloActionPerformed(evt);
+            }
+        });
 
         chkSSL.setText("SSL");
 
         jLabel3.setText("Tipo conexión:");
 
-        conexionInversa.setText("Conexión Inversa");
+        conexionInversa.setText("Inversa");
 
-        conexionDirecta.setText("Conexión Directa");
+        conexionDirecta.setText("Directa");
 
         jLabel4.setText("IP/Host:");
 
@@ -130,13 +135,9 @@ public class ConexionPanel extends javax.swing.JPanel {
 
         jLabel8.setText("Prefijo Cliente:");
 
-        jLabel9.setText("Delay intento conexión");
-        jLabel9.setToolTipText("Tiempo de espera para reconectar en segundos");
-
-        delay.setMaximum(60);
-        delay.setValue(3);
-
         jLabel10.setText("Conexión segura:");
+
+        jLabel6.setText("Delay:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -148,37 +149,21 @@ public class ConexionPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(305, 305, 305))
-                    .addComponent(delay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
-                        .addGap(106, 106, 106)
+                        .addGap(85, 85, 85)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtIpDNS)
                             .addComponent(puerto))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(password)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnVerPass))
-                            .addComponent(prefijo))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel10))
-                        .addGap(39, 39, 39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboProtocolo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
@@ -188,10 +173,24 @@ public class ConexionPanel extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(conexionDirecta))
                                     .addComponent(chkSSL))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 129, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jSeparator1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDelay)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(password)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnVerPass))
+                            .addComponent(prefijo))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -231,17 +230,21 @@ public class ConexionPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(prefijo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(delay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVerPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPassActionPerformed
         JOptionPane.showMessageDialog(null, new String(this.password.getPassword()));
     }//GEN-LAST:event_btnVerPassActionPerformed
+
+    private void comboProtocoloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProtocoloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboProtocoloActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -250,21 +253,21 @@ public class ConexionPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboProtocolo;
     private javax.swing.JRadioButton conexionDirecta;
     private javax.swing.JRadioButton conexionInversa;
-    private javax.swing.JSlider delay;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField prefijo;
     private javax.swing.JSpinner puerto;
+    private javax.swing.JTextField txtDelay;
     private javax.swing.JTextField txtIpDNS;
     // End of variables declaration//GEN-END:variables
 
@@ -308,14 +311,6 @@ public class ConexionPanel extends javax.swing.JPanel {
         this.conexionInversa = conexionInversa;
     }
 
-    public JSlider getDelay() {
-        return delay;
-    }
-
-    public void setDelay(JSlider delay) {
-        this.delay = delay;
-    }
-
     public JTextField getPrefijo() {
         return prefijo;
     }
@@ -354,5 +349,15 @@ public class ConexionPanel extends javax.swing.JPanel {
     public void setPassword(JPasswordField password) {
         this.password = password;
     }
+
+    public JTextField getTxtDelay() {
+        return txtDelay;
+    }
+
+    public void setTxtDelay(JTextField txtDelay) {
+        this.txtDelay = txtDelay;
+    }
+    
+    
 
 }

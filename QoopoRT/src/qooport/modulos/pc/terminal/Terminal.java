@@ -1,6 +1,5 @@
 package qooport.modulos.pc.terminal;
 
-import qooport.modulos.pc.terminal.caret.FancyCaret;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -17,22 +16,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import qooport.asociado.Asociado;
+import qooport.modulos.pc.terminal.caret.FancyCaret;
 import qooport.utilidades.GuiUtil;
 import qooport.utilidades.Protocolo;
 import qooport.utilidades.Util;
 
 public class Terminal extends JFrame {
 
-    private Asociado servidor;
-//    private JTabbedPane jTabbedPane1;
+    private Asociado agente;
     public JTextArea salida;
     private JTextField comando;
-    private JCheckBox chkConsumir = new JCheckBox("Mostrar caracter?");
+    private JCheckBox chkMostrarCaracter = new JCheckBox("Mostrar caracter?");
 
     public Terminal(Asociado servidor) {
         initComponents();
         this.setIconImage(Util.cargarIcono16("/resources/cmd.png").getImage());
-        this.servidor = servidor;
+        this.agente = servidor;
     }
 
     private void initComponents() {
@@ -73,12 +72,11 @@ public class Terminal extends JFrame {
 
         JButton btnActivar_2 = new JButton();
         btnActivar_2.setIcon(Util.cargarIcono16("/resources/switch_on.png"));
-        btnActivar_2.setToolTipText("Activa el ingreso de comando compelto");
+        btnActivar_2.setToolTipText("Activa el ingreso de comando completo");
         btnActivar_2.setVisible(true);
         btnActivar_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 panelInferior.setVisible(true);
-
             }
         });
 
@@ -92,7 +90,7 @@ public class Terminal extends JFrame {
             }
         });
 
-        chkConsumir.setToolTipText("Si esta activada muestra el caracter presionado.");
+        chkMostrarCaracter.setToolTipText("Si esta activada muestra el caracter presionado.");
 
         salida = new JTextArea("");
         salida.setBackground(Color.BLACK);
@@ -101,11 +99,8 @@ public class Terminal extends JFrame {
         salida.setCaretColor(Color.WHITE);
         salida.setColumns(40);
         salida.setRows(25);
-
-//        salida.setFont(new Font("Lucida Console", 1, 12));
-//        salida.setFont(new Font("Monospaced", 0, 11));
         salida.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 11));
-        this.salida.append("\n$>");
+//        this.salida.append("\n$>");
 
         salida.addKeyListener(new KeyAdapter() {
             @Override
@@ -120,12 +115,15 @@ public class Terminal extends JFrame {
 
             @Override
             public void keyTyped(KeyEvent e) {
-                servidor.ejecutarComandoConsola(e.getKeyChar());
+                agente.ejecutarComandoConsola(e.getKeyChar());
                 //super.keyTyped(e); //To change body of generated methods, choose Tools | Templates.
-                if (!chkConsumir.isSelected()) {
+                if (!chkMostrarCaracter.isSelected()) {
                     e.consume();
                 }
-
+//
+//                if (e.getKeyChar() == '\t') {
+//                    e.consume();
+//                }
             }
         });
 
@@ -139,14 +137,13 @@ public class Terminal extends JFrame {
         jScrollPane1.setViewportView(this.salida);
         JPanel panelSuperior = new JPanel();
         panelSuperior.setLayout(new FlowLayout());
-        panelSuperior.add(chkConsumir);
+        panelSuperior.add(chkMostrarCaracter);
         panelSuperior.add(GuiUtil.crearJLabel("    "));
         panelSuperior.add(btnActivar);
         panelSuperior.add(btnDesactivar);
         panelSuperior.add(GuiUtil.crearJLabel("    "));
         panelSuperior.add(btnActivar_2);
         panelSuperior.add(btnDesactivar_2);
-        
 
         panelInferior.setLayout(new BorderLayout());
         panelInferior.add(GuiUtil.crearJLabel("O Ingresar comando :", "Permite escribir el comando antes de enviarlo a ejecutar"), BorderLayout.WEST);
@@ -171,18 +168,18 @@ public class Terminal extends JFrame {
     }
 
     private void btnActivar(ActionEvent evt) {
-        servidor.enviarComando(Protocolo.CONSOLA_ACTIVAR);
+        agente.enviarComando(Protocolo.CONSOLA_ACTIVAR);
     }
 
     private void btnDesactivar(ActionEvent evt) {
-        servidor.enviarComando(Protocolo.CONSOLA_DESACTIVAR);
+        agente.enviarComando(Protocolo.CONSOLA_DESACTIVAR);
     }
 
     private void btnEnviarComando(ActionEvent evt) {
         //this.salida.append(comando.getText());
         this.salida.append("$>" + comando.getText());
         this.salida.append("\n");
-        servidor.ejecutarComandoConsola(comando.getText());
+        agente.ejecutarComandoConsola(comando.getText());
         salida.setCaretPosition(salida.getDocument().getLength());
         vaciarcomando();
     }

@@ -10,7 +10,7 @@ import rt.Inicio;
 import comunes.Interfaz;
 import java.io.IOException;
 import rt.modulos.escritorio.comunes.BufferCaptura;
-import rt.modulos.escritorio.comunes.detector.Completa;
+import rt.modulos.escritorio.comunes.detector.Celdas;
 import rt.modulos.escritorio.comunes.detector.DetectorCambios;
 import rt.util.IMG;
 import rt.util.Protocolo;
@@ -78,8 +78,8 @@ public class CWC extends Thread implements Interfaz {
 //        opciones.setAncho(0);
 //        opciones.setAlto(0);
         //inicia el detector de cambios
-        detector = new Completa();
-//        detector = new Celdas();
+//        detector = new Completa();
+        detector = new Celdas();
 //        detector = new Pixeles();
         detector.setOpciones(opciones);
     }
@@ -134,7 +134,7 @@ public class CWC extends Thread implements Interfaz {
     private void bucle() {
         while (activo) {
             try {
-                enviar(obtenerCaptura());
+                enviar(capturar());
             } catch (Exception ex) {
             }
             UtilRT.dormir(10); //limite de 100 fps asumiendo que el metodo anterior no demorara nada, lo q no es cierto
@@ -143,10 +143,9 @@ public class CWC extends Thread implements Interfaz {
 
     private void enviar(Captura captura) throws IOException {
         conexion.escribirObjeto(UtilRT.comprimirObjeto(captura));
-//        conexion.flush();
     }
 
-    private Captura obtenerCaptura() {
+    private Captura capturar() {
         capturarIMG();
         procesarCambios();
         return captura;
@@ -171,7 +170,7 @@ public class CWC extends Thread implements Interfaz {
     }
 
     private Captura armarCaptura(BufferedImage imagen) {
-        captura = UtilRT.capturaLimpia;
+        captura = UtilRT.capturaLimpiaWC;
         try {
             captura.setPantalla(0);
             captura.settCaptura(0); // tiempo de captura

@@ -13,10 +13,9 @@ import qooport.utilidades.Protocolo;
  */
 public class ServListener extends Listener {
 
-    public ServListener(int puerto, int tipoConexion, boolean version2, boolean ssl) throws IOException {
-        this.conexion_servidor = new ConexionServer(tipoConexion, puerto, ssl);
+    public ServListener(int puerto, int tipoConexion, boolean ssl) throws IOException {
+        this.conexionServidor = new ConexionServer(tipoConexion, puerto, ssl);
         this.ssl = ssl;
-        this.version2 = version2;
         CONECTADO = true;
     }
 
@@ -25,16 +24,15 @@ public class ServListener extends Listener {
         //************************************************************
         //          CONEXION TCP
         //************************************************************
-        if (conexion_servidor.getTipo() == ConexionServer.TCP) {
+        if (conexionServidor.getTipo() == ConexionServer.TCP) {
             do {
                 try {
-                    this.conexion = this.conexion_servidor.aceptar();
+                    this.conexion = this.conexionServidor.aceptar();
                     int comando = conexion.leerInt();
-
                     if (!QoopoRT.instancia.contieneIpBloqueada(conexion.getInetAddress().getHostAddress())) {
                         procesar(comando, conexion, ssl);
                     } else {
-                        QoopoRT.instancia.ponerEstado("Conexión rechazada :" + conexion.getInetAddress().getHostAddress() + "(" + conexion.getRemoteSocketAddress().toString() + ") en el puerto " + conexion_servidor.getPuerto());
+                        QoopoRT.instancia.ponerEstado("Conexión rechazada :" + conexion.getInetAddress().getHostAddress() + "(" + conexion.getRemoteSocketAddress().toString() + ") en el puerto " + conexionServidor.getPuerto());
                     }
                     Thread.sleep(50);
                 } catch (Exception ex) {
@@ -45,45 +43,37 @@ public class ServListener extends Listener {
         //************************************************************
         //          CONEXION UDP
         //************************************************************
-        if (conexion_servidor.getTipo() == ConexionServer.UDP) {
-            try {
-                this.conexion = this.conexion_servidor.aceptar();
+        if (conexionServidor.getTipo() == ConexionServer.UDP) {
+            try {                
+                this.conexion = this.conexionServidor.aceptar();
                 do {
                     try {
                         int comando = conexion.leerInt();//este comando siempre llega como entero
+                        System.out.println("UDP recibido comando " + comando);
                         //instancio un nuevo servidor pasando el
-                        if (comando == Protocolo.UDP_INICIAR) {
-                            if (!QoopoRT.instancia.contieneIpBloqueada(conexion.getInetAddress().getHostAddress())) {
-//                                if (version2) {
-                                Asociado servidor = new AsociadoV2(this.conexion, 1, ssl);
-                                servidor.start();
-//                                } else {
-//                                    Asociado servidor = new AsociadoV1(this.conexion, 1, ssl);
-//                                    servidor.start();
-//                                }
-                                CONECTADO = false;
+//                        if (comando == Protocolo.UDP_INICIAR) {
+                            if (!QoopoRT.instancia.contieneIpBloqueada(conexion.getInetAddress().getHostAddress())) {                                
+                                procesar(comando, conexion, ssl);           
                                 QoopoRT.instancia.ponerEstado("Conexión UDP desde:" + conexion.getInetAddress().getHostAddress());// + "(" + conexion.getRemoteSocketAddress().toString() + ")");
                             } else {
                                 QoopoRT.instancia.ponerEstado("Conexión rechazada :" + conexion.getInetAddress().getHostAddress());
                             }
-                        }
+//                        }
                     } catch (Exception ex) {
-//                        ex.printStackTrace();
                     }
                 } while (CONECTADO);
             } catch (Exception ex) {
-//                ex.printStackTrace();
+                ex.printStackTrace();
+
             }
         }
-
     }
 
     public void stopPara() {
         CONECTADO = false;
         try {
-            this.conexion_servidor.cerrar();
+            this.conexionServidor.cerrar();
         } catch (Exception ex) {
         }
     }
-
 }

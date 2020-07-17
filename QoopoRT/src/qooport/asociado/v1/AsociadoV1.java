@@ -114,7 +114,6 @@ public class AsociadoV1 extends Asociado {
                 //System.out.println("llego comando " + comando);
                 this.agregarRecibidos(SizeUtil.sizeof(comando));
                 switch (comando) {
-
                     case Protocolo.GET_CURSOR:
                         try {
                         ImageIcon cursor = (ImageIcon) Util.descomprimirObjeto((byte[]) conexion.leerObjeto(), this);
@@ -239,7 +238,6 @@ public class AsociadoV1 extends Asociado {
                             this.getEscritorioRemoto().pack();
                             GuiUtil.centrarVentana(getEscritorioRemoto(), anchoP, altoP);
                         }
-
                         break;
                     case Protocolo.GET_LISTA_PROCESOS:
                         recibirListaProcesos((byte[]) conexion.leerObjeto());

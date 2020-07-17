@@ -125,7 +125,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
         limpiar();
         try {
             while (activo) {
-                obtenerCaptura();
+                capturar();
                 if (captura != null) {
                     BufferCaptura.agregar((String) servicio.get(10), captura);
                 }
@@ -171,7 +171,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
         }
     }
 
-    private Captura obtenerCaptura() {
+    private Captura capturar() {
         capturarIMG();
         procesarCambios();
         return captura;
@@ -318,7 +318,6 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
             if (imagen != null) {
                 imagen.setAccelerationPriority(1.0F);
                 pintarCursor(imagen);
-                //imageEscritorio = pintarCursor(imageEscritorio);
                 imagen = procesarImagen(imagen);
             }
         } catch (OutOfMemoryError ex) {
@@ -667,7 +666,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
                 case 0:
                     return servicio;
                 case 1:
-                    return obtenerCaptura();
+                    return capturar();
                 case 2:
                     return getCursorPosicion();
                 case 3:

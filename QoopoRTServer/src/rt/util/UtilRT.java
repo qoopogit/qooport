@@ -61,6 +61,7 @@ public class UtilRT {
     public static final List<PantallaBloque> listaBloqueLimpia = new ArrayList<PantallaBloque>();
     public static final FamiliaSO so = getFamily();
     public static final Captura capturaLimpia = new Captura();
+    public static final Captura capturaLimpiaWC = new Captura();
 
     //public static final ImageIcon CURSOR_PNG = new ImageIcon(Pantalla.class.getResource("/res/cursor.png"));//en caso que no se pueda obtener el cursos se dibuja uno default
     public static final BufferedImage CURSOR_PNG = IMG.toBufferedImage(new ImageIcon(UtilRT.class.getResource("/res/cursor.png")).getImage());//en caso que no se pueda obtener el cursos se dibuja uno default
@@ -99,7 +100,6 @@ public class UtilRT {
         String nombre = "";
         String version = "";
         String arquitectura = "";
-
         try {
             OS myOS = OS.getOs();
             plat = myOS.getPlatformName();
@@ -111,12 +111,10 @@ public class UtilRT {
             version = System.getProperty("os.version");
             arquitectura = System.getProperty("os.arch");
         }
-
         OS_PLATAFORMA = plat;
         OS_NOMBRE = nombre;
         OS_VERSION = version;
         OS_ARQUITECTURA = arquitectura;
-
     }
 
     public static String redondear(double number, int decimales) {
@@ -954,9 +952,8 @@ public class UtilRT {
             reset();
         }
     }
-    
-    //consigue un hashmd5 de un archivo
 
+    //consigue un hashmd5 de un archivo
     private static byte[] createChecksum(String filename) throws Exception {
         InputStream fis = new FileInputStream(filename);
         byte[] buffer = new byte[1024];

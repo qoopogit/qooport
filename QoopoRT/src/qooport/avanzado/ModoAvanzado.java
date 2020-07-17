@@ -2434,29 +2434,29 @@ public class ModoAvanzado extends JFrame {
         }
     }
 
-    public void eliminarServidor(Asociado serv, boolean yaEliminadoDeLista) {
+    public void eliminarAgente(Asociado agente, boolean yaEliminadoDeLista) {
         try {
-            Camara wC = serv.getCamara();
-            EscritorioRemoto eR = serv.getEscritorioRemoto();
-            AdminArchivos aA = serv.getAdminArchivos();
-            VoIp mic = serv.getVopIp();
-            Passwords pass = serv.getPasswords();
-            Mapa mapa = serv.getMapa();
-            Contactos contacto = serv.getContactos();
-            SMSListar smsListar = serv.getSmsListar();
-            Informacion info = serv.getInformacionGUI();
-            Portapapeles clipboard = serv.getPortapapeles();
-            Procesos procesosVentana = serv.getProcesos();
-            Conexiones conexionesVentana = serv.getConexiones();
-            Chat vChat = serv.getChat();
-            ArchivosOffline venOffline = serv.getArchivosOffline();
-            Terminal vCOnsola = serv.getConsola();
-            KeyLogger venKeylogger = serv.getKeylogger();
-            RedLan vRedLan = serv.getRedLan();
-            Mensajes vMensaje = serv.getVenMensaje();
-            TextoSpeak vTextoSpeak = serv.getVenTextoSpeak();
-            MonitorSistemaAsociado vMonitor = serv.getMonitorSistema();
-            Plugins vPlugins = serv.getPlugins();
+            Camara wC = agente.getCamara();
+            EscritorioRemoto eR = agente.getEscritorioRemoto();
+            AdminArchivos aA = agente.getAdminArchivos();
+            VoIp mic = agente.getVopIp();
+            Passwords pass = agente.getPasswords();
+            Mapa mapa = agente.getMapa();
+            Contactos contacto = agente.getContactos();
+            SMSListar smsListar = agente.getSmsListar();
+            Informacion info = agente.getInformacionGUI();
+            Portapapeles clipboard = agente.getPortapapeles();
+            Procesos procesosVentana = agente.getProcesos();
+            Conexiones conexionesVentana = agente.getConexiones();
+            Chat vChat = agente.getChat();
+            ArchivosOffline venOffline = agente.getArchivosOffline();
+            Terminal vCOnsola = agente.getConsola();
+            KeyLogger venKeylogger = agente.getKeylogger();
+            RedLan vRedLan = agente.getRedLan();
+            Mensajes vMensaje = agente.getVenMensaje();
+            TextoSpeak vTextoSpeak = agente.getVenTextoSpeak();
+            MonitorSistemaAsociado vMonitor = agente.getMonitorSistema();
+            Plugins vPlugins = agente.getPlugins();
 
             try {
                 vPlugins.dispose();
@@ -2549,27 +2549,27 @@ public class ModoAvanzado extends JFrame {
             }
 
 //        QoopoRT.capturasEscritorio.remove(serv.getIdentificador());
-            serv.setEscritorioRemoto(null);
+            agente.setEscritorioRemoto(null);
 
             try {
-                if (this.getServerSeleccionado().equals(serv.getIdentificador())) {
+                if (this.getServerSeleccionado().equals(agente.getIdentificador())) {
                     this.mostrarMiniatura(null);
                 }
             } catch (Exception e) {
             }
 
             //if (ventana != null) {
-            getEquipos().eliminarServidor(serv);
+            getEquipos().eliminarServidor(agente);
             //}
             if (!yaEliminadoDeLista) {
-                QoopoRT.SERVIDORES.remove(serv.getIdentificador());
+                QoopoRT.SERVIDORES.remove(agente.getIdentificador());
             }
 
             //if (ventana != null) {
             setTitle("Qoopo RT (Remote Tools) [" + QoopoRT.SERVIDORES.size() + " equipos conectados]");
             //}
-            serv.interrupt();
-            serv = null;
+            agente.interrupt();
+            agente = null;
             System.gc();
 
         } catch (Exception e) {

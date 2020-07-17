@@ -24,8 +24,6 @@ public abstract class DetectorCambios implements Serializable {
 
     public void liberar() {
         opciones = null;
-//        arrayInt = null;
-//        arrayByte = null;
         limpiar();
     }
 
@@ -47,30 +45,19 @@ public abstract class DetectorCambios implements Serializable {
 
     protected int[] obtenerInts(BufferedImage bi) throws IOException {
         try {
-//            long tInicio = System.currentTimeMillis();
-            int[] arrayInt = IMG.getIntArray(bi);
-//            long tFin = System.currentTimeMillis();
-//            if (DEBUG) {
-//                System.out.println("Tiempo int =" + (tFin - tInicio) + "ms   tamanio =" + arrayInt.length);
-//            }
-            return arrayInt;
+            return IMG.getIntArray(bi);
         } catch (Exception e) {
             return null;
         }
     }
 
     protected byte[] obtenerBytes(BufferedImage bi, float calidad) throws IOException {
-//        long tInicio = System.currentTimeMillis();
         byte[] arrayByte = null;
         if (opciones.isConvertirJpg()) {
             arrayByte = IMG.saveImageJPGByte(bi, calidad);
         } else {
             arrayByte = IMG.getByteArray(bi);
         }
-//        long tFin = System.currentTimeMillis();
-//        if (DEBUG) {
-//            System.out.println("Tiempo bytes o jpg =" + (tFin - tInicio) + "ms");
-//        }
         return arrayByte;
     }
 

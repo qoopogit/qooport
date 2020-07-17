@@ -65,8 +65,7 @@ public class Envio extends Thread implements Interfaz {
             }
         } catch (Exception e) {
         }
-        long tFin = System.currentTimeMillis();
-        tEnvio = (tFin - tInicio);
+        tEnvio = (System.currentTimeMillis() - tInicio);
         captura = null;
     }
 

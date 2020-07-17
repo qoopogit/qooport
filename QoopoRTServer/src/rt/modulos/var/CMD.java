@@ -1,18 +1,17 @@
 package rt.modulos.var;
 
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Scanner;
 import comunes.Interfaz;
-import java.io.BufferedReader;
+import java.util.HashMap;
+import java.util.Map;
 import rt.util.Protocolo;
 import rt.util.UtilRT;
 
 //consola
 public class CMD {
-
+    
     private Process p;//proceso
     private boolean a;//activo
     private Interfaz s;//servicio
@@ -20,7 +19,7 @@ public class CMD {
     public CMD(Interfaz servicio) {
         this.s = servicio;
     }
-
+    
     public void activar() {
         a = true;
         new Thread() {
@@ -28,7 +27,7 @@ public class CMD {
             public void run() {
                 try {
                     ProcessBuilder builder = null;
-
+                    
                     if (UtilRT.isWindows()) {
                         builder = new ProcessBuilder("cmd.exe");
                     } else if (UtilRT.isLinux() || UtilRT.isSolaris() || UtilRT.isFREBSD() || UtilRT.isOpenBSD()) {
@@ -40,77 +39,45 @@ public class CMD {
                     } else {
                         return;
                     }
+
+//                    final Map<String, String> envs = new HashMap<String, String>(builder.environment());
+                    final Map<String, String> envs = builder.environment();
+//                    final Map<String, String> envs = System.getenv();
+                    
+                    envs.put("TERM", "xterm");
+//                    builder.environment().putAll(envs);
+                    
                     builder.redirectErrorStream(true);
                     p = builder.start();
                     a = true;
-                    s.ejecutar(3, Protocolo.COMANDO_SHELL, "\nConsola activada\n");
+                    s.ejecutar(3, Protocolo.COMANDO_SHELL, "\n<Consola activada>\n");
                     final InputStream inStream = p.getInputStream();
                     new Thread(new Runnable() {
                         public void run() {
-
-                            /*
-                            METODO BETO
-                             */
                             try {
-                                int i;
+//                                int tamanio;
                                 byte[] buf = new byte[1];//voy leyendo de caracter en caracter
-                                while ((i = inStream.read(buf)) > 0) {
-                                    //out.write(buf, 0, i);
+//                                while ((tamanio = inStream.read(buf)) > 0 && a) {
+                                while ((inStream.read(buf)) > 0 && a) {
+                                    //out.write(buf, 0, tamanio);
                                     s.ejecutar(3, Protocolo.COMANDO_SHELL, new String(buf));
                                 }
                             } catch (Exception e) {
-
                             }
-
-                            /*
-
-                            //metodo encontrado para leer el stream del proceso
-                                    InputStreamReader reader = new InputStreamReader(inStream);
-                                                Scanner scan = new Scanner(reader);
-                                                //leo linea entera
-                                                //while (scan.hasNextLine() && a) {
-                                                //  String salida = scan.nextLine();
-                                                //  s.ejecutar(3, Protocolo.COMANDO_SHELL, salida + "\n");
-                                                //}
-                                                //----------------------------------------
-                                                //leo caracter x caracter pero no vien ele fin de linea
-                                                //----------------------------------------
-                                                //while (scan.hasNext() && a) {
-                                                //    String token = scan.next();
-                                                //    s.ejecutar(3, Protocolo.COMANDO_SHELL, token);                    
-                                                //}                             
-                                                                    //----------------------------------------
-                                                                    //leo linea a linea y caracter x caracter
-                                                                    //----------------------------------------
-                                        //                            while (scan.hasNextLine() && a) {
-                                        //                                String line = scan.nextLine();
-                                        //
-                                        //                                Scanner lineScanner = new Scanner(line);
-                                        //                                while (lineScanner.hasNext()) {
-                                        //                                    String token = lineScanner.next();
-                                        //                                    // do whatever needs to be done with token
-                                        //                                    s.ejecutar(3, Protocolo.COMANDO_SHELL, token);
-                                        //                                }
-                                        //                                lineScanner.close();
-                                        //                                // you're at the end of the line here. Do what you have to do.
-                                        //                                s.ejecutar(3, Protocolo.COMANDO_SHELL, "\n");
-                                        //                            }
-                             */
-                            s.ejecutar(3, Protocolo.COMANDO_SHELL, "\nConsola desactivada\n");
+                            s.ejecutar(3, Protocolo.COMANDO_SHELL, "\n<Consola desactivada>\n");
                             a = false;
                         }
                     }).start();
-
                 } catch (Exception ex) {
                     a = false;
                 }
             }
         }.start();
     }
-
+    
     public void desactivar() {
         a = false;
-        s.ejecutar(3, Protocolo.COMANDO_SHELL, "\nConsola desactivada\n");
+        s.ejecutar(3, Protocolo.COMANDO_SHELL, "\n<Consola desactivada>\n");
     }
 //public void escribirTecla(int keyCode) {
 //        if (p != null) {
@@ -125,7 +92,7 @@ public class CMD {
 //            }
 //        }
 //    }
-    
+
     public void escribirCaracter(char c) {
         if (p != null) {
             try {
@@ -138,7 +105,7 @@ public class CMD {
             }
         }
     }
-
+    
     public void ejecutarComando(String entrada) {
         if (p != null) {
             try {
@@ -153,21 +120,21 @@ public class CMD {
             }
         }
     }
-
+    
     public Process getProceso() {
         return p;
     }
-
+    
     public void setProceso(Process proceso) {
         this.p = proceso;
     }
-
+    
     public boolean isActivo() {
         return a;
     }
-
+    
     public void setActivo(boolean activo) {
         this.a = activo;
     }
-
+    
 }

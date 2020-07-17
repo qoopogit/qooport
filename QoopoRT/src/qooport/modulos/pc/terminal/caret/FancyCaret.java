@@ -5,12 +5,8 @@
  */
 package qooport.modulos.pc.terminal.caret;
 
-import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.JTextComponent;
@@ -91,22 +87,22 @@ public class FancyCaret extends DefaultCaret {
             return;
         }
 //
-//        if (dotChar == '\t') {
-//            try {
-//                Rectangle nextr = comp.modelToView(dot + 1);
-//                if ((r.y == nextr.y) && (r.x < nextr.x)) {
-//                    width = nextr.x - r.x;
-//                    if (isVisible()) {
-//                        g.fillRoundRect(r.x, r.y, width, r.height, 12, 12);
-//                    }
-//                    return;
-//                } else {
-//                    dotChar = ' ';
-//                }
-//            } catch (BadLocationException e) {
-//                dotChar = ' ';
-//            }
-//        }
+        if (dotChar == '\t') {
+            try {
+                Rectangle nextr = comp.modelToView(dot + 1);
+                if ((r.y == nextr.y) && (r.x < nextr.x)) {
+                    width = nextr.x - r.x;
+                    if (isVisible()) {
+                        g.fillRoundRect(r.x, r.y, width, r.height, 12, 12);
+                    }
+                    return;
+                } else {
+                    dotChar = ' ';
+                }
+            } catch (BadLocationException e) {
+                dotChar = ' ';
+            }
+        }
 
         width = g.getFontMetrics().charWidth(dotChar);
         if (isVisible()) {

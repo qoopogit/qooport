@@ -176,8 +176,6 @@ public class Servicio extends Thread implements Interfaz {
                 registro = null;
             }
         }
-//        crearArchivotmp();
-        //this.conectar();
     }
 
     private void iniciar() {
@@ -231,8 +229,9 @@ public class Servicio extends Thread implements Interfaz {
                 idServicio = host + ":" + puerto + "P" + (Integer) Inicio.config.obtenerParametro("protocolo");
                 conexion = new Conexion(host, puerto, (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
                 if ((Integer) Inicio.config.obtenerParametro("protocolo") == ConexionServer.UDP) {
-                    //System.out.println("iniciando conexion UDP");
+                    System.out.println("iniciando conexion UDP, puerto " + puerto);
                     enviarComandoInt(Protocolo.UDP_INICIAR);
+                    System.out.println("comando para iniciar conexion enviado");
                 } else {
                     enviarComandoInt(Protocolo.TPC_INICIAR);
                 }
