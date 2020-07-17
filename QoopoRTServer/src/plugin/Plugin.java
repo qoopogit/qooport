@@ -8,10 +8,6 @@ package plugin;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- *
- * @author alberto
- */
 public class Plugin implements Serializable {
 
     protected String nombre;

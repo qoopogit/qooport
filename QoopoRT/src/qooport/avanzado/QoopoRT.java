@@ -591,7 +591,7 @@ public class QoopoRT {
             }
             String tipoConexion;
             int i;
-            String version2;
+//            String version2;
             String ssl;
             for (Perfil p : perfiles) {
                 i = 0;
@@ -607,12 +607,11 @@ public class QoopoRT {
                     tipoConexion = "UDP";
                 }
 
-                try {
-                    version2 = Boolean.valueOf((String) p.obtenerParametro("version_objeto")) ? "SI" : "NO";
-                } catch (Exception e) {
-                    version2 = "NO";
-                }
-
+//                try {
+//                    version2 = Boolean.valueOf((String) p.obtenerParametro("version_objeto")) ? "SI" : "NO";
+//                } catch (Exception e) {
+//                    version2 = "NO";
+//                }
                 try {
                     ssl = Boolean.valueOf((String) p.obtenerParametro("ssl")) ? "SI" : "NO";
                 } catch (Exception e) {
@@ -625,7 +624,6 @@ public class QoopoRT {
                             (String) p.obtenerParametro("nombre"),
                             (String) p.obtenerParametro("puerto"),
                             tipoConexion,
-                            version2,
                             ssl
                         });
             }

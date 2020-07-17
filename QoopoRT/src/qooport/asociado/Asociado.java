@@ -392,11 +392,11 @@ public abstract class Asociado extends Thread {
         if (conexion.getTipo() == ConexionServer.TCP) {
             if (!infoRecibida) {
                 if (pings >= 5) {
-                    System.out.println("NO SE HA RECIBIDO INFORMACION AUN " + conexion.getInetAddress().getCanonicalHostName() + "   tipo=" + ((this instanceof AsociadoV2) ? "V2" : "V1") + ". SE VA A DESCONECTAR");
+                    System.out.println("NO SE HA RECIBIDO INFORMACION AUN " + conexion.getInetAddress().getCanonicalHostName() + ". SE VA A DESCONECTAR");
                     desconectar();
                     this.quitarServidor();
                 } else {
-                    System.out.println("NO SE HA RECIBIDO INFORMACION AUN " + conexion.getInetAddress().getCanonicalHostName() + "   tipo=" + ((this instanceof AsociadoV2) ? "V2" : "V1"));
+                    System.out.println("NO SE HA RECIBIDO INFORMACION AUN " + conexion.getInetAddress().getCanonicalHostName());
                 }
             }
         }
@@ -595,7 +595,6 @@ public abstract class Asociado extends Thread {
 //    public void descargar(String archivo, String rutaADescargar) {
 //        descargar(archivo, rutaADescargar, 0);
 //    }
-
     public void descargar(String archivo, String rutaADescargar, long offset) {
         if (isConexionInversa()) {
             this.enviarComando(Protocolo.ADMIN_ARCHIVOS_DESCARGAR, archivo, rutaADescargar, offset);

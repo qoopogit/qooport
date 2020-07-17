@@ -167,7 +167,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
             captura = null;
             interrupt();
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -238,7 +238,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
                 }
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+//            
         }
     }
 
@@ -345,7 +345,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
         try {
             captura.setBloques(detector.procesarCambios(imagen));
         } catch (Exception e) {
-//            e.printStackTrace();
+//            
         }
 //        if (captura.getBloques() == null || captura.getBloques().isEmpty()) {
 //            captura = null;
@@ -405,7 +405,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
                     break;
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+//            
         }
 //        long tFin = System.currentTimeMillis();
 //        if (DEBUG) {
@@ -562,7 +562,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
                     robot.keyRelease(ks.getKeyCode());
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
             break;
         }
@@ -610,7 +610,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
                     break;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -655,7 +655,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
 
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+//            
         }
     }
 
@@ -679,7 +679,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
                     return monitor;
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+//            
         }
         return null;
     }
@@ -735,7 +735,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
                     break;
             }
         } catch (Exception e) {
-            //e.printStackTrace();
+            //
         }
     }
 }

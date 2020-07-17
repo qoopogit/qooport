@@ -5,15 +5,13 @@
  */
 package rt;
 
-import java.io.File;
 import comunes.Interfaz;
+import java.io.File;
 import rt.util.UtilRT;
 
 /**
  * Se encarga de lanzar una ejecución del servicio escapando del id sesion 0 en
  * windows
- *
- * @author aigarcia
  */
 public class ServiceLoader implements Interfaz {
 

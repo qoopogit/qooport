@@ -1,9 +1,13 @@
 package comunes;
 
 import java.io.Serializable;
+
 /**
- * Clase que representa una celda o bloque de la pantalla. 
- * Para la captura de pantalla se divide la pantalla en bloques y se realiza un senso de estas divisiones para detectar si hay cambios. Cuando hay un cambio, se envia solo las celdas cambiadas.
+ * Clase que representa una celda o bloque de la pantalla. Para la captura de
+ * pantalla se divide la pantalla en bloques y se realiza un senso de estas
+ * divisiones para detectar si hay cambios. Cuando hay un cambio, se envia solo
+ * las celdas cambiadas.
+ *
  * @author alberto
  */
 public class PantallaBloque implements Serializable {

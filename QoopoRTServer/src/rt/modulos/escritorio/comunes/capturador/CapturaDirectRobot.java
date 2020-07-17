@@ -12,10 +12,6 @@ import java.awt.image.DataBufferInt;
 import java.awt.image.DirectColorModel;
 import java.awt.image.Raster;
 
-/**
- *
- * @author aigarcia
- */
 public class CapturaDirectRobot extends Capturador {
 
 //    private ColorModel cm16 = new DirectColorModel(16, 0x7C00, 0x03E0, 0x001F);
@@ -26,16 +22,6 @@ public class CapturaDirectRobot extends Capturador {
 
     @Override
     public BufferedImage capturar(Rectangle recuadro) {
-//        System.out.println("------------------------------");
-//        System.out.println("------------------------------");
-//        System.out.println("Tamaños de la clase CapturaDirectRobot");
-//        System.out.println("pixels=" + UtilRT.convertirBytesLecturaHumana(SizeUtil.sizeof(UtilRT.convertirBytes(pixels))));
-//        System.out.println("image=" + UtilRT.convertirBytesLecturaHumana(SizeUtil.sizeof(UtilRT.convertirBytes(image))));
-//        System.out.println("This=" + UtilRT.convertirBytesLecturaHumana(SizeUtil.sizeof(UtilRT.convertirBytes(this))));
-//        System.out.println("------------------------------");
-//        System.out.println("------------------------------");
-//        System.out.println("");
-
         try {
             if (directRobot != null) {
                 pixels = directRobot.getRGBPixels(recuadro);
@@ -45,7 +31,7 @@ public class CapturaDirectRobot extends Capturador {
                 return image;
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+
         }
         return null;
     }

@@ -96,12 +96,9 @@ public class QTcpSocket implements QSocket {
     @Override
     public String resumenSSL() {
         try {
-
             try {
-
                 SSLSession session = ((SSLSocket) socket).getSession();
                 java.security.cert.Certificate[] servercerts = session.getPeerCertificates();
-
                 String tmp = "";
                 for (Certificate cert : servercerts) {
 
@@ -118,7 +115,7 @@ public class QTcpSocket implements QSocket {
                     return tmp.replaceAll("\n", "");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
         } catch (Exception e) {
 

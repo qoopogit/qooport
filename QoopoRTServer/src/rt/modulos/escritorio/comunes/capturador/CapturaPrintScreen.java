@@ -12,10 +12,6 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
-/**
- *
- * @author aigarcia
- */
 public class CapturaPrintScreen extends Capturador {
 
     private Clipboard clipboard;//usada para obtener la pantalla en el metodo de envio con printscreen

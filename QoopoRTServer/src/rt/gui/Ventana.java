@@ -91,7 +91,6 @@ public class Ventana extends javax.swing.JFrame implements Interfaz {
 
         corriendo = !corriendo;
         if (corriendo) {
-
             try {
                 CLRT cl = new CLRT();
                 conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());

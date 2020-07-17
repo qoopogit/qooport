@@ -48,9 +48,7 @@ public class BufferCaptura {
         }
         try {
             if (getSize(idCliente) < LIMITES_CAPTURAS.get(idCliente)) {
-                //synchronized (BUFFER) {
                 BUFFER.get(idCliente).addLast(item);
-                //}
                 if (saltadas > 0) {
                     saltadas--;//disminuyo los saltadas
                 }
@@ -58,7 +56,7 @@ public class BufferCaptura {
                 saltadas++;
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+//            
         }
     }
 
@@ -70,7 +68,7 @@ public class BufferCaptura {
 //                }
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+//            
         }
         return null;
     }

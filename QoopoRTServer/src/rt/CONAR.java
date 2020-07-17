@@ -2,9 +2,9 @@ package rt;
 
 import comunes.CapturaOpciones;
 import comunes.Comando;
+import comunes.Interfaz;
 import network.Conexion;
 import network.ConexionServer;
-import comunes.Interfaz;
 import rt.util.Protocolo;
 import rt.util.UtilRT;
 
@@ -57,7 +57,7 @@ public class CONAR extends Thread implements Interfaz {
 
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+
             }
         } while (CONECTADO);
     }

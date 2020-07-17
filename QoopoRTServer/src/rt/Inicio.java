@@ -16,7 +16,6 @@ import rt.util.UtilRT;
 public class Inicio {
 
     public static CFG config;
-//    public final static boolean DEBUG = false;
     public static Interfaz in;//instalador
     public static String v = "1.5.5";//version
     public static String i = "";//identificador
@@ -114,7 +113,7 @@ public class Inicio {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
             //esperamos 8 segundos por si acaso se actualiza el server se instale despues q el anterior se finalice
             if (actualizacion) {
@@ -141,7 +140,7 @@ public class Inicio {
                 }
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+
         }
     }
 
@@ -207,13 +206,8 @@ public class Inicio {
             rm();
             Interfaz server = ((Interfaz) cl.loadClass("rt.RtServer").newInstance());
             server.instanciar(actualizacion, instalandoServicio);
-//            input.close();
-//            input = null;
             cl = null;
-//            configs = null;
         } catch (Exception ex) {
-            ex.printStackTrace();
-
         }
     }
 

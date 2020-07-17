@@ -5,8 +5,10 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import rt.util.IMG;
+
 /**
  * Detecta los cambios de pantalla a nivel de pixeles
+ *
  * @author alberto
  */
 public class Pixeles extends DetectorCambios {

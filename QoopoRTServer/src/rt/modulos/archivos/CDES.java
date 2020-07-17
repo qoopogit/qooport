@@ -2,6 +2,7 @@ package rt.modulos.archivos;
 
 import network.Conexion;
 //cola descarga
+
 public class CDES {
 
     private String a;//archivo
@@ -14,14 +15,14 @@ public class CDES {
     public CDES(String a, String r, Long offset) {
         this.a = a;
         this.r = r;
-        this.offset=offset;
+        this.offset = offset;
     }
 
     public CDES(String a, String r, String rO, Long offset) {
         this.a = a;
         this.r = r;
         this.rO = rO;
-        this.offset=offset;
+        this.offset = offset;
     }
 
     public CDES(String a, String r, Conexion c, int bufferSize, Long offset) {
@@ -29,7 +30,7 @@ public class CDES {
         this.r = r;
         this.c = c;
         this.bufferSize = bufferSize;
-        this.offset=offset;
+        this.offset = offset;
     }
 
     public CDES(String a, String r, String rO, Conexion c, int bufferSize, Long offset) {
@@ -38,7 +39,7 @@ public class CDES {
         this.rO = rO;
         this.c = c;
         this.bufferSize = bufferSize;
-        this.offset=offset;
+        this.offset = offset;
     }
 
     public String getArchivo() {

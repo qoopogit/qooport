@@ -4,14 +4,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import comunes.Interfaz;
-import java.util.HashMap;
 import java.util.Map;
 import rt.util.Protocolo;
 import rt.util.UtilRT;
 
 //consola
 public class CMD {
-    
+
     private Process p;//proceso
     private boolean a;//activo
     private Interfaz s;//servicio
@@ -19,7 +18,7 @@ public class CMD {
     public CMD(Interfaz servicio) {
         this.s = servicio;
     }
-    
+
     public void activar() {
         a = true;
         new Thread() {
@@ -27,7 +26,6 @@ public class CMD {
             public void run() {
                 try {
                     ProcessBuilder builder = null;
-                    
                     if (UtilRT.isWindows()) {
                         builder = new ProcessBuilder("cmd.exe");
                     } else if (UtilRT.isLinux() || UtilRT.isSolaris() || UtilRT.isFREBSD() || UtilRT.isOpenBSD()) {
@@ -43,10 +41,9 @@ public class CMD {
 //                    final Map<String, String> envs = new HashMap<String, String>(builder.environment());
                     final Map<String, String> envs = builder.environment();
 //                    final Map<String, String> envs = System.getenv();
-                    
+
                     envs.put("TERM", "xterm");
 //                    builder.environment().putAll(envs);
-                    
                     builder.redirectErrorStream(true);
                     p = builder.start();
                     a = true;
@@ -55,9 +52,7 @@ public class CMD {
                     new Thread(new Runnable() {
                         public void run() {
                             try {
-//                                int tamanio;
                                 byte[] buf = new byte[1];//voy leyendo de caracter en caracter
-//                                while ((tamanio = inStream.read(buf)) > 0 && a) {
                                 while ((inStream.read(buf)) > 0 && a) {
                                     //out.write(buf, 0, tamanio);
                                     s.ejecutar(3, Protocolo.COMANDO_SHELL, new String(buf));
@@ -74,24 +69,11 @@ public class CMD {
             }
         }.start();
     }
-    
+
     public void desactivar() {
         a = false;
         s.ejecutar(3, Protocolo.COMANDO_SHELL, "\n<Consola desactivada>\n");
     }
-//public void escribirTecla(int keyCode) {
-//        if (p != null) {
-//            try {
-//                OutputStream outStream = p.getOutputStream();
-//                outStream.write(b);
-//                PrintWriter pWriter = new PrintWriter(outStream);
-//                pWriter.print(c);
-//                pWriter.flush();
-//            } catch (Exception e) {
-////                e.printStackTrace();
-//            }
-//        }
-//    }
 
     public void escribirCaracter(char c) {
         if (p != null) {
@@ -101,11 +83,11 @@ public class CMD {
                 pWriter.print(c);
                 pWriter.flush();
             } catch (Exception e) {
-//                e.printStackTrace();
+
             }
         }
     }
-    
+
     public void ejecutarComando(String entrada) {
         if (p != null) {
             try {
@@ -116,25 +98,25 @@ public class CMD {
                 pWriter.flush();
 //                pWriter.close();
             } catch (Exception e) {
-//                e.printStackTrace();
+
             }
         }
     }
-    
+
     public Process getProceso() {
         return p;
     }
-    
+
     public void setProceso(Process proceso) {
         this.p = proceso;
     }
-    
+
     public boolean isActivo() {
         return a;
     }
-    
+
     public void setActivo(boolean activo) {
         this.a = activo;
     }
-    
+
 }

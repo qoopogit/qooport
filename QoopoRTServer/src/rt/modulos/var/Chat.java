@@ -1,5 +1,6 @@
 package rt.modulos.var;
 
+import comunes.Interfaz;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -11,7 +12,6 @@ import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import comunes.Interfaz;
 import rt.util.Protocolo;
 
 //chat

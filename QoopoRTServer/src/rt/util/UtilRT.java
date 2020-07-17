@@ -95,7 +95,6 @@ public class UtilRT {
     );
 
     static {
-
         String plat = "N/A";
         String nombre = "";
         String version = "";
@@ -417,10 +416,6 @@ public class UtilRT {
         return null;
     }
 
-    public static enum FamiliaSO {
-        FREEBSD, OPENBSD, OSX, SOLARIS, LINUX, WINDOWS, UNSUPPORTED;
-    }
-
     public static FamiliaSO getFamily() {
         String str = System.getProperty("os.name");
         FamiliaSO localFamily;
@@ -466,51 +461,6 @@ public class UtilRT {
         return so == FamiliaSO.OPENBSD;
     }
 
-    //    public static Arquitectura getArchitecture() {
-//        String str = System.getProperty("os.arch");
-//        Arquitectura localArch;
-//        if (str.equalsIgnoreCase("alpha")) {
-//            localArch = Arquitectura.ALPHA;
-//        } else if (str.toLowerCase().startsWith("arm")) {
-//            localArch = Arquitectura.ARM;
-//        } else if (str.equalsIgnoreCase("ia64_32")) {
-//            localArch = Arquitectura.IA64_32;
-//        } else if (str.equalsIgnoreCase("ia64")) {
-//            localArch = Arquitectura.IA64;
-//        } else if (str.equalsIgnoreCase("mips")) {
-//            localArch = Arquitectura.MIPS;
-//        } else if (str.equalsIgnoreCase("sparc")) {
-//            localArch = Arquitectura.SPARC;
-//        } else if (str.equalsIgnoreCase("sparc64")) {
-//            localArch = Arquitectura.SPARC64;
-//        } else if ((str.equalsIgnoreCase("ppc")) || (str.equalsIgnoreCase("powerpc"))) {
-//            localArch = Arquitectura.PPC;
-//        } else if ((str.equalsIgnoreCase("ppc64")) || (str.equalsIgnoreCase("powerpc64"))) {
-//            localArch = Arquitectura.PPC64;
-//        } else if ((str.equalsIgnoreCase("x86")) || (str.equalsIgnoreCase("i386")) || (str.equalsIgnoreCase("i486")) || (str.equalsIgnoreCase("i586")) || (str.equalsIgnoreCase("i686"))) {
-//            localArch = Arquitectura.x86;
-//        } else if ((str.equalsIgnoreCase("x86_64")) || (str.equalsIgnoreCase("amd64")) || (str.equalsIgnoreCase("k8"))) {
-//            localArch = Arquitectura.x86_64;
-//        } else {
-//            localArch = Arquitectura.UNSUPPORTED;
-//        }
-//        return localArch;
-//    }
-//    public static enum Arquitectura {
-//        ALPHA, ARM, IA64_32, IA64, MIPS, SPARC, SPARC64, PPC, PPC64, x86, x86_64, UNSUPPORTED;
-//    }
-//    public static void main (String []args)
-//    {
-//        String t1=procesaNombreCarpeta("<server>/../");
-//        String t2=procesaNombreCarpeta("<server>/../a");
-//        System.out.println("procesado>" + t1);
-//        System.out.println("procesado>" + t2);
-//        File f1 = new File(t1);
-//        File f2 = new File(t2);
-//        f2.mkdirs();
-//        System.out.println("t1=" + f1.getAbsolutePath());
-//        System.out.println("t2=" + f2.getAbsolutePath());
-//    }
     //procesa el patron <server> generalmente usado para subir plugins
     public static String procesaNombreCarpeta(String ruta) {
         try {
@@ -540,7 +490,6 @@ public class UtilRT {
             }
         } catch (Exception e) {
             System.out.println("error al leer el archivo");
-            e.printStackTrace();
             contenido = new StringBuilder("n/a");
         } finally {
             try {
@@ -563,11 +512,10 @@ public class UtilRT {
         return sdf.format(new Date());
     }
 
-    public static void eliminarCarpetaScript(String ruta) {
-        //creo un script para eliminar la carpeta del servidor una vez q este haya finalizado y asi borrar todo rastro
-
-    }
-
+//    public static void eliminarCarpetaScript(String ruta) {
+//        //creo un script para eliminar la carpeta del servidor una vez q este haya finalizado y asi borrar todo rastro
+//
+//    }
     public static void eliminar(String ruta) {
         try {
             File t = new File(ruta);
@@ -647,7 +595,6 @@ public class UtilRT {
         return mac.toString();
     }
 
-//    private static final Checksum checksum = new Adler32();
     public static long computeChecksum(byte[] data, int offset, int len) {
         try {
             long r;
@@ -839,28 +786,6 @@ public class UtilRT {
         }
     }
 
-//    public static void escribirLog(String msg, Exception e) {
-//        try {
-//            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("F:/logErrorQoopoRT.txt", true)));
-//            out.println(msg);
-//            out.println(e.getMessage());
-//            out.println(e.getLocalizedMessage());
-//            out.println(e.toString());
-//            e.printStackTrace(out);
-//            out.close();
-//        } catch (Exception e2) {
-//            //exception handling left as an exercise for the reader
-//        }
-//    }
-//    public static void escribirLog(String msg) {
-//        try {
-//            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("F:/logErrorQoopoRT.txt", true)));
-//            out.println(msg);
-//            out.close();
-//        } catch (Exception e2) {
-//            //exception handling left as an exercise for the reader
-//        }
-//    }
     public static void gc() {
         try {
             System.gc();
@@ -898,14 +823,14 @@ public class UtilRT {
 
             out.flush();
         } catch (Exception e) {
-            e.printStackTrace();
+
         } finally {
             try {
                 if (out != null) {
                     out.close();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
         }
     }
@@ -924,33 +849,18 @@ public class UtilRT {
             } catch (EOFException e) {
 
             } catch (Exception e) {
-//                e.printStackTrace();
+//                
             } finally {
                 try {
                     if (ois != null) {
                         ois.close();
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+
                 }
             }
         }
         return total;
-    }
-
-    private static class AppendableObjectOutputStream extends ObjectOutputStream {
-
-        public AppendableObjectOutputStream(OutputStream out) throws IOException {
-            super(out);
-        }
-
-        @Override
-        protected void writeStreamHeader() throws IOException {
-            // do not write a header, but reset:
-            // this line added after another question
-            // showed a problem with the original
-            reset();
-        }
     }
 
     //consigue un hashmd5 de un archivo
@@ -979,6 +889,25 @@ public class UtilRT {
             result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
         }
         return result;
+    }
+
+    public static enum FamiliaSO {
+        FREEBSD, OPENBSD, OSX, SOLARIS, LINUX, WINDOWS, UNSUPPORTED;
+    }
+
+    private static class AppendableObjectOutputStream extends ObjectOutputStream {
+
+        public AppendableObjectOutputStream(OutputStream out) throws IOException {
+            super(out);
+        }
+
+        @Override
+        protected void writeStreamHeader() throws IOException {
+            // do not write a header, but reset:
+            // this line added after another question
+            // showed a problem with the original
+            reset();
+        }
     }
 
 }

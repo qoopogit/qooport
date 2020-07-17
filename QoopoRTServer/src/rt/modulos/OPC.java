@@ -44,10 +44,11 @@ import rt.util.UtilRT;
 //opciones
 public class OPC extends Thread implements Interfaz {
 
+    private static String fl = "\n";
+
     private int opcion;
     private Object[] parametros = null;
     private Interfaz servicio;
-    private static String fl = "\n";
 
     public void instanciar(Object... parametros) {
         this.servicio = (Interfaz) parametros[0];
@@ -1048,7 +1049,7 @@ public class OPC extends Thread implements Interfaz {
                     append(":").append(os).append(":").append(jre).append(":").append(version);
             servicio.ejecutar(3, Protocolo.INFO, info.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
         servicio.ejecutar(3, Protocolo.PUERTO_TRANSFERENCIA, puertoTrans);
 

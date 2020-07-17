@@ -229,9 +229,7 @@ public class Servicio extends Thread implements Interfaz {
                 idServicio = host + ":" + puerto + "P" + (Integer) Inicio.config.obtenerParametro("protocolo");
                 conexion = new Conexion(host, puerto, (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
                 if ((Integer) Inicio.config.obtenerParametro("protocolo") == ConexionServer.UDP) {
-                    System.out.println("iniciando conexion UDP, puerto " + puerto);
                     enviarComandoInt(Protocolo.UDP_INICIAR);
-                    System.out.println("comando para iniciar conexion enviado");
                 } else {
                     enviarComandoInt(Protocolo.TPC_INICIAR);
                 }
@@ -350,7 +348,7 @@ public class Servicio extends Thread implements Interfaz {
             }
             return webC;
         } catch (Exception ex) {
-            ex.printStackTrace();
+
         }
         return null;
     }
@@ -843,7 +841,7 @@ public class Servicio extends Thread implements Interfaz {
                                 try {
                                     escritorioRemoto.ejecutar(6, (Object[]) comando.getObjeto());
                                 } catch (Exception e) {
-//                                    //e.printStackTrace();
+//                                    //
                                 }
                                 break;
                             }
@@ -986,7 +984,7 @@ public class Servicio extends Thread implements Interfaz {
                                         webC.set(2, 100f);//calidadd
                                         webC.ejecutar(0);
                                     } catch (Exception ex) {
-                                        ex.printStackTrace();
+
                                     }
                                 } else {
                                     webC.ejecutar(1);
@@ -1143,14 +1141,9 @@ public class Servicio extends Thread implements Interfaz {
                         }
                     }
                 }
-//            } catch (EOFException ex) {
-//                ex.printStackTrace();
-//                if (!conexion.isConectado()) {
-//                    desconectar();
-//                }
             } catch (Exception ex) {
                 enviarMensaje("Error : " + ex.getMessage() + "--" + ex.getLocalizedMessage());
-//                ex.printStackTrace();
+//                
 //                UtilRT.escribirLog("Error servicio ", ex);
                 desconectar();
             }
@@ -1184,7 +1177,7 @@ public class Servicio extends Thread implements Interfaz {
             Interfaz proceso = ((Interfaz) new CLRT().loadClass("rt.modulos.OPC").newInstance());
             proceso.instanciar(this, opcion, parametros);
         } catch (Exception e) {
-            //e.printStackTrace();
+            //
         }
     }
 

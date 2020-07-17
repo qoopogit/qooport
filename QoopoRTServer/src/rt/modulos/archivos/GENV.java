@@ -15,7 +15,6 @@ public class GENV extends Thread {
     private Interfaz servicio;
 
     public GENV(Interfaz conex) {
-//        this.setName("hilo-gestor-envio-" + UtilRT.getHiloId());
         this.servicio = conex;
     }
 

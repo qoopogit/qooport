@@ -44,10 +44,8 @@ public class QTcpServerSocket implements QServerSocket {
     public QSocket accept() throws IOException {
         try {
             Socket socket = this.serverSocket.accept();
-
             return new QTcpSocket(socket);
         } catch (IOException e) {
-            e.printStackTrace();
             throw e;
         }
     }

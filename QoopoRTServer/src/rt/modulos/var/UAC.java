@@ -1,17 +1,16 @@
 package rt.modulos.var;
 
+import comunes.Interfaz;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import comunes.Interfaz;
 import rt.util.CLRT;
 
 public class UAC extends Thread implements Interfaz {
 
     @Override
     public void run() {
-//        setName("hilo-UAC");
         try {
             CLRT cl = new CLRT();
             InputStream input = cl.descifrar("/uac.dat");
@@ -51,7 +50,6 @@ public class UAC extends Thread implements Interfaz {
 
     public Object get(int opcion, Object... parametros) {
         return null;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void instanciar(Object... parametros) {

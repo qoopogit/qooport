@@ -1050,7 +1050,7 @@ public class ModoAvanzado extends JFrame {
 //        this.tabla.setComponentPopupMenu(this.menu);
         this.tblPerfiles.setAutoCreateRowSorter(true);
 //        this.tblPerfiles.setFont(new Font(tipoLetra, 1, 14));
-        this.tblPerfiles.setModel(new DefaultTableModel(new Object[0][], new String[]{"", "Nombre", "Puerto", "Tipo", "Versión Objetos", "SSL"}) {
+        this.tblPerfiles.setModel(new DefaultTableModel(new Object[0][], new String[]{"", "Nombre", "Puerto", "Tipo",  "SSL"}) {
             boolean[] canEdit = {false, false, false, false, false, false};
 
             @Override

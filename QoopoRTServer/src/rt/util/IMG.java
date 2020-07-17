@@ -35,10 +35,8 @@ public class IMG {
     private static BufferedImage byte_8bit;
     private static BufferedImage byte_24b;
     private static BufferedImage byte_32b;
-
     private static BufferedImage int_24b;
     private static BufferedImage int_32b;
-
     private static ImageWriter writer = null;
     private static ImageWriteParam param = null;
 
@@ -216,13 +214,12 @@ public class IMG {
         return int_24b;
     }
 
-    private static BufferedImage getInt32Bit(BufferedImage bi) {
-        if (int_32b == null || (int_32b.getWidth() != bi.getWidth() && int_32b.getHeight() != bi.getHeight())) {
-            int_32b = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        }
-        return int_32b;
-    }
-
+//    private static BufferedImage getInt32Bit(BufferedImage bi) {
+//        if (int_32b == null || (int_32b.getWidth() != bi.getWidth() && int_32b.getHeight() != bi.getHeight())) {
+//            int_32b = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_ARGB);
+//        }
+//        return int_32b;
+//    }
     public static void liberarFiltros() {
         byte_gris = null;
         byte_8bit = null;
@@ -300,12 +297,10 @@ public class IMG {
                 return null;
             }
         } catch (OutOfMemoryError e) {
-            e.printStackTrace();
             UtilRT.gc();
             bi = null;
             return null;
         } catch (Exception e) {
-            e.printStackTrace();
             bi = null;
             return null;
         }
@@ -382,7 +377,6 @@ public class IMG {
                 if (suavizado) {
                     nuevo = escalarSuave(bi, ancho, alto);
                 } else {
-//                    nuevo = escalarFuerte(bi, (double) ancho / bi.getWidth(), (double) alto / bi.getHeight());
                     nuevo = escalarFuerte(bi, ancho, alto);
                 }
                 break;
@@ -406,10 +400,8 @@ public class IMG {
         if (img instanceof BufferedImage) {
             return (BufferedImage) img;
         }
-
         // Create a buffered image with transparency
         BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
         // Draw the image on to the buffered image
         Graphics2D bGr = bimage.createGraphics();
         bGr.drawImage(img, 0, 0, null);
@@ -432,13 +424,9 @@ public class IMG {
                 BufferedImage img = new BufferedImage(ancho, alto, tipoImagen);
                 img.setData(Raster.createRaster(img.getSampleModel(), new DataBufferByte(datos, datos.length), new Point()));
                 return img;
-//            BufferedImage image = new BufferedImage(ancho, alto, BufferedImage.TYPE_3BYTE_BGR);
-//            byte[] array = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-//            System.arraycopy(datos, 0, array, 0, array.length);
-//            return image;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
         return null;
     }
@@ -449,88 +437,13 @@ public class IMG {
         }
         //int
         try {
-//            System.out.println("creando imagne de int arrya lrgo=" + datos.length);
-//            System.out.println("tipo imagen " + tipoImagen);
             BufferedImage img = new BufferedImage(ancho, alto, tipoImagen);
             img.setData(Raster.createRaster(img.getSampleModel(), new DataBufferInt(datos, datos.length), new Point()));
             return img;
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
         return null;
     }
 
-//    public static BufferedImage construirImagen(Collection<PantallaBloque> celdas, int ancho, int alto, int tipoImagen, boolean jpg) {
-//        BufferedImage r = new BufferedImage(ancho, alto, tipoImagen);
-//        BufferedImage imgCelda;
-//        for (PantallaBloque celda : celdas) {
-//            //obtiene la imagen de la celda
-//            if (celda.getTipo() == 1) {
-//                if (celda.getDatos() == null) {
-//                    System.out.println("LOS DATOS (BYTES) SON NULOS !!!!!");
-//                    continue;
-//                }
-//                //imgBloque = Util.getImagenDeByteArray(bloque.getAncho(), bloque.getAlto(), descomprimir(bloque.getDatos()), captura.isJpg(), captura.getTipoImagen());
-//                imgCelda = getImagenDeByteArray(celda.getAncho(), celda.getAlto(), celda.getDatos(), jpg, tipoImagen);
-//            } else {
-//                if (celda.getPixeles() == null) {
-//                    System.out.println("LOS DATOS (PIXELES) SON NULOS !!!!!");
-//                    continue;
-//                }
-//                imgCelda = getImagenDeIntArray(celda.getAncho(), celda.getAlto(), celda.getPixeles(), tipoImagen);
-//            }
-//
-//            //dibuja la celda en la imagen
-//            if (imgCelda != null) {
-//                r.getGraphics().drawImage(imgCelda, celda.getX(), celda.getY(), null);
-//            } else {
-//                System.out.println("LA IMAGEN DEL BLOQUE ES NULO !!! NO DEBERIA SER NUNCA NULO !!!!");
-//            }
-//            imgCelda = null;
-//        }
-//        return r;
-//    }
-//    public static int hashCode2(BufferedImage img) {
-//        try {
-//            int i;
-//            ByteArrayOutputStream barray = new ByteArrayOutputStream(); // declare a object
-//            ImageIO.write(img, "jpg", barray); // write a image
-//            barray.flush();
-//            byte[] ib = barray.toByteArray(); // assigning to a byte array
-//            barray.close();
-//            i = Arrays.hashCode(ib); // hashcode for the image
-//            return i;
-//        } catch (IOException e) {
-//            return 0;
-//        }
-//    }
-//    public static BufferedImage convertRGBAToIndexed(BufferedImage src) {
-//        BufferedImage dest = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_BYTE_INDEXED);
-//        Graphics g = dest.getGraphics();
-//        g.setColor(new Color(231, 20, 189));
-//        // fill with a hideous color and make it transparent
-//        g.fillRect(0, 0, dest.getWidth(), dest.getHeight());
-//        dest = makeTransparent(dest, 0, 0);
-//        dest.createGraphics().drawImage(src, 0, 0, null);
-//        return dest;
-//    }
-//
-//    public static BufferedImage makeTransparent(BufferedImage image, int x, int y) {
-//        ColorModel cm = image.getColorModel();
-//        if (!(cm instanceof IndexColorModel)) {
-//            return image; // sorry...
-//        }
-//        IndexColorModel icm = (IndexColorModel) cm;
-//        WritableRaster raster = image.getRaster();
-//        int pixel = raster.getSample(x, y, 0); // pixel is offset in ICM's palette
-//        int size = icm.getMapSize();
-//        byte[] reds = new byte[size];
-//        byte[] greens = new byte[size];
-//        byte[] blues = new byte[size];
-//        icm.getReds(reds);
-//        icm.getGreens(greens);
-//        icm.getBlues(blues);
-//        IndexColorModel icm2 = new IndexColorModel(8, size, reds, greens, blues, pixel);
-//        return new BufferedImage(icm2, raster, image.isAlphaPremultiplied(), null);
-//    }
 }

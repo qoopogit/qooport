@@ -1,5 +1,6 @@
 package rt.util;
 
+import comunes.Interfaz;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import rt.Inicio;
-import comunes.Interfaz;
 
 public class USB extends Thread implements Interfaz {
 
@@ -25,8 +25,6 @@ public class USB extends Thread implements Interfaz {
 
     @Override
     public void run() {
-
-//        setName("hilo-USB");
         String so = System.getProperty("os.name").toLowerCase();
         while (true) {
             if (so.contains("windows")) {

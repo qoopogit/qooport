@@ -9,6 +9,22 @@ import javax.sound.sampled.SourceDataLine;
 //Reproductor
 public class REP extends Thread {
 
+    public static AudioFormat configurarFormato(String tipo) {
+        float sampleRate = 8000;
+        int sampleSizeInBits = 8;
+        int channels = 1;
+        try {
+            String[] partes = tipo.split(":");
+            sampleRate = Float.valueOf(partes[0]);
+            sampleSizeInBits = Integer.valueOf(partes[1]);
+            channels = Integer.valueOf(partes[2]);
+        } catch (Exception e) {
+        }
+        boolean signed = true;
+        boolean bigEndian = false;
+        return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
+    }
+
     private SourceDataLine tD;
     private float SampleRate;
     private int SampleSizeInBits;
@@ -36,8 +52,6 @@ public class REP extends Thread {
 
     @Override
     public void run() {
-
-//        setName("hilo-REP");
         try {
             AudioFormat formato = new AudioFormat(this.SampleRate, this.SampleSizeInBits, this.channel, true, false);
             DataLine.Info line = new DataLine.Info(SourceDataLine.class, formato);
@@ -46,22 +60,6 @@ public class REP extends Thread {
             this.tD.start();
         } catch (LineUnavailableException ex) {
         }
-    }
-
-    public static AudioFormat configurarFormato(String tipo) {
-        float sampleRate = 8000;
-        int sampleSizeInBits = 8;
-        int channels = 1;
-        try {
-            String[] partes = tipo.split(":");
-            sampleRate = Float.valueOf(partes[0]);
-            sampleSizeInBits = Integer.valueOf(partes[1]);
-            channels = Integer.valueOf(partes[2]);
-        } catch (Exception e) {
-        }
-        boolean signed = true;
-        boolean bigEndian = false;
-        return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
     }
 
 }

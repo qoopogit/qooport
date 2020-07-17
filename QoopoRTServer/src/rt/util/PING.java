@@ -15,7 +15,6 @@ public class PING extends Thread implements Interfaz {
 
     @Override
     public void run() {
-//        setName("hilo-ping-" + UtilRT.getHiloId());
         try {
             while (ejecutar && (Boolean) servicio.get(1)) {//mientras este conectado
                 try {

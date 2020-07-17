@@ -1,10 +1,8 @@
-
 package comunes;
 
 import java.io.Serializable;
 
-
-public class Punto implements Serializable{
+public class Punto implements Serializable {
 
     public int x;
     public int y;

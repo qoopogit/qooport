@@ -1,5 +1,6 @@
 package rt.modulos.var;
 
+import comunes.Interfaz;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -7,16 +8,15 @@ import java.util.Enumeration;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import comunes.Interfaz;
 import rt.util.Protocolo;
 
 //explorar la red
 public class RED extends Thread {
+    private static int ordenEnvio = 0;
 
     private Interfaz servicio;
     private boolean activo;
     private int timeout = 2000;
-    private static int ordenEnvio = 0;
 
     public RED() {
     }
@@ -52,7 +52,6 @@ public class RED extends Thread {
 
     @Override
     public void run() {
-//        setName("hilo-RED");
         try {
             ordenEnvio = 0;
             Enumeration e = NetworkInterface.getNetworkInterfaces();
@@ -84,14 +83,10 @@ public class RED extends Thread {
                     }
                 }
             }
-            //lanzador.shutdown();
-            //lanzador.awaitTermination(15, TimeUnit.MINUTES);
             enviar("Proceso", "Terminado");
-
         } catch (Exception ex) {
             enviar("ERROR", ex.getMessage());
             servicio.ejecutar(6, "Error al explorar red" + ex.getMessage());//enviar mensaje
-            //servicio.enviarMensaje("Error al explorar red" + ex.getMessage());
         }
     }
 

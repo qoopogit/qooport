@@ -1,4 +1,5 @@
 package comunes;
+
 import java.io.Serializable;
 
 public class Proceso implements Serializable {

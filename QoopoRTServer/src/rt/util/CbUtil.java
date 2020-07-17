@@ -1,5 +1,6 @@
 package rt.util;
 
+import comunes.Interfaz;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -10,7 +11,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import javax.swing.ImageIcon;
-import comunes.Interfaz;
 
 public class CbUtil {
 
@@ -40,7 +40,6 @@ public class CbUtil {
                     }
                     if (content.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                         String newtxt = (String) CbUtil.this.clipboard.getData(DataFlavor.stringFlavor);
-
                         boolean diferente = false;
                         try {
                             diferente = !CbUtil.this.txt.equals(newtxt);
@@ -72,7 +71,6 @@ public class CbUtil {
                         }
                     }
                 } catch (Exception ex) {
-//                    ex.printStackTrace();
                 }
             }
         };
@@ -90,26 +88,22 @@ public class CbUtil {
             this.txt = string;
             this.clipboard.setContents(new StringSelection(this.txt), null);
         } catch (Exception e) {
-//            e.printStackTrace();
+//            
         }
     }
 
     public void setImage(ImageIcon image) {
         try {
-//        if (this.img.getImage().equals(image.getImage())) {
-//            return;
-//        }
             this.img = image;
             this.clipboard.setContents(new ImageSelection(this.img.getImage()), null);
         } catch (Exception e) {
-//            e.printStackTrace();
+//            
         }
     }
 
     public void setContent(Object object) {
         try {
             if (object == null) {
-//                System.out.println("es nulo ");
                 return;
             }
             if ((object instanceof String)) {
@@ -117,15 +111,7 @@ public class CbUtil {
             } else if ((object instanceof ImageIcon)) {
                 setImage((ImageIcon) object);
             }
-//            else
-//                
-//              {
-//                  System.out.println("no es de ningun tipo conocido");
-//              }  
-
         } catch (Exception e) {
-//            System.out.println("Error al setear contenido");
-//            e.printStackTrace();
         }
     }
 
@@ -135,36 +121,6 @@ public class CbUtil {
         return obj;
     }
 
-//    public File[] getFiles() {
-//        File[] files = new File[0];
-//        try {
-//            Transferable transferable = this.clipboard.getContents(this);
-//            if (transferable.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-//                List list = (List) this.clipboard.getData(DataFlavor.javaFileListFlavor);
-//                files = (File[]) list.toArray(new File[list.size()]);
-//            } else if (transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-//                String data = (String) this.clipboard.getData(new DataFlavor("application/x-java-serialized-object; class=java.lang.String"));
-//                List<File> list = textoaListaArchivo(data);
-//                files = (File[]) list.toArray(new File[list.size()]);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return files;
-//    }
-//
-//    private static List<File> textoaListaArchivo(String data) {
-//        List<File> list = new ArrayList(1);
-//        StringTokenizer st = new StringTokenizer(data, "\r\n");
-//        while (st.hasMoreTokens()) {
-//            try {
-//                list.add(new File(st.nextToken()));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return list;
-//    }
     public void addFlavorListener() {
         this.clipboard.addFlavorListener(this.flavorlistener);
     }
@@ -174,9 +130,7 @@ public class CbUtil {
     }
 
     public static class ImageSelection implements Transferable {
-
         private final Image img;
-
         public ImageSelection(Image img) {
             this.img = img;
         }

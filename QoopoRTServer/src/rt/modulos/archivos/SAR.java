@@ -23,10 +23,7 @@ public class SAR extends Thread implements Interfaz {
     private Long offset = 0L;//bytes a descartar del archivo, se usa para reanudar una descarga perdida anteriormente
 
     public void instanciar(Object... parametros) {
-        //String rutaArchivo, String rutaADescargar, String rutaAomitir, SI conex
-        //String rutaArchivo, String rutaADescargar, String rutaAomitir, SI conex, Conexion conexion, int bufferSize
         try {
-//            System.out.println("se va a instanciar " + parametros.length);
             activo = true;
             this.servicio = (Interfaz) parametros[0];
             archivo = new File((String) parametros[1]);
@@ -54,7 +51,6 @@ public class SAR extends Thread implements Interfaz {
         start();
     }
 
-//    boolean versionNueva = true;
     @Override
     public void run() {
         try {
@@ -98,11 +94,9 @@ public class SAR extends Thread implements Interfaz {
             //Paso 7 saltar partes del archivo antes enviada
             input.skip(offset);//<ag>25/08/2017. Salta una parte del archivo para poder reanudar en conexiones perdidas
             //paso 8 Enviar archivo
-            while ((cantidad = input.read(buf)) !=-1 && activo) {
+            while ((cantidad = input.read(buf)) != -1 && activo) {
                 conexion.write(buf, 0, cantidad);
-//                conexion.flush();
             }
-//            conexion.flush();            
             input.close();
             Thread.sleep(5000);//espero que la ultima parte se haya ido y continuo
             conexion.cerrar();

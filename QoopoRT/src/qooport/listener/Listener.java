@@ -38,7 +38,7 @@ public abstract class Listener extends Thread {
                 case Protocolo.UDP_INICIAR: {
                     Asociado servidor = new AsociadoV2(conexion, 1, ssl);
                     servidor.start();
-                    CONECTADO = false;
+//                    CONECTADO = false;
 //                    QoopoRT.instancia.ponerEstado("Conexión TCP desde :" + conexion.getInetAddress().getHostAddress() + "(" + conexion.getRemoteSocketAddress().toString() + ") en el puerto " + conexionServidor.getPuerto());
                     QoopoRT.instancia.ponerEstado("Conexión TCP desde :" + conexion.getInetAddress().getHostAddress() + "(" + conexion.getRemoteSocketAddress().toString() + ") en el puerto " + conexion.getPuerto());
                     break;

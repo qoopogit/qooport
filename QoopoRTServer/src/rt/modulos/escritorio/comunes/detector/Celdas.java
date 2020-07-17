@@ -161,7 +161,7 @@ public class Celdas extends DetectorCambios {
 //
 //            ImageIO.write(bi, "jpg", new File("~/salida.jpg"));
 //        } catch (Exception ex) {
-////            ex.printStackTrace();
+//
 //        }
 //esperar un tiempo impide que se sobremonten las imagenes
         try {
@@ -271,7 +271,7 @@ public class Celdas extends DetectorCambios {
 //                }
             }
         } catch (Exception ex) {
-//            ex.printStackTrace();
+
         }
         return bloque;
     }
@@ -386,7 +386,7 @@ public class Celdas extends DetectorCambios {
 //            capturaPreviaTMP.clear();
 //            capturaPreviaTMP = null;
 //        } catch (Exception e) {
-////            e.printStackTrace();
+////            
 //        }
 //        long tFin = System.currentTimeMillis();
 //        if (Inicio.DEBUG) {

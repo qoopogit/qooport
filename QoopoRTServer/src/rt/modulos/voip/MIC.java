@@ -47,7 +47,6 @@ public class MIC extends Thread implements Interfaz {
                 info = Port.Info.COMPACT_DISC;
             }
 
-//            bufferSize = (int) format.getSampleRate() * format.getFrameSize();
             bufferSize = (int) (format.getSampleRate() * format.getFrameSize()) / 8;// se demora la mitad de tiempo en tomar wl AUDIO y enviarlo
             activo = true;
             line = (TargetDataLine) AudioSystem.getLine(info);
@@ -87,7 +86,7 @@ public class MIC extends Thread implements Interfaz {
                     activo = false;
                 }
             }
-            conexion.flush();
+//            conexion.flush();
             conexion.cerrar();
             cerrar();
         } catch (Exception ex) {

@@ -24,11 +24,10 @@ public class BAR extends Thread implements Interfaz {
     }
 
     public void instanciar(Object... parametros) {
-        //String criterio, String lugar
         this.servicio = (Interfaz) parametros[0];
         this.criterio = dameRegex((String) parametros[1]);
         this.lugar = (String) parametros[2];
-        seguir = true;
+        this.seguir = true;
         start();
     }
 
@@ -70,21 +69,15 @@ public class BAR extends Thread implements Interfaz {
             }
         } catch (Exception e) {
             servicio.ejecutar(6, "Error al buscar archivo:" + e.getMessage());
-            e.printStackTrace();
-//            seguir = false;
         }
     }
 
     @Override
     public void run() {
-//        setName("hilo-buscar archivos");
         buscar(lugar);
         servicio.ejecutar(3, Protocolo.BUSCAR_ARCHIVO_DETENER);
     }
 
-//    private boolean estaDetenido() {
-//        return !seguir;
-//    }
     public void set(int opcion, Object valor) {
 
     }

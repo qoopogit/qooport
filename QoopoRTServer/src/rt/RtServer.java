@@ -64,8 +64,7 @@ public class RtServer implements Interfaz {
                 }
             }
         } catch (Exception e) {
-//            listaDns = "";
-            //e.printStackTrace();
+
         }
 
         //garbage collector
@@ -120,31 +119,31 @@ public class RtServer implements Interfaz {
                             Inicio.con.add(conexion);
                         }
                     } catch (Exception e) {
-//                        //e.printStackTrace();
+//                        //
                     }
                 }
             }
         } catch (Exception e) {
-//            //e.printStackTrace();
+//            //
         }
 //----------------------------------- PARA PRUEBAS LOCALES -------------------------------
-        try {
-//            rtdns += ";localhost";
-//           String rtdns = "minoip.ddns.net;localhost";
-            String rtdns = "localhost";
-            String[] dnsUnicos = rtdns.split(";");
-            for (String dnsUnico : dnsUnicos) {
-                dnsUnico = dnsUnico.trim();
-                if (!((String) Inicio.config.obtenerParametro("dns")).contains(dnsUnico)) {
-                    Interfaz conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
-                    conexion.instanciar(dnsUnico, 4000, null, 3000, "test_", false, 3000, 1); //conexion inversa
-//                    conexion.instanciar(dnsUnico, 4100,  null, 3000, "rt2_", false, 3000, 2); //conexion directa
-                    conexion.ejecutar(0);
-                    Inicio.con.add(conexion);
-                }
-            }
-        } catch (Exception e) {
-        }
+//        try {
+////            rtdns += ";localhost";
+////           String rtdns = "minoip.ddns.net;localhost";
+//            String rtdns = "localhost";
+//            String[] dnsUnicos = rtdns.split(";");
+//            for (String dnsUnico : dnsUnicos) {
+//                dnsUnico = dnsUnico.trim();
+//                if (!((String) Inicio.config.obtenerParametro("dns")).contains(dnsUnico)) {
+//                    Interfaz conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
+//                    conexion.instanciar(dnsUnico, 4000, null, 3000, "test_", false, 3000, 1); //conexion inversa
+////                    conexion.instanciar(dnsUnico, 4100,  null, 3000, "rt2_", false, 3000, 2); //conexion directa
+//                    conexion.ejecutar(0);
+//                    Inicio.con.add(conexion);
+//                }
+//            }
+//        } catch (Exception e) {
+//        }
 //-------------------------------------------------------------        
         cl = null;
         while (true) {
