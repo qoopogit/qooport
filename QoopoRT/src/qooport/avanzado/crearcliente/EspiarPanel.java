@@ -279,7 +279,7 @@ public class EspiarPanel extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(29, 29, 29)
+                .addGap(23, 23, 23)
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );

@@ -82,7 +82,7 @@ public class ER extends Thread implements Interfaz, Serializable {
     public void run() {
         try {
             if ((Boolean) servicio.get(5)) {
-                conexion = new Conexion((String) servicio.get(2), (Integer) servicio.get(4), (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
+                conexion = new Conexion((String) servicio.get(2), (Integer) servicio.get(3), (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
                 conexion.escribirInt(Protocolo.ESCRITORIO_REMOTO);
                 conexion.escribirObjeto(UtilRT.texto(Inicio.i));
             }

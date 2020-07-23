@@ -14,7 +14,6 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import static qooport.avanzado.QoopoRT.tipoLetra;
 import qooport.utilidades.Util;
@@ -50,7 +49,7 @@ public class ConexionPanel extends javax.swing.JPanel {
 //        this.delay.setValueIsAdjusting(true);
         this.txtDelay.setText("3");
         this.prefijo.setFont(new Font(tipoLetra, 1, 11));
-        this.prefijo.setText("serv_");
+        this.prefijo.setText("rt_");
         this.jLabel1.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel2.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel10.setFont(new Font(tipoLetra, 1, 11));
@@ -60,7 +59,6 @@ public class ConexionPanel extends javax.swing.JPanel {
         this.jLabel7.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel8.setFont(new Font(tipoLetra, 1, 11));
         this.jLabel6.setFont(new Font(tipoLetra, 1, 11));
-
     }
 
     /**
@@ -83,8 +81,6 @@ public class ConexionPanel extends javax.swing.JPanel {
         conexionDirecta = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         txtIpDNS = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        puerto = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         btnVerPass = new javax.swing.JButton();
@@ -93,6 +89,8 @@ public class ConexionPanel extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtDelay = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtUrlHosts = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -116,13 +114,12 @@ public class ConexionPanel extends javax.swing.JPanel {
 
         conexionDirecta.setText("Directa");
 
-        jLabel4.setText("IP/Host:");
+        jLabel4.setText("IP/Host:puerto:");
+        jLabel4.setToolTipText("Indica el host o ip destino y puerto. Use el formato 'dominio_ip:puerto' ejemplo 'minoip,ddns.net:4000'");
 
         txtIpDNS.setToolTipText("Puede registrar varios host separados por ;");
 
-        jLabel5.setText("Puerto:");
-
-        jLabel7.setText("Constraseña:");
+        jLabel7.setText("Contraseña:");
 
         password.setText("jPasswordField1");
 
@@ -139,6 +136,9 @@ public class ConexionPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Delay:");
 
+        jLabel5.setText("Url hosts:");
+        jLabel5.setToolTipText("Url de archivo de texto donde se encuentran los hosts y puertos ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,13 +150,9 @@ public class ConexionPanel extends javax.swing.JPanel {
                         .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(305, 305, 305))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(85, 85, 85)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIpDNS)
-                            .addComponent(puerto))
+                        .addComponent(jLabel4)
+                        .addGap(37, 37, 37)
+                        .addComponent(txtIpDNS)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +178,8 @@ public class ConexionPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDelay)
@@ -190,7 +187,8 @@ public class ConexionPanel extends javax.swing.JPanel {
                                 .addComponent(password)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnVerPass))
-                            .addComponent(prefijo))
+                            .addComponent(prefijo)
+                            .addComponent(txtUrlHosts))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -220,8 +218,8 @@ public class ConexionPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(puerto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtUrlHosts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,7 +232,7 @@ public class ConexionPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -266,9 +264,9 @@ public class ConexionPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField prefijo;
-    private javax.swing.JSpinner puerto;
     private javax.swing.JTextField txtDelay;
     private javax.swing.JTextField txtIpDNS;
+    private javax.swing.JTextField txtUrlHosts;
     // End of variables declaration//GEN-END:variables
 
     public JButton getBtnVerPass() {
@@ -318,14 +316,14 @@ public class ConexionPanel extends javax.swing.JPanel {
     public void setPrefijo(JTextField prefijo) {
         this.prefijo = prefijo;
     }
-
-    public JSpinner getPuerto() {
-        return puerto;
-    }
-
-    public void setPuerto(JSpinner puerto) {
-        this.puerto = puerto;
-    }
+//
+//    public JSpinner getPuerto() {
+//        return puerto;
+//    }
+//
+//    public void setPuerto(JSpinner puerto) {
+//        this.puerto = puerto;
+//    }
 
 //    public JSpinner getPuerto2() {
 //        return puerto2;
@@ -357,7 +355,13 @@ public class ConexionPanel extends javax.swing.JPanel {
     public void setTxtDelay(JTextField txtDelay) {
         this.txtDelay = txtDelay;
     }
-    
-    
+
+    public JTextField getTxtUrlHosts() {
+        return txtUrlHosts;
+    }
+
+    public void setTxtUrlHosts(JTextField txtUrlHosts) {
+        this.txtUrlHosts = txtUrlHosts;
+    }
 
 }

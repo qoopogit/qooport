@@ -82,6 +82,17 @@ public class CWC extends Thread implements Interfaz {
         detector = new Celdas();
 //        detector = new Pixeles();
         detector.setOpciones(opciones);
+
+        //setea una resolucion predeterminada
+        try {
+            if (webC != null) {
+                seleccionar(webC.listar()[0].getNombre());
+                webC.seleccionarDimension(webC.listarResoluciones()[0]);
+//                seleccionarDimesion(webC.listarResoluciones()[0].width + "x" + webC.listarResoluciones()[0].height);
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     private void abrir() {

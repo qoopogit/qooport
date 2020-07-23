@@ -17,7 +17,7 @@ public class USB extends Thread implements Interfaz {
         if (parametros.length == 1) {
             this.nombreServer = parametros[0] + ".jar";
         } else {
-            this.nombreServer = "server.jar";
+            this.nombreServer = "agente.jar";
         }
         start();
 

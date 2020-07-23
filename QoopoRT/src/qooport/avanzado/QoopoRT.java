@@ -42,7 +42,7 @@ import qooport.utilidades.contador.ContadorBPS;
 
 public class QoopoRT {
 
-    public static String version = "v 1.5.5";
+    public static String version = "v 1.5.7";
     public static boolean MOSTRAR_NOTIFICACION = false;
     public static final HashMap<String, Asociado> SERVIDORES = new HashMap();
     public static List<DescargaArchivo> listaDescargas = new ArrayList<>();

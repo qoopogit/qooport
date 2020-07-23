@@ -1,11 +1,9 @@
 package com;
 
-import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.security.MessageDigest;
@@ -15,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class Main {
 
-    public static String ppp = "AJHSJKDFHASJDFHW2EFAHSDJFHASKA"; //password 
+    public static String ppp = "##$AS;DKALSJD$@#RADASDKHGQIWUEKJDAS"; //password 
 
     public static void main(String args[]) {
         new Main().start();

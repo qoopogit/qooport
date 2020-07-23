@@ -438,7 +438,7 @@ public class ModoAvanzado extends JFrame {
         //ppmnuServer.add(this.menuApagar);
         menuAgente = new JMenu();
         this.menuAgente.setIcon(Util.cargarIcono16("/resources/computer.png"));
-        this.menuAgente.setText("Cliente");
+        this.menuAgente.setText("Agente");
         //item Reiniciar Asociado
         this.itmReiniciarAgente = new JMenuItem();
         this.itmReiniciarAgente.setIcon(Util.cargarIcono16("/resources/restart.png"));

@@ -14,7 +14,6 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +27,7 @@ import java.math.RoundingMode;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
@@ -477,11 +477,28 @@ public class UtilRT {
     }
 
     public static String getArchivoTexto(String ruta) {
-        FileReader fr;
+        try {
+            return getArchivoTexto(new FileInputStream(ruta));
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public static String getArchivoTextoUrl(String ruta) {
+        try {
+            URL url = new URL(ruta);
+            return getArchivoTexto(url.openStream());
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public static String getArchivoTexto(InputStream is) {
+        InputStreamReader fr;
         BufferedReader br = null;
         StringBuilder contenido = new StringBuilder();
         try {
-            fr = new FileReader(ruta);
+            fr = new InputStreamReader(is);
             br = new BufferedReader(fr);
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -495,6 +512,9 @@ public class UtilRT {
             try {
                 if (br != null) {
                     br.close();
+                }
+                if (is != null) {
+                    is.close();
                 }
             } catch (Exception ex) {
             }

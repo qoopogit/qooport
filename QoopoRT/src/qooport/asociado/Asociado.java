@@ -26,7 +26,6 @@ import javax.swing.text.BadLocationException;
 import network.Conexion;
 import network.ConexionServer;
 import plugin.Plugin;
-import qooport.asociado.v2.AsociadoV2;
 import qooport.avanzado.ModoAvanzado;
 import qooport.avanzado.Plugins;
 import qooport.avanzado.QoopoRT;

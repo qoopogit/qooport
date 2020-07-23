@@ -31,15 +31,9 @@
                       <EmptySpace min="-2" pref="305" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtIpDNS" max="32767" attributes="0"/>
-                          <Component id="puerto" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="txtIpDNS" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -74,6 +68,7 @@
                           <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -84,6 +79,7 @@
                               <Component id="btnVerPass" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="prefijo" max="32767" attributes="0"/>
+                          <Component id="txtUrlHosts" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -122,9 +118,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="puerto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtUrlHosts" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="password" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -140,7 +136,7 @@
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtDelay" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -198,7 +194,8 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="IP/Host:"/>
+        <Property name="text" type="java.lang.String" value="IP/Host:puerto:"/>
+        <Property name="toolTipText" type="java.lang.String" value="Indica el host o ip destino y puerto. Use el formato &apos;dominio_ip:puerto&apos; ejemplo &apos;minoip,ddns.net:4000&apos;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtIpDNS">
@@ -206,16 +203,9 @@
         <Property name="toolTipText" type="java.lang.String" value="Puede registrar varios host separados por ;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Puerto:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="puerto">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Constrase&#xf1;a:"/>
+        <Property name="text" type="java.lang.String" value="Contrase&#xf1;a:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="password">
@@ -249,6 +239,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDelay">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Url hosts:"/>
+        <Property name="toolTipText" type="java.lang.String" value="Url de archivo de texto donde se encuentran los hosts y puertos "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtUrlHosts">
     </Component>
   </SubComponents>
 </Form>
