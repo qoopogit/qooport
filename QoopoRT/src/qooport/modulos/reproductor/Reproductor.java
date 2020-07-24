@@ -402,7 +402,7 @@ public class Reproductor {
 
             //se pide al cliente que actualice toda la pantalla
             if (solicitarActualizarPantalla) {
-                contenedor.getVentana().getServidor().actualizarPantalla();
+                contenedor.getVentana().getAgente().actualizarPantalla();
             }
 
             if (grabar) {

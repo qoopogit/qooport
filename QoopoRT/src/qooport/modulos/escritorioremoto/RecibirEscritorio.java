@@ -50,19 +50,19 @@ public class RecibirEscritorio extends Thread {
         while (pidiendo) {
             try {
                 if (conexion != null) {
-                    if (ventana.getServidor().isAndroid()) {
-                        ventana.setTitle("Pantalla Remota [" + ventana.getServidor().getInformacion() + "]");
+                    if (ventana.getAgente().isAndroid()) {
+                        ventana.setTitle("Pantalla Remota [" + ventana.getAgente().getInformacion() + "]");
                         ventana.setTipoEnvio(EscritorioRemoto.ENVIO_COMPLETO);//siempre es envío completo en android
                     } else {
-                        ventana.setTitle("Escritorio Remoto [" + ventana.getServidor().getInformacion() + "]");
+                        ventana.setTitle("Escritorio Remoto [" + ventana.getAgente().getInformacion() + "]");
                     }
                     try {
                         buffer = (byte[]) conexion.leerObjeto();
                         if (ventana.getItmComprimir().isSelected()) {
-                            captura = (Captura) Util.descomprimirObjeto(buffer, ventana.getServidor());//con compresion
+                            captura = (Captura) Util.descomprimirObjeto(buffer, ventana.getAgente());//con compresion
                         } else {
                             captura = (Captura) SerializarUtil.leerObjeto(buffer); //sin compresion
-                            ventana.getServidor().agregarRecibidos(buffer.length);//agregamos los bytes recibidos, en el metodo descomprmir ya se agregan
+                            ventana.getAgente().agregarRecibidos(buffer.length);//agregamos los bytes recibidos, en el metodo descomprmir ya se agregan
                         }
                         reproductor.reproducir(captura);
                         actualizarContadores(captura, buffer.length);

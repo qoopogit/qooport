@@ -42,7 +42,7 @@ import qooport.utilidades.contador.ContadorBPS;
 
 public class QoopoRT {
 
-    public static String version = "v 1.5.7";
+    public static String version = "v 2.0.0";
     public static boolean MOSTRAR_NOTIFICACION = false;
     public static final HashMap<String, Asociado> SERVIDORES = new HashMap();
     public static List<DescargaArchivo> listaDescargas = new ArrayList<>();
@@ -339,19 +339,23 @@ public class QoopoRT {
                 if (Boolean.valueOf((String) p.obtenerParametro("inversa"))) {
                     try {
                         if (!puertosUsados.contains((String) p.obtenerParametro("puerto") + "|" + tipoConexion)) {
-                            //redirecciono los puetos en el router
-                            MapearPuertos mapeo = new MapearPuertos(Integer.valueOf((String) p.obtenerParametro("puerto")), tipoConexion);
-                            mapeo.start();
-                            mapeos.add(mapeo);
-                            ServListener c1 = new ServListener(Integer.valueOf((String) p.obtenerParametro("puerto")), tipoConexion, ssl);
-                            c1.start();
-                            if (!listaConexiones.contains(c1)) {
-                                listaConexiones.add(c1);
+                            try {
+//redirecciono los puetos en el router
+                                MapearPuertos mapeo = new MapearPuertos(Integer.valueOf((String) p.obtenerParametro("puerto")), tipoConexion);
+                                mapeo.start();
+                                mapeos.add(mapeo);
+                                ServListener c1 = new ServListener(Integer.valueOf((String) p.obtenerParametro("puerto")), tipoConexion, ssl);
+                                c1.start();
+                                if (!listaConexiones.contains(c1)) {
+                                    listaConexiones.add(c1);
+                                }
+                                puertosUsados.add((String) p.obtenerParametro("puerto") + "|" + tipoConexion);
+                                this.ponerEstado("Esperando conexiones en el puerto [" + (String) p.obtenerParametro("puerto") + "]" + " (" + tipoConexionSTR + ")");
+                            } catch (Exception e) {
+
                             }
-                            puertosUsados.add((String) p.obtenerParametro("puerto") + "|" + tipoConexion);
-                            this.ponerEstado("Esperando conexiones en el puerto [" + (String) p.obtenerParametro("puerto") + "]" + " (" + tipoConexionSTR + ")");
                         }
-                    } catch (IOException ex) {
+                    } catch (Exception ex) {
                         ex.printStackTrace();
                         this.ponerEstado("No se puede abrir el puerto [" + (String) p.obtenerParametro("puerto") + "]" + " (" + tipoConexionSTR + ")");
                     }

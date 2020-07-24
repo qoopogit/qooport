@@ -53,9 +53,7 @@ public class Contenedor extends JPanel {
         this.scrollPantalla.setViewportView(this.pantalla);
         this.pantalla.setFocusTraversalKeysEnabled(false);
         this.scrollPantalla.setFocusTraversalKeysEnabled(false);
-        this.setLayout(new GridLayout(1, 1));
-        this.add(scrollPantalla);
-
+        modoUnico();
     }
 
     public void agregarKeyListener(KeyListener kl) {

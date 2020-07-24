@@ -2,10 +2,7 @@ package qooport.listener;
 
 import java.io.IOException;
 import network.ConexionServer;
-import qooport.asociado.Asociado;
-import qooport.asociado.v2.AsociadoV2;
 import qooport.avanzado.QoopoRT;
-import qooport.utilidades.Protocolo;
 
 /**
  *

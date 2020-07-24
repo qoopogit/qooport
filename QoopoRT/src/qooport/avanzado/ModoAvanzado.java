@@ -2499,7 +2499,7 @@ public class ModoAvanzado extends JFrame {
             } catch (Exception e) {
             }
             try {
-                eR.detenerTodo();
+                eR.btnFinalizar(null);
                 eR.dispose();
             } catch (Exception e) {
             }
@@ -2566,7 +2566,7 @@ public class ModoAvanzado extends JFrame {
             }
 
             //if (ventana != null) {
-            setTitle("Qoopo RT (Remote Tools) [" + QoopoRT.SERVIDORES.size() + " equipos conectados]");
+            setTitle("Qoopo RT (Remote Tools) [" + QoopoRT.SERVIDORES.size() + " agentes conectados]");
             //}
             agente.interrupt();
             agente = null;

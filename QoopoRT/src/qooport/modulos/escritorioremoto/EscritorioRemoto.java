@@ -35,7 +35,6 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.JWindow;
-import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import network.Conexion;
@@ -58,9 +57,8 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
      * recibirlo
      */
     public static final int ENVIO_COMPLETO = 1;
-    public static final int EMVIO_PARCIAL = 2;
+//    public static final int ENVIO_PARCIAL = 2;
     public static final int ENVIO_BLOQUES = 3;
-    public static final int ENVIO_BLOQUE_A_BLOQUE = 4;
     public static final int DATOS_BYTES = 1;
     public static final int DATOS_INT = 2;
     public static final int CAPTURA_ROBOT = 1;
@@ -74,13 +72,12 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
     public static final int CAPTURA_ALGORITMO_V3 = 3;
     public static String tipoLetra = "Arial";
     private static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-
     private Reproductor reproductor;
     private Informacion informacion;
     private List<Evento> listaEventos = new ArrayList<Evento>();
     private Teclado teclado;
     private ClipboardUtility clipboard;
-    private Asociado servidor;
+    private Asociado agente;
     private RecibirEscritorio servicio;
     private JButton btnActivar;
     private JButton btnMinimizar;
@@ -168,7 +165,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
     private JCheckBoxMenuItem itmCapBYTES;
     private JCheckBoxMenuItem itmCapINT;
     private JCheckBoxMenuItem itmCapCompleta;
-    private JCheckBoxMenuItem itmCapCambios;
+//    private JCheckBoxMenuItem itmCapPixeles;
     private JCheckBoxMenuItem itmCapBloques;
     private JCheckBoxMenuItem itmCapDefault;//robot java
     private JCheckBoxMenuItem itmCapPrtsc;// tecla print screen
@@ -212,7 +209,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
     private boolean corriendoOcultar = false;
 
     public EscritorioRemoto(Conexion conexion, Asociado servidor) {
-        this.servidor = servidor;
+        this.agente = servidor;
         pidiendo = false;
         noOculto = false;
         this.conexion = conexion;
@@ -299,10 +296,10 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         setResizable(true);
         setTitle("Escritorio Remoto");
         try {
-            if (getServidor().isAndroid()) {
-                setTitle("Capturar Pantalla [" + getServidor().getInformacion() + "]");
+            if (getAgente().isAndroid()) {
+                setTitle("Capturar Pantalla [" + getAgente().getInformacion() + "]");
             } else {
-                setTitle("Escritorio Remoto [" + getServidor().getInformacion() + "]");
+                setTitle("Escritorio Remoto [" + getAgente().getInformacion() + "]");
             }
         } catch (Exception e) {
         }
@@ -376,7 +373,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         this.itmMenuVerMouse_dibujoRemoto.setSelected(false);
         this.itmMenuVerMouse_dibujoRemoto.setIcon(Util.cargarIcono16("/resources/cursor_q.png"));
         this.itmMenuVerMouse_dibujoRemoto.setText("Ver cursor remoto");
-        this.itmMenuVerMouse_dibujoRemoto.setVisible(!servidor.isAndroid());
+        this.itmMenuVerMouse_dibujoRemoto.setVisible(!agente.isAndroid());
         this.itmMenuVerMouse_dibujoRemoto.addActionListener(listenerEnvioParametros);
         this.itmMenuVerMouse_dibujoRemoto.setFont(fuenteMenus);
         this.menuVer.add(itmMenuVerMouse_dibujoRemoto);
@@ -384,7 +381,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         this.itmMenuCambiarCursorLocal.setSelected(true);
         this.itmMenuCambiarCursorLocal.setIcon(Util.cargarIcono16("/resources/cursor.png"));
         this.itmMenuCambiarCursorLocal.setText("Cambiar cursor local");
-        this.itmMenuCambiarCursorLocal.setVisible(!servidor.isAndroid());
+        this.itmMenuCambiarCursorLocal.setVisible(!agente.isAndroid());
         this.itmMenuCambiarCursorLocal.addActionListener(listenerEnvioParametros);
         this.itmMenuCambiarCursorLocal.setFont(fuenteMenus);
         this.menuVer.add(this.itmMenuCambiarCursorLocal);
@@ -609,7 +606,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         this.menuEscala.add(itmEscalarFuerte);
         this.itmAjustarVentana = new JCheckBoxMenuItem();
         this.itmAjustarVentana.setIcon(Util.cargarIcono16("/resources/application-resize-full.png"));
-//        itmAjustarImagen.setSelected(servidor.isAndroid());
+//        itmAjustarImagen.setSelected(agente.isAndroid());
         this.itmAjustarVentana.setSelected(true);
         this.itmAjustarVentana.setText("Ajustar ventana al tamaño de la imagen");
         this.itmAjustarVentana.setFont(fuenteMenus);
@@ -688,7 +685,6 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         this.itmClipboard.setText("Transferencia Portapales");
         this.itmClipboard.setFont(fuenteMenus);
         this.menuHerramientas.add(this.itmClipboard);
-
         JMenuItem itmVerInfo = new JMenuItem();
         itmVerInfo.setIcon(Util.cargarIcono16("/resources/controlpanel.png"));
         itmVerInfo.setText("Información Conexión");
@@ -696,7 +692,11 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         itmVerInfo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                informacion = new Informacion(EscritorioRemoto.this);
+                if (informacion == null) {
+                    informacion = new Informacion(EscritorioRemoto.this);
+                } else {
+                    informacion.setVentana(EscritorioRemoto.this);
+                }
             }
         });
         this.menuHerramientas.add(itmVerInfo);
@@ -723,8 +723,6 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
                 EscritorioRemoto.this.btnEnviarPortapalelesAP(evt);
             }
         });
-//        this.menuHerramientas.add(this.itmArchivosEnviarPortapaleles);
-
         this.itmArchivosRecibirPortapaleles = new JMenuItem();
         this.itmArchivosRecibirPortapaleles.setIcon(Util.cargarIcono16("/resources/down_arrow.png"));
         this.itmArchivosRecibirPortapaleles.setText("Descargar del portapapeles");
@@ -735,7 +733,6 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
                 EscritorioRemoto.this.btnrecibirPortapapelesAP(evt);
             }
         });
-//        this.menuHerramientas.add(this.itmArchivosRecibirPortapaleles);
         this.menuHerramientas.addSeparator();
         this.itmCamara = new JMenuItem();
         this.itmCamara.setIcon(Util.cargarIcono16("/resources/camera.png"));
@@ -782,7 +779,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         itmHabMouse = new JCheckBoxMenuItem();
         itmHabMouse.setIcon(Util.cargarIcono16("/resources/mouse_blue.png"));
         itmHabMouse.setSelected(true);
-        itmHabMouse.setVisible(!servidor.isAndroid());
+        itmHabMouse.setVisible(!agente.isAndroid());
         itmHabMouse.setText("Habilitar Mouse");
         itmHabMouse.setFont(fuenteMenus);
         menuControl.add(itmHabMouse);
@@ -791,7 +788,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         itmHabTeclado.setSelected(true);
         itmHabTeclado.setText("Habilitar teclado");
         itmHabTeclado.setFont(fuenteMenus);
-        itmHabTeclado.setVisible(!servidor.isAndroid());
+        itmHabTeclado.setVisible(!agente.isAndroid());
         menuControl.add(itmHabTeclado);
         menuConfig.add(menuControl);
         menuCaptura = new JMenu();
@@ -803,15 +800,11 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
 
         JMenu mnuTipoDatos = new JMenu("Tipo de Datos");
         mnuTipoDatos.setIcon(Util.cargarIcono16("/resources/binary.png"));
-//menuCaptura.add("Tipo de Datos");
         menuCaptura.add(mnuTipoDatos);
-
         itmCapBYTES = new JCheckBoxMenuItem();
         itmCapBYTES.setIcon(Util.cargarIcono16("/resources/binary.png"));
-
         itmCapBYTES.setText("Arreglo Byte");
         itmCapBYTES.setFont(fuenteMenus);
-
         itmCapBYTES.setToolTipText("Imagenes con tipo de datos de arreglo de bytes");
         this.itmCapBYTES.addActionListener(new ActionListener() {
             @Override
@@ -845,7 +838,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
 
         itmCapDefault = new JCheckBoxMenuItem();
         itmCapDefault.setIcon(Util.cargarIcono16("/resources/java.png"));
-        itmCapDefault.setVisible(!servidor.isAndroid());
+        itmCapDefault.setVisible(!agente.isAndroid());
         itmCapDefault.setText("Robot");
         itmCapDefault.setFont(fuenteMenus);
         itmCapDefault.setToolTipText("Método de captura de pantalla default (robot java)");
@@ -861,7 +854,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
 
         itmCapDirectRobot = new JCheckBoxMenuItem();
         itmCapDirectRobot.setIcon(Util.cargarIcono16("/resources/java.png"));
-        itmCapDirectRobot.setVisible(!servidor.isAndroid());
+        itmCapDirectRobot.setVisible(!agente.isAndroid());
         itmCapDirectRobot.setText("DirectRobot");
         itmCapDirectRobot.setFont(fuenteMenus);
         itmCapDirectRobot.setToolTipText("Método de captura de pantalla con DirectRobot");
@@ -878,10 +871,10 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         //nativo firnass
         itmCapNativaFirnass = new JCheckBoxMenuItem();
         itmCapNativaFirnass.setIcon(Util.cargarIcono16("/resources/os.png"));
-        itmCapNativaFirnass.setVisible(!servidor.isAndroid());
+        itmCapNativaFirnass.setVisible(!agente.isAndroid());
         itmCapNativaFirnass.setText("Nativa Firnass");
         itmCapNativaFirnass.setFont(fuenteMenus);
-        itmCapNativaFirnass.setToolTipText("Método de captura nativa del SO");
+        itmCapNativaFirnass.setToolTipText("Método de captura nativa del SO. Requiere plugin JNA.");
         itmCapNativaFirnass.setSelected(false);
         this.itmCapNativaFirnass.addActionListener(new ActionListener() {
             @Override
@@ -895,10 +888,10 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         //nativo winrobot
         itmCapNativaWinRobot = new JCheckBoxMenuItem();
         itmCapNativaWinRobot.setIcon(Util.cargarIcono16("/resources/os.png"));
-        itmCapNativaWinRobot.setVisible(!servidor.isAndroid());
+        itmCapNativaWinRobot.setVisible(!agente.isAndroid());
         itmCapNativaWinRobot.setText("Nativa WinRobot");
         itmCapNativaWinRobot.setFont(fuenteMenus);
-        itmCapNativaWinRobot.setToolTipText("Método de captura nativa del SO. Sólo Windows");
+        itmCapNativaWinRobot.setToolTipText("Método de captura nativa del SO. Sólo Windows. Requiere plugin JNA.");
         itmCapNativaWinRobot.setSelected(false);
         this.itmCapNativaWinRobot.addActionListener(new ActionListener() {
             @Override
@@ -908,14 +901,13 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         });
 
         mnuOrigenCaptura.add(itmCapNativaWinRobot);
-
         //nativo winapi
         itmCapNativaWinApi = new JCheckBoxMenuItem();
         itmCapNativaWinApi.setIcon(Util.cargarIcono16("/resources/os.png"));
-        itmCapNativaWinApi.setVisible(!servidor.isAndroid());
+        itmCapNativaWinApi.setVisible(!agente.isAndroid());
         itmCapNativaWinApi.setText("Nativa WinAPI");
         itmCapNativaWinApi.setFont(fuenteMenus);
-        itmCapNativaWinApi.setToolTipText("Método de captura nativa usando API de windows. Sólo Windows");
+        itmCapNativaWinApi.setToolTipText("Método de captura nativa usando API de windows. Sólo Windows. Requiere plugin JNA.");
         itmCapNativaWinApi.setSelected(false);
         this.itmCapNativaWinApi.addActionListener(new ActionListener() {
             @Override
@@ -928,7 +920,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
 
         itmCapPrtsc = new JCheckBoxMenuItem();
         itmCapPrtsc.setIcon(Util.cargarIcono16("/resources/tecla.png"));
-        itmCapPrtsc.setVisible(!servidor.isAndroid());
+        itmCapPrtsc.setVisible(!agente.isAndroid());
         itmCapPrtsc.setText("PRTSC");
         itmCapPrtsc.setFont(fuenteMenus);
         itmCapPrtsc.setToolTipText("Usa la tecla PRTSC (PrintScreen) y lee del portapapeles");
@@ -942,12 +934,10 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         mnuOrigenCaptura.add(itmCapPrtsc);
 
         JMenu mnuTipoEnvio = new JMenu("Detector de Cambios");
-        //menuCaptura.add("Tipo de envío");
         menuCaptura.add(mnuTipoEnvio);
-
         itmCapCompleta = new JCheckBoxMenuItem();
         itmCapCompleta.setIcon(Util.cargarIcono16("/resources/screen-completa.png"));
-        itmCapCompleta.setVisible(!servidor.isAndroid());
+        itmCapCompleta.setVisible(!agente.isAndroid());
         itmCapCompleta.setText("Completa");
         itmCapCompleta.setFont(fuenteMenus);
         itmCapCompleta.setToolTipText("El servidor envía la imagen completa del escritorio");
@@ -957,26 +947,24 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
                 EscritorioRemoto.this.cambiarTipoEnvio(EscritorioRemoto.ENVIO_COMPLETO);
             }
         });
-        //menuCaptura.add(itmCapCompleta);
         mnuTipoEnvio.add(itmCapCompleta);
-        itmCapCambios = new JCheckBoxMenuItem();
-        itmCapCambios.setIcon(Util.cargarIcono16("/resources/screen-cambios.png"));
-        itmCapCambios.setVisible(!servidor.isAndroid());
-        itmCapCambios.setText("Pixeles");
-        itmCapCambios.setFont(fuenteMenus);
-        itmCapCambios.setToolTipText("El servidor envía solo los cambios en el escritorio. (El servidor debe procesar los cambios pixel por pixel)");
-        itmCapCambios.setSelected(false);
-        this.itmCapCambios.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                EscritorioRemoto.this.cambiarTipoEnvio(EscritorioRemoto.EMVIO_PARCIAL);
-            }
-        });
-        //menuCaptura.add(itmCapCambios);
-        mnuTipoEnvio.add(itmCapCambios);
+//        itmCapPixeles = new JCheckBoxMenuItem();
+//        itmCapPixeles.setIcon(Util.cargarIcono16("/resources/screen-cambios.png"));
+//        itmCapPixeles.setVisible(!agente.isAndroid());
+//        itmCapPixeles.setText("Pixeles");
+//        itmCapPixeles.setFont(fuenteMenus);
+//        itmCapPixeles.setToolTipText("El servidor envía solo los cambios en el escritorio. (El servidor debe procesar los cambios pixel por pixel)");
+//        itmCapPixeles.setSelected(false);
+//        this.itmCapPixeles.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                EscritorioRemoto.this.cambiarTipoEnvio(EscritorioRemoto.ENVIO_PARCIAL);
+//            }
+//        });
+//        mnuTipoEnvio.add(itmCapPixeles);
         itmCapBloques = new JCheckBoxMenuItem();
         itmCapBloques.setIcon(Util.cargarIcono16("/resources/grid16.png"));
-        itmCapBloques.setVisible(!servidor.isAndroid());
+        itmCapBloques.setVisible(!agente.isAndroid());
         itmCapBloques.setText("Celdas");
         itmCapBloques.setFont(fuenteMenus);
         itmCapBloques.setToolTipText("Celdas. El servidor divide la pantalla en celdas (bloques) y envía las celdas que cambiaron");
@@ -987,27 +975,9 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
                 EscritorioRemoto.this.cambiarTipoEnvio(EscritorioRemoto.ENVIO_BLOQUES);
             }
         });
-        //menuCaptura.add(itmCapBloques);
         mnuTipoEnvio.add(itmCapBloques);
-//        itmCapBloques2 = new JCheckBoxMenuItem();
-//        itmCapBloques2.setIcon(Util.cargarIcono16("/resources/grid16.png"));
-//        itmCapBloques2.setVisible(!servidor.isAndroid());
-//        itmCapBloques2.setText("Bloques 1 a 1");
-//        itmCapBloques2.setToolTipText("Bloques. El servidor divide la pantalla en bloques y envía los bloques que cambiaron uno a uno");
-//        itmCapBloques2.setSelected(false);
-//        itmCapBloques2.setFont(fuenteMenus);
-//        this.itmCapBloques2.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent evt) {
-//                EscritorioRemoto.this.cambiarTipoEnvio(EscritorioRemoto.ENVIO_BLOQUE_A_BLOQUE);
-//            }
-//        });
-//        menuCaptura.add(itmCapBloques2);
-
         JMenu mnuOpcionesCelda = new JMenu("Opciones de Celda");
-
         mnuOpcionesCelda.setIcon(Util.cargarIcono16("/resources/celdas.png"));
-        //menuCaptura.add("Opciones de Celda");
         menuCaptura.add(mnuOpcionesCelda);
         itmVerificarRepetidos = new JCheckBoxMenuItem();
         itmVerificarRepetidos.setIcon(Util.cargarIcono16("/resources/grid.png"));
@@ -1015,17 +985,12 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         itmVerificarRepetidos.setText("Validar celdas repetidas");
         itmVerificarRepetidos.setFont(fuenteMenus);
         itmVerificarRepetidos.setToolTipText("Valida que si existen celdas repetidas en la misma captura o captura anterior. Como la codificación CopyRect de VNC");
-        itmVerificarRepetidos.setVisible(!servidor.isAndroid());
+        itmVerificarRepetidos.setVisible(!agente.isAndroid());
         this.itmVerificarRepetidos.addActionListener(listenerEnvioParametros);
-//        menuCaptura.add(itmVerificarRepetidos);
         mnuOpcionesCelda.add(itmVerificarRepetidos);
-
-//        menuCaptura.add("Tamaño celda");
         mnuOpcionesCelda.add("Tamaño celda");
         txtCeldaSize = new JTextField("64");
-        //menuCaptura.add(txtCeldaSize);
         mnuOpcionesCelda.add(txtCeldaSize);
-
         JMenu mnuOpcionesDebug = new JMenu("Opciones de Debug");
         mnuOpcionesDebug.setIcon(Util.cargarIcono16("/resources/test.png"));
         menuCaptura.add(mnuOpcionesDebug);
@@ -1035,36 +1000,29 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         itmVerCeldas.setText("Mostrar cambios (test)");
         itmVerCeldas.setFont(fuenteMenus);
         itmVerCeldas.setToolTipText("Muestra u Oculta la cuadricula de cambios (para depuración)");
-        itmVerCeldas.setVisible(!servidor.isAndroid());
+        itmVerCeldas.setVisible(!agente.isAndroid());
         this.itmVerCeldas.addActionListener(listenerEnvioParametros);
-
-//        menuCaptura.add(itmVerCeldas);
         mnuOpcionesDebug.add(itmVerCeldas);
-
         itmNegro = new JMenuItem();
         itmNegro.setIcon(Util.cargarIcono16("/resources/grid.png"));
         itmNegro.setText("Vaciar pantalla (test)");
         itmNegro.setFont(fuenteMenus);
         itmNegro.setToolTipText("Pinta la pantalla de negro para ver los cambios");
-        itmNegro.setVisible(!servidor.isAndroid());
+        itmNegro.setVisible(!agente.isAndroid());
         this.itmNegro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 reproductor.testVaciarPantalla();
             }
         });
-
-//        menuCaptura.add(itmNegro);
         mnuOpcionesDebug.add(itmNegro);
-
         JMenu mnuAlgoritmo = new JMenu("Algoritmo");
         mnuAlgoritmo.setIcon(Util.cargarIcono16("/resources/runcmd.png"));
-//        menuCaptura.add("Algoritmo");
         menuCaptura.add(mnuAlgoritmo);
 
         itmCapAlgoritmoV1 = new JCheckBoxMenuItem();
         itmCapAlgoritmoV1.setIcon(Util.cargarIcono16("/resources/runcmd.png"));
-        itmCapAlgoritmoV1.setVisible(!servidor.isAndroid());
+        itmCapAlgoritmoV1.setVisible(!agente.isAndroid());
         itmCapAlgoritmoV1.setSelected(false);
         itmCapAlgoritmoV1.setText("Algoritmo V1");
         itmCapAlgoritmoV1.setFont(fuenteMenus);
@@ -1075,12 +1033,10 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
                 EscritorioRemoto.this.cambiarTipoAlgoritmo(EscritorioRemoto.CAPTURA_ALGORITMO_V1);
             }
         });
-//        menuCaptura.add(itmCapAlgoritmoV1);
         mnuAlgoritmo.add(itmCapAlgoritmoV1);
-
         itmCapAlgoritmoV2 = new JCheckBoxMenuItem();
         itmCapAlgoritmoV2.setIcon(Util.cargarIcono16("/resources/runcmd.png"));
-        itmCapAlgoritmoV2.setVisible(!servidor.isAndroid());
+        itmCapAlgoritmoV2.setVisible(!agente.isAndroid());
         itmCapAlgoritmoV2.setText("Algoritmo V2");
         itmCapAlgoritmoV2.setFont(fuenteMenus);
         itmCapAlgoritmoV2.setToolTipText("Usa el algoritmo V2 de captura");
@@ -1091,12 +1047,10 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
                 EscritorioRemoto.this.cambiarTipoAlgoritmo(EscritorioRemoto.CAPTURA_ALGORITMO_V2);
             }
         });
-//        menuCaptura.add(itmCapAlgoritmoV2);
         mnuAlgoritmo.add(itmCapAlgoritmoV2);
-
         itmCapAlgoritmoV3 = new JCheckBoxMenuItem();
         itmCapAlgoritmoV3.setIcon(Util.cargarIcono16("/resources/runcmd.png"));
-        itmCapAlgoritmoV3.setVisible(!servidor.isAndroid());
+        itmCapAlgoritmoV3.setVisible(!agente.isAndroid());
         itmCapAlgoritmoV3.setText("Algoritmo V3");
         itmCapAlgoritmoV3.setFont(fuenteMenus);
         itmCapAlgoritmoV3.setToolTipText("Evolución del algoritmo V2 que permite transmitir varios monitores a la vez");
@@ -1107,24 +1061,17 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
                 EscritorioRemoto.this.cambiarTipoAlgoritmo(EscritorioRemoto.CAPTURA_ALGORITMO_V3);
             }
         });
-//        menuCaptura.add(itmCapAlgoritmoV3);
         mnuAlgoritmo.add(itmCapAlgoritmoV3);
 
         JMenu mnuVariosMonitores = new JMenu("Varios Monitores");
         mnuVariosMonitores.setIcon(Util.cargarIcono16("/resources/monitor.png"));
-//        menuCaptura.add("Varios Monitores");
         menuCaptura.add(mnuVariosMonitores);
-//        menuCaptura.add(" Columnas:");
         mnuVariosMonitores.add(" Columnas:");
-
         txtColumnas = new JTextField("2");
         txtColumnas.setToolTipText("Indica el número de columnas cuando se presenta varios monitores a la vez (Con algoritmo V3)");
-//        menuCaptura.add(txtColumnas);
         mnuVariosMonitores.add(txtColumnas);
-
         JMenu mnuTransmision = new JMenu("Transmisión");
         mnuTransmision.setIcon(Util.cargarIcono16("/resources/images-stack.png"));
-//        menuCaptura.add("Transmisión");
         menuCaptura.add(mnuTransmision);
         itmTransNormal = new JCheckBoxMenuItem();
         this.itmTransNormal.setSelected(true);
@@ -1250,14 +1197,11 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         this.itmFinalizar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                EscritorioRemoto.this.servidor.cerrarEscritorioRemoto();
+                btnFinalizar(evt);
             }
         });
         this.menuAccion.addSeparator();
         this.menuAccion.add(this.itmFinalizar);
-
-//        this.lblTamanio.setText("0Kb");
-//        lblTamanio.setFont(fuenteMenus);
         this.lblTamaPan.setVisible(false);
         this.jStamanio.setVisible(false);
 
@@ -1325,7 +1269,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         this.addWindowListener(this);
         this.setMinimumSize(new Dimension(300, 250));
         this.setIconImage(Util.cargarIcono16("/resources/remoto.png").getImage());
-        if (servidor.isAndroid()) {
+        if (agente.isAndroid()) {
             tipoEnvio = EscritorioRemoto.ENVIO_COMPLETO;
         }
         pack();
@@ -1356,10 +1300,8 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
             }
         };
         this.setFocusTraversalKeysEnabled(false);
-
         jStamanio.setFocusTraversalKeysEnabled(false);
         jScalidad.setFocusTraversalKeysEnabled(false);
-
         jStamanio.addKeyListener(kl);
         jScalidad.addKeyListener(kl);
         reproductor.getContenedor().agregarKeyListener(kl);
@@ -1367,23 +1309,9 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
 
     private void enviarParametros() {
         if (pidiendo) {
-            int tipoHilos = this.itmTransNormal.isSelected() ? 0 : (this.itmTransHilosTipo1.isSelected() ? 1 : 2);
-
-            //    private static final int ANCHO_BLOQUE = 256;
-//    private static final int ALTO_BLOQUE = 256;
-//    private static final int ANCHO_BLOQUE = 128;
-//    private static final int ALTO_BLOQUE = 128;
-//    private static final int ANCHO_BLOQUE = 64;
-//    private static final int ALTO_BLOQUE = 64;
-//    private static final int ANCHO_BLOQUE = 32;
-//    private static final int ALTO_BLOQUE = 32;
-//    private static final int ANCHO_BLOQUE = 16;
-//    private static final int ALTO_BLOQUE = 16;
             CapturaOpciones opciones = new CapturaOpciones();
             opciones.setTamBuffer(1);
-
             int tBloque = 64;
-
             try {
                 tBloque = Integer.valueOf(txtCeldaSize.getText());
             } catch (Exception e) {
@@ -1407,25 +1335,16 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
             opciones.setEnviarHilos(false);//ya no se usa
             opciones.setOrigenCaptura(tipoCaptura);
             opciones.setComprimir(this.itmComprimir.isSelected());
-            //opciones.setEnviarCursor(itmMenuVerMouse_dibujoLocal.isSelected() || itmMenuCambiarCursorLocal.isSelected());
             opciones.setEnviarCursor(itmMenuCambiarCursorLocal.isSelected());
             opciones.setPortapalesActivos(itmClipboard.isSelected());
-            opciones.setTipoHilos(tipoHilos);
+            opciones.setTipoHilos(this.itmTransNormal.isSelected() ? 0 : (this.itmTransHilosTipo1.isSelected() ? 1 : 2));
             opciones.setCalidadAutomatica(calidadAutomatica.isSelected());
             opciones.setConvertirJpg(itmConvertirJPG.isSelected());
             opciones.setAlgoritmo(tipoAlgoritmo);
             opciones.setValidarRepetidos(itmVerificarRepetidos.isSelected());//permitir la validacion de repetidos (Como la codificacion CopyRect de VNC) Aun en pruebas
-
             opciones.setAncho(reproductor.getContenedor().getAncho());
             opciones.setAlto(reproductor.getContenedor().getAlto());
-//            if (ESCALA == ESCALA_ORIGINAL) {
-//                opciones.setAncho(contenedorPrincipal.getScrollPantalla().getWidth());
-//                opciones.setAlto(contenedorPrincipal.getScrollPantalla().getHeight());
-//            } else {
-//                opciones.setAncho(contenedorPrincipal.getPantalla().getWidth());
-//                opciones.setAlto(contenedorPrincipal.getPantalla().getHeight());
-//            }
-            servidor.enviarEscritorioRemotoOpciones(opciones);
+            agente.enviarEscritorioRemotoOpciones(opciones);
         }
     }
 
@@ -1438,10 +1357,9 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
 
     private void cambiarTipoEnvio(int tipoEnvio) {
         this.tipoEnvio = tipoEnvio;
-        this.itmCapCompleta.setSelected(tipoEnvio == 1);
-        this.itmCapCambios.setSelected(tipoEnvio == 2);
-        this.itmCapBloques.setSelected(tipoEnvio == 3);
-//        this.itmCapBloques2.setSelected(tipoEnvio == 4);
+        this.itmCapCompleta.setSelected(tipoEnvio == EscritorioRemoto.ENVIO_COMPLETO);
+//        this.itmCapPixeles.setSelected(tipoEnvio == 2);
+        this.itmCapBloques.setSelected(tipoEnvio == EscritorioRemoto.ENVIO_BLOQUES);
         this.enviarParametros();
     }
 
@@ -1515,7 +1433,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
 
     private void btnActualizarPantalla(ActionEvent evt) {
         reproductor.limpiarBuffers();
-        servidor.actualizarPantalla();
+        agente.actualizarPantalla();
     }
 
     private void btnPantallaCompleta(ActionEvent evt) {
@@ -1568,12 +1486,25 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         this.repaint();
     }
 
+    public void btnFinalizar(ActionEvent evt) {
+        if (pidiendo) {
+            //detiene
+            btnIniciarDetenerAP(evt);
+        }
+        if (informacion != null) {
+            informacion.dispose();
+        }
+        informacion = null;
+        detenerTodo();
+        agente.cerrarEscritorioRemotoDesdeVentana();
+    }
+
     private void btnIniciarDetenerAP(ActionEvent evt) {
         this.pidiendo = !this.pidiendo;
         if (this.pidiendo) {
 
             //envio la configiracion del teclado
-            servidor.enviarConfiguracionEntrada(teclado.getMetodoActual());
+            agente.enviarConfiguracionEntrada(teclado.getMetodoActual());
 
             servicio = null;
             servicio = new RecibirEscritorio(conexion, this);
@@ -1598,7 +1529,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
             btnIniciarDetener.setIcon(Util.cargarIcono("/resources/start.png", 8, 8));
             btnIniciarDetener.setToolTipText("Iniciar");
             try {
-                this.servidor.detenerPantalla();
+                this.agente.detenerPantalla();
             } catch (Exception e) {
             }
 
@@ -1613,10 +1544,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
 
             }
             conexion = null;
-
             barraInferior.setEstado("Detenido");
-            //recibirEscritorio = null;
-
         }
 //        servicio.setPidiendo(pidiendo);
     }
@@ -1633,20 +1561,20 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
     }
 
     private void btnEnviarCTRLALTSUPR(ActionEvent evt) {
-        servidor.enviarCTRL_ALT_SUPR();
+        agente.enviarCTRL_ALT_SUPR();
     }
 
     private void btnApagarMonitor(ActionEvent evt) {
-        servidor.apagarMonitor();
+        agente.apagarMonitor();
     }
 
     private void btnEncenderMonitor(ActionEvent evt) {
-        servidor.encenderMonitor();
+        agente.encenderMonitor();
     }
 
     private void btnBloquearEquipo(ActionEvent evt) {
 
-        servidor.enviarBloquearEquipo();
+        agente.enviarBloquearEquipo();
     }
 
     private void btnMOnitorearAP(ActionEvent evt) {
@@ -1659,27 +1587,27 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
     }
 
     private void btnArchivosAP(ActionEvent evt) {
-        servidor.abrirAdminArchivos();
+        agente.abrirAdminArchivos();
     }
 
     private void btnEnviarPortapalelesAP(ActionEvent evt) {
-        servidor.enviarArchivosPortapapeles();
+        agente.enviarArchivosPortapapeles();
     }
 
     private void btnrecibirPortapapelesAP(ActionEvent evt) {
-        servidor.recibirArchivosPortapapeles();
+        agente.recibirArchivosPortapapeles();
     }
 
     private void btnChatAP(ActionEvent evt) {
-        servidor.abrirVentanaChat();
+        agente.abrirVentanaChat();
     }
 
     private void btnCamaraAP(ActionEvent evt) {
-        servidor.abrirVentanaCamara();
+        agente.abrirVentanaCamara();
     }
 
     private void btnMicrofonoAP(ActionEvent evt) {
-        servidor.abrirVoIP();
+        agente.abrirVoIP();
     }
 
     private void escalaOriginalAP(ActionEvent evt) {
@@ -1864,7 +1792,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
                     agregarEventoTeclado(0, 1, e);
 
                 }
-//                servidor.enviarTecla(e);
+//                agente.enviarTecla(e);
             }
         }
     }
@@ -1878,7 +1806,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
                     //servidor.enviarTecla(teclado.mapear(e.getKeyCode()), 2);
                     agregarEventoTeclado(0, 2, e);
                 }
-//                servidor.enviarTecla(e);
+//                agente.enviarTecla(e);
             }
         }
     }
@@ -1935,7 +1863,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
     @Override
     public void windowClosing(WindowEvent e) {
         detenerTodo();
-        servidor.cerrarEscritorioRemoto();
+        agente.cerrarEscritorioRemoto();
         if (informacion != null) {
             informacion.dispose();
         }
@@ -1987,34 +1915,36 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
             if (ventanaControles == null) {
                 ventanaControles = new JWindow(this);
                 ventanaControles.setLayout(new BorderLayout());
-                JToolBar panelSur = new JToolBar();
-                panelSur.setBackground(barra.getBackground());
-                panelSur.setOpaque(true);
-                panelSur.setFloatable(false);
-                Border padding = BorderFactory.createEmptyBorder(0, 0, 0, 0);
-                panelSur.setBorder(padding);
-                panelSur.setMargin(new Insets(0, 0, 0, 0));
-                panelSur.setLayout(new FlowLayout(FlowLayout.CENTER));
+                ventanaControles.setType(Type.UTILITY);
+                ventanaControles.setVisible(true);
                 btnActivar.setBorderPainted(false);
                 btnMinimizar.setBorderPainted(false);
                 btnVerPantallaCompleta.setBorderPainted(false);
                 btnIniciarDetener.setBorderPainted(false);
+                JToolBar panelSur = new JToolBar();
+                panelSur.setBackground(barra.getBackground());
+                panelSur.setOpaque(true);
+                panelSur.setFloatable(false);
+                panelSur.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                panelSur.setMargin(new Insets(0, 0, 0, 0));
+                panelSur.setLayout(new FlowLayout(FlowLayout.CENTER));
                 panelSur.add(btnActivar);
                 panelSur.add(btnMinimizar);
                 panelSur.add(btnVerPantallaCompleta);
                 panelSur.add(btnIniciarDetener);
-                ventanaControles.add(panelSur, BorderLayout.SOUTH);
                 ventanaControles.add(barra, BorderLayout.NORTH);
-                ventanaControles.setType(Type.UTILITY);
-                ventanaControles.setVisible(true);
+                ventanaControles.add(panelSur, BorderLayout.SOUTH);
                 ventanaControles.pack();
                 tamanioBarra = ventanaControles.getHeight();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        if (ventanaControles == null) {
+            System.out.println("ERROR VENTAA CONTROLES ES NULA !!!!!!!!!!!!!!!");
+        }
         btnMinimizar.setVisible(pantallaCompleta);
+        int y = 0;
         try {
             int ancho = 370;
             GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
@@ -2040,28 +1970,21 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
             int curva = 3;
 
             /*
-
               P0 ______________________________P7
                 |                              |
               P1|____________P2   P5___________| P6
                             |______|
                            P3     P4
-
              */
             path.moveTo(0, 0); //P0
             path.lineTo(0, altoControles - altoPestania - ajuste - curva); // P1 -1
             path.lineTo(curva, altoControles - altoPestania - ajuste); // P1 -2
-
             path.lineTo(ancho / 2 - anchoPestania / 2, altoControles - altoPestania - ajuste); // P2
-
             path.lineTo(ancho / 2 - anchoPestania / 2, altoControles - ajuste + 5 - curva); // P3 -1
             path.lineTo(ancho / 2 - anchoPestania / 2 + curva, altoControles - ajuste + 5); // P3 -2
-
             path.lineTo(ancho / 2 + anchoPestania / 2 - curva, altoControles - ajuste + 5); // P4 -1
             path.lineTo(ancho / 2 + anchoPestania / 2, altoControles - ajuste + 5 - curva); // P4 -2
-
             path.lineTo(ancho / 2 + anchoPestania / 2, altoControles - altoPestania - ajuste); // P5
-
             path.lineTo(ancho - curva, altoControles - altoPestania - ajuste); // P6 -1
             path.lineTo(ancho, altoControles - altoPestania - ajuste - curva); // P6 -2
             path.lineTo(ancho, 0); // P7
@@ -2069,17 +1992,17 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
 
             ventanaControles.setShape(path);
             ventanaControles.setSize(ancho, altoControles);
-            int y = 0;
+
             try {
                 y = (int) reproductor.getContenedor().getLocationOnScreen().getY();
             } catch (Exception e) {
-//                y = (int) this.getLocationOnScreen().getY();
+
             }
+
+        } catch (Error | Exception e) {
+            e.printStackTrace();
+        } finally {
             ventanaControles.setLocation((int) this.getBounds().getX() + (int) this.getWidth() / 2 - ventanaControles.getWidth() / 2, y);
-        } catch (Error e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -2114,17 +2037,21 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         new Thread(new Runnable() {
             @Override
             public void run() {
-                corriendoMostrar = true;
-                for (int i = btnActivar.getHeight(); i < tamanioBarra; i += 10) {
-                    ventanaControles.setSize(ventanaControles.getWidth(), i);
-                    actualizarFormaControles();
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException ex) {
+                try {
+                    corriendoMostrar = true;
+                    for (int i = btnActivar.getHeight(); i < tamanioBarra; i += 10) {
+                        ventanaControles.setSize(ventanaControles.getWidth(), i);
+                        actualizarFormaControles();
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException ex) {
+                        }
                     }
+                    corriendoMostrar = false;
+                    actualizarFormaControles();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                corriendoMostrar = false;
-                actualizarFormaControles();
             }
         }
         ).start();
@@ -2148,7 +2075,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
             MONITOR--;//le resta 1 porq estoy mostrando desde el 1 en adelante y no desde el 0
         }
         enviarParametros();
-        servidor.pedirResolucionPantalla();
+        agente.pedirResolucionPantalla();
     }
 
     public void seleccionarResolucion(int indice) {
@@ -2159,7 +2086,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
             }
             EscritorioRemoto.this.strResolucion = itmResoluciones[indice].getText();
             itmResoluciones[indice].setSelected(true);
-            servidor.cambiarResolucion(strResolucion);
+            agente.cambiarResolucion(strResolucion);
         } catch (Exception e) {
         }
     }
@@ -2177,7 +2104,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
             public void actionPerformed(ActionEvent evt) {
                 try {
 
-                    EscritorioRemoto.this.servidor.pedirConfiguracionEntrada();
+                    EscritorioRemoto.this.agente.pedirConfiguracionEntrada();
                 } catch (Exception e) {
 
                 }
@@ -2196,7 +2123,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
                 public void actionPerformed(ActionEvent evt) {
                     try {
                         teclado.configurarMetodoEntrada(locale);
-                        EscritorioRemoto.this.servidor.enviarConfiguracionEntrada(locale);
+                        EscritorioRemoto.this.agente.enviarConfiguracionEntrada(locale);
                     } catch (Exception e) {
 
                     }
@@ -2257,12 +2184,12 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
         }
     }
 
-    public Asociado getServidor() {
-        return servidor;
+    public Asociado getAgente() {
+        return agente;
     }
 
-    public void setServidor(Asociado servidor) {
-        this.servidor = servidor;
+    public void setAgente(Asociado agente) {
+        this.agente = agente;
     }
 
     public ContadorBPS getContadorFps() {
@@ -2714,7 +2641,7 @@ public class EscritorioRemoto extends VentanaReproductor implements KeyListener,
             while (activo) {
                 try {
                     if (pidiendo) {
-                        servidor.enviarEventos(getEventos());
+                        agente.enviarEventos(getEventos());
                     }
                     Thread.sleep(30);
                 } catch (Exception ex) {

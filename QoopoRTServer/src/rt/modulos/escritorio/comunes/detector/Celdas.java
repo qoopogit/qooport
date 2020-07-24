@@ -260,7 +260,7 @@ public class Celdas extends DetectorCambios {
 //                if (!entry.getKey().equals(bloque.getNombre())) {
                 //verificamos q sea el mismo checksum pero q no sea una copia
                 //if (entry.getValue().getChecksum() == bloque.getChecksum()
-                //<ag> 30052017, ya no se pregunta si es una copia el origen porq ya no voy a almacenar en el buffer a las copais
+                //<ag> 30052017, ya no se pregunta si es una copia el origen porq ya no voy a almacenar en el buffer a las copias
                 if (comparar(entry.getValue(), bloque, opciones.getTipoDatos()) /*&& entry.getValue().getCopia() == -1 
                         && entry.getValue().getNombreCopia() == null*/) {
                     bloque.setDatos(null);
@@ -394,36 +394,21 @@ public class Celdas extends DetectorCambios {
 //        }
 //        return lstTemp;
 //    }
-    /**
-     * Construye un bloque
-     *
-     * @param imagen
-     * @param px
-     * @param py
-     * @param ancho
-     * @param alto
-     * @return
-     * @throws Exception
-     */
     private PantallaBloque getSubImagen(BufferedImage imagen, int px, int py, int ancho, int alto) throws Exception {
         PantallaBloque bloque = null;
         BufferedImage subImage = imagen.getSubimage(px, py, ancho, alto);
+
         if (!opciones.isConvertirJpg()) {
             //si no tiene conversion jpg clonamos la subimagen, esto porq la subimagen comparte el mismo arreglo de bytes que la imagen superior
-            BufferedImage subImage2 = IMG.clonar(subImage);
-            if (opciones.getTipoDatos() == 1) {
-                bloque = new PantallaBloque(px + "-" + py, px, py, ancho, alto, obtenerBytes(subImage2, opciones.getCalidad()));
-            } else {
-                bloque = new PantallaBloque(px + "-" + py, px, py, ancho, alto, obtenerInts(subImage2));
-            }
-            subImage2 = null;
-        } else {
-            if (opciones.getTipoDatos() == 1) {
-                bloque = new PantallaBloque(px + "-" + py, px, py, ancho, alto, obtenerBytes(subImage, opciones.getCalidad()));
-            } else {
-                bloque = new PantallaBloque(px + "-" + py, px, py, ancho, alto, obtenerInts(subImage));
-            }
+            subImage = IMG.clonar(subImage);
         }
+
+        if (opciones.getTipoDatos() == 1) {
+            bloque = new PantallaBloque(px + "-" + py, px, py, ancho, alto, obtenerBytes(subImage));
+        } else {
+            bloque = new PantallaBloque(px + "-" + py, px, py, ancho, alto, obtenerInts(subImage));
+        }
+
         bloque.setChecksum(generaChecksum(bloque, opciones.getTipoDatos()));
         subImage = null;
         return bloque;

@@ -82,12 +82,12 @@ public class IMG {
     }
 
     public static byte[] saveImageJPGByte(BufferedImage image, float compresion) throws IOException {
-        ByteArrayOutputStream imageBytes = new ByteArrayOutputStream();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] salida = null;
         try {
-            saveImageJPG(image, compresion, imageBytes);
-            salida = imageBytes.toByteArray();
-            imageBytes.close();
+            saveImageJPG(image, compresion, baos);
+            salida = baos.toByteArray();
+            baos.close();
         } catch (Exception ex) {
         }
         return salida;
@@ -100,7 +100,7 @@ public class IMG {
             BufferedImage bi = rt.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
             bi.setAccelerationPriority(1.0F);
             bi = escalarSuave(bi, (int) (0.8 * bi.getWidth()), (int) (0.8 * bi.getHeight()));
-            salida = saveImageJPGByte(bi, 0.75f);
+            salida = IMG.saveImageJPGByte(bi, 0.75f);
         } catch (Exception ex) {
         }
         return salida;
@@ -200,20 +200,19 @@ public class IMG {
         return byte_24b;
     }
 
-    private static BufferedImage getByte32Bit(BufferedImage bi) {
-        if (byte_32b == null || (byte_32b.getWidth() != bi.getWidth() && byte_32b.getHeight() != bi.getHeight())) {
-            byte_32b = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
-        }
-        return byte_32b;
-    }
+//    private static BufferedImage getByte32Bit(BufferedImage bi) {
+//        if (byte_32b == null || (byte_32b.getWidth() != bi.getWidth() && byte_32b.getHeight() != bi.getHeight())) {
+//            byte_32b = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+//        }
+//        return byte_32b;
+//    }
 
-    private static BufferedImage getInt24Bit(BufferedImage bi) {
-        if (int_24b == null || (int_24b.getWidth() != bi.getWidth() && int_24b.getHeight() != bi.getHeight())) {
-            int_24b = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_BGR);
-        }
-        return int_24b;
-    }
-
+//    private static BufferedImage getInt24Bit(BufferedImage bi) {
+//        if (int_24b == null || (int_24b.getWidth() != bi.getWidth() && int_24b.getHeight() != bi.getHeight())) {
+//            int_24b = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_BGR);
+//        }
+//        return int_24b;
+//    }
 //    private static BufferedImage getInt32Bit(BufferedImage bi) {
 //        if (int_32b == null || (int_32b.getWidth() != bi.getWidth() && int_32b.getHeight() != bi.getHeight())) {
 //            int_32b = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -260,8 +259,10 @@ public class IMG {
                         biDestino = getByte24Bit(bi);
                         break;
                     case 6:
-                        // 32 bits
-                        biDestino = getByte32Bit(bi);
+//                        // 32 bits
+//                        biDestino = getByte32Bit(bi);
+                        // 24 bits
+                        biDestino = getByte24Bit(bi);
                         break;
                     default:// si no es algun tipo conocido filtramos a 24 bits
                         // 24 bits
@@ -270,22 +271,26 @@ public class IMG {
                 }
                 //tipo int
             } else if (tipoDatos == 2) {
-                switch (tipoColor) {
-                    case 5:
-                        // 24 bits
-                        biDestino = getInt24Bit(bi);
-                        break;
-                    case 6:
-                        // 32 bits
-                        //biDestino = getInt32Bit(bi);
+                return bi;
+//                switch (tipoColor) {
+//                    case 5:
+//                        // 24 bits
+//                        biDestino = getInt24Bit(bi);
 //                        break;
-                        return bi;//retorna la imagen sin procesar algun filtro
-                    case 7:// sin proceso de imagen
-                        return bi;//retorna la imagen sin procesar algun filtro
-                    default:
-                        //si no es algu tipo conocido no filtramos y la dejamos tal y como viene (32 bits)
-                        break;
-                }
+//                    case 6:
+//                        // 32 bits
+//                        //biDestino = getInt32Bit(bi);
+////                        break;
+//                        return bi;//retorna la imagen sin procesar algun filtro
+//                    case 7:// sin proceso de imagen
+//                        return bi;//retorna la imagen sin procesar algun filtro
+//                    default:
+//                        //si no es algu tipo conocido no filtramos y la dejamos tal y como viene (32 bits)
+//                        // 24 bits
+////                        biDestino = getInt24Bit(bi);
+//                        return bi;
+////                        break;
+//                }
             }
 
             if (biDestino != null) {

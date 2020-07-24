@@ -1,8 +1,9 @@
-package rt.modulos.escritorio.comunes;
+package extras;
 
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
+@Deprecated
 public class BufferPantalla {
 
     private static int LIMITE_CAPTURAS = 40;

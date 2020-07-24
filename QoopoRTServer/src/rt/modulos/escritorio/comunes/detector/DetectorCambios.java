@@ -51,14 +51,21 @@ public abstract class DetectorCambios implements Serializable {
         }
     }
 
+    protected byte[] obtenerBytes(BufferedImage bi) throws IOException {
+        return obtenerBytes(bi, opciones.getCalidad());
+//        if (opciones.isConvertirJpg()) {
+//            return IMG.saveImageJPGByte(bi, opciones.getCalidad());
+//        } else {
+//            return IMG.getByteArray(bi);
+//        }
+    }
+
     protected byte[] obtenerBytes(BufferedImage bi, float calidad) throws IOException {
-        byte[] arrayByte = null;
         if (opciones.isConvertirJpg()) {
-            arrayByte = IMG.saveImageJPGByte(bi, calidad);
+            return IMG.saveImageJPGByte(bi, calidad);
         } else {
-            arrayByte = IMG.getByteArray(bi);
+            return IMG.getByteArray(bi);
         }
-        return arrayByte;
     }
 
 }

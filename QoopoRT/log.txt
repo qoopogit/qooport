@@ -2654,3 +2654,1929 @@
 23/07/2020 07:23:57 > Autenticando con nuevo equipo [/127.0.0.1]
 23/07/2020 07:24:00 > Autenticando con nuevo equipo [/127.0.0.1]
 23/07/2020 07:24:03 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 07:31:10 > ==========  ==========
+23/07/2020 07:31:10 > == QoopoRT v 1.5.7 ==
+23/07/2020 07:31:10 > ==========  ==========
+23/07/2020 07:31:10 > == Fecha:23/07/2020 ==
+23/07/2020 07:31:10 > ==========  ==========
+23/07/2020 07:31:10 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 07:31:10 >      Buscando dispositivos Gateway
+23/07/2020 07:31:10 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 07:31:10 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 07:31:10 >      IP Local   : 192.168.1.21
+23/07/2020 07:31:10 >      IP Externa : 10.232.43.163
+23/07/2020 07:31:11 > Conexión TCP desde :127.0.0.1(/127.0.0.1:58228) en el puerto 0
+23/07/2020 07:31:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 07:31:12 >      Mapeo satisfactorio
+23/07/2020 07:31:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 07:31:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 07:31:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 07:31:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 07:31:26 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 08:06:22 > ==========  ==========
+23/07/2020 08:06:22 > == QoopoRT v 1.5.7 ==
+23/07/2020 08:06:22 > ==========  ==========
+23/07/2020 08:06:22 > == Fecha:23/07/2020 ==
+23/07/2020 08:06:22 > ==========  ==========
+23/07/2020 08:06:23 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 08:06:23 >      Buscando dispositivos Gateway
+23/07/2020 08:06:23 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 08:06:24 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60508) en el puerto 0
+23/07/2020 08:06:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:06:26 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 08:06:26 >      IP Local   : 192.168.1.21
+23/07/2020 08:06:26 >      IP Externa : 10.232.43.163
+23/07/2020 08:06:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:06:29 >      Mapeo satisfactorio
+23/07/2020 08:06:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:06:33 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:06:36 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:06:39 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 08:11:21 > ==========  ==========
+23/07/2020 08:11:21 > == QoopoRT v 1.5.7 ==
+23/07/2020 08:11:21 > ==========  ==========
+23/07/2020 08:11:21 > == Fecha:23/07/2020 ==
+23/07/2020 08:11:21 > ==========  ==========
+23/07/2020 08:11:21 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 08:11:21 >      Buscando dispositivos Gateway
+23/07/2020 08:11:21 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 08:11:22 > Conexión TCP desde :127.0.0.1(/127.0.0.1:33544) en el puerto 0
+23/07/2020 08:11:24 > Conexión TCP desde :127.0.0.1(/127.0.0.1:33548) en el puerto 0
+23/07/2020 08:11:24 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 08:11:24 >      IP Local   : 192.168.1.21
+23/07/2020 08:11:24 >      IP Externa : 10.232.43.163
+23/07/2020 08:12:33 > ==========  ==========
+23/07/2020 08:12:33 > == QoopoRT v 1.5.7 ==
+23/07/2020 08:12:33 > ==========  ==========
+23/07/2020 08:12:33 > == Fecha:23/07/2020 ==
+23/07/2020 08:12:33 > ==========  ==========
+23/07/2020 08:12:33 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 08:12:33 >      Buscando dispositivos Gateway
+23/07/2020 08:12:33 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 08:12:34 > Conexión TCP desde :127.0.0.1(/127.0.0.1:33948) en el puerto 0
+23/07/2020 08:12:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:12:36 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 08:12:36 >      IP Local   : 192.168.1.21
+23/07/2020 08:12:36 >      IP Externa : 10.232.43.163
+23/07/2020 08:12:37 >      Mapeo satisfactorio
+23/07/2020 08:12:38 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:12:42 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:12:46 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:12:50 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:12:54 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 08:13:02 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 08:13:05 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 08:13:05 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 08:13:05 >      Buscando dispositivos Gateway
+23/07/2020 08:13:06 > Conexión TCP desde :127.0.0.1(/127.0.0.1:34000) en el puerto 0
+23/07/2020 08:13:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:13:08 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 08:13:09 >      IP Local   : 192.168.1.21
+23/07/2020 08:13:09 >      IP Externa : 10.232.43.163
+23/07/2020 08:13:10 >      Mapeo satisfactorio
+23/07/2020 08:13:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:13:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:13:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:13:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 08:13:26 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 08:14:18 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 09:02:39 > ==========  ==========
+23/07/2020 09:02:39 > == QoopoRT v 1.5.7 ==
+23/07/2020 09:02:39 > ==========  ==========
+23/07/2020 09:02:39 > == Fecha:23/07/2020 ==
+23/07/2020 09:02:39 > ==========  ==========
+23/07/2020 09:02:40 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 09:02:40 >      Buscando dispositivos Gateway
+23/07/2020 09:02:40 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 09:02:41 > Conexión TCP desde :127.0.0.1(/127.0.0.1:51858) en el puerto 0
+23/07/2020 09:02:41 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:02:43 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 09:02:43 >      IP Local   : 192.168.1.21
+23/07/2020 09:02:43 >      IP Externa : 10.232.43.163
+23/07/2020 09:02:44 >      Mapeo satisfactorio
+23/07/2020 09:02:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:02:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:02:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:02:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:02:58 > Conexión TCP desde :127.0.0.1(/127.0.0.1:51882) en el puerto 0
+23/07/2020 09:02:58 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:03:01 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 09:03:02 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:03:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:03:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:03:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:03:18 > Se conectó agente: [ (Usuario@Lily) (localhost) ]
+23/07/2020 09:06:22 > Conexión TCP desde :127.0.0.1(/127.0.0.1:51994) en el puerto 0
+23/07/2020 09:06:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:06:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:06:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:06:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:06:39 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:06:43 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 09:07:36 > Agente (coruser1@uiocordes01.andinatel.int):ERROR AL ABRIR EL CANAL :No line matching interface TargetDataLine supporting format PCM_SIGNED 8000.0 Hz, 8 bit, mono, 1 bytes/frame,  is supported.
+23/07/2020 09:09:05 > Agente (Usuario@Lily):Error al abrir al servidor Cannot run program "C:\Program Files\Java\jre1.8.0_131\bin\java": CreateProcess error=5, Acceso denegado
+23/07/2020 09:12:52 > Agente (Usuario@Lily):Error al subir archivo (/home/alberto/DATOS/RATS/qooport/servidor/agente.jar)  . Intentar nuevamente. Error=SSL peer shut down incorrectly
+23/07/2020 09:18:48 > Conexión TCP desde :127.0.0.1(/127.0.0.1:52384) en el puerto 0
+23/07/2020 09:18:48 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:18:52 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:18:56 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:19:00 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:19:04 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:19:08 > Se conectó agente: [ (Usuario@Lily) (localhost) ]
+23/07/2020 09:19:14 > Se desconectó el equipo [ (Usuario@Lily) (localhost) ]
+23/07/2020 09:19:18 > Se desconectó el equipo [ (Usuario@Lily) (localhost) ]
+23/07/2020 09:19:53 > Conexión TCP desde :127.0.0.1(/127.0.0.1:52426) en el puerto 0
+23/07/2020 09:19:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:19:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:20:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:20:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:20:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:20:13 > Se conectó agente: [ (Usuario@Lily) (localhost) ]
+23/07/2020 09:40:05 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 09:40:05 > Se desconectó el equipo [ (Usuario@Lily) (localhost) ]
+23/07/2020 09:40:05 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 09:40:08 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 09:40:08 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 09:40:08 >      Buscando dispositivos Gateway
+23/07/2020 09:40:08 > Conexión TCP desde :127.0.0.1(/127.0.0.1:53128) en el puerto 0
+23/07/2020 09:40:08 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:40:09 > Conexión TCP desde :127.0.0.1(/127.0.0.1:53132) en el puerto 0
+23/07/2020 09:40:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:40:11 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 09:40:11 >      IP Local   : 192.168.1.21
+23/07/2020 09:40:11 >      IP Externa : 10.232.43.163
+23/07/2020 09:40:12 >      Mapeo satisfactorio
+23/07/2020 09:40:12 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:40:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:40:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:40:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:40:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:40:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:40:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:40:25 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:40:28 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 09:40:29 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 09:47:21 > Agente (coruser1@uiocordes01.andinatel.int):ERROR AL EJECUTAR :Prefix string too short
+23/07/2020 09:47:45 > Conexión TCP desde :127.0.0.1(/127.0.0.1:53382) en el puerto 0
+23/07/2020 09:47:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:47:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:47:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:47:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:48:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 09:48:05 > Se conectó agente: [ (Usuario@Lily) (localhost) ]
+23/07/2020 10:08:11 > Conexión TCP desde :192.168.122.121(/192.168.122.121:49841) en el puerto 0
+23/07/2020 10:08:11 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:08:16 > Se desconectó el equipo [ (null@null) (192.168.122.121) ]
+23/07/2020 10:13:05 > Se desconectó el equipo [ (Usuario@Lily) (localhost) ]
+23/07/2020 10:13:05 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 10:13:05 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 10:13:06 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 10:13:06 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 10:13:06 >      Buscando dispositivos Gateway
+23/07/2020 10:13:08 > Conexión TCP desde :127.0.0.1(/127.0.0.1:54324) en el puerto 0
+23/07/2020 10:13:08 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:10 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 10:13:10 >      IP Local   : 192.168.1.21
+23/07/2020 10:13:10 >      IP Externa : 10.232.43.163
+23/07/2020 10:13:10 > Conexión TCP desde :127.0.0.1(/127.0.0.1:54326) en el puerto 0
+23/07/2020 10:13:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:11 >      Mapeo satisfactorio
+23/07/2020 10:13:11 > Conexión TCP desde :127.0.0.1(/127.0.0.1:54328) en el puerto 0
+23/07/2020 10:13:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:12 > Conexión TCP desde :127.0.0.1(/127.0.0.1:54330) en el puerto 0
+23/07/2020 10:13:12 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:12 > Conexión TCP desde :192.168.122.121(/192.168.122.121:50164) en el puerto 0
+23/07/2020 10:13:12 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:13:12 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:15 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:16 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:13:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:20 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:13:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:24 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:13:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:28 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:13:28 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:13:28 > Se conectó agente: [ (Usuario@Lily) (localhost) ]
+23/07/2020 10:13:30 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 10:13:31 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 10:13:32 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 10:16:44 > Se desconectó el equipo [ (Usuario@Lily) (localhost) ]
+23/07/2020 10:16:44 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 10:16:44 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 10:16:44 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 10:17:12 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:18:49 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 10:18:49 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 10:18:49 >      Buscando dispositivos Gateway
+23/07/2020 10:18:50 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:18:50 > Conexión TCP desde :127.0.0.1(/127.0.0.1:56428) en el puerto 0
+23/07/2020 10:18:51 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 10:18:51 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 10:18:51 >      Buscando dispositivos Gateway
+23/07/2020 10:18:52 > Conexión TCP desde :127.0.0.1(/127.0.0.1:56454) en el puerto 0
+23/07/2020 10:18:52 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:18:52 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 10:18:53 >      IP Local   : 192.168.1.21
+23/07/2020 10:18:53 >      IP Externa : 10.232.43.163
+23/07/2020 10:18:53 > Conexión TCP desde :127.0.0.1(/127.0.0.1:56452) en el puerto 0
+23/07/2020 10:18:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:18:54 > Conexión TCP desde :127.0.0.1(/127.0.0.1:56456) en el puerto 0
+23/07/2020 10:18:54 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:18:54 >      Mapeo satisfactorio
+23/07/2020 10:18:54 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 10:18:55 >      IP Local   : 192.168.1.21
+23/07/2020 10:18:55 >      IP Externa : 10.232.43.163
+23/07/2020 10:18:56 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:18:56 >      Mapeo satisfactorio
+23/07/2020 10:18:56 > Conexión TCP desde :127.0.0.1(/127.0.0.1:56464) en el puerto 0
+23/07/2020 10:18:56 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:18:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:18:58 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:00 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:00 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:02 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:04 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:04 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:08 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:08 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:12 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 10:19:12 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:19:13 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 10:19:14 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 10:19:16 > Se conectó agente: [ (Usuario@Lily) (localhost) ]
+23/07/2020 10:19:19 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 10:19:19 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 10:19:19 > Se desconectó el equipo [ (Usuario@Lily) (localhost) ]
+23/07/2020 10:19:19 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 10:19:23 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 10:19:23 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 10:19:23 >      Buscando dispositivos Gateway
+23/07/2020 10:19:26 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 10:19:26 >      IP Local   : 192.168.1.21
+23/07/2020 10:19:26 >      IP Externa : 10.232.43.163
+23/07/2020 10:19:27 >      Mapeo satisfactorio
+23/07/2020 10:20:14 > Conexión TCP desde :192.168.122.121(/192.168.122.121:50515) en el puerto 0
+23/07/2020 10:20:14 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:20:18 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:20:22 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:20:26 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:20:30 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:20:34 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:20:46 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:20:48 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 10:20:48 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 10:20:48 >      Buscando dispositivos Gateway
+23/07/2020 10:20:49 > Conexión TCP desde :192.168.122.121(/192.168.122.121:50536) en el puerto 0
+23/07/2020 10:20:49 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:20:51 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 10:20:51 >      IP Local   : 192.168.1.21
+23/07/2020 10:20:51 >      IP Externa : 10.232.43.163
+23/07/2020 10:20:52 >      Mapeo satisfactorio
+23/07/2020 10:20:53 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:20:57 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:21:01 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:21:05 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:21:09 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:21:52 > ==========  ==========
+23/07/2020 10:21:52 > == QoopoRT v 1.5.7 ==
+23/07/2020 10:21:52 > ==========  ==========
+23/07/2020 10:21:52 > == Fecha:23/07/2020 ==
+23/07/2020 10:21:52 > ==========  ==========
+23/07/2020 10:21:52 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 10:21:52 >      Buscando dispositivos Gateway
+23/07/2020 10:21:52 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 10:21:53 > Conexión TCP desde :192.168.122.121(/192.168.122.121:50576) en el puerto 0
+23/07/2020 10:21:53 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:21:55 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 10:21:56 >      IP Local   : 192.168.1.21
+23/07/2020 10:21:56 >      IP Externa : 10.232.43.163
+23/07/2020 10:21:57 >      Mapeo satisfactorio
+23/07/2020 10:21:57 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:22:01 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:22:05 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:22:09 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:22:13 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:22:36 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:22:38 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 10:22:38 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 10:22:38 >      Buscando dispositivos Gateway
+23/07/2020 10:22:41 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 10:22:41 >      IP Local   : 192.168.1.21
+23/07/2020 10:22:41 >      IP Externa : 10.232.43.163
+23/07/2020 10:22:42 >      Mapeo satisfactorio
+23/07/2020 10:22:45 > Conexión TCP desde :192.168.122.121(/192.168.122.121:50608) en el puerto 0
+23/07/2020 10:22:45 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:22:49 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:22:53 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:22:57 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:23:01 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:23:05 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:42:03 > ==========  ==========
+23/07/2020 10:42:03 > == QoopoRT v 1.5.7 ==
+23/07/2020 10:42:03 > ==========  ==========
+23/07/2020 10:42:03 > == Fecha:23/07/2020 ==
+23/07/2020 10:42:03 > ==========  ==========
+23/07/2020 10:42:03 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 10:42:03 >      Buscando dispositivos Gateway
+23/07/2020 10:42:03 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 10:42:04 > Conexión TCP desde :192.168.122.121(/192.168.122.121:51038) en el puerto 0
+23/07/2020 10:42:04 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:42:06 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 10:42:06 >      IP Local   : 192.168.1.21
+23/07/2020 10:42:06 >      IP Externa : 10.232.43.163
+23/07/2020 10:42:08 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:42:09 >      Mapeo satisfactorio
+23/07/2020 10:42:12 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:42:16 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:42:20 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:42:24 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:43:56 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:50:16 > ==========  ==========
+23/07/2020 10:50:16 > == QoopoRT v 1.5.7 ==
+23/07/2020 10:50:16 > ==========  ==========
+23/07/2020 10:50:16 > == Fecha:23/07/2020 ==
+23/07/2020 10:50:16 > ==========  ==========
+23/07/2020 10:50:16 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 10:50:16 >      Buscando dispositivos Gateway
+23/07/2020 10:50:16 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 10:50:16 > Conexión TCP desde :192.168.122.121(/192.168.122.121:51351) en el puerto 0
+23/07/2020 10:50:16 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:50:19 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 10:50:19 >      IP Local   : 192.168.1.21
+23/07/2020 10:50:19 >      IP Externa : 10.232.43.163
+23/07/2020 10:50:20 >      Mapeo satisfactorio
+23/07/2020 10:50:20 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:50:24 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:50:28 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:50:32 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:50:36 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:51:08 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57662) en el puerto 0
+23/07/2020 10:51:08 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:51:12 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:51:13 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57666) en el puerto 0
+23/07/2020 10:51:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:51:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:51:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:51:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:51:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:51:22 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:55:09 > Se desconectó el equipo [ (null@null) (localhost) ]
+23/07/2020 10:55:09 > Se desconectó el equipo [ (null@null) (localhost) ]
+23/07/2020 10:55:13 > Se desconectó el equipo [ (null@null) (localhost) ]
+23/07/2020 10:55:13 > Se desconectó el equipo [ (null@null) (localhost) ]
+23/07/2020 10:57:06 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 10:57:06 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 10:57:06 >      Buscando dispositivos Gateway
+23/07/2020 10:57:07 > Conexión TCP desde :192.168.122.121(/192.168.122.121:52297) en el puerto 0
+23/07/2020 10:57:07 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:57:07 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60354) en el puerto 0
+23/07/2020 10:57:07 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:09 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60352) en el puerto 0
+23/07/2020 10:57:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:09 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 10:57:09 >      IP Local   : 192.168.1.21
+23/07/2020 10:57:09 >      IP Externa : 10.232.43.163
+23/07/2020 10:57:10 >      Mapeo satisfactorio
+23/07/2020 10:57:11 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:57:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:15 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:57:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:16 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60368) en el puerto 0
+23/07/2020 10:57:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:19 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:57:19 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60376) en el puerto 0
+23/07/2020 10:57:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:23 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 10:57:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:25 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:27 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 10:57:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:28 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:29 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 10:57:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:35 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 10:57:36 > Se conectó agente: [ (Usuario@Lily) (localhost) ]
+23/07/2020 10:57:39 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 11:10:47 > ==========  ==========
+23/07/2020 11:10:47 > == QoopoRT v 1.5.7 ==
+23/07/2020 11:10:47 > ==========  ==========
+23/07/2020 11:10:47 > == Fecha:23/07/2020 ==
+23/07/2020 11:10:47 > ==========  ==========
+23/07/2020 11:10:47 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 11:10:47 >      Buscando dispositivos Gateway
+23/07/2020 11:10:47 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 11:10:49 > Conexión TCP desde :127.0.0.1(/127.0.0.1:35920) en el puerto 0
+23/07/2020 11:10:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:10:49 > Conexión TCP desde :127.0.0.1(/127.0.0.1:35922) en el puerto 0
+23/07/2020 11:10:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:10:50 > Conexión TCP desde :127.0.0.1(/127.0.0.1:35924) en el puerto 0
+23/07/2020 11:10:50 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:10:51 > Conexión TCP desde :192.168.122.121(/192.168.122.121:53051) en el puerto 0
+23/07/2020 11:10:51 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:10:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:10:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:10:54 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 11:10:54 >      IP Local   : 192.168.1.21
+23/07/2020 11:10:54 >      IP Externa : 10.232.43.163
+23/07/2020 11:10:54 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:10:55 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:10:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:10:57 >      Mapeo satisfactorio
+23/07/2020 11:10:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:10:58 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:10:59 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:11:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:11:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:11:02 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:11:03 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:11:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:11:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:11:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:11:07 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:11:09 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 11:11:09 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 11:11:10 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 11:14:00 > Conexión TCP desde :127.0.0.1(/127.0.0.1:36044) en el puerto 0
+23/07/2020 11:14:01 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 11:14:48 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 11:15:33 > Conexión TCP desde :127.0.0.1(/127.0.0.1:36118) en el puerto 0
+23/07/2020 11:15:34 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 11:17:41 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 11:32:11 > ==========  ==========
+23/07/2020 11:32:11 > == QoopoRT v 1.5.7 ==
+23/07/2020 11:32:11 > ==========  ==========
+23/07/2020 11:32:11 > == Fecha:23/07/2020 ==
+23/07/2020 11:32:11 > ==========  ==========
+23/07/2020 11:32:11 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 11:32:11 >      Buscando dispositivos Gateway
+23/07/2020 11:32:11 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 11:32:13 > Conexión TCP desde :127.0.0.1(/127.0.0.1:40686) en el puerto 0
+23/07/2020 11:32:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:14 > Conexión TCP desde :127.0.0.1(/127.0.0.1:40688) en el puerto 0
+23/07/2020 11:32:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:14 > Conexión TCP desde :192.168.122.121(/192.168.122.121:54210) en el puerto 0
+23/07/2020 11:32:14 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:32:15 > Conexión TCP desde :127.0.0.1(/127.0.0.1:40692) en el puerto 0
+23/07/2020 11:32:15 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:15 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 11:32:15 >      IP Local   : 192.168.1.21
+23/07/2020 11:32:15 >      IP Externa : 10.232.43.163
+23/07/2020 11:32:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:18 >      Mapeo satisfactorio
+23/07/2020 11:32:18 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:32:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:22 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:32:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:25 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:26 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:32:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:29 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:30 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:32:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:32:33 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 11:32:34 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 11:32:35 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 11:34:04 > ==========  ==========
+23/07/2020 11:34:04 > == QoopoRT v 1.5.7 ==
+23/07/2020 11:34:04 > ==========  ==========
+23/07/2020 11:34:04 > == Fecha:23/07/2020 ==
+23/07/2020 11:34:04 > ==========  ==========
+23/07/2020 11:34:04 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 11:34:04 >      Buscando dispositivos Gateway
+23/07/2020 11:34:04 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 11:34:04 > Conexión TCP desde :192.168.122.121(/192.168.122.121:54303) en el puerto 0
+23/07/2020 11:34:04 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:34:05 > Conexión TCP desde :127.0.0.1(/127.0.0.1:41136) en el puerto 0
+23/07/2020 11:34:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:06 > Conexión TCP desde :127.0.0.1(/127.0.0.1:41138) en el puerto 0
+23/07/2020 11:34:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:07 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 11:34:07 >      IP Local   : 192.168.1.21
+23/07/2020 11:34:07 >      IP Externa : 10.232.43.163
+23/07/2020 11:34:07 > Conexión TCP desde :127.0.0.1(/127.0.0.1:41140) en el puerto 0
+23/07/2020 11:34:07 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:08 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:34:09 >      Mapeo satisfactorio
+23/07/2020 11:34:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:12 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:34:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:15 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:16 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:34:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:20 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:34:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:24 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 11:34:25 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 11:34:27 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 11:34:46 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 11:34:46 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 11:34:46 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 11:34:47 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 11:34:47 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 11:34:47 >      Buscando dispositivos Gateway
+23/07/2020 11:34:48 > Conexión TCP desde :127.0.0.1(/127.0.0.1:41184) en el puerto 0
+23/07/2020 11:34:48 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:49 > Conexión TCP desde :127.0.0.1(/127.0.0.1:41186) en el puerto 0
+23/07/2020 11:34:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:50 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 11:34:50 >      IP Local   : 192.168.1.21
+23/07/2020 11:34:50 >      IP Externa : 10.232.43.163
+23/07/2020 11:34:51 >      Mapeo satisfactorio
+23/07/2020 11:34:51 > Conexión TCP desde :192.168.122.121(/192.168.122.121:54315) en el puerto 0
+23/07/2020 11:34:51 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:34:52 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:55 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:34:56 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:34:59 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:35:00 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:03 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:35:04 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:06 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 11:35:07 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:35:08 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 11:35:09 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 11:35:38 > ==========  ==========
+23/07/2020 11:35:38 > == QoopoRT v 1.5.7 ==
+23/07/2020 11:35:38 > ==========  ==========
+23/07/2020 11:35:38 > == Fecha:23/07/2020 ==
+23/07/2020 11:35:38 > ==========  ==========
+23/07/2020 11:35:38 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 11:35:38 >      Buscando dispositivos Gateway
+23/07/2020 11:35:38 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 11:35:40 > Conexión TCP desde :127.0.0.1(/127.0.0.1:41350) en el puerto 0
+23/07/2020 11:35:40 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:41 > Conexión TCP desde :127.0.0.1(/127.0.0.1:41352) en el puerto 0
+23/07/2020 11:35:41 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:41 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 11:35:41 >      IP Local   : 192.168.1.21
+23/07/2020 11:35:41 >      IP Externa : 10.232.43.163
+23/07/2020 11:35:42 > Conexión TCP desde :127.0.0.1(/127.0.0.1:41356) en el puerto 0
+23/07/2020 11:35:42 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:42 > Conexión TCP desde :192.168.122.121(/192.168.122.121:54345) en el puerto 0
+23/07/2020 11:35:42 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:35:43 >      Mapeo satisfactorio
+23/07/2020 11:35:44 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:46 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:46 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:35:48 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:50 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:50 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:35:52 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:54 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:54 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:35:56 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:58 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:35:58 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:36:00 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 11:36:01 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 11:36:02 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 11:37:50 > ==========  ==========
+23/07/2020 11:37:50 > == QoopoRT v 1.5.7 ==
+23/07/2020 11:37:50 > ==========  ==========
+23/07/2020 11:37:50 > == Fecha:23/07/2020 ==
+23/07/2020 11:37:50 > ==========  ==========
+23/07/2020 11:37:50 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 11:37:50 >      Buscando dispositivos Gateway
+23/07/2020 11:37:50 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 11:37:51 > Conexión TCP desde :127.0.0.1(/127.0.0.1:42324) en el puerto 0
+23/07/2020 11:37:51 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:37:51 > Conexión TCP desde :192.168.122.121(/192.168.122.121:54531) en el puerto 0
+23/07/2020 11:37:51 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:37:52 > Conexión TCP desde :127.0.0.1(/127.0.0.1:42328) en el puerto 0
+23/07/2020 11:37:52 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:37:53 > Conexión TCP desde :127.0.0.1(/127.0.0.1:42330) en el puerto 0
+23/07/2020 11:37:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:37:53 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 11:37:53 >      IP Local   : 192.168.1.21
+23/07/2020 11:37:53 >      IP Externa : 10.232.43.163
+23/07/2020 11:37:55 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:37:55 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:37:56 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:37:56 >      Mapeo satisfactorio
+23/07/2020 11:37:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:37:59 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:37:59 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:38:00 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:38:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:38:03 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:38:03 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:38:04 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:38:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:38:07 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:38:07 > Se desconectó el equipo [ (null@null) (localhost) ]
+23/07/2020 11:38:08 > Se desconectó el equipo [ (null@null) (localhost) ]
+23/07/2020 11:38:09 > Se desconectó el equipo [ (null@null) (localhost) ]
+23/07/2020 11:38:11 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 11:40:01 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 11:40:11 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 11:40:11 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 11:40:11 >      Buscando dispositivos Gateway
+23/07/2020 11:40:11 > Conexión TCP desde :192.168.122.121(/192.168.122.121:54616) en el puerto 0
+23/07/2020 11:40:11 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:40:14 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 11:40:14 >      IP Local   : 192.168.1.21
+23/07/2020 11:40:14 >      IP Externa : 10.232.43.163
+23/07/2020 11:40:15 >      Mapeo satisfactorio
+23/07/2020 11:40:15 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:40:19 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:40:23 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:40:27 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:40:30 > Conexión TCP desde :127.0.0.1(/127.0.0.1:42444) en el puerto 0
+23/07/2020 11:40:31 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 11:40:31 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 11:40:47 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 11:41:00 > Conexión TCP desde :127.0.0.1(/127.0.0.1:42466) en el puerto 0
+23/07/2020 11:41:00 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 11:41:41 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 11:51:30 > ==========  ==========
+23/07/2020 11:51:30 > == QoopoRT v 1.5.7 ==
+23/07/2020 11:51:30 > ==========  ==========
+23/07/2020 11:51:30 > == Fecha:23/07/2020 ==
+23/07/2020 11:51:30 > ==========  ==========
+23/07/2020 11:51:30 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 11:51:30 >      Buscando dispositivos Gateway
+23/07/2020 11:51:30 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 11:51:30 > Conexión TCP desde :192.168.122.121(/192.168.122.121:55837) en el puerto 0
+23/07/2020 11:51:30 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:51:33 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 11:51:33 >      IP Local   : 192.168.1.21
+23/07/2020 11:51:33 >      IP Externa : 10.232.43.163
+23/07/2020 11:51:34 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:51:35 >      Mapeo satisfactorio
+23/07/2020 11:51:38 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:51:42 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:51:46 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:51:50 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 11:54:47 > ==========  ==========
+23/07/2020 11:54:47 > == QoopoRT v 1.5.7 ==
+23/07/2020 11:54:47 > ==========  ==========
+23/07/2020 11:54:47 > == Fecha:23/07/2020 ==
+23/07/2020 11:54:47 > ==========  ==========
+23/07/2020 11:54:47 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 11:54:47 >      Buscando dispositivos Gateway
+23/07/2020 11:54:47 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 11:54:47 > Conexión TCP desde :192.168.122.121(/192.168.122.121:56273) en el puerto 0
+23/07/2020 11:54:47 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:54:50 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 11:54:50 >      IP Local   : 192.168.1.21
+23/07/2020 11:54:50 >      IP Externa : 10.232.43.163
+23/07/2020 11:54:51 >      Mapeo satisfactorio
+23/07/2020 11:54:51 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:54:55 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:54:59 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:55:03 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:55:07 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 11:55:18 > Conexión TCP desde :127.0.0.1(/127.0.0.1:42940) en el puerto 0
+23/07/2020 11:55:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:55:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:55:24 > Conexión TCP desde :127.0.0.1(/127.0.0.1:42946) en el puerto 0
+23/07/2020 11:55:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:55:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:55:28 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:55:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:55:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:55:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 11:55:56 > ==========  ==========
+23/07/2020 11:55:56 > == QoopoRT v 1.5.7 ==
+23/07/2020 11:55:56 > ==========  ==========
+23/07/2020 11:55:56 > == Fecha:23/07/2020 ==
+23/07/2020 11:55:56 > ==========  ==========
+23/07/2020 11:55:56 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 11:55:56 >      Buscando dispositivos Gateway
+23/07/2020 11:55:56 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 11:55:56 > Conexión TCP desde :192.168.122.121(/192.168.122.121:56347) en el puerto 0
+23/07/2020 11:55:56 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:55:59 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 11:55:59 >      IP Local   : 192.168.1.21
+23/07/2020 11:55:59 >      IP Externa : 10.232.43.163
+23/07/2020 11:56:00 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:56:02 >      Mapeo satisfactorio
+23/07/2020 11:56:04 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:56:08 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:56:12 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 11:56:16 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:08:19 > ==========  ==========
+23/07/2020 12:08:19 > == QoopoRT v 1.5.7 ==
+23/07/2020 12:08:19 > ==========  ==========
+23/07/2020 12:08:19 > == Fecha:23/07/2020 ==
+23/07/2020 12:08:19 > ==========  ==========
+23/07/2020 12:08:19 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 12:08:19 >      Buscando dispositivos Gateway
+23/07/2020 12:08:19 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 12:08:20 > Conexión TCP desde :192.168.122.121(/192.168.122.121:57359) en el puerto 0
+23/07/2020 12:08:20 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:08:22 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 12:08:23 >      IP Local   : 192.168.1.21
+23/07/2020 12:08:23 >      IP Externa : 10.232.43.163
+23/07/2020 12:08:24 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:08:25 >      Mapeo satisfactorio
+23/07/2020 12:08:28 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:08:32 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:08:36 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:08:40 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:09:35 > ==========  ==========
+23/07/2020 12:09:35 > == QoopoRT v 1.5.7 ==
+23/07/2020 12:09:35 > ==========  ==========
+23/07/2020 12:09:35 > == Fecha:23/07/2020 ==
+23/07/2020 12:09:35 > ==========  ==========
+23/07/2020 12:09:35 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 12:09:35 >      Buscando dispositivos Gateway
+23/07/2020 12:09:35 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 12:09:36 > Conexión TCP desde :192.168.122.121(/192.168.122.121:57443) en el puerto 0
+23/07/2020 12:09:36 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:09:38 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 12:09:38 >      IP Local   : 192.168.1.21
+23/07/2020 12:09:38 >      IP Externa : 10.232.43.163
+23/07/2020 12:09:40 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:09:41 >      Mapeo satisfactorio
+23/07/2020 12:09:44 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:09:48 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:09:52 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:09:56 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:13:29 > ==========  ==========
+23/07/2020 12:13:29 > == QoopoRT v 1.5.7 ==
+23/07/2020 12:13:29 > ==========  ==========
+23/07/2020 12:13:29 > == Fecha:23/07/2020 ==
+23/07/2020 12:13:29 > ==========  ==========
+23/07/2020 12:13:29 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 12:13:29 >      Buscando dispositivos Gateway
+23/07/2020 12:13:29 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 12:13:30 > Conexión TCP desde :192.168.122.121(/192.168.122.121:57720) en el puerto 0
+23/07/2020 12:13:30 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:13:32 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 12:13:32 >      IP Local   : 192.168.1.21
+23/07/2020 12:13:32 >      IP Externa : 10.232.43.163
+23/07/2020 12:13:34 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:13:34 >      Mapeo satisfactorio
+23/07/2020 12:13:38 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:13:42 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:13:46 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:13:50 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:14:35 > ==========  ==========
+23/07/2020 12:14:35 > == QoopoRT v 1.5.7 ==
+23/07/2020 12:14:35 > ==========  ==========
+23/07/2020 12:14:35 > == Fecha:23/07/2020 ==
+23/07/2020 12:14:35 > ==========  ==========
+23/07/2020 12:14:35 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 12:14:35 >      Buscando dispositivos Gateway
+23/07/2020 12:14:35 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 12:14:36 > Conexión TCP desde :192.168.122.121(/192.168.122.121:57780) en el puerto 0
+23/07/2020 12:14:36 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:14:38 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 12:14:38 >      IP Local   : 192.168.1.21
+23/07/2020 12:14:38 >      IP Externa : 10.232.43.163
+23/07/2020 12:14:40 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:14:40 >      Mapeo satisfactorio
+23/07/2020 12:14:44 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:14:48 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:14:52 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:14:56 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:18:09 > ==========  ==========
+23/07/2020 12:18:09 > == QoopoRT v 1.5.7 ==
+23/07/2020 12:18:09 > ==========  ==========
+23/07/2020 12:18:09 > == Fecha:23/07/2020 ==
+23/07/2020 12:18:09 > ==========  ==========
+23/07/2020 12:18:09 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 12:18:09 >      Buscando dispositivos Gateway
+23/07/2020 12:18:09 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 12:18:09 > Conexión TCP desde :192.168.122.121(/192.168.122.121:58057) en el puerto 0
+23/07/2020 12:18:09 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:18:12 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 12:18:12 >      IP Local   : 192.168.1.21
+23/07/2020 12:18:12 >      IP Externa : 10.232.43.163
+23/07/2020 12:18:13 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:18:14 >      Mapeo satisfactorio
+23/07/2020 12:18:17 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:18:21 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:18:25 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:18:29 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:19:26 > ==========  ==========
+23/07/2020 12:19:26 > == QoopoRT v 1.5.7 ==
+23/07/2020 12:19:26 > ==========  ==========
+23/07/2020 12:19:26 > == Fecha:23/07/2020 ==
+23/07/2020 12:19:26 > ==========  ==========
+23/07/2020 12:19:26 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 12:19:26 >      Buscando dispositivos Gateway
+23/07/2020 12:19:26 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 12:19:26 > Conexión TCP desde :192.168.122.121(/192.168.122.121:58137) en el puerto 0
+23/07/2020 12:19:26 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:19:29 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 12:19:29 >      IP Local   : 192.168.1.21
+23/07/2020 12:19:29 >      IP Externa : 10.232.43.163
+23/07/2020 12:19:30 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:19:30 >      Mapeo satisfactorio
+23/07/2020 12:19:34 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:19:38 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:19:42 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:19:46 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:22:04 > ==========  ==========
+23/07/2020 12:22:04 > == QoopoRT v 1.5.7 ==
+23/07/2020 12:22:04 > ==========  ==========
+23/07/2020 12:22:04 > == Fecha:23/07/2020 ==
+23/07/2020 12:22:04 > ==========  ==========
+23/07/2020 12:22:04 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 12:22:04 >      Buscando dispositivos Gateway
+23/07/2020 12:22:04 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 12:22:05 > Conexión TCP desde :192.168.122.121(/192.168.122.121:58326) en el puerto 0
+23/07/2020 12:22:05 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:22:07 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 12:22:07 >      IP Local   : 192.168.1.21
+23/07/2020 12:22:07 >      IP Externa : 10.232.43.163
+23/07/2020 12:22:09 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:22:10 >      Mapeo satisfactorio
+23/07/2020 12:22:13 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:22:17 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:22:21 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:22:25 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:24:03 > Conexión TCP desde :127.0.0.1(/127.0.0.1:44026) en el puerto 0
+23/07/2020 12:24:03 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 12:29:16 > ==========  ==========
+23/07/2020 12:29:16 > == QoopoRT v 1.5.7 ==
+23/07/2020 12:29:16 > ==========  ==========
+23/07/2020 12:29:16 > == Fecha:23/07/2020 ==
+23/07/2020 12:29:16 > ==========  ==========
+23/07/2020 12:29:16 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 12:29:16 >      Buscando dispositivos Gateway
+23/07/2020 12:29:16 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 12:29:16 > Conexión TCP desde :192.168.122.121(/192.168.122.121:58727) en el puerto 0
+23/07/2020 12:29:16 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:29:19 > Conexión TCP desde :127.0.0.1(/127.0.0.1:44200) en el puerto 0
+23/07/2020 12:29:19 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 12:29:19 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 12:29:19 >      IP Local   : 192.168.1.21
+23/07/2020 12:29:19 >      IP Externa : 10.232.43.163
+23/07/2020 12:29:20 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:29:22 >      Mapeo satisfactorio
+23/07/2020 12:29:24 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:29:28 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:29:32 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:29:36 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:29:41 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 12:29:41 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:44:38 > ==========  ==========
+23/07/2020 12:44:38 > == QoopoRT v 1.5.7 ==
+23/07/2020 12:44:38 > ==========  ==========
+23/07/2020 12:44:38 > == Fecha:23/07/2020 ==
+23/07/2020 12:44:38 > ==========  ==========
+23/07/2020 12:44:38 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 12:44:38 >      Buscando dispositivos Gateway
+23/07/2020 12:44:38 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 12:44:38 > Conexión TCP desde :192.168.122.121(/192.168.122.121:59994) en el puerto 0
+23/07/2020 12:44:38 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:44:41 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 12:44:41 >      IP Local   : 192.168.1.21
+23/07/2020 12:44:41 >      IP Externa : 10.232.43.163
+23/07/2020 12:44:42 >      Mapeo satisfactorio
+23/07/2020 12:44:42 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:44:46 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:44:46 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45350) en el puerto 0
+23/07/2020 12:44:47 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 12:44:50 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:44:54 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:44:58 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 12:46:59 > ==========  ==========
+23/07/2020 12:46:59 > == QoopoRT v 1.5.7 ==
+23/07/2020 12:46:59 > ==========  ==========
+23/07/2020 12:46:59 > == Fecha:23/07/2020 ==
+23/07/2020 12:46:59 > ==========  ==========
+23/07/2020 12:46:59 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 12:46:59 >      Buscando dispositivos Gateway
+23/07/2020 12:46:59 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 12:47:00 > Conexión TCP desde :192.168.122.121(/192.168.122.121:60142) en el puerto 0
+23/07/2020 12:47:00 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:47:01 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45442) en el puerto 0
+23/07/2020 12:47:01 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 12:47:02 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 12:47:03 >      IP Local   : 192.168.1.21
+23/07/2020 12:47:03 >      IP Externa : 10.232.43.163
+23/07/2020 12:47:04 >      Mapeo satisfactorio
+23/07/2020 12:47:04 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:47:08 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:47:12 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:47:16 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 12:47:20 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 13:46:13 > ==========  ==========
+23/07/2020 13:46:13 > == QoopoRT v 2.0.0 ==
+23/07/2020 13:46:13 > ==========  ==========
+23/07/2020 13:46:13 > == Fecha:23/07/2020 ==
+23/07/2020 13:46:13 > ==========  ==========
+23/07/2020 13:46:13 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 13:46:13 >      Buscando dispositivos Gateway
+23/07/2020 13:46:13 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 13:46:14 > Conexión TCP desde :192.168.122.121(/192.168.122.121:50763) en el puerto 0
+23/07/2020 13:46:14 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 13:46:16 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 13:46:16 >      IP Local   : 192.168.1.21
+23/07/2020 13:46:16 >      IP Externa : 10.232.43.163
+23/07/2020 13:46:18 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 13:46:19 >      Mapeo satisfactorio
+23/07/2020 13:46:22 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 13:46:25 > Conexión TCP desde :127.0.0.1(/127.0.0.1:47462) en el puerto 0
+23/07/2020 13:46:25 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 13:46:26 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 13:46:30 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 13:46:34 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 13:47:54 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 13:47:54 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 13:53:39 > ==========  ==========
+23/07/2020 13:53:39 > == QoopoRT v 2.0.0 ==
+23/07/2020 13:53:39 > ==========  ==========
+23/07/2020 13:53:39 > == Fecha:23/07/2020 ==
+23/07/2020 13:53:39 > ==========  ==========
+23/07/2020 13:53:39 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 13:53:39 >      Buscando dispositivos Gateway
+23/07/2020 13:53:39 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 13:53:40 > Conexión TCP desde :192.168.122.121(/192.168.122.121:51719) en el puerto 0
+23/07/2020 13:53:40 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 13:53:42 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 13:53:42 >      IP Local   : 192.168.1.21
+23/07/2020 13:53:42 >      IP Externa : 10.232.43.163
+23/07/2020 13:53:44 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 13:53:44 >      Mapeo satisfactorio
+23/07/2020 13:53:48 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 13:53:52 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 13:53:56 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 13:54:00 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 13:54:30 > Conexión TCP desde :192.168.1.21(/192.168.1.21:60202) en el puerto 0
+23/07/2020 13:54:30 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 13:54:34 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 13:54:38 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 13:54:42 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 13:54:46 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 13:54:50 > Se conectó agente: [ (alberto@alberto-dell) (192.168.1.21) ]
+23/07/2020 13:54:56 > Se desconectó el equipo [ (alberto@alberto-dell) (192.168.1.21) ]
+23/07/2020 13:55:02 > Conexión TCP desde :192.168.1.21(/192.168.1.21:60242) en el puerto 0
+23/07/2020 13:55:02 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 13:55:06 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 13:55:10 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 13:55:14 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 13:55:18 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 13:55:22 > Se conectó agente: [ (alberto@alberto-dell) (192.168.1.21) ]
+23/07/2020 13:56:03 > Se desconectó el equipo [ (alberto@alberto-dell) (192.168.1.21) ]
+23/07/2020 13:56:05 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 14:05:15 > ==========  ==========
+23/07/2020 14:05:15 > == QoopoRT v 2.0.0 ==
+23/07/2020 14:05:15 > ==========  ==========
+23/07/2020 14:05:15 > == Fecha:23/07/2020 ==
+23/07/2020 14:05:15 > ==========  ==========
+23/07/2020 14:05:15 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 14:05:15 >      Buscando dispositivos Gateway
+23/07/2020 14:05:15 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 14:05:16 > Conexión TCP desde :192.168.122.121(/192.168.122.121:53153) en el puerto 0
+23/07/2020 14:05:16 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:05:18 > Conexión TCP desde :127.0.0.1(/127.0.0.1:48816) en el puerto 0
+23/07/2020 14:05:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:18 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 14:05:19 >      IP Local   : 192.168.1.21
+23/07/2020 14:05:19 >      IP Externa : 10.232.43.163
+23/07/2020 14:05:19 >      Mapeo satisfactorio
+23/07/2020 14:05:19 > Conexión TCP desde :192.168.1.21(/192.168.1.21:32914) en el puerto 0
+23/07/2020 14:05:19 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:05:20 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:05:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:23 > Conexión TCP desde :127.0.0.1(/127.0.0.1:48844) en el puerto 0
+23/07/2020 14:05:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:23 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:05:24 > Conexión TCP desde :127.0.0.1(/127.0.0.1:48848) en el puerto 0
+23/07/2020 14:05:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:24 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:05:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:27 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:05:28 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:28 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:05:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:31 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:05:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:32 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:05:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:35 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:35 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:05:36 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:36 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 14:05:38 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:05:39 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:39 > Se conectó agente: [ (alberto@alberto-dell) (192.168.1.21) ]
+23/07/2020 14:05:40 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:57 > Conexión TCP desde :127.0.0.1(/127.0.0.1:48872) en el puerto 0
+23/07/2020 14:05:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:05:57 > Se desconectó el equipo [ (alberto@alberto-dell) (192.168.1.21) ]
+23/07/2020 14:05:58 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 14:06:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:06:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:06:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:06:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:06:14 > Conexión TCP desde :192.168.1.21(/192.168.1.21:32978) en el puerto 0
+23/07/2020 14:06:14 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:06:17 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:06:18 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:06:19 > Conexión TCP desde :127.0.0.1(/127.0.0.1:48906) en el puerto 0
+23/07/2020 14:06:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:06:22 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:06:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:06:26 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:06:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:06:30 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:06:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:06:34 > Se conectó agente: [ (alberto@alberto-dell) (192.168.1.21) ]
+23/07/2020 14:06:35 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:14 > ==========  ==========
+23/07/2020 14:10:14 > == QoopoRT v 2.0.0 ==
+23/07/2020 14:10:14 > ==========  ==========
+23/07/2020 14:10:14 > == Fecha:23/07/2020 ==
+23/07/2020 14:10:14 > ==========  ==========
+23/07/2020 14:10:14 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 14:10:14 >      Buscando dispositivos Gateway
+23/07/2020 14:10:14 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 14:10:14 > Conexión TCP desde :192.168.1.21(/192.168.1.21:56096) en el puerto 0
+23/07/2020 14:10:14 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:10:16 > Conexión TCP desde :127.0.0.1(/127.0.0.1:43788) en el puerto 0
+23/07/2020 14:10:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:17 > Conexión TCP desde :127.0.0.1(/127.0.0.1:43790) en el puerto 0
+23/07/2020 14:10:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:17 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 14:10:17 >      IP Local   : 192.168.1.21
+23/07/2020 14:10:17 >      IP Externa : 10.232.43.163
+23/07/2020 14:10:18 > Conexión TCP desde :127.0.0.1(/127.0.0.1:43794) en el puerto 0
+23/07/2020 14:10:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:18 > Conexión TCP desde :192.168.122.121(/192.168.122.121:53839) en el puerto 0
+23/07/2020 14:10:18 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:10:18 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:10:19 >      Mapeo satisfactorio
+23/07/2020 14:10:19 > Conexión TCP desde :127.0.0.1(/127.0.0.1:43796) en el puerto 0
+23/07/2020 14:10:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:22 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:10:22 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:10:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:25 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:26 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:10:27 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:10:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:28 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:29 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:30 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:10:31 > Autenticando con nuevo equipo [/192.168.1.21]
+23/07/2020 14:10:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:33 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:34 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:10:35 > Se conectó agente: [ (alberto@alberto-dell) (192.168.1.21) ]
+23/07/2020 14:10:35 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:10:36 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 14:10:37 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:10:39 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:13:19 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:13:51 > Conexión TCP desde :127.0.0.1(/127.0.0.1:43994) en el puerto 0
+23/07/2020 14:13:51 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:13:53 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:13:55 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:13:59 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:14:03 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:14:07 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:14:11 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:14:26 > Conexión TCP desde :127.0.0.1(/127.0.0.1:44038) en el puerto 0
+23/07/2020 14:14:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:14:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:14:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:14:38 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:14:42 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:14:46 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:16:59 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:17:30 > Conexión TCP desde :127.0.0.1(/127.0.0.1:44208) en el puerto 0
+23/07/2020 14:17:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:17:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:17:38 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:17:42 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:17:46 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:17:50 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:20:51 > Se desconectó el equipo [ (alberto@alberto-dell) (192.168.1.21) ]
+23/07/2020 14:20:52 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 14:21:32 > Conexión TCP desde :192.168.122.41(/192.168.122.41:1061) en el puerto 0
+23/07/2020 14:21:33 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:21:37 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:21:41 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:21:45 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:21:46 > Conexión TCP desde :127.0.0.1(/127.0.0.1:44466) en el puerto 0
+23/07/2020 14:21:49 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:21:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:21:53 > Se conectó agente: [ (alberto@desarrolloJVC) (192.168.122.41) ]
+23/07/2020 14:21:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:21:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:22:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:22:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:22:22 > Se desconectó el equipo [ (alberto@desarrolloJVC) (192.168.122.41) ]
+23/07/2020 14:22:37 > Conexión TCP desde :192.168.122.41(/192.168.122.41:1094) en el puerto 0
+23/07/2020 14:22:37 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:22:41 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:22:45 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:22:46 > Conexión TCP desde :127.0.0.1(/127.0.0.1:44502) en el puerto 0
+23/07/2020 14:22:47 > Agente (betog@DESKTOP-L7FQJ0D):Error al subir archivo (/home/alberto/DATOS/RATS/qooport/servidor/agente.jar)  . Intentar nuevamente. Error=unexpected EOF in middle of data block
+23/07/2020 14:22:47 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:22:49 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:22:51 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:22:53 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:22:55 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:22:57 > Se conectó agente: [ (alberto@desarrolloJVC) (192.168.122.41) ]
+23/07/2020 14:22:59 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:23:02 > Se desconectó el equipo [ (alberto@desarrolloJVC) (192.168.122.41) ]
+23/07/2020 14:23:03 > Se desconectó el equipo [ (null@null) (localhost) ]
+23/07/2020 14:23:35 > Conexión TCP desde :192.168.122.41(/192.168.122.41:1107) en el puerto 0
+23/07/2020 14:23:35 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:23:36 > Conexión TCP desde :127.0.0.1(/127.0.0.1:44540) en el puerto 0
+23/07/2020 14:23:36 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:23:39 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:23:40 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:23:43 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:23:44 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:23:47 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:23:48 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:23:51 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:23:52 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:23:55 > Se conectó agente: [ (alberto@desarrolloJVC) (192.168.122.41) ]
+23/07/2020 14:28:06 > ==========  ==========
+23/07/2020 14:28:06 > == QoopoRT v 2.0.0 ==
+23/07/2020 14:28:06 > ==========  ==========
+23/07/2020 14:28:06 > == Fecha:23/07/2020 ==
+23/07/2020 14:28:06 > ==========  ==========
+23/07/2020 14:28:06 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 14:28:06 >      Buscando dispositivos Gateway
+23/07/2020 14:28:06 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 14:28:07 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46282) en el puerto 0
+23/07/2020 14:28:07 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:08 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46286) en el puerto 0
+23/07/2020 14:28:08 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:09 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46288) en el puerto 0
+23/07/2020 14:28:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:09 > Conexión TCP desde :192.168.122.41(/192.168.122.41:1513) en el puerto 0
+23/07/2020 14:28:09 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:28:09 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 14:28:10 >      IP Local   : 192.168.1.21
+23/07/2020 14:28:10 >      IP Externa : 10.232.43.163
+23/07/2020 14:28:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:12 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:13 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:28:13 >      Mapeo satisfactorio
+23/07/2020 14:28:15 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:17 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:28:19 > Conexión TCP desde :192.168.122.121(/192.168.122.121:55425) en el puerto 0
+23/07/2020 14:28:19 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:28:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:21 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:28:22 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46310) en el puerto 0
+23/07/2020 14:28:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:23 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:28:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:25 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:25 > Autenticando con nuevo equipo [/192.168.122.41]
+23/07/2020 14:28:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:27 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:28:27 > Se conectó agente: [ (alberto@desarrolloJVC) (localhost) ]
+23/07/2020 14:28:28 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:28:29 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:28:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:31 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:28:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:35 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:28:38 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:28:39 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 14:30:16 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:30:28 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 14:30:28 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 14:30:34 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:30:35 > Conexión TCP desde :192.168.122.121(/192.168.122.121:55452) en el puerto 0
+23/07/2020 14:30:35 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:30:39 > Se desconectó el equipo [ (null@null) (192.168.122.121) ]
+23/07/2020 14:30:59 > Conexión TCP desde :192.168.122.121(/192.168.122.121:55457) en el puerto 0
+23/07/2020 14:30:59 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:31:00 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46390) en el puerto 0
+23/07/2020 14:31:00 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:01 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46392) en el puerto 0
+23/07/2020 14:31:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:03 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:31:04 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:07 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:31:07 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46406) en el puerto 0
+23/07/2020 14:31:07 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:08 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:11 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:31:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:12 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:15 > Autenticando con nuevo equipo [/192.168.122.121]
+23/07/2020 14:31:15 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:19 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 14:31:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:20 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:31:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:31:26 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:31:27 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:31:58 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46432) en el puerto 0
+23/07/2020 14:31:58 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:32:02 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:32:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:32:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:32:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:32:18 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:32:32 > Agente (alberto@desarrolloJVC):Error al subir servidor. Intentar nuevamente 
+23/07/2020 14:33:20 > Agente (alberto@desarrolloJVC):Error al subir servidor. Intentar nuevamente 
+23/07/2020 14:33:38 > Se desconectó el equipo [ (alberto@desarrolloJVC) (192.168.122.41) ]
+23/07/2020 14:33:38 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:33:38 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:33:38 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (192.168.122.121) ]
+23/07/2020 14:33:38 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 14:33:50 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46506) en el puerto 0
+23/07/2020 14:33:50 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:33:54 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:33:58 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:02 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:09 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46518) en el puerto 0
+23/07/2020 14:34:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:10 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:34:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:18 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46528) en el puerto 0
+23/07/2020 14:34:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:19 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46530) en el puerto 0
+23/07/2020 14:34:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:25 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:29 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:34:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:35 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:34:38 > Se conectó agente: [ (alberto@desarrolloJVC) (localhost) ]
+23/07/2020 14:34:39 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 14:36:46 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:36:46 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:36:46 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 14:36:46 > Se desconectó el equipo [ (alberto@desarrolloJVC) (localhost) ]
+23/07/2020 14:57:49 > ==========  ==========
+23/07/2020 14:57:49 > == QoopoRT v 2.0.0 ==
+23/07/2020 14:57:49 > ==========  ==========
+23/07/2020 14:57:49 > == Fecha:23/07/2020 ==
+23/07/2020 14:57:49 > ==========  ==========
+23/07/2020 14:57:52 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 14:57:52 >      Buscando dispositivos Gateway
+23/07/2020 14:57:52 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 14:57:54 > Conexión TCP desde :127.0.0.1(/127.0.0.1:38900) en el puerto 0
+23/07/2020 14:57:54 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:57:55 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 14:57:55 >      IP Local   : 192.168.1.21
+23/07/2020 14:57:55 >      IP Externa : 10.232.43.163
+23/07/2020 14:57:55 > Conexión TCP desde :127.0.0.1(/127.0.0.1:38904) en el puerto 0
+23/07/2020 14:57:55 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:57:57 >      Mapeo satisfactorio
+23/07/2020 14:57:57 > Conexión TCP desde :127.0.0.1(/127.0.0.1:38906) en el puerto 0
+23/07/2020 14:57:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:57:58 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:57:59 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:02 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:03 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:07 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:15 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 14:58:16 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 14:58:17 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 14:58:20 > Conexión TCP desde :127.0.0.1(/127.0.0.1:38930) en el puerto 0
+23/07/2020 14:58:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:28 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:36 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 14:58:40 > Se conectó agente: [ (alberto@desarrolloJVC) (localhost) ]
+23/07/2020 15:00:57 > Se desconectó el equipo [ (alberto@desarrolloJVC) (localhost) ]
+23/07/2020 15:01:30 > Conexión TCP desde :127.0.0.1(/127.0.0.1:39032) en el puerto 0
+23/07/2020 15:01:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:01:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:01:38 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:01:42 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:01:46 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:01:50 > Se conectó agente: [ (alberto@desarrolloJVC) (localhost) ]
+23/07/2020 15:25:18 > Se desconectó el equipo [ (alberto@desarrolloJVC) (localhost) ]
+23/07/2020 15:28:26 > Conexión TCP desde :127.0.0.1(/127.0.0.1:39920) en el puerto 0
+23/07/2020 15:28:27 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 15:37:28 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 15:37:28 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 15:37:28 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 15:37:28 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 15:37:32 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 15:37:32 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 15:37:32 >      Buscando dispositivos Gateway
+23/07/2020 15:37:32 > Conexión TCP desde :127.0.0.1(/127.0.0.1:40338) en el puerto 0
+23/07/2020 15:37:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:33 > Conexión TCP desde :127.0.0.1(/127.0.0.1:40340) en el puerto 0
+23/07/2020 15:37:33 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:34 > Conexión TCP desde :127.0.0.1(/127.0.0.1:40342) en el puerto 0
+23/07/2020 15:37:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:34 > Conexión TCP desde :127.0.0.1(/127.0.0.1:40344) en el puerto 0
+23/07/2020 15:37:34 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 15:37:35 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 15:37:35 >      IP Local   : 192.168.1.21
+23/07/2020 15:37:35 >      IP Externa : 10.232.43.163
+23/07/2020 15:37:36 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:36 >      Mapeo satisfactorio
+23/07/2020 15:37:37 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:38 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:40 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:41 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:42 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:44 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:46 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:48 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:50 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:37:52 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 15:37:53 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 15:37:54 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 15:43:18 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 15:43:18 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 15:43:18 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 15:43:18 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 15:56:12 > ==========  ==========
+23/07/2020 15:56:12 > == QoopoRT v 2.0.0 ==
+23/07/2020 15:56:12 > ==========  ==========
+23/07/2020 15:56:13 > == Fecha:23/07/2020 ==
+23/07/2020 15:56:13 > ==========  ==========
+23/07/2020 15:56:13 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 15:56:13 >      Buscando dispositivos Gateway
+23/07/2020 15:56:13 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 15:56:14 > Conexión TCP desde :127.0.0.1(/127.0.0.1:52372) en el puerto 0
+23/07/2020 15:56:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:15 > Conexión TCP desde :127.0.0.1(/127.0.0.1:52376) en el puerto 0
+23/07/2020 15:56:15 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:16 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 15:56:16 >      IP Local   : 192.168.1.21
+23/07/2020 15:56:16 >      IP Externa : 10.232.43.163
+23/07/2020 15:56:17 >      Mapeo satisfactorio
+23/07/2020 15:56:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:25 > Conexión TCP desde :127.0.0.1(/127.0.0.1:52382) en el puerto 0
+23/07/2020 15:56:25 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:25 > Conexión TCP desde :127.0.0.1(/127.0.0.1:52394) en el puerto 0
+23/07/2020 15:56:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:26 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 15:56:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:29 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:33 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:34 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 15:56:35 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 15:56:37 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:41 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 15:56:45 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 16:02:16 > ==========  ==========
+23/07/2020 16:02:16 > == QoopoRT v 2.0.0 ==
+23/07/2020 16:02:16 > ==========  ==========
+23/07/2020 16:02:16 > == Fecha:23/07/2020 ==
+23/07/2020 16:02:16 > ==========  ==========
+23/07/2020 16:02:16 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 16:02:16 >      Buscando dispositivos Gateway
+23/07/2020 16:02:16 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 16:02:16 > Conexión TCP desde :127.0.0.1(/127.0.0.1:56788) en el puerto 0
+23/07/2020 16:02:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:17 > Conexión TCP desde :127.0.0.1(/127.0.0.1:56790) en el puerto 0
+23/07/2020 16:02:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:18 > Conexión TCP desde :127.0.0.1(/127.0.0.1:56792) en el puerto 0
+23/07/2020 16:02:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:19 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 16:02:19 >      IP Local   : 192.168.1.21
+23/07/2020 16:02:19 >      IP Externa : 10.232.43.163
+23/07/2020 16:02:20 >      Mapeo satisfactorio
+23/07/2020 16:02:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:25 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:27 > Conexión TCP desde :127.0.0.1(/127.0.0.1:56812) en el puerto 0
+23/07/2020 16:02:27 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 16:02:29 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:29 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:33 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:33 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 16:02:37 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 16:02:37 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 16:02:38 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 17:30:27 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 17:30:27 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 17:30:27 > Se desconectó el equipo [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 17:30:30 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57614) en el puerto 0
+23/07/2020 17:30:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:31 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57616) en el puerto 0
+23/07/2020 17:30:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:33 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:33 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57618) en el puerto 0
+23/07/2020 17:30:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:35 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:37 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:38 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:39 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:41 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:42 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:43 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:46 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:47 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:48 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 17:30:50 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 17:30:50 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 17:30:50 >      Buscando dispositivos Gateway
+23/07/2020 17:30:51 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 17:30:52 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57664) en el puerto 0
+23/07/2020 17:30:52 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:30:52 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57670) en el puerto 0
+23/07/2020 17:30:52 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 17:31:00 > ==========  ==========
+23/07/2020 17:31:00 > == QoopoRT v 2.0.0 ==
+23/07/2020 17:31:00 > ==========  ==========
+23/07/2020 17:31:00 > == Fecha:23/07/2020 ==
+23/07/2020 17:31:00 > ==========  ==========
+23/07/2020 17:31:00 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 17:31:00 >      Buscando dispositivos Gateway
+23/07/2020 17:31:00 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 17:31:00 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57804) en el puerto 0
+23/07/2020 17:31:00 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:01 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57808) en el puerto 0
+23/07/2020 17:31:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:02 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57810) en el puerto 0
+23/07/2020 17:31:02 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:02 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57812) en el puerto 0
+23/07/2020 17:31:03 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 17:31:03 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 17:31:03 >      IP Local   : 192.168.1.21
+23/07/2020 17:31:03 >      IP Externa : 10.232.43.163
+23/07/2020 17:31:04 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:05 >      Mapeo satisfactorio
+23/07/2020 17:31:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:08 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:12 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:16 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:31:20 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 17:31:21 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 17:31:22 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 17:32:55 > ==========  ==========
+23/07/2020 17:32:55 > == QoopoRT v 2.0.0 ==
+23/07/2020 17:32:55 > ==========  ==========
+23/07/2020 17:32:55 > == Fecha:23/07/2020 ==
+23/07/2020 17:32:55 > ==========  ==========
+23/07/2020 17:32:55 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 17:32:55 >      Buscando dispositivos Gateway
+23/07/2020 17:32:55 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 17:32:56 > Conexión TCP desde :127.0.0.1(/127.0.0.1:58256) en el puerto 0
+23/07/2020 17:32:56 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:32:57 > Conexión TCP desde :127.0.0.1(/127.0.0.1:58258) en el puerto 0
+23/07/2020 17:32:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:32:58 > Conexión TCP desde :127.0.0.1(/127.0.0.1:58260) en el puerto 0
+23/07/2020 17:32:58 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:32:58 > Conexión TCP desde :127.0.0.1(/127.0.0.1:58262) en el puerto 0
+23/07/2020 17:32:59 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 17:32:59 >      IP Local   : 192.168.1.21
+23/07/2020 17:32:59 >      IP Externa : 10.232.43.163
+23/07/2020 17:33:00 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 17:33:00 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:01 >      Mapeo satisfactorio
+23/07/2020 17:33:02 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:04 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:05 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:08 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:09 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:12 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:33:16 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 17:33:17 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 17:33:18 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 17:45:21 > ==========  ==========
+23/07/2020 17:45:21 > == QoopoRT v 2.0.0 ==
+23/07/2020 17:45:21 > ==========  ==========
+23/07/2020 17:45:21 > == Fecha:23/07/2020 ==
+23/07/2020 17:45:21 > ==========  ==========
+23/07/2020 17:45:21 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 17:45:21 >      Buscando dispositivos Gateway
+23/07/2020 17:45:21 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 17:45:23 > Conexión TCP desde :127.0.0.1(/127.0.0.1:36788) en el puerto 0
+23/07/2020 17:45:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:24 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 17:45:24 > Conexión TCP desde :127.0.0.1(/127.0.0.1:36790) en el puerto 0
+23/07/2020 17:45:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:25 >      IP Local   : 192.168.1.21
+23/07/2020 17:45:25 >      IP Externa : 10.232.43.163
+23/07/2020 17:45:26 > Conexión TCP desde :127.0.0.1(/127.0.0.1:36792) en el puerto 0
+23/07/2020 17:45:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:27 >      Mapeo satisfactorio
+23/07/2020 17:45:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:28 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:29 > Conexión TCP desde :127.0.0.1(/127.0.0.1:36810) en el puerto 0
+23/07/2020 17:45:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:30 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 17:45:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:35 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:36 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:38 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:39 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:40 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:42 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 17:45:43 > Se conectó agente: [ (betog@DESKTOP-L7FQJ0D) (localhost) ]
+23/07/2020 17:45:44 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 17:45:46 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 17:48:13 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 17:50:28 > Conexión TCP desde :127.0.0.1(/127.0.0.1:37012) en el puerto 0
+23/07/2020 17:50:29 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 18:32:46 > ==========  ==========
+23/07/2020 18:32:46 > == QoopoRT v 2.0.0 ==
+23/07/2020 18:32:46 > ==========  ==========
+23/07/2020 18:32:46 > == Fecha:23/07/2020 ==
+23/07/2020 18:32:46 > ==========  ==========
+23/07/2020 18:32:46 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 18:32:46 >      Buscando dispositivos Gateway
+23/07/2020 18:32:46 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 18:32:51 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 18:32:51 >      IP Local   : 192.168.1.21
+23/07/2020 18:32:51 >      IP Externa : 10.232.43.163
+23/07/2020 18:32:53 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45266) en el puerto 0
+23/07/2020 18:32:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:32:55 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45264) en el puerto 0
+23/07/2020 18:32:55 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:32:55 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45276) en el puerto 0
+23/07/2020 18:32:56 >      Mapeo satisfactorio
+23/07/2020 18:32:57 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 18:32:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:32:59 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:33:02 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:33:03 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:33:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:33:07 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:33:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:33:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:33:14 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 18:33:15 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 18:33:23 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 18:33:23 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 18:34:03 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45350) en el puerto 0
+23/07/2020 18:34:03 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:34:04 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45352) en el puerto 0
+23/07/2020 18:34:04 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:34:07 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:34:08 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:34:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:34:13 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:34:15 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:34:17 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:34:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:34:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:34:23 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 18:34:45 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 18:35:47 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45412) en el puerto 0
+23/07/2020 18:35:56 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 18:37:13 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 18:37:13 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 18:37:21 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45478) en el puerto 0
+23/07/2020 18:37:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:37:39 > Se desconectó el equipo [ (null@null) (localhost) ]
+23/07/2020 18:37:45 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45508) en el puerto 0
+23/07/2020 18:37:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:37:46 > Conexión TCP desde :127.0.0.1(/127.0.0.1:45510) en el puerto 0
+23/07/2020 18:37:46 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:37:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:37:50 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:37:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:37:54 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:37:55 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 18:37:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:37:58 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:38:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:38:02 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:38:05 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 18:38:06 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 18:55:25 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46122) en el puerto 0
+23/07/2020 18:55:25 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 18:56:14 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 18:56:14 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 18:56:14 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 18:56:31 > ==========  ==========
+23/07/2020 18:56:31 > == QoopoRT v 2.0.0 ==
+23/07/2020 18:56:31 > ==========  ==========
+23/07/2020 18:56:31 > == Fecha:23/07/2020 ==
+23/07/2020 18:56:31 > ==========  ==========
+23/07/2020 18:56:31 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 18:56:31 >      Buscando dispositivos Gateway
+23/07/2020 18:56:31 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 18:56:32 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46354) en el puerto 0
+23/07/2020 18:56:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:56:33 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46356) en el puerto 0
+23/07/2020 18:56:33 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:56:33 > Conexión TCP desde :127.0.0.1(/127.0.0.1:46360) en el puerto 0
+23/07/2020 18:56:33 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 18:56:34 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 18:56:35 >      IP Local   : 192.168.1.21
+23/07/2020 18:56:35 >      IP Externa : 10.232.43.163
+23/07/2020 18:56:36 >      Mapeo satisfactorio
+23/07/2020 18:56:36 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:56:37 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:56:40 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:56:41 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:56:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:56:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:56:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:56:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 18:56:53 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 18:56:53 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 19:12:21 > ==========  ==========
+23/07/2020 19:12:21 > == QoopoRT v 2.0.0 ==
+23/07/2020 19:12:21 > ==========  ==========
+23/07/2020 19:12:21 > == Fecha:23/07/2020 ==
+23/07/2020 19:12:21 > ==========  ==========
+23/07/2020 19:12:21 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 19:12:21 >      Buscando dispositivos Gateway
+23/07/2020 19:12:21 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 19:12:23 > Conexión TCP desde :127.0.0.1(/127.0.0.1:52374) en el puerto 0
+23/07/2020 19:12:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:12:24 > Conexión TCP desde :127.0.0.1(/127.0.0.1:52376) en el puerto 0
+23/07/2020 19:12:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:12:25 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 19:12:25 >      IP Local   : 192.168.1.21
+23/07/2020 19:12:25 >      IP Externa : 10.232.43.163
+23/07/2020 19:12:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:12:28 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:12:28 >      Mapeo satisfactorio
+23/07/2020 19:12:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:12:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:12:32 > Conexión TCP desde :127.0.0.1(/127.0.0.1:52394) en el puerto 0
+23/07/2020 19:12:32 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 19:12:35 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:12:36 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:12:39 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:12:40 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:12:43 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 19:12:44 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 19:13:19 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 19:17:25 > Conexión TCP desde :127.0.0.1(/127.0.0.1:52598) en el puerto 0
+23/07/2020 19:17:26 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 19:18:51 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 19:32:05 > ==========  ==========
+23/07/2020 19:32:05 > == QoopoRT v 2.0.0 ==
+23/07/2020 19:32:05 > ==========  ==========
+23/07/2020 19:32:05 > == Fecha:23/07/2020 ==
+23/07/2020 19:32:05 > ==========  ==========
+23/07/2020 19:32:05 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 19:32:05 >      Buscando dispositivos Gateway
+23/07/2020 19:32:05 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 19:32:06 > Conexión TCP desde :127.0.0.1(/127.0.0.1:32992) en el puerto 0
+23/07/2020 19:32:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:32:07 > Conexión TCP desde :127.0.0.1(/127.0.0.1:32996) en el puerto 0
+23/07/2020 19:32:07 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:32:08 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 19:32:08 >      IP Local   : 192.168.1.21
+23/07/2020 19:32:08 >      IP Externa : 10.232.43.163
+23/07/2020 19:32:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:32:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:32:13 >      Mapeo satisfactorio
+23/07/2020 19:32:13 > Conexión TCP desde :127.0.0.1(/127.0.0.1:33014) en el puerto 0
+23/07/2020 19:32:14 > Se conectó agente: [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 19:32:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:32:15 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:32:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:32:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:32:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:32:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 19:32:26 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 19:32:27 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 19:36:11 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 19:36:11 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 19:36:11 > Se desconectó el equipo [ (alberto@alberto-dell) (localhost) ]
+23/07/2020 20:42:09 > ==========  ==========
+23/07/2020 20:42:09 > == QoopoRT v 2.0.0 ==
+23/07/2020 20:42:09 > ==========  ==========
+23/07/2020 20:42:09 > == Fecha:23/07/2020 ==
+23/07/2020 20:42:09 > ==========  ==========
+23/07/2020 20:42:09 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 20:42:09 >      Buscando dispositivos Gateway
+23/07/2020 20:42:09 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 20:42:10 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57210) en el puerto 0
+23/07/2020 20:42:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 20:42:11 > Conexión TCP desde :127.0.0.1(/127.0.0.1:57212) en el puerto 0
+23/07/2020 20:42:11 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 20:42:12 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 20:42:12 >      IP Local   : 192.168.1.21
+23/07/2020 20:42:12 >      IP Externa : 10.232.43.163
+23/07/2020 20:42:13 >      Mapeo satisfactorio
+23/07/2020 20:42:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 20:42:15 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 20:42:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 20:42:19 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 20:42:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 20:42:23 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 20:42:26 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 20:42:27 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 20:42:30 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 20:42:31 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 20:43:08 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 20:43:08 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 21:34:42 > ==========  ==========
+23/07/2020 21:34:42 > == QoopoRT v 2.0.0 ==
+23/07/2020 21:34:42 > ==========  ==========
+23/07/2020 21:34:42 > == Fecha:23/07/2020 ==
+23/07/2020 21:34:42 > ==========  ==========
+23/07/2020 21:34:42 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 21:34:42 >      Buscando dispositivos Gateway
+23/07/2020 21:34:42 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 21:34:43 > Conexión TCP desde :127.0.0.1(/127.0.0.1:58818) en el puerto 0
+23/07/2020 21:34:43 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:34:45 > Conexión TCP desde :127.0.0.1(/127.0.0.1:58820) en el puerto 0
+23/07/2020 21:34:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:34:45 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 21:34:45 >      IP Local   : 192.168.1.21
+23/07/2020 21:34:45 >      IP Externa : 10.232.43.163
+23/07/2020 21:34:47 >      Mapeo satisfactorio
+23/07/2020 21:34:47 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:34:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:34:51 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:34:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:34:55 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:34:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:35:00 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:35:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:35:04 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 21:35:05 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 21:35:50 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 21:35:50 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 21:37:30 > ==========  ==========
+23/07/2020 21:37:30 > == QoopoRT v 2.0.0 ==
+23/07/2020 21:37:30 > ==========  ==========
+23/07/2020 21:37:30 > == Fecha:23/07/2020 ==
+23/07/2020 21:37:30 > ==========  ==========
+23/07/2020 21:37:30 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 21:37:30 >      Buscando dispositivos Gateway
+23/07/2020 21:37:30 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 21:37:31 > Conexión TCP desde :127.0.0.1(/127.0.0.1:59852) en el puerto 0
+23/07/2020 21:37:31 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:37:32 > Conexión TCP desde :127.0.0.1(/127.0.0.1:59854) en el puerto 0
+23/07/2020 21:37:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:37:33 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 21:37:33 >      IP Local   : 192.168.1.21
+23/07/2020 21:37:33 >      IP Externa : 10.232.43.163
+23/07/2020 21:37:34 >      Mapeo satisfactorio
+23/07/2020 21:37:35 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:37:36 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:37:39 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:37:40 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:37:43 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:37:44 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:37:47 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:37:48 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:37:51 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 21:37:52 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 21:38:22 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 21:38:22 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 21:39:19 > ==========  ==========
+23/07/2020 21:39:19 > == QoopoRT v 2.0.0 ==
+23/07/2020 21:39:19 > ==========  ==========
+23/07/2020 21:39:19 > == Fecha:23/07/2020 ==
+23/07/2020 21:39:19 > ==========  ==========
+23/07/2020 21:39:19 >   Iniciando weupnp. Redireccionar puerto 4000
+23/07/2020 21:39:19 >      Buscando dispositivos Gateway
+23/07/2020 21:39:19 > Esperando conexiones en el puerto [4000] (TCP)
+23/07/2020 21:39:20 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60498) en el puerto 0
+23/07/2020 21:39:20 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:39:21 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60502) en el puerto 0
+23/07/2020 21:39:21 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:39:22 >      Dispositivo Gateway encontrado. [813Gv2-1] [Calix Internet Gateway Device]
+23/07/2020 21:39:22 >      IP Local   : 192.168.1.21
+23/07/2020 21:39:22 >      IP Externa : 10.232.43.163
+23/07/2020 21:39:23 >      Mapeo satisfactorio
+23/07/2020 21:39:24 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:39:25 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:39:28 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:39:29 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:39:32 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:39:33 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:39:36 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:39:37 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:39:40 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 21:39:41 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 21:42:51 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 21:43:01 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 21:43:06 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60662) en el puerto 0
+23/07/2020 21:43:06 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:43:10 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:43:14 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:43:18 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:43:22 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:43:26 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 21:43:33 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60680) en el puerto 0
+23/07/2020 21:43:33 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:43:37 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:43:41 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:43:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:43:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:43:53 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 21:44:15 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 21:44:20 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 21:44:30 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60718) en el puerto 0
+23/07/2020 21:44:30 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:44:34 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:44:38 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:44:42 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:44:45 > Conexión TCP desde :127.0.0.1(/127.0.0.1:60734) en el puerto 0
+23/07/2020 21:44:45 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:44:46 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:44:49 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:44:50 > Se conectó agente: [ (coruser1@uiocordes01.andinatel.int) (localhost) ]
+23/07/2020 21:44:53 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:44:57 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:45:01 > Autenticando con nuevo equipo [/127.0.0.1]
+23/07/2020 21:45:05 > Se conectó agente: [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 21:47:37 > Se desconectó el equipo [ (Administrador@USUARIO-DC25HMI) (localhost) ]
+23/07/2020 21:47:37 > Se desconectó el equipo [ (coruser1@uiocordes01.andinatel.int) (localhost) ]

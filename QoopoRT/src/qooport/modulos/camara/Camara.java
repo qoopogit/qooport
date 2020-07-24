@@ -95,7 +95,7 @@ public class Camara extends VentanaReproductor implements WindowListener {
         iniciarHilos();
         this.servidor = servidor;
         reproductor = new Reproductor();
-        reproductor.setDirectorioEscritorio(getServidor().getdWebCam());
+        reproductor.setDirectorioEscritorio(getAgente().getdWebCam());
         initComponents();
         pidiendo = false;
 //        yaLlego = true;
@@ -427,7 +427,7 @@ public class Camara extends VentanaReproductor implements WindowListener {
         this.webcam = webcam;
     }
 
-    public Asociado getServidor() {
+    public Asociado getAgente() {
         return servidor;
     }
 
@@ -531,24 +531,24 @@ public class Camara extends VentanaReproductor implements WindowListener {
             if (frameControles == null) {
                 frameControles = new JWindow(this);
                 frameControles.setLayout(new BorderLayout());
+                frameControles.setType(Type.UTILITY);
+                frameControles.setVisible(true);
+                btnActivar.setBorderPainted(false);
+                btnVerPantallaCompleta.setBorderPainted(false);
+                btnIniciarDetener.setBorderPainted(false);
+                
                 JToolBar panelSur = new JToolBar();
                 panelSur.setBackground(barra.getBackground());
                 panelSur.setOpaque(true);
                 panelSur.setFloatable(false);
-                Border padding = BorderFactory.createEmptyBorder(0, 0, 0, 0);
-                panelSur.setBorder(padding);
+                panelSur.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
                 panelSur.setMargin(new Insets(0, 0, 0, 0));
                 panelSur.setLayout(new FlowLayout(FlowLayout.CENTER));
-                btnActivar.setBorderPainted(false);
-                btnVerPantallaCompleta.setBorderPainted(false);
-                btnIniciarDetener.setBorderPainted(false);
                 panelSur.add(btnActivar);
                 panelSur.add(btnVerPantallaCompleta);
                 panelSur.add(btnIniciarDetener);
                 frameControles.add(panelSur, BorderLayout.SOUTH);
                 frameControles.add(barra, BorderLayout.NORTH);
-                frameControles.setType(Type.UTILITY);
-                frameControles.setVisible(true);
                 frameControles.pack();
                 tamanioBarra = frameControles.getHeight();
             }

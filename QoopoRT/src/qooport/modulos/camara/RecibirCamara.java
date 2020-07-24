@@ -67,8 +67,8 @@ public class RecibirCamara extends Thread {
                     if (!ventana.isVisible()) {
                         ventana.setVisible(true);
                     }
-                    ventana.setTitle("Cámara Remota [" + ventana.getServidor().getInformacion() + "]");
-                    cap = (Captura) Util.descomprimirObjeto(buffer, ventana.getServidor());//con compresion
+                    ventana.setTitle("Cámara Remota [" + ventana.getAgente().getInformacion() + "]");
+                    cap = (Captura) Util.descomprimirObjeto(buffer, ventana.getAgente());//con compresion
                     reproductor.setGrabar(ventana.getItmGrabar().isSelected());
                     reproductor.reproducir(cap);
                     actualizarContadores(cap, buffer.length);

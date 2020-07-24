@@ -14,6 +14,11 @@ public class Informacion extends JFrame {
     public Informacion(EscritorioRemoto escritorio) {
         this.ventana = escritorio;
         initComponents();
+        setTitle("Información");
+        try {
+            setTitle("Información [" + ventana.getAgente().getInformacion() + "]");
+        } catch (Exception e) {
+        }
     }
 
     private void initComponents() {
@@ -76,6 +81,14 @@ public class Informacion extends JFrame {
         this.setResizable(true);
         this.setVisible(true);
         pack();
+    }
+
+    public EscritorioRemoto getVentana() {
+        return ventana;
+    }
+
+    public void setVentana(EscritorioRemoto ventana) {
+        this.ventana = ventana;
     }
 
 }

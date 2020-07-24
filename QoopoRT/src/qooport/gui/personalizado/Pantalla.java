@@ -128,8 +128,7 @@ public class Pantalla extends JLabel implements
             cx = tmp.getCx();
             cy = tmp.getCy();
             tmp = null;
-            Icon icono = new ImageIcon(imagen);
-            this.setIcon(icono);
+            this.setIcon(new ImageIcon(imagen));
         }
     }
 
@@ -140,7 +139,7 @@ public class Pantalla extends JLabel implements
             }
             cx = 0;
             cy = 0;
-            Icon icono = null;
+//            Icon icono = null;
             if (ventana.isAjustarVentana()) {
                 //ajustar ventana al tamaño de la imagen
                 ajustarVentanaAimagen();
@@ -150,15 +149,13 @@ public class Pantalla extends JLabel implements
                     switch (ventana.getESCALA()) {
                         case ESCALA_VENTANA:
                             //escala la imagen al tamaño de la ventana
-                            icono = new ImageIcon(QoopoIMG.escalar(imagen, 2, 0, ventana.isEscalarSuave(), this.getWidth(), this.getHeight()));
-                            this.setIcon(icono);
+                            this.setIcon(new ImageIcon(QoopoIMG.escalar(imagen, 2, 0, ventana.isEscalarSuave(), this.getWidth(), this.getHeight())));
                             break;
                         case ESCALA_PERFECTO:
                             ajustarPerfecto();
                             break;
                         default: //dibuja tal cual
-                            icono = new ImageIcon(imagen);
-                            this.setIcon(icono);
+                            this.setIcon(new ImageIcon(imagen));
                             break;
                     }
                 } catch (OutOfMemoryError E) {
@@ -167,7 +164,7 @@ public class Pantalla extends JLabel implements
                     e.printStackTrace();
                 }
             }
-            icono = null;
+//            icono = null;
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -19,7 +19,7 @@ public class Completa extends DetectorCambios {
             if (hashAnterior != hashCode) {
                 lista = new ArrayList<PantallaBloque>();
                 if (opciones.getTipoDatos() == 1) {
-                    lista.add(new PantallaBloque("", 0, 0, imagen.getWidth(), imagen.getHeight(), obtenerBytes(imagen, opciones.getCalidad())));
+                    lista.add(new PantallaBloque("", 0, 0, imagen.getWidth(), imagen.getHeight(), obtenerBytes(imagen)));
                 } else {
                     lista.add(new PantallaBloque("", 0, 0, imagen.getWidth(), imagen.getHeight(), obtenerInts(imagen)));
                 }

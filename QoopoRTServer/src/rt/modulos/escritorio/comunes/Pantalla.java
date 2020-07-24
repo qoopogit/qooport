@@ -27,7 +27,6 @@ import rt.modulos.escritorio.comunes.capturador.robot.DirectRobot;
 import rt.modulos.escritorio.comunes.detector.Celdas;
 import rt.modulos.escritorio.comunes.detector.Completa;
 import rt.modulos.escritorio.comunes.detector.DetectorCambios;
-import rt.modulos.escritorio.comunes.detector.Pixeles;
 import rt.util.IMG;
 import rt.util.UtilRT;
 
@@ -79,9 +78,9 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
             case 1://envia imagen completa
                 detector = new Completa();
                 break;
-            case 2: // cambios de pantalla en pixeles
-                detector = new Pixeles();
-                break;
+//            case 2: // cambios de pantalla en pixeles
+//                detector = new Pixeles();
+//                break;
             default:
                 // cambios de pantalla en bloques
                 detector = new Celdas();
@@ -121,7 +120,6 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
     //lleno el buffer con las diferencias
     @Override
     public void run() {
-//        this.setName("hilo-Pantalla-" + UtilRT.getHiloId());
         limpiar();
         try {
             while (activo) {
@@ -289,8 +287,7 @@ public class Pantalla extends Thread implements Interfaz, Serializable {
     // SI SE PROCESEA SE REDUCE TIEMPO DE ENVIO PERO SE PENA TIEMPO DE PROCESAMIENTO
     // EN CASO DE TENER TIEMPOS DE ENVIO MUY CORTOS (RED LAN), SE DEBERIA EVITAR EL PROCESAMIENTO DE LA IMAGEN
     private BufferedImage procesarImagen(BufferedImage imagen) {
-        //BufferedImage salida;
-        //si el servidor debe escalar (de este lado)
+        //si el agente debe escalar (de este lado)
         if (opciones.isEscalar()) {
             imagen = IMG.escalar(
                     imagen,

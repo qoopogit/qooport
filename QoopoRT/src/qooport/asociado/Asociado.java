@@ -1534,6 +1534,14 @@ public abstract class Asociado extends Thread {
 
     public void cerrarEscritorioRemoto() {
         if (escritorioRemoto != null) {
+            escritorioRemoto.btnFinalizar(null);
+//                escritorioRemoto.dispose();
+//                setEscritorioRemoto(null);
+        }
+    }
+
+    public void cerrarEscritorioRemotoDesdeVentana() {
+        if (escritorioRemoto != null) {
             escritorioRemoto.dispose();
             setEscritorioRemoto(null);
         }

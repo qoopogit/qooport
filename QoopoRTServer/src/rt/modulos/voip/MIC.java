@@ -86,7 +86,6 @@ public class MIC extends Thread implements Interfaz {
                     activo = false;
                 }
             }
-//            conexion.flush();
             conexion.cerrar();
             cerrar();
         } catch (Exception ex) {

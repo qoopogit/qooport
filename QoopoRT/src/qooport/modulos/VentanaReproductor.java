@@ -48,7 +48,7 @@ public abstract class VentanaReproductor extends JFrame implements KeyListener, 
 
     public abstract Boolean isEscalarSuave();
 
-    public abstract Asociado getServidor();
+    public abstract Asociado getAgente();
 
     public abstract JTextField getTxtColumnas();
 
