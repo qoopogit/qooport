@@ -68,6 +68,7 @@ public class Inicio extends javax.swing.JFrame {
 
         btnModoSimple.setText("MODO SIMPLE        ");
         btnModoSimple.setToolTipText("Este modo provee una interfaz intuitiva al mismo modo que TeamViewer. Permite recibir conexiones remotas e iniciar una conexión.");
+        btnModoSimple.setEnabled(false);
         btnModoSimple.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModoSimpleActionPerformed(evt);

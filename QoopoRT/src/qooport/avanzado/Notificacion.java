@@ -89,92 +89,29 @@ public class Notificacion extends JWindow implements Runnable {
         Thread m = new Thread(this);
         m.start();
     }
-//
-//    private void initComponents1() {
-//        JLabel titulo = new JLabel();
-////        this.pnlNotificacion = new JDesktopPane();
-//        this.lblUsuario = new JLabel();
-//        this.lblPais = new JLabel();
-//
-//        this.lblSo = new JLabel();
-//        this.lblWC = new JLabel();
-//        //setDefaultCloseOperation(2);
-//        //setUndecorated(true);
-//        this.setBackground(new Color(204, 255, 204));
-//
-//        this.getContentPane().setLayout(new BorderLayout());
-//
-//        this.lblUsuario.setFont(new Font(tipoLetra, 1, 10));
-//
-//        this.lblUsuario.setHorizontalAlignment(0);
-//        this.lblUsuario.setText(usuario);
-//        this.lblUsuario.setBounds(5, 30, anchoVentana, 17);
-//        this.getContentPane().add(this.lblUsuario, JLayeredPane.DEFAULT_LAYER);
-//        this.lblSo.setFont(new Font(tipoLetra, 1, 10));
-//
-//        this.lblSo.setHorizontalAlignment(0);
-//        this.lblSo.setText(so);
-//        this.lblSo.setBounds(5, 55, anchoVentana, 17);
-//        this.getContentPane().add(this.lblSo, JLayeredPane.DEFAULT_LAYER);
-//        this.lblPais.setFont(new Font(tipoLetra, 1, 10));
-//
-//        this.lblPais.setHorizontalAlignment(0);
-//        this.lblPais.setText(pais);
-////         lblPais.setIcon(Util.cargarIcono16("/banderas/" + bandera + ".gif")));
-//        this.lblPais.setBounds(5, 80, anchoVentana, 17);
-//        /// fondo
-//        this.getContentPane().add(this.lblPais, JLayeredPane.DEFAULT_LAYER);
-//        this.lblWC.setFont(new Font(tipoLetra, 1, 10));
-//        this.lblWC.setHorizontalAlignment(0);
-//        this.lblWC.setText(wc);
-//        this.lblWC.setBounds(5, 100, anchoVentana, 17);
-//        this.getContentPane().add(this.lblWC, JLayeredPane.DEFAULT_LAYER);
-//        titulo.setFont(new Font(tipoLetra, 1, 10));
-//        titulo.setForeground(new Color(255, 255, 255));
-//        titulo.setHorizontalAlignment(0);
-//        titulo.setText("Nueva conexión");
-//        titulo.setBounds(0, 0, anchoVentana, 20);
-//        titulo.setBackground(Color.darkGray);
-//        titulo.setOpaque(true);
-//
-//        this.getContentPane().add(titulo, JLayeredPane.DEFAULT_LAYER);
-////        this.getContentPane().setLayout(new BorderLayout());
-////        this.getContentPane().add(pnlNotificacion, BorderLayout.CENTER);
-////        GroupLayout layout = new GroupLayout(getContentPane());
-////        getContentPane().setLayout(layout);
-////        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(this.pnlNotificacion, -1, anchoVentana, 32767));
-////        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(this.pnlNotificacion, -1, 140, 32767));
-//        setVisible(true);
-//        pack();
-//    }
 
     private void initComponents() {
         JLabel titulo = new JLabel();
         this.pnlNotificacion = new JDesktopPane();
         this.lblUsuario = new JLabel();
         this.lblPais = new JLabel();
-
         this.lblSo = new JLabel();
         this.lblWC = new JLabel();
         //setDefaultCloseOperation(2);
         //setUndecorated(true);
         this.pnlNotificacion.setBackground(new Color(204, 255, 204));
         this.pnlNotificacion.setOpaque(true);
-
         this.lblUsuario.setFont(new Font(tipoLetra, 1, 10));
-
         this.lblUsuario.setHorizontalAlignment(0);
         this.lblUsuario.setText(usuario);
         this.lblUsuario.setBounds(5, 30, anchoVentana, 17);
         this.pnlNotificacion.add(this.lblUsuario, JLayeredPane.DEFAULT_LAYER);
         this.lblSo.setFont(new Font(tipoLetra, 1, 10));
-
         this.lblSo.setHorizontalAlignment(0);
         this.lblSo.setText(so);
         this.lblSo.setBounds(5, 55, anchoVentana, 17);
         this.pnlNotificacion.add(this.lblSo, JLayeredPane.DEFAULT_LAYER);
         this.lblPais.setFont(new Font(tipoLetra, 1, 10));
-
         this.lblPais.setHorizontalAlignment(0);
         this.lblPais.setText(pais);
 //         lblPais.setIcon(Util.cargarIcono16("/banderas/" + bandera + ".gif")));
@@ -210,7 +147,6 @@ public class Notificacion extends JWindow implements Runnable {
             for (int i = 0; i <= 140; i += 10) {
                 setLocation(this.ancho - anchoVentana, this.alto - i);
                 setAlwaysOnTop(true);
-                //System.out.println("cambiando posicion " + (alto-i));
                 repaint();
                 //pack();
                 Thread.sleep(100L);

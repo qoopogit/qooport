@@ -35,7 +35,6 @@ public class Servicio extends Thread implements Interfaz {
 
     private static final int INVERSA = 1;
     private static final int DIRECTA = 2;
-
     private Accion accionConectar;
     private Accion accionInfo;//accion a ejecutar cuando se envia la info
     private Accion accionAutenticar;//accion a ejecutar cuando se esta autenticando

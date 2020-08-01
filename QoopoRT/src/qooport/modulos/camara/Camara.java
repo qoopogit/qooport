@@ -29,7 +29,6 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.JWindow;
-import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import network.Conexion;
@@ -51,9 +50,9 @@ public class Camara extends VentanaReproductor implements WindowListener {
     public boolean conetado;
     public BarraEstado barraInferior = new BarraEstado();
     public JMenuBar barra;
-    private JPanel panelActivador;
+//    private JPanel panelActivador;
     private JButton btnActivar;
-    private JWindow frameControles;
+    private JWindow ventanaControles;
     private JMenu menuAccion;
     private JMenu menuVer;
     private JMenu menuCalidad;
@@ -98,7 +97,6 @@ public class Camara extends VentanaReproductor implements WindowListener {
         reproductor.setDirectorioEscritorio(getAgente().getdWebCam());
         initComponents();
         pidiendo = false;
-//        yaLlego = true;
     }
 
     private void iniciarHilos() {
@@ -277,14 +275,13 @@ public class Camara extends VentanaReproductor implements WindowListener {
         barraInferior.agregarContador(contadorTamanio);
         barraInferior.agregarContador(contadorBps);
         barraInferior.agregarContador(contadorFps);
-        panelActivador = new JPanel();
-        panelActivador.setBackground(Color.BLACK);
-        panelActivador.setSize(this.getWidth(), 10);
-        panelActivador.setMinimumSize(new Dimension(50, 10));
+//        panelActivador = new JPanel();
+//        panelActivador.setBackground(Color.BLACK);
+//        panelActivador.setSize(this.getWidth(), 10);
+//        panelActivador.setMinimumSize(new Dimension(50, 10));
         this.setLayout(new BorderLayout());
 //        this.add(barra, BorderLayout.NORTH);
-        this.add(panelActivador, BorderLayout.NORTH);
-//        this.add(contenedorPrincipal, BorderLayout.CENTER);
+//        this.add(panelActivador, BorderLayout.NORTH);
         this.add(reproductor.getContenedor(), BorderLayout.CENTER);
         this.add(barraInferior, BorderLayout.SOUTH);
         actualizarFormaControles();
@@ -344,8 +341,8 @@ public class Camara extends VentanaReproductor implements WindowListener {
             }
         }
         setVisible(true);
-        frameControles.setVisible(true);
-        frameControles.pack();
+        ventanaControles.setVisible(true);
+        ventanaControles.pack();
         this.actualizarFormaControles();
 
     }
@@ -528,15 +525,14 @@ public class Camara extends VentanaReproductor implements WindowListener {
 
     private void actualizarFormaControles() {
         try {
-            if (frameControles == null) {
-                frameControles = new JWindow(this);
-                frameControles.setLayout(new BorderLayout());
-                frameControles.setType(Type.UTILITY);
-                frameControles.setVisible(true);
+            if (ventanaControles == null) {
+                ventanaControles = new JWindow(this);
+                ventanaControles.setLayout(new BorderLayout());
+                ventanaControles.setType(Type.UTILITY);
+                ventanaControles.setVisible(true);
                 btnActivar.setBorderPainted(false);
                 btnVerPantallaCompleta.setBorderPainted(false);
                 btnIniciarDetener.setBorderPainted(false);
-                
                 JToolBar panelSur = new JToolBar();
                 panelSur.setBackground(barra.getBackground());
                 panelSur.setOpaque(true);
@@ -547,10 +543,36 @@ public class Camara extends VentanaReproductor implements WindowListener {
                 panelSur.add(btnActivar);
                 panelSur.add(btnVerPantallaCompleta);
                 panelSur.add(btnIniciarDetener);
-                frameControles.add(panelSur, BorderLayout.SOUTH);
-                frameControles.add(barra, BorderLayout.NORTH);
-                frameControles.pack();
-                tamanioBarra = frameControles.getHeight();
+                ventanaControles.add(panelSur, BorderLayout.SOUTH);
+                ventanaControles.add(barra, BorderLayout.NORTH);
+                ventanaControles.pack();
+                tamanioBarra = ventanaControles.getHeight();
+                //------------------------------
+
+//                frameControles = new JWindow(this);
+//                frameControles.setLayout(new BorderLayout());
+//                JToolBar panelSur = new JToolBar();
+//                panelSur.setBackground(barra.getBackground());
+//                panelSur.setOpaque(true);
+//                panelSur.setFloatable(false);
+//                Border padding = BorderFactory.createEmptyBorder(0, 0, 0, 0);
+//                panelSur.setBorder(padding);
+//                panelSur.setMargin(new Insets(0, 0, 0, 0));
+//                panelSur.setLayout(new FlowLayout(FlowLayout.CENTER));
+//                btnActivar.setBorderPainted(false);
+////                btnMinimizar.setBorderPainted(false);
+//                btnVerPantallaCompleta.setBorderPainted(false);
+//                btnIniciarDetener.setBorderPainted(false);
+//                panelSur.add(btnActivar);
+////                panelSur.add(btnMinimizar);
+//                panelSur.add(btnVerPantallaCompleta);
+//                panelSur.add(btnIniciarDetener);
+//                frameControles.add(panelSur, BorderLayout.SOUTH);
+//                frameControles.add(barra, BorderLayout.NORTH);
+//                frameControles.setType(Type.UTILITY);
+//                frameControles.setVisible(true);
+//                frameControles.pack();
+//                tamanioBarra = frameControles.getHeight();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -560,7 +582,7 @@ public class Camara extends VentanaReproductor implements WindowListener {
             GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
             int ajuste = 9;
             int anchoPestania = 60;
-            int altoControles = frameControles.getHeight();
+            int altoControles = ventanaControles.getHeight();
             if (altoControles < 0) {
                 altoControles = 0;
             }
@@ -618,8 +640,8 @@ public class Camara extends VentanaReproductor implements WindowListener {
             path.lineTo(ancho, altoControles - altoPestania - ajuste - curva); // P6 -2
             path.lineTo(ancho, 0); // P7
             path.lineTo(0, 0); //P0
-            frameControles.setShape(path);
-            frameControles.setSize(ancho, altoControles);
+            ventanaControles.setShape(path);
+            ventanaControles.setSize(ancho, altoControles);
 
             int y = 0;
             try {
@@ -629,7 +651,7 @@ public class Camara extends VentanaReproductor implements WindowListener {
                 y = (int) this.getBounds().getY() + 35;
             }
 
-            frameControles.setLocation((int) this.getBounds().getX() + (int) this.getWidth() / 2 - frameControles.getWidth() / 2, y);
+            ventanaControles.setLocation((int) this.getBounds().getX() + (int) this.getWidth() / 2 - ventanaControles.getWidth() / 2, y);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -643,15 +665,15 @@ public class Camara extends VentanaReproductor implements WindowListener {
             @Override
             public void run() {
                 corriendoOcultar = true;
-                for (int i = frameControles.getHeight(); i > btnActivar.getHeight() + 9; i -= 10) {
-                    frameControles.setSize(frameControles.getWidth(), i);
+                for (int i = ventanaControles.getHeight(); i > btnActivar.getHeight() + 9; i -= 10) {
+                    ventanaControles.setSize(ventanaControles.getWidth(), i);
                     actualizarFormaControles();
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException ex) {
                     }
                 }
-                frameControles.setSize(frameControles.getWidth(), btnActivar.getHeight() + 9);
+                ventanaControles.setSize(ventanaControles.getWidth(), btnActivar.getHeight() + 9);
                 corriendoOcultar = false;
                 actualizarFormaControles();
             }
@@ -668,7 +690,7 @@ public class Camara extends VentanaReproductor implements WindowListener {
             public void run() {
                 corriendoMostrar = true;
                 for (int i = btnActivar.getHeight(); i < tamanioBarra; i += 10) {
-                    frameControles.setSize(frameControles.getWidth(), i);
+                    ventanaControles.setSize(ventanaControles.getWidth(), i);
                     actualizarFormaControles();
                     try {
                         Thread.sleep(50);

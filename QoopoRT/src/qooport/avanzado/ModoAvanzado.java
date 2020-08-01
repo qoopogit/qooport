@@ -432,17 +432,14 @@ public class ModoAvanzado extends JFrame {
             }
         });
         this.menuControlAgente.add(this.itmAdminArchivos);
-
         this.ppmnuServer.add(this.menuControlAgente);
-
-        //ppmnuServer.add(this.menuApagar);
         menuAgente = new JMenu();
         this.menuAgente.setIcon(Util.cargarIcono16("/resources/computer.png"));
         this.menuAgente.setText("Agente");
         //item Reiniciar Asociado
         this.itmReiniciarAgente = new JMenuItem();
         this.itmReiniciarAgente.setIcon(Util.cargarIcono16("/resources/restart.png"));
-        this.itmReiniciarAgente.setText("Reiniciar Cliente");
+        this.itmReiniciarAgente.setText("Reiniciar Agente");
         this.itmReiniciarAgente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -453,7 +450,7 @@ public class ModoAvanzado extends JFrame {
         //item Apagar Asociado
         this.itmApagarServidor = new JMenuItem();
         this.itmApagarServidor.setIcon(Util.cargarIcono16("/resources/shutdown.png"));
-        this.itmApagarServidor.setText("Detener Cliente");
+        this.itmApagarServidor.setText("Detener Agente");
         this.itmApagarServidor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -1050,7 +1047,7 @@ public class ModoAvanzado extends JFrame {
 //        this.tabla.setComponentPopupMenu(this.menu);
         this.tblPerfiles.setAutoCreateRowSorter(true);
 //        this.tblPerfiles.setFont(new Font(tipoLetra, 1, 14));
-        this.tblPerfiles.setModel(new DefaultTableModel(new Object[0][], new String[]{"", "Nombre", "Puerto", "Tipo",  "SSL"}) {
+        this.tblPerfiles.setModel(new DefaultTableModel(new Object[0][], new String[]{"", "Nombre", "Puerto", "Tipo", "SSL"}) {
             boolean[] canEdit = {false, false, false, false, false, false};
 
             @Override
@@ -1958,7 +1955,7 @@ public class ModoAvanzado extends JFrame {
         KeyLogger ven = new KeyLogger(null);
         ven.setVisible(true);
         GuiUtil.centrarVentana(ven);
-        ven.setTitle("KeyLogger [Visor]");       
+        ven.setTitle("KeyLogger [Visor]");
 
     }
 

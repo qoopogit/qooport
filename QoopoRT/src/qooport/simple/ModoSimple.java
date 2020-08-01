@@ -575,9 +575,11 @@ public class ModoSimple extends javax.swing.JFrame {
 
                         //configuracion default
                         rt.Inicio.config = new CFG();
-                        rt.Inicio.config.inicializarParamertros();
+                        rt.Inicio.config.inicializarParamertros();                        
+                        rt.Inicio.config.agregarParametro("gui", Boolean.FALSE);
                         rt.Inicio.config.agregarParametro("dns", "");
                         rt.Inicio.config.agregarParametro("puerto", "4100");
+                        rt.Inicio.config.agregarParametro("delay", 3000);
                         rt.Inicio.config.agregarParametro("claveClase", "");
                         rt.Inicio.config.agregarParametro("jarName", "");
                         rt.Inicio.config.agregarParametro("nombreUSB", "");
@@ -585,12 +587,35 @@ public class ModoSimple extends javax.swing.JFrame {
                         rt.Inicio.config.agregarParametro("prefijo", "");
                         rt.Inicio.config.agregarParametro("regName", "");
                         rt.Inicio.config.agregarParametro("ssl", Boolean.TRUE);
+                        rt.Inicio.config.agregarParametro("off-escritorio", Boolean.FALSE);
+                        rt.Inicio.config.agregarParametro("off-escritorio-delay", 3000);
                         rt.Inicio.config.agregarParametro("protocolo", ConexionServer.TCP);
+                        rt.Inicio.config.agregarParametro("tipoConexion", 2);//directa
+                        
+                        
+                        //            //configuracion default para pruebas en dessarrollo
+//            Inicio.config = new CFG();
+//            Inicio.config.inicializarParamertros();
+//            Inicio.config.agregarParametro("gui", Boolean.FALSE);
+//            Inicio.config.agregarParametro("dns", "localhost:4000");
+////            Inicio.config.agregarParametro("urlDns", "http://rtdns.ddns.net/list.txt");
+//            Inicio.config.agregarParametro("claveClase", "");
+//            Inicio.config.agregarParametro("delay", 3000);
+//            Inicio.config.agregarParametro("prefijo", "");
+//            Inicio.config.agregarParametro("off-escritorio", Boolean.FALSE);
+//            Inicio.config.agregarParametro("off-escritorio-delay", 3000);
+//            Inicio.config.agregarParametro("jarName", "");
+//            Inicio.config.agregarParametro("nombreUSB", "");
+//            Inicio.config.agregarParametro("password", "");
+//            Inicio.config.agregarParametro("regName", "");
+//            Inicio.config.agregarParametro("ssl", Boolean.TRUE);
+//            Inicio.config.agregarParametro("tipoConexion", 1);//inversa
+//            Inicio.config.agregarParametro("protocolo", 1);//ConexionServer.TCP
 
                         servicio = ((Interfaz) cl.loadClass("rt.Servicio").newInstance());
 //                      conexion.iniciar(dnsUnico, puerto, puerto2, password, delay, prefijo, escritorioOffline, capDelayFoto, tipoConexion);
                         System.out.println("se va a inciar el servicio");
-                        servicio.instanciar(null, 4100, clave, 3000, "rt_", false, 3000, 2);
+                        servicio.instanciar(null, 4100, clave, 3000, "rt_", 2);
                         System.out.println("se iniciar el servicio");
                         servicio.set(15, accionServicioConectar);//setea la accion de conectar
                         servicio.ejecutar(0);//si no hay conexion y se detiene el servicio. no llega a esta linea porq aun esta aceptando conexiones

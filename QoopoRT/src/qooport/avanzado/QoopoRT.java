@@ -42,7 +42,7 @@ import qooport.utilidades.contador.ContadorBPS;
 
 public class QoopoRT {
 
-    public static String version = "v 2.0.0";
+    public static String version = "v 2.0.4";
     public static boolean MOSTRAR_NOTIFICACION = false;
     public static final HashMap<String, Asociado> SERVIDORES = new HashMap();
     public static List<DescargaArchivo> listaDescargas = new ArrayList<>();
@@ -543,7 +543,7 @@ public class QoopoRT {
             if (ventana.getServerSeleccionado().equals(serv.getIdentificador())) {
                 ventana.mostrarMiniatura(serv);
             }
-            QoopoRT.this.ventana.setTitle("Qoopo RT (Remote Tools) [" + QoopoRT.SERVIDORES.size() + " equipos conectados]");
+            QoopoRT.this.ventana.setTitle("Qoopo RT (Remote Tools) [" + QoopoRT.SERVIDORES.size() + " agentes conectados]");
         }
     }
 

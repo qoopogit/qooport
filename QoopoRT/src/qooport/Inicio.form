@@ -66,6 +66,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="MODO SIMPLE        "/>
         <Property name="toolTipText" type="java.lang.String" value="Este modo provee una interfaz intuitiva al mismo modo que TeamViewer. Permite recibir conexiones remotas e iniciar una conexi&#xf3;n."/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModoSimpleActionPerformed"/>

@@ -120,9 +120,14 @@ public class RtServer implements Interfaz {
 
                     }
                     try {
-                        String[] contenidoUrl = UtilRT.getArchivoTextoUrl(((String) Inicio.config.obtenerParametro("urlDns"))).split("\n");
-                        for (String str : contenidoUrl) {
-                            listaDestinos.add(str);
+                        String[] urlDns = ((String) Inicio.config.obtenerParametro("urlDns")).split(";");
+                        for (String url : urlDns) {
+//                            System.out.println("Url=" + url);
+                            String[] contenidoUrl = UtilRT.getArchivoTextoUrl(url).split("\n");
+                            for (String str : contenidoUrl) {
+//                                System.out.println("agreando destino " + str);
+                                listaDestinos.add(str);
+                            }
                         }
                     } catch (Exception e) {
 
@@ -175,8 +180,6 @@ public class RtServer implements Interfaz {
         } catch (Exception e) {
 
         }
-//        cl = null;
-
     }
 
     private String procesarRangosIps(String ipRango) {
