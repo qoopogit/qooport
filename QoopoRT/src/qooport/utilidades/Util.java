@@ -298,7 +298,7 @@ public class Util {
             return new ImageIcon(new ImageIcon(QoopoRT.class.getResource(icono)).getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH));
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return null;
         }
     }

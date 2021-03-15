@@ -294,16 +294,20 @@ public class PanelEquipos extends JPanel {
 
         @Override
         public void setValue(Object value) {
-            if (value == null) {
-                setText("N/A");
-            } else {
-                String[] m = value.toString().split("#");
-                try {
-                    setIcon(Util.cargarIcono16("/banderas/" + m[1] + ".gif"));
-                } catch (Exception e) {
-                    setIcon(Util.cargarIcono16("/resources/3.gif"));
+            try {
+                if (value == null) {
+                    setText("N/A");
+                } else {
+                    String[] m = value.toString().split("#");
+                    try {
+                        setIcon(Util.cargarIcono16("/banderas/" + m[1] + ".gif"));
+                    } catch (Exception e) {
+                        setIcon(Util.cargarIcono16("/resources/3.gif"));
+                    }
+                    setText(m[0]);
                 }
-                setText(m[0]);
+            } catch (Exception e) {
+
             }
         }
     }

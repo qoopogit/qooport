@@ -51,8 +51,8 @@ public class QoopoRT {
     public static List<Accion> accionesSubida;// acciones a ejecutarse cuadno se completa una carga de archivo
     public static QoopoRT instancia;
     public static String tipoLetra = "Arial";
-
-    private List<MapearPuertos> mapeos = new ArrayList<>();
+    private static SimpleDateFormat SDF = new SimpleDateFormat("HH:mm:ss");
+    private static SimpleDateFormat SDF2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     public static void iniciar() {
         instancia = new QoopoRT();
@@ -103,6 +103,7 @@ public class QoopoRT {
 
         }
     }
+    private List<MapearPuertos> mapeos = new ArrayList<>();
     private final TareaMiniatura hiloMiniatura = new TareaMiniatura();
     private ScheduledExecutorService programadorMiniatura;
     public ContadorBPS contadorSubida;
@@ -549,15 +550,13 @@ public class QoopoRT {
 
     public void ponerEstado(String mensaje) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            ventana.getTxtLog().append(sdf.format(new Date()) + " > " + mensaje + "\n");
+            ventana.getTxtLog().append(SDF.format(new Date()) + " > " + mensaje + "\n");
             ventana.getTxtLog().setCaretPosition(ventana.getTxtLog().getDocument().getLength());
             try {
                 BufferedWriter out = null;
                 try {
                     out = new BufferedWriter(new FileWriter("log.txt", true));
-                    out.write(sdf2.format(new Date()) + " > " + mensaje + "\n");
+                    out.write(SDF2.format(new Date()) + " > " + mensaje + "\n");
                 } catch (Exception e) {
                 } finally {
                     if (out != null) {
