@@ -113,12 +113,12 @@ public class RecibirAudio extends Thread {
 
     @Override
     public void run() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd");
+        File carAnioMes = new File(ventana.getServidor().getdAudio(), sdf.format(new Date()));
+        File carpedia = new File(carAnioMes, sdf2.format(new Date()));
+        carpedia.mkdirs();
         while (true) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-            SimpleDateFormat sdf2 = new SimpleDateFormat("dd");
-            File carAnioMes = new File(ventana.getServidor().getdAudio(), sdf.format(new Date()));
-            File carpedia = new File(carAnioMes, sdf2.format(new Date()));
-            carpedia.mkdirs();
             try {
                 byte[] buf = null;
                 if (ventana.isYaLlego()) {

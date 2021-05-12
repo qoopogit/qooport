@@ -12,3 +12,5 @@
 /QoopoRT/build
 /QoopoRTPlugJNA/build
 /QoopoRTPlugWC/build
+QoopoRT/*.dat
+QoopoRT/*.txt
