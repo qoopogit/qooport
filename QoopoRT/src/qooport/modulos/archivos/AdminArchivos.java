@@ -123,7 +123,7 @@ public class AdminArchivos extends JFrame implements WindowListener {
     private JPanel contenedorPrincipal;
     private JPopupMenu menuPanelRemoto;
     private JPopupMenu menu2;
-    private JMenuItem itmDescargarIzquierda;
+    private JMenuItem itmDescargartext-left;
     private JMenuItem itmDescargar;
     private JMenuItem itmSubir;
     private JMenuItem itmComprimir;
@@ -244,7 +244,7 @@ public class AdminArchivos extends JFrame implements WindowListener {
         this.menuPanelRemoto = new JPopupMenu();
         this.menu2 = new JPopupMenu();
         itmDescargar = new JMenuItem();
-        itmDescargarIzquierda = new JMenuItem();
+        itmDescargartext-left = new JMenuItem();
         itmComprimir = new JMenuItem();
         itmRenombrar = new JMenuItem();
         itmCopiar = new JMenuItem();
@@ -585,10 +585,10 @@ public class AdminArchivos extends JFrame implements WindowListener {
             }
         });
 
-        this.itmDescargarIzquierda.setText("Descargar");
-        this.itmDescargarIzquierda.setToolTipText("Descarga en la carpeta local actual del panel izquierdo");
-        this.itmDescargarIzquierda.setIcon(Util.cargarIcono16("/resources/2leftarrow.png"));
-        this.itmDescargarIzquierda.addActionListener(new ActionListener() {
+        this.itmDescargartext-left.setText("Descargar");
+        this.itmDescargartext-left.setToolTipText("Descarga en la carpeta local actual del panel izquierdo");
+        this.itmDescargartext-left.setIcon(Util.cargarIcono16("/resources/2leftarrow.png"));
+        this.itmDescargartext-left.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 AdminArchivos.this.btnDescargaActionPerformed(evt);
             }
@@ -641,7 +641,7 @@ public class AdminArchivos extends JFrame implements WindowListener {
             }
         });
 
-        this.menuPanelRemoto.add(this.itmDescargarIzquierda);
+        this.menuPanelRemoto.add(this.itmDescargartext-left);
         this.menuPanelRemoto.addSeparator();
         this.menuPanelRemoto.add(this.itmDescargar);
         this.menuPanelRemoto.add(this.itmSubir);

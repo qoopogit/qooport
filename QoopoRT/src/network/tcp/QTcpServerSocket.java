@@ -33,7 +33,7 @@ public class QTcpServerSocket implements QServerSocket {
 //            serverSocket = basicSocketFactory.createServerSocket(port);
 // s is a TCP socket
             //SSLServerSocketFactory tlsSocketFactory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-            SSLServerSocketFactory tlsSocketFactory = (SSLServerSocketFactory) IniciarCertificado.sc.getServerSocketFactory();
+            SSLServerSocketFactory tlsSocketFactory = (SSLServerSocketFactory) IniciarCertificado.getSc().getServerSocketFactory();
 //            System.out.println(Arrays.toString(tlsSocketFactory.getSupportedCipherSuites()));
             serverSocket = tlsSocketFactory.createServerSocket(port);
         } else {

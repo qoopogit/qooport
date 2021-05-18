@@ -18,10 +18,19 @@ import javax.net.ssl.TrustManagerFactory;
  */
 public class IniciarCertificado {
 
-    public static SSLContext sc;
+    private static SSLContext sc;
+
+    public static SSLContext getSc() {
+        return sc;
+    }
+
+    public static void setSc(SSLContext sc) {
+        IniciarCertificado.sc = sc;
+    }
 
     public static void iniciar() {
         //claves privadas
+          String password = "qooport";
         KeyManagerFactory keyManagerFactory;
         //claves publicas
         TrustManagerFactory trustManagerFactory;
@@ -31,15 +40,15 @@ public class IniciarCertificado {
             trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             KeyStore keystoreTrust = KeyStore.getInstance(KeyStore.getDefaultType());
             InputStream keystoreStreamTrust = IniciarCertificado.class.getResourceAsStream("/certificado/truststore.jks");
-            keystoreTrust.load(keystoreStreamTrust, "qooport".toCharArray());
+            keystoreTrust.load(keystoreStreamTrust, password.toCharArray());
             trustManagerFactory.init(keystoreTrust);
 
             // Configuracion del KeyManager---------------------
             keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
             KeyStore keystoreKeyManager = KeyStore.getInstance(KeyStore.getDefaultType());
             InputStream keystoreStreamKeyManager = IniciarCertificado.class.getResourceAsStream("/certificado/keystore.jks");
-            keystoreKeyManager.load(keystoreStreamKeyManager, "qooport".toCharArray());
-            keyManagerFactory.init(keystoreKeyManager, "qooport".toCharArray());
+            keystoreKeyManager.load(keystoreStreamKeyManager, password.toCharArray());
+            keyManagerFactory.init(keystoreKeyManager, password.toCharArray());
 
             /// GENERACIOND EL CONTEXTO SSL
 //             sc = SSLContext.getInstance("SSL");

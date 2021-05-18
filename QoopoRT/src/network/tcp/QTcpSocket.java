@@ -50,7 +50,7 @@ public class QTcpSocket implements QSocket {
 //            socket = basicSocketFactory.createSocket(host, port);
 // s is a TCP socket
             //SSLSocketFactory tlsSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-            SSLSocketFactory tlsSocketFactory = (SSLSocketFactory) IniciarCertificado.sc.getSocketFactory();
+            SSLSocketFactory tlsSocketFactory = (SSLSocketFactory) IniciarCertificado.getSc().getSocketFactory();
             //modo 1
             socket = tlsSocketFactory.createSocket(host, port);
             ((SSLSocket) socket).startHandshake();
